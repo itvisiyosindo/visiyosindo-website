@@ -1,0 +1,145 @@
+# ==================================================
+# Basic Settings
+# ==================================================
+* text=auto eol=lf
+
+# ==================================================
+# Source Code
+# ==================================================
+*.php diff=php
+*.blade.php diff=html linguist-language=Blade
+*.css diff=css
+*.scss diff=css
+*.js diff=js
+*.jsx diff=js
+*.ts diff=ts
+*.vue diff=html
+*.html diff=html
+*.xml diff=html
+*.md diff=markdown
+*.json text
+*.yml text
+*.yaml text
+
+# ==================================================
+# Configuration Files
+# ==================================================
+*.lock text -diff
+composer.lock -diff
+package-lock.json -diff
+yarn.lock -diff
+pnpm-lock.yaml -diff
+
+# ==================================================
+# Documentation & Assets
+# ==================================================
+*.md text diff=markdown
+*.txt text
+*.sql text
+*.csv text
+*.svg text
+*.xml text
+
+# ==================================================
+# Binary Files
+# ==================================================
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.mov binary
+*.mp4 binary
+*.mp3 binary
+*.flv binary
+*.fla binary
+*.swf binary
+*.gz binary
+*.zip binary
+*.7z binary
+*.ttf binary
+*.eot binary
+*.woff binary
+*.woff2 binary
+*.pyc binary
+*.pdf binary
+*.ez binary
+*.bz2 binary
+*.swp binary
+*.webp binary
+
+# ==================================================
+# Archive Files (never diff)
+# ==================================================
+*.tar -diff
+*.gz -diff
+*.zip -diff
+*.7z -diff
+*.rar -diff
+
+# ==================================================
+# Export Ignore (not included in archive)
+# ==================================================
+
+# Development & CI/CD
+/.github export-ignore
+/.vscode export-ignore
+/.idea export-ignore
+/tests export-ignore
+/.phpunit.cache export-ignore
+/phpunit.xml export-ignore
+/.php-cs-fixer.php export-ignore
+/.php-cs-fixer.cache export-ignore
+/.styleci.yml export-ignore
+/.editorconfig export-ignore
+/psalm.xml export-ignore
+/phpstan.neon export-ignore
+
+# Documentation
+CHANGELOG.md export-ignore
+README.md export-ignore
+CONTRIBUTING.md export-ignore
+LICENSE export-ignore
+*.md export-ignore
+ADMIN_CONTROLLERS_IMPLEMENTATION.md export-ignore
+GALLERY_CERTIFICATE_SETUP.md export-ignore
+TOAST_AND_CONFIRM_USAGE.md export-ignore
+
+# Git files
+.gitignore export-ignore
+.gitattributes export-ignore
+.git export-ignore
+
+# Node & Build
+/node_modules export-ignore
+/package.json export-ignore
+/package-lock.json export-ignore
+/yarn.lock export-ignore
+/webpack.mix.js export-ignore
+/vite.config.js export-ignore
+/.browserslistrc export-ignore
+
+# Environment
+.env.example export-ignore
+.env export-ignore
+
+# Boost
+boost.json export-ignore
+
+# ==================================================
+# Merge Strategies
+# ==================================================
+
+# Never merge conflicts - always use version from branch
+*.lock merge=binary
+composer.lock merge=binary
+package-lock.json merge=binary
+
+# ==================================================
+# Security
+# ==================================================
+
+# Prevent sensitive files from being committed (belt and suspenders)
+.env filter=git-crypt diff=git-crypt
+*.key filter=git-crypt diff=git-crypt
+*.pem filter=git-crypt diff=git-crypt
