@@ -1,0 +1,1112 @@
+@import "tailwindcss";
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Custom Theme for Dashboard */
+@theme {
+    /* Font Family - Inter for modern look */
+    --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
+        sans-serif;
+
+    /* Primary Colors - Soft Blue */
+    --color-primary-50: #eff6ff;
+    --color-primary-100: #dbeafe;
+    --color-primary-200: #bfdbfe;
+    --color-primary-300: #93c5fd;
+    --color-primary-400: #60a5fa;
+    --color-primary-500: #3b82f6;
+    --color-primary-600: #2563eb;
+    --color-primary-700: #1d4ed8;
+    --color-primary-800: #1e40af;
+    --color-primary-900: #1e3a8a;
+    --color-primary-950: #172554;
+
+    /* Surface Colors for Cards/Backgrounds */
+    --color-surface-50: #f8fafc;
+    --color-surface-100: #f1f5f9;
+    --color-surface-200: #e2e8f0;
+    --color-surface-300: #cbd5e1;
+    --color-surface-400: #94a3b8;
+    --color-surface-500: #64748b;
+    --color-surface-600: #475569;
+    --color-surface-700: #334155;
+    --color-surface-800: #1e293b;
+    --color-surface-900: #0f172a;
+    --color-surface-950: #020617;
+
+    /* Sidebar Width */
+    --sidebar-width: 280px;
+    --sidebar-collapsed-width: 80px;
+}
+
+/* Scrollbar Styling */
+@layer base {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--color-surface-300) transparent;
+    }
+
+    .dark * {
+        scrollbar-color: var(--color-surface-600) transparent;
+    }
+
+    *::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    *::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    *::-webkit-scrollbar-thumb {
+        background-color: var(--color-surface-300);
+        border-radius: 3px;
+    }
+
+    .dark *::-webkit-scrollbar-thumb {
+        background-color: var(--color-surface-600);
+    }
+}
+
+/* Focus visible for accessibility */
+@layer utilities {
+    .focus-ring {
+        @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-surface-900;
+    }
+
+    .border-l-3 {
+        border-left-width: 3px;
+    }
+}
+
+/* Modern Input Focus Styles */
+@layer components {
+    /* Base input styling with elegant focus */
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="search"],
+    input[type="date"],
+    input[type="time"],
+    input[type="datetime-local"],
+    textarea,
+    select {
+        @apply transition-all duration-200 ease-out;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    input[type="number"]:focus,
+    input[type="url"]:focus,
+    input[type="tel"]:focus,
+    input[type="search"]:focus,
+    input[type="date"]:focus,
+    input[type="time"]:focus,
+    input[type="datetime-local"]:focus,
+    textarea:focus,
+    select:focus {
+        @apply outline-none ring-2 ring-primary-500/30 border-primary-500 shadow-sm shadow-primary-500/10;
+    }
+
+    .dark input[type="text"]:focus,
+    .dark input[type="email"]:focus,
+    .dark input[type="password"]:focus,
+    .dark input[type="number"]:focus,
+    .dark input[type="url"]:focus,
+    .dark input[type="tel"]:focus,
+    .dark input[type="search"]:focus,
+    .dark input[type="date"]:focus,
+    .dark input[type="time"]:focus,
+    .dark input[type="datetime-local"]:focus,
+    .dark textarea:focus,
+    .dark select:focus {
+        @apply ring-primary-400/40 border-primary-400 shadow-primary-400/15;
+    }
+
+    /* Hover state for inputs */
+    input[type="text"]:hover:not(:focus),
+    input[type="email"]:hover:not(:focus),
+    input[type="password"]:hover:not(:focus),
+    input[type="number"]:hover:not(:focus),
+    input[type="url"]:hover:not(:focus),
+    input[type="tel"]:hover:not(:focus),
+    input[type="search"]:hover:not(:focus),
+    input[type="date"]:hover:not(:focus),
+    input[type="time"]:hover:not(:focus),
+    input[type="datetime-local"]:hover:not(:focus),
+    textarea:hover:not(:focus),
+    select:hover:not(:focus) {
+        @apply border-surface-400 dark:border-surface-500;
+    }
+
+    /* News article typography tuned for strong contrast in dark mode */
+    .news-article-content.prose {
+        --news-article-text: rgb(30 41 59);
+        --news-article-heading: rgb(15 23 42);
+        --news-article-muted: rgb(51 65 85);
+        --news-article-link: rgb(29 78 216);
+        --news-article-link-hover: rgb(37 99 235);
+        --news-article-quote-bg: rgb(239 246 255);
+        --news-article-quote-text: rgb(30 41 59);
+        --news-article-code-bg: rgb(241 245 249);
+        --news-article-code-text: rgb(29 78 216);
+        --news-article-border: rgb(226 232 240);
+        --news-article-table-head-bg: rgb(241 245 249);
+    }
+
+    .dark .news-article-content.prose {
+        --news-article-text: rgb(226 232 240);
+        --news-article-heading: rgb(248 250 252);
+        --news-article-muted: rgb(203 213 225);
+        --news-article-link: rgb(125 211 252);
+        --news-article-link-hover: rgb(186 230 253);
+        --news-article-quote-bg: rgb(15 23 42 / 0.7);
+        --news-article-quote-text: rgb(226 232 240);
+        --news-article-code-bg: rgb(30 41 59);
+        --news-article-code-text: rgb(125 211 252);
+        --news-article-border: rgb(51 65 85);
+        --news-article-table-head-bg: rgb(30 41 59);
+    }
+
+    .news-article-content.prose {
+        color: var(--news-article-text);
+        line-height: 1.8;
+    }
+
+    .news-article-content.prose :where(*) {
+        color: inherit;
+    }
+
+    .news-article-content.prose :is(h1, h2, h3, h4, h5, h6) {
+        color: var(--news-article-heading);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+    }
+
+    .news-article-content.prose :is(p, li, td, th, figcaption, dd, dt, small, em, mark, u, sup, sub) {
+        color: var(--news-article-text);
+    }
+
+    .news-article-content.prose :is(span, div) {
+        color: inherit;
+    }
+
+    .news-article-content.prose :is(strong, b) {
+        color: var(--news-article-heading);
+        font-weight: 700;
+    }
+
+    .news-article-content.prose a {
+        color: var(--news-article-link);
+        font-weight: 600;
+        text-decoration: underline;
+        text-decoration-color: color-mix(in srgb, var(--news-article-link) 55%, transparent);
+        text-underline-offset: 0.2em;
+    }
+
+    .news-article-content.prose a:hover {
+        color: var(--news-article-link-hover);
+    }
+
+    .news-article-content.prose blockquote {
+        margin: 1.5rem 0;
+        border-left: 4px solid var(--news-article-link);
+        background: var(--news-article-quote-bg);
+        padding: 1rem 1.25rem;
+        border-radius: 0.75rem;
+        color: var(--news-article-quote-text);
+    }
+
+    .news-article-content.prose blockquote p {
+        color: inherit;
+        margin-bottom: 0;
+    }
+
+    .news-article-content.prose code {
+        color: var(--news-article-code-text);
+        background: var(--news-article-code-bg);
+        padding: 0.15rem 0.45rem;
+        border-radius: 0.375rem;
+        font-size: 0.95em;
+    }
+
+    .news-article-content.prose pre {
+        background: rgb(15 23 42);
+        color: rgb(226 232 240);
+        border-radius: 1rem;
+        padding: 1.25rem;
+        overflow-x: auto;
+        box-shadow: 0 20px 25px -5px rgb(15 23 42 / 0.15), 0 8px 10px -6px rgb(15 23 42 / 0.1);
+    }
+
+    .news-article-content.prose img {
+        border-radius: 1rem;
+        box-shadow: 0 12px 24px -12px rgb(15 23 42 / 0.35);
+    }
+
+    .news-article-content.prose hr {
+        border-color: var(--news-article-border);
+        margin: 2rem 0;
+    }
+
+    .news-article-content.prose table {
+        width: 100%;
+        border-collapse: collapse;
+        overflow: hidden;
+        border-radius: 1rem;
+    }
+
+    .news-article-content.prose th,
+    .news-article-content.prose td {
+        border: 1px solid var(--news-article-border);
+        padding: 0.875rem 1rem;
+        vertical-align: top;
+    }
+
+    .news-article-content.prose th {
+        background: var(--news-article-table-head-bg);
+        color: var(--news-article-heading);
+        font-weight: 700;
+    }
+}
+
+/* ==========================================================================
+   FRONTEND / LANDING PAGE STYLES
+   ========================================================================== */
+
+/* Alpine.js cloak - hide until initialized */
+[x-cloak] {
+    display: none !important;
+}
+
+/* Prevent navbar flash on page refresh - show scrolled state immediately if page is scrolled */
+html[data-scrolled="true"] .navbar-bg-scrolled {
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border-radius: 9999px !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+        0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    border: 1px solid rgba(226, 232, 240, 0.5) !important;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+}
+html.dark[data-scrolled="true"] .navbar-bg-scrolled {
+    background: rgba(15, 23, 42, 0.8) !important;
+    border-color: rgba(51, 65, 85, 0.5) !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Hide navbar text initially until Alpine.js loads to prevent color flash */
+html:not([data-alpine-loaded]) nav .text-auto-color {
+    color: white;
+}
+html[data-scrolled="true"]:not([data-alpine-loaded]) nav .text-auto-color {
+    color: rgb(51, 65, 85);
+}
+html.dark[data-scrolled="true"]:not([data-alpine-loaded]) nav .text-auto-color {
+    color: rgb(203, 213, 225);
+}
+
+/* Smooth scroll behavior */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for frontend */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: #94a3b8;
+    border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background: #475569;
+}
+
+/* ==========================================================================
+   KEYFRAME ANIMATIONS
+   ========================================================================== */
+
+/* Animated gradient text */
+@keyframes gradient-shift {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+.animate-gradient {
+    background-size: 200% auto;
+    animation: gradient-shift 3s ease infinite;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-20px) rotate(5deg);
+    }
+}
+
+@keyframes pulse-glow {
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+    }
+    50% {
+        box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+    }
+}
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-down {
+    from {
+        opacity: 0;
+        transform: translateY(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-left {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slide-right {
+    from {
+        opacity: 0;
+        transform: translateX(-40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes rotate-globe {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   ANIMATION UTILITY CLASSES
+   ========================================================================== */
+
+.animate-slide-up {
+    animation: slide-up 0.8s ease-out forwards;
+}
+.animate-slide-down {
+    animation: slide-down 0.8s ease-out forwards;
+}
+.animate-slide-left {
+    animation: slide-left 0.8s ease-out forwards;
+}
+.animate-slide-right {
+    animation: slide-right 0.8s ease-out forwards;
+}
+.animate-fade-in {
+    animation: fade-in 0.8s ease-out forwards;
+}
+.animate-scale-in {
+    animation: scale-in 0.8s ease-out forwards;
+}
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+.animate-pulse-glow {
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+.animate-rotate-globe {
+    animation: rotate-globe 20s linear infinite;
+}
+
+/* Animation delay classes */
+.delay-100 {
+    animation-delay: 100ms;
+}
+.delay-200 {
+    animation-delay: 200ms;
+}
+.delay-300 {
+    animation-delay: 300ms;
+}
+.delay-400 {
+    animation-delay: 400ms;
+}
+.delay-500 {
+    animation-delay: 500ms;
+}
+.delay-600 {
+    animation-delay: 600ms;
+}
+.delay-700 {
+    animation-delay: 700ms;
+}
+.delay-800 {
+    animation-delay: 800ms;
+}
+
+/* ==========================================================================
+   SCROLL ANIMATIONS
+   ========================================================================== */
+
+/* Initially hidden for scroll animations */
+.scroll-animate {
+    opacity: 0;
+}
+.scroll-animate.is-visible {
+    opacity: 1;
+}
+
+/* ==========================================================================
+   GSAP SCROLL ANIMATIONS - Visibility & Initial States
+   ========================================================================== */
+
+/* Ensure GSAP animated elements are visible after animation */
+[data-gsap],
+[data-gsap-item] {
+    will-change: transform, opacity;
+}
+
+/* 3D Transform perspective for flip animations */
+[data-gsap="flip-left"],
+[data-gsap="flip-right"],
+[data-gsap="flip-up"],
+[data-gsap-stagger="flip"] [data-gsap-item] {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+/* Backface visibility for smooth 3D animations */
+[data-gsap="flip-left"] *,
+[data-gsap="flip-right"] *,
+[data-gsap="flip-up"] *,
+[data-gsap-stagger="flip"] [data-gsap-item] * {
+    backface-visibility: hidden;
+}
+
+/* Animation delay utilities for GSAP */
+[data-gsap-delay="100"] {
+    --gsap-delay: 0.1s;
+}
+[data-gsap-delay="200"] {
+    --gsap-delay: 0.2s;
+}
+[data-gsap-delay="300"] {
+    --gsap-delay: 0.3s;
+}
+[data-gsap-delay="400"] {
+    --gsap-delay: 0.4s;
+}
+[data-gsap-delay="500"] {
+    --gsap-delay: 0.5s;
+}
+[data-gsap-delay="600"] {
+    --gsap-delay: 0.6s;
+}
+[data-gsap-delay="700"] {
+    --gsap-delay: 0.7s;
+}
+[data-gsap-delay="800"] {
+    --gsap-delay: 0.8s;
+}
+
+/* ==========================================================================
+   GLASS MORPHISM EFFECT
+   ========================================================================== */
+
+.glass {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+.dark .glass {
+    background: rgba(15, 23, 42, 0.8);
+}
+
+/* ==========================================================================
+   PARALLAX & 3D EFFECTS
+   ========================================================================== */
+
+.parallax-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+}
+
+/* ==========================================================================
+   GLOBE DECORATION STYLES
+   ========================================================================== */
+
+.globe-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.globe {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid rgba(59, 130, 246, 0.5);
+    animation: rotate-globe 20s linear infinite;
+}
+
+.globe-scroll {
+    transition: transform 0.1s ease-out;
+}
+
+.globe-scroll svg {
+    animation: rotate-globe 30s linear infinite;
+    opacity: 0.4;
+}
+
+.dark .globe-scroll svg {
+    opacity: 0.5;
+}
+
+.globe-1 {
+    width: 300px;
+    height: 300px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 25s;
+}
+
+.globe-2 {
+    width: 400px;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 35s;
+    animation-direction: reverse;
+}
+
+.globe-3 {
+    width: 500px;
+    height: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-duration: 45s;
+}
+
+/* ==========================================================================
+   CAROUSEL STYLES
+   ========================================================================== */
+
+.carousel-slide {
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+/* Hero gradient overlay */
+.hero-overlay {
+    background: linear-gradient(
+        135deg,
+        rgba(15, 23, 42, 0.8) 0%,
+        rgba(30, 58, 138, 0.6) 50%,
+        rgba(59, 130, 246, 0.4) 100%
+    );
+}
+
+/* ==========================================================================
+   COUNTER ANIMATION
+   ========================================================================== */
+
+.counter-value {
+    font-variant-numeric: tabular-nums;
+}
+
+/* ==========================================================================
+   INTERACTIVE DOT PATTERN (About Section)
+   ========================================================================== */
+
+.about-dots-container {
+    --mouse-x: 50%;
+    --mouse-y: 50%;
+    position: relative;
+}
+
+.about-dots-container svg {
+    transform-origin: center;
+    transition: transform 0.3s ease-out;
+}
+
+/* Individual dots move slightly toward mouse */
+.about-dot {
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+        opacity 0.3s ease;
+}
+
+/* CSS-based subtle movement effect using transform on the container */
+.about-dots-container:hover svg {
+    transform: translate(
+        calc((var(--mouse-x) - 50%) * 0.02),
+        calc((var(--mouse-y) - 50%) * 0.02)
+    );
+}
+
+/* ==========================================================================
+   SCROLLBAR HIDE UTILITY
+   ========================================================================== */
+
+.scrollbar-hide::-webkit-scrollbar {
+    display: none;
+}
+.scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* ==========================================================================
+   LINE CLAMP UTILITIES
+   ========================================================================== */
+
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ==========================================================================
+   NEWS & CARD HOVER EFFECTS
+   ========================================================================== */
+
+.news-card:hover .news-image {
+    transform: scale(1.05);
+}
+
+.social-share:hover {
+    transform: translateY(-3px);
+}
+
+.sticky-sidebar {
+    position: sticky;
+    top: 100px;
+}
+
+/* ==========================================================================
+   PROSE / ARTICLE CONTENT STYLES
+   ========================================================================== */
+
+.prose h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+}
+.prose h2 {
+    @apply text-slate-900 dark:text-white;
+}
+
+.prose h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+.prose h3 {
+    @apply text-slate-800 dark:text-slate-200;
+}
+
+.prose p {
+    margin-bottom: 1rem;
+    line-height: 1.625;
+}
+.prose p {
+    @apply text-slate-600 dark:text-slate-400;
+}
+
+.prose ul {
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+}
+.prose ul {
+    @apply space-y-2 text-slate-600 dark:text-slate-400;
+}
+
+.prose ol {
+    list-style-type: decimal;
+    list-style-position: inside;
+    margin-bottom: 1rem;
+}
+.prose ol {
+    @apply space-y-2 text-slate-600 dark:text-slate-400;
+}
+
+.prose blockquote {
+    border-left-width: 4px;
+    padding-left: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+.prose blockquote {
+    @apply border-blue-500 bg-blue-50 dark:bg-blue-900/20;
+}
+
+.prose blockquote p {
+    font-style: italic;
+    margin-bottom: 0;
+}
+.prose blockquote p {
+    @apply text-slate-700 dark:text-slate-300;
+}
+
+.prose img {
+    border-radius: 0.75rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.prose a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
+}
+
+/* ==========================================================================
+   CERTIFICATE CARD STYLES
+   ========================================================================== */
+
+.certificate-card {
+    perspective: 1000px;
+}
+
+.certificate-card:hover .certificate-inner {
+    transform: rotateY(5deg) rotateX(5deg);
+}
+
+.certificate-shine {
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+}
+
+/* ==========================================================================
+   PRODUCT CARD STYLES
+   ========================================================================== */
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.shine-effect {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+/* ==========================================================================
+   MARQUEE ANIMATION (Brand Partners)
+   ========================================================================== */
+
+@keyframes marquee {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes marquee-reverse {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes marquee-loop-left {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes marquee-loop-right {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.animate-marquee {
+    animation: marquee 30s linear infinite;
+}
+
+.animate-marquee-reverse {
+    animation: marquee-reverse 35s linear infinite;
+}
+
+.animate-marquee-loop {
+    animation: marquee-loop-left 32s linear infinite;
+    will-change: transform;
+}
+
+.animate-marquee-loop-reverse {
+    animation: marquee-loop-right 32s linear infinite;
+    will-change: transform;
+}
+
+.pause-animation {
+    animation-play-state: paused !important;
+}
+
+/* ==========================================================================
+   PRODUCT DETAIL PAGE STYLES
+   ========================================================================== */
+
+.gallery-thumb {
+    transition: all 0.3s ease;
+}
+
+.gallery-thumb.active {
+    ring: 2px solid theme("colors.blue.500");
+}
+
+.feature-item:hover .feature-icon {
+    transform: scale(1.1);
+}
+
+.image-zoom-container {
+    overflow: hidden;
+}
+
+.image-zoom-container img {
+    transition: transform 0.1s ease-out;
+    transform-origin: center center;
+}
+
+/* ==========================================================================
+   LOGIN PAGE STYLES
+   ========================================================================== */
+
+/* Professional Corporate Gradient */
+.login-gradient-professional {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e40af 100%);
+    position: relative;
+}
+
+.dark .login-gradient-professional {
+    background: linear-gradient(135deg, #020617 0%, #0f172a 25%, #1e293b 50%, #1e3a8a 100%);
+}
+
+/* Professional background with subtle animation */
+.login-gradient-professional::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(30, 64, 175, 0.1) 0%, transparent 50%);
+    opacity: 0.6;
+}
+
+/* Fix autofill styles for dark mode */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #f8fafc inset !important;
+    -webkit-text-fill-color: #0f172a !important;
+    caret-color: #0f172a !important;
+}
+
+.dark input:-webkit-autofill,
+.dark input:-webkit-autofill:hover,
+.dark input:-webkit-autofill:focus,
+.dark input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px #334155 inset !important;
+    -webkit-text-fill-color: #f8fafc !important;
+    caret-color: #f8fafc !important;
+}
+
+/* Modern checkbox styling */
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border: 2px solid #cbd5e1;
+    border-radius: 0.375rem;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+.custom-checkbox:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 5px;
+    height: 9px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.custom-checkbox:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+}
+
+.dark .custom-checkbox {
+    background-color: #334155;
+    border-color: #475569;
+}
+
+.dark .custom-checkbox:checked {
+    background-color: #3b82f6;
+    border-color: #3b82f6;
+}
+
+/* ==========================================================================
+   DASHBOARD LAYOUT STYLES
+   ========================================================================== */
+
+/* Initial state before Alpine loads */
+@media (min-width: 1024px) {
+    .main-content-area {
+        margin-left: var(--sidebar-initial-margin, 15rem);
+    }
+}
+
+/* ==========================================================================
+   MAP CUSTOM
+   ========================================================================== */
+.custom-marker {
+    background: transparent;
+    border: none;
+}
+
+.custom-marker > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 3px;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    padding: 0;
+    overflow: hidden;
+}
+
+.custom-popup .leaflet-popup-content {
+    margin: 0;
+}
+
+.custom-popup .leaflet-popup-tip {
+    background: white;
+}
+
+#indonesia-map {
+    z-index: 1;
+}

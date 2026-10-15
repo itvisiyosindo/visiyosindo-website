@@ -1,0 +1,270 @@
+# ==================================================
+# Laravel & PHP
+# ==================================================
+
+# Laravel specific
+/bootstrap/cache/*
+!/bootstrap/cache/.gitignore
+/storage/*.key
+/storage/pail
+/storage/logs/*
+!/storage/logs/.gitignore
+/storage/framework/cache/*
+!/storage/framework/cache/.gitignore
+/storage/framework/sessions/*
+!/storage/framework/sessions/.gitignore
+/storage/framework/views/*
+!/storage/framework/views/.gitignore
+/storage/framework/testing/*
+!/storage/framework/testing/.gitignore
+/public/hot
+/public/build
+/public/storage
+
+# Environment & Configuration
+.env
+.env.*
+!.env.example
+.phpactor.json
+/auth.json
+
+# Composer
+/vendor/
+composer.phar
+composer.lock
+
+# Node & NPM
+/node_modules/
+npm-debug.log
+yarn-error.log
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+.pnpm-debug.log
+
+# Testing & Coverage
+.phpunit.result.cache
+/.phpunit.cache
+/coverage/
+/coverage.xml
+/.phpunit.cache
+/.pest
+_ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php
+
+# ==================================================
+# Build & Compiled Files
+# ==================================================
+/public/css/
+/public/js/
+/public/mix-manifest.json
+.vite/
+
+# ==================================================
+# Database & Backups
+# ==================================================
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+/database/*.sqlite
+/database/*.db
+/database/database.sqlite
+*.backup
+*.bak
+*.old
+*.orig
+*.dump
+
+# ==================================================
+# IDE & Editor Files
+# ==================================================
+
+# VSCode
+/.vscode/
+.vscode/
+*.code-workspace
+
+# PhpStorm / IntelliJ IDEA
+/.idea/
+.idea/
+*.iml
+*.ipr
+*.iws
+.idea_modules/
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# NetBeans
+/nbproject/
+
+# Eclipse
+.project
+.buildpath
+.settings/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+
+# Zed
+/.zed
+
+# Nova
+/.nova
+
+# Fleet
+/.fleet
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Atom
+.atom/
+
+# ==================================================
+# Operating System Files
+# ==================================================
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# Linux
+.directory
+.Trash-*
+.nfs*
+
+# ==================================================
+# Log Files
+# ==================================================
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+/logs/
+*.log.*
+
+# ==================================================
+# Temporary & Cache Files
+# ==================================================
+*.tmp
+*.temp
+*.cache
+.cache/
+*.pid
+*.seed
+*.pid.lock
+.sass-cache/
+.npm
+.eslintcache
+.stylelintcache
+
+# ==================================================
+# Security & Sensitive Files
+# ==================================================
+
+# SSH Keys & Certificates
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.p12
+*.pfx
+id_rsa
+id_dsa
+*.ppk
+
+# API Keys & Tokens
+.api-keys
+.secrets
+secrets.json
+credentials.json
+
+# ==================================================
+# Documentation & Media
+# ==================================================
+
+# Compiled documentation
+/docs/_build/
+/docs/.doctrees/
+
+# Large media files (optional - uncomment if needed)
+# *.mp4
+# *.avi
+# *.mov
+# *.wmv
+# *.flv
+# *.mp3
+# *.wav
+# *.psd
+# *.ai
+
+# ==================================================
+# Laravel-specific (Homestead & Forge)
+# ==================================================
+Homestead.json
+Homestead.yaml
+.vagrant/
+auth.json
+
+# ==================================================
+# Misc
+# ==================================================
+.htaccess
+.htpasswd
+error_log
+.ftpconfig
+.ftppass
+.remote-sync.json
+.vimrc.local
+.exrc
+
+# ==================================================
+# Project-specific
+# ==================================================
+
+# Documentation files (keep only if needed)
+# ADMIN_CONTROLLERS_IMPLEMENTATION.md
+# GALLERY_CERTIFICATE_SETUP.md
+# TOAST_AND_CONFIRM_USAGE.md
+
+# Boost configuration (optional - keep if not sensitive)
+# boost.json
