@@ -1,244 +1,766 @@
 <x-layouts.frontend>
-    {{-- Scoped styles for redesigned Hero & Promo (prefix vh- ; no Tailwind rebuild needed) --}}
+    {{-- Scoped styles for Split Hero Tech & Event Ticket Pass Promo (prefix vh- ; no Tailwind rebuild needed) --}}
     <style>
-        /* ============ HERO ============ */
-        .vh-hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; overflow: hidden; background: #0b1220; }
-        .vh-stage { position: absolute; inset: 0; }
-        .vh-slide { position: absolute; inset: 0; opacity: 0; }
-        .vh-slide.is-top { z-index: 10; }
-        .vh-slide.is-base { z-index: 0; }
-        .vh-bg { position: absolute; inset: 0; background-size: cover; background-position: center; will-change: transform; }
-        .vh-overlay {
-            position: absolute; inset: 0;
-            background:
-                linear-gradient(90deg, rgba(8, 15, 30, .90) 0%, rgba(8, 15, 30, .62) 48%, rgba(8, 15, 30, .22) 100%),
-                linear-gradient(0deg, rgba(8, 15, 30, .60) 0%, rgba(8, 15, 30, 0) 42%);
+        /* ============ SPLIT HERO TECH SECTION ============ */
+        .vh-hero {
+            position: relative;
+            padding: 7rem 0 5rem;
+            background: #ffffff;
+            transition: background .3s ease;
+            overflow: hidden;
         }
-        .vh-inner { position: relative; z-index: 20; width: 100%; max-width: 80rem; margin: 0 auto; padding: 8rem 1.5rem 8rem; }
-        .vh-copy { max-width: 40rem; }
-        .vh-badge {
-            display: inline-flex; align-items: center; gap: .6rem; padding: .5rem 1rem; margin-bottom: 1.75rem;
-            font-size: .8rem; font-weight: 500; letter-spacing: .01em; color: rgba(255, 255, 255, .92);
-            background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .16);
-            border-radius: 999px; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
-            animation: vh-rise .8s cubic-bezier(.22, 1, .36, 1) both;
-        }
-        .vh-dot { width: .5rem; height: .5rem; border-radius: 50%; background: #4ade80; box-shadow: 0 0 0 0 rgba(74, 222, 128, .6); animation: vh-pulse 2s infinite; }
-        .vh-title {
-            margin: 0 0 1.25rem; color: #fff; font-weight: 700; letter-spacing: -.025em; line-height: 1.08;
-            font-size: clamp(2.25rem, 5.2vw, 4rem);
-            animation: vh-rise .9s .08s cubic-bezier(.22, 1, .36, 1) both;
-        }
-        .vh-desc {
-            margin: 0 0 2.25rem; max-width: 34rem; color: rgba(226, 232, 240, .86); line-height: 1.75;
-            font-size: clamp(1rem, 1.4vw, 1.15rem);
-            animation: vh-rise .9s .16s cubic-bezier(.22, 1, .36, 1) both;
-        }
-        .vh-actions { display: flex; flex-wrap: wrap; gap: .875rem; animation: vh-rise .9s .24s cubic-bezier(.22, 1, .36, 1) both; }
-        .vh-btn {
-            display: inline-flex; align-items: center; gap: .6rem; padding: .95rem 1.75rem; border-radius: 999px;
-            font-size: .95rem; font-weight: 600; text-decoration: none; line-height: 1;
-            transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease, background .35s ease;
-        }
-        .vh-btn svg { width: 1.1rem; height: 1.1rem; transition: transform .35s ease; }
-        .vh-btn:hover { transform: translateY(-2px); }
-        .vh-btn:hover svg { transform: translateX(3px); }
-        .vh-btn-primary { color: #fff; background: linear-gradient(135deg, #3b82f6, #2563eb); box-shadow: 0 10px 30px -8px rgba(37, 99, 235, .65); }
-        .vh-btn-primary:hover { box-shadow: 0 16px 36px -8px rgba(37, 99, 235, .8); }
-        .vh-btn-ghost { color: #fff; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .22); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
-        .vh-btn-ghost:hover { background: rgba(255, 255, 255, .16); }
+        html.dark .vh-hero { background: #070e1b; }
 
-        .vh-controls { position: absolute; z-index: 30; left: 0; right: 0; bottom: 2rem; }
-        .vh-controls-inner { max-width: 80rem; margin: 0 auto; padding: 0 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
-        .vh-bars { display: flex; align-items: center; gap: .5rem; }
-        .vh-bar { height: 3px; width: 1.75rem; border: 0; padding: 0; border-radius: 999px; background: rgba(255, 255, 255, .35); cursor: pointer; transition: width .5s cubic-bezier(.22, 1, .36, 1), background .3s ease; }
-        .vh-bar:hover { background: rgba(255, 255, 255, .65); }
-        .vh-bar.is-active { width: 3.5rem; background: #fff; }
-        .vh-arrows { display: flex; gap: .625rem; }
-        .vh-arrow {
-            width: 2.75rem; height: 2.75rem; display: inline-flex; align-items: center; justify-content: center; padding: 0; color: #fff; cursor: pointer;
-            background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .22); border-radius: 50%;
-            -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: background .3s ease, transform .3s ease;
+        /* Subtle Ambient Canvas Background */
+        .vh-hero-mesh {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(6, 182, 212, 0.07) 0px, transparent 50%);
         }
-        .vh-arrow:hover { background: rgba(255, 255, 255, .2); transform: scale(1.06); }
-        .vh-arrow svg { width: 1.15rem; height: 1.15rem; }
+        html.dark .vh-hero-mesh {
+            background-image:
+                radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.22) 0px, transparent 60%),
+                radial-gradient(at 100% 50%, rgba(6, 182, 212, 0.15) 0px, transparent 60%);
+        }
 
-        @keyframes vh-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes vh-pulse { 70% { box-shadow: 0 0 0 8px rgba(74, 222, 128, 0); } 100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); } }
+        .vh-hero-container {
+            position: relative;
+            z-index: 10;
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
 
-        @media (min-width: 640px) { .vh-inner, .vh-controls-inner { padding-left: 2rem; padding-right: 2rem; } }
-        @media (min-width: 1024px) { .vh-inner { padding-top: 9rem; padding-bottom: 9rem; padding-left: 3rem; padding-right: 3rem; } .vh-controls-inner { padding-left: 3rem; padding-right: 3rem; } }
-        @media (max-width: 639px) { .vh-arrows { display: none; } .vh-btn { padding: .85rem 1.4rem; } }
+        .vh-hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 3rem;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .vh-hero-grid {
+                grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+                gap: 3.5rem;
+            }
+        }
 
-        /* ============ PROMO BANNER ============ */
-        .vh-promo { padding: 2.5rem 0; background: #f8fafc; }
-        html.dark .vh-promo { background: #0f172a; }
-        .vh-promo-wrap { max-width: 80rem; margin: 0 auto; padding: 0 1rem; }
-        .vh-promo-card {
-            position: relative; overflow: hidden; border-radius: 1.5rem; background: #fff; border: 1px solid #e2e8f0;
-            box-shadow: 0 20px 50px -24px rgba(15, 23, 42, .25);
+        /* Left Column: Copy & Interactive Tabs */
+        .vh-hero-copy {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
         }
-        html.dark .vh-promo-card { background: #1e293b; border-color: #334155; box-shadow: 0 20px 50px -24px rgba(0, 0, 0, .6); }
-        .vh-promo-track { display: flex; }
-        .vh-promo-slide { flex: 0 0 100%; min-width: 0; }
-        .vh-promo-row { display: flex; flex-direction: column-reverse; }
-        .vh-promo-text { display: flex; flex-direction: column; justify-content: center; gap: .9rem; padding: 1.5rem 1.5rem 3.25rem; flex: 1 1 54%; min-width: 0; }
-        .vh-promo-label {
-            align-self: flex-start; padding: .35rem .8rem; font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
-            color: #2563eb; background: #eff6ff; border-radius: 999px;
-        }
-        html.dark .vh-promo-label { color: #93c5fd; background: rgba(59, 130, 246, .15); }
-        .vh-promo-title { margin: 0; font-size: clamp(1.25rem, 2.2vw, 1.75rem); font-weight: 700; line-height: 1.25; letter-spacing: -.015em; color: #0f172a; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-        html.dark .vh-promo-title { color: #fff; }
-        .vh-promo-desc { margin: 0; font-size: .9rem; line-height: 1.65; color: #64748b; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; word-break: break-word; }
-        html.dark .vh-promo-desc { color: #94a3b8; }
-        .vh-promo-cta {
-            align-self: flex-start; display: inline-flex; align-items: center; gap: .55rem; margin-top: .25rem; padding: .8rem 1.5rem; border-radius: 999px;
-            font-size: .9rem; font-weight: 600; color: #fff; text-decoration: none; background: linear-gradient(135deg, #3b82f6, #2563eb);
-            box-shadow: 0 10px 24px -10px rgba(37, 99, 235, .7); transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease;
-        }
-        .vh-promo-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -10px rgba(37, 99, 235, .85); }
-        .vh-promo-cta svg { width: 1rem; height: 1rem; }
-        .vh-promo-media { position: relative; flex: 1 1 46%; min-height: 13rem; overflow: hidden; background: #0f172a; }
-        .vh-promo-media-bg { position: absolute; inset: -20px; background-size: cover; background-position: center; filter: blur(22px) brightness(.7); transform: scale(1.1); }
-        .vh-promo-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-        .vh-promo-dots { position: absolute; left: 1.5rem; bottom: 1.25rem; display: flex; align-items: center; gap: .4rem; z-index: 5; }
-        .vh-promo-dot { height: .4rem; width: .4rem; padding: 0; border: 0; border-radius: 999px; background: #cbd5e1; cursor: pointer; transition: width .4s cubic-bezier(.22, 1, .36, 1), background .3s ease; }
-        html.dark .vh-promo-dot { background: #475569; }
-        .vh-promo-dot.is-active { width: 1.5rem; background: #2563eb; }
-        @media (min-width: 768px) {
-            .vh-promo-row { flex-direction: row; min-height: 19rem; align-items: stretch; }
-            .vh-promo-text { padding: 2.5rem 2.5rem 3.5rem; }
-            .vh-promo-media { min-height: 100%; }
-            .vh-promo-dots { left: 2.5rem; }
-        }
-        @media (min-width: 640px) { .vh-promo-wrap { padding: 0 1.5rem; } }
-        @media (min-width: 1024px) { .vh-promo-wrap { padding: 0 2rem; } }
 
-        @media (prefers-reduced-motion: reduce) {
-            .vh-badge, .vh-title, .vh-desc, .vh-actions, .vh-dot { animation: none; }
+        .vh-hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            padding: .4rem .95rem;
+            margin-bottom: 1.5rem;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            color: #2563eb;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 999px;
         }
+        html.dark .vh-hero-badge {
+            color: #93c5fd;
+            background: rgba(37, 99, 235, .15);
+            border-color: rgba(59, 130, 246, .3);
+        }
+        .vh-hero-badge-dot {
+            width: .45rem;
+            height: .45rem;
+            border-radius: 50%;
+            background: #10b981;
+            box-shadow: 0 0 0 0 rgba(16, 185, 129, .6);
+            animation: vh-pulse 2s infinite;
+        }
+
+        .vh-hero-title {
+            margin: 0 0 1.25rem;
+            font-size: clamp(2.2rem, 4.2vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.12;
+            letter-spacing: -.03em;
+            color: #0f172a;
+            min-height: 2.25em;
+        }
+        html.dark .vh-hero-title { color: #ffffff; }
+        .vh-hero-title span {
+            background: linear-gradient(135deg, #2563eb, #0284c7);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        html.dark .vh-hero-title span {
+            background: linear-gradient(135deg, #60a5fa, #38bdf8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .vh-hero-desc {
+            margin: 0 0 2rem;
+            font-size: clamp(.95rem, 1.2vw, 1.08rem);
+            line-height: 1.75;
+            color: #475569;
+            min-height: 3.5em;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        html.dark .vh-hero-desc { color: #94a3b8; }
+
+        .vh-hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+        .vh-hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .55rem;
+            padding: .9rem 1.85rem;
+            border-radius: 999px;
+            font-size: .95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+        }
+        .vh-hero-btn svg { width: 1.05rem; height: 1.05rem; transition: transform .25s ease; }
+        .vh-hero-btn:hover { transform: translateY(-2px); }
+        .vh-hero-btn:hover svg { transform: translateX(3px); }
+
+        .vh-hero-btn-primary {
+            color: #ffffff;
+            background: #2563eb;
+            box-shadow: 0 10px 25px -8px rgba(37, 99, 235, .55);
+        }
+        .vh-hero-btn-primary:hover {
+            background: #1d4ed8;
+            box-shadow: 0 16px 32px -8px rgba(37, 99, 235, .75);
+        }
+        .vh-hero-btn-ghost {
+            color: #334155;
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+        }
+        html.dark .vh-hero-btn-ghost {
+            color: #e2e8f0;
+            background: rgba(255, 255, 255, .06);
+            border-color: rgba(255, 255, 255, .15);
+        }
+        .vh-hero-btn-ghost:hover {
+            background: #e2e8f0;
+        }
+        html.dark .vh-hero-btn-ghost:hover {
+            background: rgba(255, 255, 255, .12);
+        }
+
+        /* Interactive Slide Tabs Navigation */
+        .vh-hero-tabs {
+            display: flex;
+            align-items: center;
+            gap: .5rem;
+            width: 100%;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        html.dark .vh-hero-tabs { border-top-color: #1e293b; }
+
+        .vh-hero-tab {
+            display: flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .65rem 1rem;
+            border-radius: 999px;
+            background: transparent;
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: all .25s ease;
+            text-align: left;
+        }
+        .vh-hero-tab:hover {
+            background: #f1f5f9;
+        }
+        html.dark .vh-hero-tab:hover {
+            background: rgba(255, 255, 255, .05);
+        }
+        .vh-hero-tab.is-active {
+            background: #eff6ff;
+            border-color: #bfdbfe;
+        }
+        html.dark .vh-hero-tab.is-active {
+            background: rgba(37, 99, 235, .18);
+            border-color: rgba(59, 130, 246, .4);
+        }
+        .vh-tab-num {
+            font-size: .78rem;
+            font-weight: 800;
+            color: #94a3b8;
+            font-variant-numeric: tabular-nums;
+        }
+        .vh-hero-tab.is-active .vh-tab-num { color: #2563eb; }
+        html.dark .vh-hero-tab.is-active .vh-tab-num { color: #60a5fa; }
+        .vh-tab-label {
+            font-size: .84rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+        .vh-hero-tab.is-active .vh-tab-label { color: #0f172a; }
+        html.dark .vh-hero-tab.is-active .vh-tab-label { color: #ffffff; }
+
+        /* Right Column: Visual Tech Showcase Card */
+        .vh-hero-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .vh-visual-card {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 3;
+            max-height: 480px;
+            border-radius: 2rem;
+            overflow: hidden;
+            background: #0b1324;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 25px 60px -20px rgba(15, 23, 42, .18);
+        }
+        html.dark .vh-visual-card {
+            border-color: rgba(255, 255, 255, .1);
+            box-shadow: 0 25px 60px -20px rgba(0, 0, 0, .8);
+        }
+
+        .vh-visual-stage {
+            position: absolute;
+            inset: 0;
+        }
+        .vh-visual-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity .6s ease;
+        }
+        .vh-visual-slide.is-active {
+            opacity: 1;
+            z-index: 2;
+        }
+        .vh-visual-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 6s cubic-bezier(.22, 1, .36, 1);
+        }
+        .vh-visual-slide.is-active .vh-visual-img {
+            transform: scale(1.05);
+        }
+
+        /* Subtle Bottom Fade on Visual Card */
+        .vh-visual-fade {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(11, 19, 36, 0.1) 0%, rgba(11, 19, 36, 0.75) 100%);
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        /* Floating Micro-Spec Badges */
+        .vh-spec-badge {
+            position: absolute;
+            z-index: 10;
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .5rem .95rem;
+            border-radius: 999px;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .03em;
+            color: #ffffff;
+            background: rgba(15, 23, 42, .85);
+            border: 1px solid rgba(255, 255, 255, .2);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, .4);
+        }
+        .vh-spec-top { top: 1.25rem; right: 1.25rem; }
+        .vh-spec-bottom { bottom: 1.25rem; left: 1.25rem; }
+        .vh-spec-badge svg { width: .95rem; height: .95rem; color: #38bdf8; }
+
+        @keyframes vh-pulse { 70% { box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); } 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); } }
+
+        @media (max-width: 639px) {
+            .vh-hero { padding: 5rem 0 3.5rem; }
+            .vh-hero-tabs { flex-wrap: wrap; }
+            .vh-tab-label { display: none; }
+        }
+
+
+        /* ============ EVENT TICKET PASS PROMO ============ */
+        .vh-promo {
+            position: relative;
+            padding: 3rem 0 3.5rem;
+            background: #f8fafc;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background .3s ease, border-color .3s ease;
+        }
+        html.dark .vh-promo {
+            background: #091122;
+            border-top-color: #1e293b;
+            border-bottom-color: #1e293b;
+        }
+
+        .vh-ticket-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 1.5rem;
+        }
+        .vh-ticket-dot {
+            width: .6rem;
+            height: .6rem;
+            border-radius: 999px;
+            background: #cbd5e1;
+            border: none;
+            cursor: pointer;
+            transition: all .3s ease;
+            padding: 0;
+        }
+        html.dark .vh-ticket-dot { background: #334155; }
+        .vh-ticket-dot.is-active {
+            width: 2rem;
+            background: #2563eb;
+        }
+        .vh-promo-container {
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+
+        /* The Ticket Pass Body */
+        .vh-ticket {
+            position: relative;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            border-radius: 1.75rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 45px -15px rgba(15, 23, 42, .08);
+            overflow: hidden;
+            transition: box-shadow .35s ease, border-color .35s ease;
+        }
+        html.dark .vh-ticket {
+            background: #111b2e;
+            border-color: #1e293b;
+            box-shadow: 0 20px 45px -15px rgba(0, 0, 0, .6);
+        }
+        .vh-ticket:hover {
+            border-color: #93c5fd;
+            box-shadow: 0 25px 55px -15px rgba(37, 99, 235, .15);
+        }
+        html.dark .vh-ticket:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 25px 55px -15px rgba(0, 0, 0, .8);
+        }
+
+        @media (min-width: 1024px) {
+            .vh-ticket {
+                grid-template-columns: 14rem minmax(0, 1fr) 18rem;
+                align-items: stretch;
+            }
+        }
+
+        /* Part A: Ticket Date Stub (Left) */
+        .vh-ticket-date {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 2.25rem 1.5rem;
+            background: linear-gradient(135deg, #1e3a8a, #0284c7);
+            color: #ffffff;
+            position: relative;
+        }
+        .vh-date-month {
+            font-size: .85rem;
+            font-weight: 800;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: #93c5fd;
+        }
+        .vh-date-day {
+            font-size: 2.75rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -.03em;
+            margin: .35rem 0;
+            color: #ffffff;
+        }
+        .vh-date-year {
+            font-size: .78rem;
+            font-weight: 600;
+            letter-spacing: .08em;
+            color: rgba(255, 255, 255, .85);
+            text-transform: uppercase;
+        }
+        .vh-date-badge {
+            margin-top: .85rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .25rem .75rem;
+            border-radius: 999px;
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .05em;
+            text-transform: uppercase;
+            background: rgba(255, 255, 255, .2);
+            border: 1px solid rgba(255, 255, 255, .3);
+        }
+
+        /* Part B: Ticket Content (Center) */
+        .vh-ticket-body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 2rem;
+            min-width: 0;
+        }
+        .vh-ticket-type {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .75rem;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: #2563eb;
+            margin-bottom: .6rem;
+        }
+        html.dark .vh-ticket-type { color: #60a5fa; }
+        .vh-ticket-title {
+            margin: 0 0 .85rem;
+            font-size: clamp(1.25rem, 2vw, 1.65rem);
+            font-weight: 800;
+            line-height: 1.25;
+            color: #0f172a;
+        }
+        html.dark .vh-ticket-title { color: #ffffff; }
+
+        .vh-ticket-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .65rem;
+            margin-bottom: 1.5rem;
+        }
+        .vh-pill-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            padding: .35rem .75rem;
+            border-radius: .65rem;
+            font-size: .8rem;
+            font-weight: 500;
+            color: #334155;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+        }
+        html.dark .vh-pill-tag {
+            color: #cbd5e1;
+            background: rgba(255, 255, 255, .05);
+            border-color: #334155;
+        }
+
+        .vh-ticket-actions {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+        .vh-ticket-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .8rem 1.65rem;
+            border-radius: 999px;
+            font-size: .9rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: #2563eb;
+            text-decoration: none;
+            box-shadow: 0 8px 20px -6px rgba(37, 99, 235, .5);
+            transition: background .2s ease, transform .2s ease;
+        }
+        .vh-ticket-btn:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        .vh-ticket-btn svg { width: 1rem; height: 1rem; }
+
+        .vh-ticket-contact {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #64748b;
+            text-decoration: none;
+            transition: color .2s ease;
+        }
+        html.dark .vh-ticket-contact { color: #94a3b8; }
+        .vh-ticket-contact:hover { color: #2563eb; }
+        html.dark .vh-ticket-contact:hover { color: #60a5fa; }
+        .vh-ticket-contact svg { width: 1rem; height: 1rem; }
+
+        /* Part C: Ticket Flyer Thumbnail (Right) */
+        .vh-ticket-poster {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            background: #ffffff;
+            border-top: 1px solid #e2e8f0;
+        }
+        html.dark .vh-ticket-poster {
+            background: rgba(15, 23, 42, .5);
+            border-top-color: #1e293b;
+        }
+        @media (min-width: 1024px) {
+            .vh-ticket-poster {
+                border-top: 0;
+                border-left: 2px dashed #cbd5e1;
+            }
+            html.dark .vh-ticket-poster { border-left-color: #334155; }
+        }
+
+        .vh-poster-thumb {
+            position: relative;
+            display: block;
+            width: 100%;
+            max-width: 220px;
+            height: 100%;
+            max-height: 240px;
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 10px 25px -8px rgba(15, 23, 42, .15);
+            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            transition: transform .3s ease;
+        }
+        html.dark .vh-poster-thumb { border-color: #334155; }
+        .vh-poster-thumb:hover { transform: scale(1.03); }
+        .vh-poster-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .vh-poster-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 23, 42, .45);
+            color: #ffffff;
+            opacity: 0;
+            transition: opacity .25s ease;
+            font-size: .75rem;
+            font-weight: 600;
+            gap: .35rem;
+        }
+        .vh-poster-thumb:hover .vh-poster-thumb-overlay { opacity: 1; }
+        .vh-poster-thumb-overlay svg { width: 1rem; height: 1rem; }
     </style>
 
-    {{-- Hero Section --}}
+    {{-- Split Hero Tech Section --}}
     <section id="home" class="vh-hero">
-        <div x-data="heroCarousel()" x-init="initGsapCarousel()" class="vh-stage" x-ref="carouselContainer">
-            {{-- Slides (hooks used by GSAP: data-slide-index, data-bg-index) --}}
-            <template x-for="(slide, index) in slides" :key="index">
-                <div x-ref="slide" :data-slide-index="index" class="vh-slide"
-                    :class="currentSlide === index ? 'is-top' : 'is-base'">
-                    <div class="vh-bg" :style="'background-image: url(' + slide.image + ')'" :data-bg-index="index"></div>
-                    <div class="vh-overlay"></div>
+        <div class="vh-hero-mesh"></div>
+        <div class="vh-hero-container" x-data="heroTechCarousel()" x-init="initHeroTech()">
+            <div class="vh-hero-grid">
+                {{-- Left: Headline, Info & Interactive Category Tabs --}}
+                <div class="vh-hero-copy">
+                    <div class="vh-hero-badge">
+                        <span class="vh-hero-badge-dot"></span>
+                        <span>Distributor Resmi Alat Radiologi Sejak 2013</span>
+                    </div>
+
+                    <h1 class="vh-hero-title">
+                        Solusi <span>Radiologi</span> &amp; Alkes Terdepan di Indonesia
+                    </h1>
+
+                    <p class="vh-hero-desc" x-text="slides[currentSlide] ? slides[currentSlide].description : ''">
+                        {{ $heroSlides[0]['description'] ?? 'Distributor resmi peralatan radiologi dengan teknologi pencitraan presisi tinggi untuk fasilitas kesehatan di Indonesia.' }}
+                    </p>
+
+                    <div class="vh-hero-actions">
+                        <a :href="slides[currentSlide] ? (slides[currentSlide].button_url || '{{ route('products') }}') : '{{ route('products') }}'" class="vh-hero-btn vh-hero-btn-primary">
+                            <span x-text="slides[currentSlide] ? (slides[currentSlide].button_text || 'Eksplorasi Katalog Produk') : 'Eksplorasi Katalog Produk'">
+                                {{ $heroSlides[0]['button_text'] ?: 'Eksplorasi Katalog Produk' }}
+                            </span>
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
+                        </a>
+                        <a href="{{ route('contact') }}" class="vh-hero-btn vh-hero-btn-ghost">
+                            <span>Hubungi Kami</span>
+                        </a>
+                    </div>
+
+                    {{-- Interactive Slide Topic Tabs --}}
+                    <div class="vh-hero-tabs">
+                        @foreach ($heroSlides as $index => $slide)
+                            <button type="button" @click="goToSlide({{ $index }})" class="vh-hero-tab"
+                                :class="currentSlide === {{ $index }} ? 'is-active' : ''"
+                                class="{{ $index === 0 ? 'is-active' : '' }}">
+                                <span class="vh-tab-num">0{{ $index + 1 }}</span>
+                                <span class="vh-tab-label">
+                                    @if ($index === 0)
+                                        Alat Radiologi
+                                    @elseif ($index === 1)
+                                        Mitra Strategis
+                                    @elseif ($index === 2)
+                                        Pengadaan Resmi
+                                    @else
+                                        {{ Str::words($slide['title'], 2, '') }}
+                                    @endif
+                                </span>
+                            </button>
+                        @endforeach
+                    </div>
                 </div>
-            </template>
 
-            {{-- Content --}}
-            <div class="vh-inner">
-                <div class="vh-copy">
-                    <div class="vh-badge">
-                        <span class="vh-dot"></span>
-                        <span>Trusted Radiology Equipment Distribution Partner Since 2013</span>
-                    </div>
+                {{-- Right: Visual Tech Showcase Card --}}
+                <div class="vh-hero-visual">
+                    <div class="vh-visual-card">
+                        <div class="vh-visual-stage">
+                            @foreach ($heroSlides as $index => $slide)
+                                <div class="vh-visual-slide" :class="currentSlide === {{ $index }} ? 'is-active' : ''"
+                                    class="{{ $index === 0 ? 'is-active' : '' }}">
+                                    <img src="{{ $slide['image'] }}" alt="{{ $slide['title'] }}" class="vh-visual-img"
+                                        loading="{{ $index === 0 ? 'eager' : 'lazy' }}">
+                                </div>
+                            @endforeach
+                        </div>
+                        <div class="vh-visual-fade"></div>
 
-                    <h1 x-ref="title" class="vh-title"
-                        x-text="slides[currentSlide].title || 'Solusi Radiologi Terdepan & Terpercaya di Indonesia'"></h1>
-
-                    <p x-ref="description" class="vh-desc" x-text="slides[currentSlide].description"></p>
-
-                    <div class="vh-actions">
-                        {{-- Dynamic button (when button_text exists) --}}
-                        <template
-                            x-if="slides[currentSlide].button_text && slides[currentSlide].button_text.trim() !== ''">
-                            <a :href="slides[currentSlide].button_url || '#'" class="vh-btn vh-btn-primary">
-                                <span x-text="slides[currentSlide].button_text"></span>
-                                <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </a>
-                        </template>
-
-                        {{-- Default buttons (when no button_text) --}}
-                        <template
-                            x-if="!slides[currentSlide].button_text || slides[currentSlide].button_text.trim() === ''">
-                            <div style="display:flex; flex-wrap:wrap; gap:.875rem;">
-                                <a href="#about" class="vh-btn vh-btn-primary">
-                                    <span>Kenali Perusahaan Kami</span>
-                                    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                    </svg>
-                                </a>
-                                <a href="#contact" class="vh-btn vh-btn-ghost">
-                                    <span>Hubungi Kami</span>
-                                </a>
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </div>
-
-            {{-- Controls: progress bars (left) + arrows (right) --}}
-            <div class="vh-controls">
-                <div class="vh-controls-inner">
-                    <div class="vh-bars">
-                        <template x-for="(slide, index) in slides" :key="'dot-' + index">
-                            <button type="button" @click="goToSlide(index)" class="vh-bar"
-                                :class="currentSlide === index ? 'is-active' : ''"
-                                :aria-label="'Slide ' + (index + 1)"></button>
-                        </template>
-                    </div>
-                    <div class="vh-arrows">
-                        <button type="button" @click="prevSlide()" class="vh-arrow" aria-label="Previous slide">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" /></svg>
-                        </button>
-                        <button type="button" @click="nextSlide()" class="vh-arrow" aria-label="Next slide">
-                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg>
-                        </button>
+                        {{-- Floating Micro-Spec Badges --}}
+                        <div class="vh-spec-badge vh-spec-top">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                            </svg>
+                            <span>Izin Edar Kemenkes RI</span>
+                        </div>
+                        <div class="vh-spec-badge vh-spec-bottom">
+                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                            </svg>
+                            <span>100+ Mitra Rumah Sakit</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    {{-- Banner/Promo Carousel Section --}}
+    {{-- Event Ticket Pass Promo Section (SSR with Alpine Interactivity) --}}
     @if ($promoBanners->isNotEmpty())
         <section class="vh-promo">
-            <div x-data="bannerCarousel()" x-init="initBannerCarousel()" x-ref="bannerContainer" class="vh-promo-wrap">
-                <div class="vh-promo-card" x-ref="bannerWrapper">
-                    <div x-ref="bannerTrack" class="vh-promo-track">
-                        <template x-for="(banner, index) in banners" :key="index">
-                            <div class="vh-promo-slide" data-banner-slide>
-                                <div class="vh-promo-row">
-                                    {{-- Text --}}
-                                    <div class="vh-promo-text" data-banner-content>
-                                        <span class="vh-promo-label" x-show="banner.label" x-text="banner.label"></span>
-                                        <h3 class="vh-promo-title" x-text="banner.title"></h3>
-                                        <p class="vh-promo-desc" x-show="banner.description" x-text="banner.description"></p>
-                                        <a :href="banner.link" class="vh-promo-cta">
-                                            <span x-text="banner.buttonText || 'Lihat Detail'"></span>
-                                            <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                            </svg>
-                                        </a>
-                                    </div>
-                                    {{-- Flyer (contained, never cropped) --}}
-                                    <div class="vh-promo-media">
-                                        <div class="vh-promo-media-bg" :style="'background-image: url(' + banner.image + ')'"></div>
-                                        <img :src="banner.image" :alt="banner.title" loading="lazy">
-                                    </div>
+            <div class="vh-promo-container" x-data="heroPromoPass()" x-init="initPromo()">
+                <div class="vh-ticket-wrapper">
+                    @foreach ($promoBanners as $index => $banner)
+                        <div class="vh-ticket" x-show="currentBanner === {{ $index }}"
+                            style="{{ $index === 0 ? '' : 'display: none;' }}">
+                            {{-- Part A: Ticket Date & Location Stub --}}
+                            <div class="vh-ticket-date">
+                                <span class="vh-date-month">NOV</span>
+                                <span class="vh-date-day">05-09</span>
+                                <span class="vh-date-year">2026 • PEKANBARU</span>
+                                <span class="vh-date-badge">
+                                    <span>PELATIHAN SIB</span>
+                                </span>
+                            </div>
+
+                            {{-- Part B: Ticket Content & Details --}}
+                            <div class="vh-ticket-body">
+                                <span class="vh-ticket-type">
+                                    <span>⚡</span>
+                                    <span>{{ $banner['label'] ?: 'Agenda Pelatihan Resmi' }}</span>
+                                </span>
+                                <h3 class="vh-ticket-title">{{ $banner['title'] }}</h3>
+
+                                <div class="vh-ticket-highlights">
+                                    <span class="vh-pill-tag">
+                                        <span>📅 Ujian SIB: 10 - 11 Nov</span>
+                                    </span>
+                                    <span class="vh-pill-tag">
+                                        <span>📍 Pekanbaru</span>
+                                    </span>
+                                    <span class="vh-pill-tag">
+                                        <span>🎓 Diskon 10% D3 Radiologi</span>
+                                    </span>
+                                    <span class="vh-pill-tag" style="color:#2563eb; font-weight:600;">
+                                        <span>📲 Kuota Terbatas</span>
+                                    </span>
+                                </div>
+
+                                <div class="vh-ticket-actions">
+                                    <a href="{{ $banner['link'] }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-btn">
+                                        <span>{{ $banner['buttonText'] ?: 'Daftar Sekarang' }}</span>
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                    <a href="https://wa.me/6289507240145" target="_blank" rel="noopener noreferrer" class="vh-ticket-contact">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                        <span>Info WA: 0895-0724-0145</span>
+                                    </a>
                                 </div>
                             </div>
-                        </template>
-                    </div>
 
-                    {{-- Indicators --}}
-                    <div class="vh-promo-dots">
-                        <template x-for="(banner, index) in banners" :key="'banner-dot-' + index">
-                            <button type="button" @click="goToSlide(index)" class="vh-promo-dot"
-                                :class="currentSlide === index ? 'is-active' : ''"
-                                :aria-label="'Banner ' + (index + 1)"></button>
-                        </template>
-                    </div>
+                            {{-- Part C: Flyer Visual Preview --}}
+                            <div class="vh-ticket-poster">
+                                <a href="{{ $banner['image'] }}" target="_blank" rel="noopener noreferrer" class="vh-poster-thumb" title="Buka Flyer">
+                                    <img src="{{ $banner['image'] }}" alt="{{ $banner['title'] }}" loading="lazy">
+                                    <div class="vh-poster-thumb-overlay">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                        </svg>
+                                        <span>Lihat Flyer</span>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
+
+                @if ($promoBanners->count() > 1)
+                    <div class="vh-ticket-dots">
+                        @foreach ($promoBanners as $index => $b)
+                            <button type="button" @click="goToBanner({{ $index }})"
+                                class="vh-ticket-dot"
+                                :class="currentBanner === {{ $index }} ? 'is-active' : ''"
+                                aria-label="Promo {{ $index + 1 }}"></button>
+                        @endforeach
+                    </div>
+                @endif
             </div>
         </section>
     @endif
@@ -1328,296 +1850,58 @@
 
     {{-- JavaScript for Carousels --}}
     <script>
-        function heroCarousel() {
+        function heroTechCarousel() {
             return {
                 currentSlide: 0,
-                previousSlide: 0,
-                isAnimating: false,
                 slides: @json($heroSlides),
                 autoSlideInterval: null,
+                labels: ['Alat Radiologi', 'Mitra Strategis', 'Pengadaan Resmi'],
 
-                initGsapCarousel() {
-                    // Safety check for empty slides
-                    if (!this.slides || this.slides.length === 0) {
-                        console.warn('No slides available');
-                        return;
+                getTabLabel(index) {
+                    if (this.labels[index]) return this.labels[index];
+                    if (this.slides[index] && this.slides[index].title) {
+                        return this.slides[index].title.split(' ').slice(0, 2).join(' ');
                     }
+                    return 'Solusi 0' + (index + 1);
+                },
 
-                    // Wait for DOM and GSAP to be ready
-                    this.$nextTick(() => {
-                        // Safety check for GSAP
-                        if (typeof gsap === 'undefined') {
-                            console.warn('GSAP not loaded yet, retrying...');
-                            setTimeout(() => this.initGsapCarousel(), 100);
-                            return;
-                        }
-
-                        // Safety check for carouselContainer ref
-                        if (!this.$refs.carouselContainer) {
-                            console.warn('Carousel container not ready yet, retrying...');
-                            setTimeout(() => this.initGsapCarousel(), 100);
-                            return;
-                        }
-
-                        // Initialize first slide
-                        const slides = this.$refs.carouselContainer.querySelectorAll('[data-slide-index]');
-                        if (slides.length > 0) {
-                            // Set initial state: first slide visible
-                            gsap.set(slides[0], {
-                                opacity: 1,
-                                scale: 1
-                            });
-
-                            // Start Ken Burns effect on first slide
-                            this.startKenBurnsEffect(0);
-                        }
-
-                        // Start auto slide
-                        this.startAutoSlide();
-                    });
+                initHeroTech() {
+                    if (!this.slides || this.slides.length <= 1) return;
+                    this.startAutoSlide();
                 },
 
                 startAutoSlide() {
-                    if (!this.slides || this.slides.length === 0) return;
+                    if (this.autoSlideInterval) clearInterval(this.autoSlideInterval);
                     this.autoSlideInterval = setInterval(() => {
-                        this.nextSlide();
-                    }, 6000); // 6 seconds for more cinematic feel
-                },
-
-                stopAutoSlide() {
-                    clearInterval(this.autoSlideInterval);
-                },
-
-                startKenBurnsEffect(index) {
-                    if (!this.$refs.carouselContainer) return;
-
-                    const slides = this.$refs.carouselContainer.querySelectorAll('[data-slide-index]');
-                    const bgElement = slides[index]?.querySelector('[data-bg-index]');
-
-                    if (bgElement && typeof gsap !== 'undefined') {
-                        // Random Ken Burns direction
-                        const directions = [{
-                                x: -20,
-                                y: -10
-                            }, // Zoom in top-left
-                            {
-                                x: 20,
-                                y: -10
-                            }, // Zoom in top-right
-                            {
-                                x: -20,
-                                y: 10
-                            }, // Zoom in bottom-left
-                            {
-                                x: 20,
-                                y: 10
-                            } // Zoom in bottom-right
-                        ];
-                        const dir = directions[index % directions.length];
-
-                        gsap.fromTo(bgElement, {
-                            scale: 1,
-                            x: 0,
-                            y: 0
-                        }, {
-                            scale: 1.15,
-                            x: dir.x,
-                            y: dir.y,
-                            duration: 8,
-                            ease: 'none'
-                        });
-                    }
-                },
-
-                animateSlideTransition(from, to) {
-                    if (this.isAnimating || typeof gsap === 'undefined') return;
-                    if (!this.$refs.carouselContainer) return;
-
-                    const slides = this.$refs.carouselContainer.querySelectorAll('[data-slide-index]');
-                    const fromSlide = slides[from];
-                    const toSlide = slides[to];
-                    const title = this.$refs.title;
-                    const description = this.$refs.description;
-
-                    if (!fromSlide || !toSlide) return;
-
-                    this.isAnimating = true;
-
-                    // Create GSAP timeline for smooth transition
-                    const tl = gsap.timeline({
-                        onComplete: () => {
-                            this.isAnimating = false;
-                            this.startKenBurnsEffect(to);
-                        }
-                    });
-
-                    // Animate title out
-                    if (title) {
-                        tl.to(title, {
-                            opacity: 0,
-                            y: 20,
-                            duration: 0.3,
-                            ease: 'power2.in'
-                        }, 0);
-                    }
-
-                    // Animate description out
-                    if (description) {
-                        tl.to(description, {
-                            opacity: 0,
-                            y: 20,
-                            duration: 0.3,
-                            ease: 'power2.in'
-                        }, 0);
-                    }
-
-                    // Crossfade slides with cinematic timing
-                    tl.to(fromSlide, {
-                        opacity: 0,
-                        scale: 1.05,
-                        duration: 1,
-                        ease: 'power2.inOut'
-                    }, 0);
-
-                    // Prepare incoming slide
-                    gsap.set(toSlide, {
-                        opacity: 0,
-                        scale: 1.1
-                    });
-
-                    tl.to(toSlide, {
-                        opacity: 1,
-                        scale: 1,
-                        duration: 1.2,
-                        ease: 'power2.out'
-                    }, 0.2);
-
-                    // Animate title back in
-                    if (title) {
-                        tl.to(title, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.5,
-                            ease: 'power2.out'
-                        }, 0.8);
-                    }
-
-                    // Animate description back in
-                    if (description) {
-                        tl.to(description, {
-                            opacity: 1,
-                            y: 0,
-                            duration: 0.5,
-                            ease: 'power2.out'
-                        }, 0.8);
-                    }
-                },
-
-                nextSlide() {
-                    if (this.isAnimating || !this.slides || this.slides.length === 0) return;
-
-                    this.previousSlide = this.currentSlide;
-                    this.currentSlide = (this.currentSlide + 1) % this.slides.length;
-                    this.animateSlideTransition(this.previousSlide, this.currentSlide);
-                },
-
-                prevSlide() {
-                    if (this.isAnimating || !this.slides || this.slides.length === 0) return;
-
-                    this.previousSlide = this.currentSlide;
-                    this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-                    this.animateSlideTransition(this.previousSlide, this.currentSlide);
+                        this.currentSlide = (this.currentSlide + 1) % this.slides.length;
+                    }, 5000);
                 },
 
                 goToSlide(index) {
-                    if (this.isAnimating || index === this.currentSlide || !this.slides) return;
-
-                    this.previousSlide = this.currentSlide;
                     this.currentSlide = index;
-                    this.animateSlideTransition(this.previousSlide, this.currentSlide);
-
-                    // Reset autoSlide timer
-                    this.stopAutoSlide();
                     this.startAutoSlide();
                 }
             };
         }
 
-        function bannerCarousel() {
+        function heroPromoPass() {
             return {
-                currentSlide: 0,
-                banners: @json($promoBanners),
+                currentBanner: 0,
+                totalBanners: {{ $promoBanners->count() }},
                 autoSlideInterval: null,
-                isAnimating: false,
 
-                initBannerCarousel() {
-                    // Don't initialize if no banners
-                    if (!this.banners || this.banners.length === 0) return;
-                    // Initialize GSAP for banner track
-                    this.startAutoSlide();
-                },
-
-                startAutoSlide() {
-                    if (!this.banners || this.banners.length === 0) return;
+                initPromo() {
+                    if (this.totalBanners <= 1) return;
                     this.autoSlideInterval = setInterval(() => {
-                        this.nextSlide();
-                    }, 4000);
+                        this.currentBanner = (this.currentBanner + 1) % this.totalBanners;
+                    }, 6000);
                 },
 
-                nextSlide() {
-                    if (this.isAnimating || !this.banners || this.banners.length === 0) return;
-                    const nextIndex = (this.currentSlide + 1) % this.banners.length;
-                    this.animateToSlide(nextIndex);
-                },
-
-                goToSlide(index) {
-                    if (this.isAnimating || index === this.currentSlide || !this.banners) return;
-                    this.animateToSlide(index);
-                },
-
-                animateToSlide(index) {
-                    const track = this.$refs.bannerTrack;
-                    if (!track) return;
-
-                    // Safety check for GSAP
-                    if (typeof gsap === 'undefined') {
-                        // Fallback: use CSS transition
-                        track.style.transition = 'transform 0.5s ease-out';
-                        track.style.transform = `translateX(-${index * 100}%)`;
-                        this.currentSlide = index;
-                        return;
-                    }
-
-                    this.isAnimating = true;
-                    const targetX = -(index * 100);
-
-                    // GSAP smooth slide animation with elastic easing
-                    gsap.to(track, {
-                        xPercent: targetX,
-                        duration: 0.8,
-                        ease: 'power3.out',
-                        onComplete: () => {
-                            this.currentSlide = index;
-                            this.isAnimating = false;
-                        }
-                    });
-
-                    // Animate content elements for extra smoothness
-                    const slides = track.querySelectorAll('[data-banner-slide]');
-                    if (slides[index]) {
-                        const content = slides[index].querySelector('[data-banner-content]');
-                        if (content) {
-                            gsap.fromTo(content, {
-                                opacity: 0,
-                                x: 30
-                            }, {
-                                opacity: 1,
-                                x: 0,
-                                duration: 0.6,
-                                delay: 0.3,
-                                ease: 'power2.out'
-                            });
-                        }
+                goToBanner(index) {
+                    this.currentBanner = index;
+                    if (this.autoSlideInterval) {
+                        clearInterval(this.autoSlideInterval);
+                        this.initPromo();
                     }
                 }
             };
