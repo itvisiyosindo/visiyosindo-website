@@ -4,10 +4,14 @@
     aboutDropdown: false,
     visilabDropdown: false
 }" @click.away="aboutDropdown = false; visilabDropdown = false"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-3.5 px-4"
-    :class="scrolled ? 'py-2' : 'py-3.5'">
-    <div class="navbar-bg-scrolled max-w-7xl mx-auto transition-all duration-300 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl rounded-full shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 border border-slate-200/70 dark:border-slate-800/70 px-6">
-        <div class="flex items-center justify-between h-16">
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+    :class="scrolled ? 'py-3 px-4' : 'py-0 px-0'">
+    <div class="navbar-bg-scrolled transition-all duration-300"
+        :class="scrolled ?
+            'max-w-7xl mx-auto bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl rounded-full shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 border border-slate-200/70 dark:border-slate-800/70 px-6' :
+            'w-full bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800/70 px-4 sm:px-6 lg:px-8'">
+        <div class="max-w-7xl mx-auto flex items-center justify-between transition-all duration-300"
+            :class="scrolled ? 'h-16' : 'h-20'">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-3 group">
                 <div class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 bg-gradient-to-br from-blue-500 to-blue-600 shadow-md shadow-blue-500/25">
@@ -210,7 +214,11 @@
         <div x-show="mobileOpen" x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 -translate-y-4" x-cloak class="lg:hidden mt-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl shadow-xl border border-slate-200/70 dark:border-slate-800/70 p-4">
+            x-transition:leave-end="opacity-0 -translate-y-4" x-cloak
+            class="lg:hidden transition-all duration-300 p-4 shadow-xl"
+            :class="scrolled ?
+                'mt-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-200/70 dark:border-slate-800/70' :
+                'w-full max-w-7xl mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/60 dark:border-slate-800/60 mt-1'">
             <div class="flex flex-col gap-1">
                 <a href="/" @click="mobileOpen = false"
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
