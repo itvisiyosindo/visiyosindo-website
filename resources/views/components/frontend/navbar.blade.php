@@ -2,39 +2,47 @@
 <nav x-data="{
     mobileOpen: false,
     aboutDropdown: false,
-    visilabDropdown: false
+    visilabDropdown: false,
+    solidPage: document.documentElement.dataset.navbarSolid === 'true'
 }" @click.away="aboutDropdown = false; visilabDropdown = false"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
-    :class="scrolled ? 'py-3 px-4' : 'py-0 px-0'">
-    <div class="navbar-bg-scrolled transition-all duration-300"
-        :class="scrolled ?
-            'max-w-7xl mx-auto bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl rounded-full shadow-lg shadow-slate-200/50 dark:shadow-slate-950/50 border border-slate-200/70 dark:border-slate-800/70 px-6' :
-            'w-full bg-white/85 dark:bg-slate-900/85 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800/70 px-4 sm:px-6 lg:px-8'">
-        <div class="max-w-7xl mx-auto flex items-center justify-between transition-all duration-300"
-            :class="scrolled ? 'h-16' : 'h-20'">
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4 px-4" :class="(scrolled || solidPage) && 'py-2'">
+    <div class="navbar-bg-scrolled max-w-7xl mx-auto transition-all duration-500"
+        :class="(scrolled || solidPage) ?
+            'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-full shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-200/50 dark:border-slate-700/50 px-6' :
+            'bg-transparent'">
+        <div class="flex items-center justify-between h-16">
             <!-- Logo -->
             <a href="/" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 bg-gradient-to-br from-blue-500 to-blue-600 shadow-md shadow-blue-500/25">
+                <div class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+                    :class="(scrolled || solidPage) ? 'bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/30' :
+                        'bg-white/20 backdrop-blur-sm'">
                     <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}"
                         class="w-10 h-10 bg-cover">
                 </div>
                 <div class="hidden sm:block">
-                    <span class="text-lg font-bold transition-colors duration-300 text-slate-900 dark:text-white">{{ config('app.name') }}</span>
-                    <span class="text-xs block -mt-1 transition-colors duration-300 italic text-slate-500 dark:text-slate-400">Affordable Healthcare Solutions</span>
+                    <span class="text-lg font-bold transition-colors duration-300"
+                        :class="(scrolled || solidPage) ? 'text-slate-900 dark:text-white' : 'text-white'">{{ config('app.name') }}</span>
+                    <span class="text-xs block -mt-1 transition-colors duration-300 italic"
+                        :class="(scrolled || solidPage) ? 'text-slate-500 dark:text-slate-400' : 'text-white/70'">Affordable Healthcare
+                        Solutions</span>
                 </div>
             </a>
 
             <!-- Desktop Navigation -->
             <div class="hidden lg:flex items-center gap-1">
                 <!-- Home -->
-                <a href="/" class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                <a href="/" class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
                     Home
                 </a>
 
                 <!-- About Us Dropdown -->
                 <div class="relative" @mouseenter="aboutDropdown = true" @mouseleave="aboutDropdown = false">
                     <button
-                        class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                        class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                        :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                            'text-white/90 hover:text-white hover:bg-white/10'">
                         <span>About Us</span>
                         <svg class="w-4 h-4 transition-transform duration-200"
                             :class="aboutDropdown ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -87,26 +95,34 @@
 
                 <!-- Produk Kami -->
                 <a href="{{ route('products') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
                     Product
                 </a>
 
                 <!-- News & Event -->
                 <a href="{{ route('news') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
                     News & Event
                 </a>
 
                 <!-- Contact -->
                 <a href="{{ route('contact') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
                     Contact
                 </a>
 
                 <!-- Visilab Dropdown -->
                 <div class="relative" @mouseenter="visilabDropdown = true" @mouseleave="visilabDropdown = false">
                     <button
-                        class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                        class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                        :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                            'text-white/90 hover:text-white hover:bg-white/10'">
                         <span>Visilab</span>
                         <svg class="w-4 h-4 transition-transform duration-200"
                             :class="visilabDropdown ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
@@ -163,13 +179,17 @@
 
                 <!-- SGM -->
                 <a href="{{ route('sgm') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
                     SGM
                 </a>
 
                 <!-- Karir -->
                 <a href="{{ route('karir') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-slate-100/70 dark:hover:bg-slate-800/70">
+                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
                     Careers
                 </a>
             </div>
@@ -178,8 +198,9 @@
             <div class="flex items-center gap-3">
                 <!-- Theme Toggle -->
                 <button @click="toggleDarkMode()"
-                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    aria-label="Toggle Dark Mode">
+                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/80 hover:text-white hover:bg-white/10'">
                     <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -194,8 +215,9 @@
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileOpen = !mobileOpen"
-                    class="lg:hidden w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800"
-                    aria-label="Open Mobile Menu">
+                    class="lg:hidden w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
                     <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -214,21 +236,23 @@
         <div x-show="mobileOpen" x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 -translate-y-4" x-cloak
-            class="lg:hidden transition-all duration-300 p-4 shadow-xl"
-            :class="scrolled ?
-                'mt-3 bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl rounded-2xl border border-slate-200/70 dark:border-slate-800/70' :
-                'w-full max-w-7xl mx-auto bg-white/95 dark:bg-slate-900/95 backdrop-blur-xl border-t border-slate-200/60 dark:border-slate-800/60 mt-1'">
+            x-transition:leave-end="opacity-0 -translate-y-4" x-cloak class="lg:hidden mt-4"
+            :class="(scrolled || solidPage) ? 'bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-4' :
+                'bg-white/10 backdrop-blur-xl rounded-2xl p-4'">
             <div class="flex flex-col gap-1">
                 <a href="/" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
                     Home
                 </a>
 
                 <!-- Mobile About Us Accordion -->
                 <div x-data="{ open: false }">
                     <button @click="open = !open"
-                        class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                        :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                            'text-white hover:bg-white/10'">
                         <span>About Us</span>
                         <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -243,34 +267,46 @@
                         x-transition:leave-start="opacity-100 translate-y-0"
                         x-transition:leave-end="opacity-0 -translate-y-2" class="pl-4 overflow-hidden">
                         <a href="{{ route('our-team') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Team</a>
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Team</a>
                         <a href="{{ route('our-partners') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Partners</a>
-                        <a href="{{ route('gallery') }}" @click="mobileOpen = false" class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Gallery</a>
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Partners</a>
+                        <a href="{{ route('gallery') }}" @click="mobileOpen = false" class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Gallery</a>
                         <a href="{{ route('certificates') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Certificates</a>
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Certificates</a>
                     </div>
                 </div>
 
                 <a href="{{ route('products') }}" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
                     Products
                 </a>
 
                 <a href="{{ route('news') }}" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
                     News & Event
                 </a>
 
                 <a href="{{ route('contact') }}" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
                     Contact
                 </a>
 
                 <!-- Mobile Visilab Accordion -->
                 <div x-data="{ open: false }">
                     <button @click="open = !open"
-                        class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                        :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                            'text-white hover:bg-white/10'">
                         <span>Visilab</span>
                         <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -285,26 +321,34 @@
                         x-transition:leave-start="opacity-100 translate-y-0"
                         x-transition:leave-end="opacity-0 -translate-y-2" class="pl-4 overflow-hidden">
                         <a href="{{ route('visilab.uji-kesesuaian') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Uji
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Uji
                             Kesesuaian</a>
                         <a href="{{ route('visilab.uji-paparan') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Uji Paparan</a>
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Uji Paparan</a>
                         <a href="{{ route('visilab.uji-kalibrasi') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">Uji
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Uji
                             Kalibrasi</a>
                         <a href="{{ route('visilab.ppr') }}" @click="mobileOpen = false"
-                            class="block px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400">PPR</a>
+                            class="block px-4 py-2 text-sm"
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">PPR</a>
                     </div>
                 </div>
 
                 <a href="{{ route('sgm') }}" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
                     SGM
                 </a>
 
                 <a href="{{ route('karir') }}" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
-                    Careers
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
+                    careers
                 </a>
             </div>
         </div>
