@@ -193,8 +193,7 @@
                             </div>
                             <div>
                                 <p class="text-slate-400 text-sm">
-                                    +62 761-561-58<br>
-                                    +62 21-3005-3504
+                                    <a href="tel:+622130053504" class="hover:text-blue-400 transition-colors">+62 21-3005-3504</a>
                                 </p>
                             </div>
                         </li>

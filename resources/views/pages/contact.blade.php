@@ -112,10 +112,7 @@
                                 <p class="text-slate-600 dark:text-slate-400">
                                     <a href="https://wa.me/6281261457547" target="_blank"
                                         class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+62 812
-                                        6145 7547</a><br>
-                                    <a href="tel:+62761561583"
-                                        class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+62 761
-                                        561 583</a>
+                                        6145 7547</a>
                                 </p>
                             </div>
                         </div>

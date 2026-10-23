@@ -51,12 +51,6 @@ class SeoService
                     'contactType' => 'customer service',
                     'availableLanguage' => ['Indonesian', 'English'],
                 ],
-                [
-                    '@type' => 'ContactPoint',
-                    'telephone' => '+62-76-1561583',
-                    'contactType' => 'sales',
-                    'availableLanguage' => ['Indonesian', 'English'],
-                ],
             ],
             'sameAs' => [
                 'https://www.facebook.com/visi.yosindomedikal',
