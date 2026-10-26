@@ -31,7 +31,7 @@
     <meta name="author" content="PT Visi Yosindo Medikal">
     <meta name="robots" content="{{ $robots ?? 'index, follow' }}">
     <meta name="googlebot" content="{{ $robots ?? 'index, follow' }}">
-    <meta name="language" content="Indonesian">
+    <meta name="language" content="{{ app()->getLocale() === 'en' ? 'English' : 'Indonesian' }}">
     <meta name="revisit-after" content="7 days">
 
     {{-- Canonical URL --}}

@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->web(append: [
             \App\Http\Middleware\TrackPageView::class,
+            \App\Http\Middleware\SetLocale::class,
         ]);
 
         // Register alias middleware for RBAC

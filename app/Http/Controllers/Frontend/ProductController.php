@@ -77,7 +77,7 @@ class ProductController extends Controller
         // Add "All Products" category at the beginning
         $categoriesData->prepend([
             'id' => 'all',
-            'name' => 'Semua Produk',
+            'name' => __('All Products'),
             'count' => $products->count(),
         ]);
 

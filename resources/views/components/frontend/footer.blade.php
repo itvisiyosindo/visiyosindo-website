@@ -89,7 +89,7 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-6">Quick Links</h4>
+                    <h4 class="text-lg font-semibold text-white mb-6">{{ __('Quick Links') }}</h4>
                     <ul class="space-y-3">
                         <li>
                             <a href="{{ url('/') }}"
@@ -99,7 +99,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
                                 </svg>
-                                Home
+                                {{ __('Home') }}
                             </a>
                         </li>
                         <li>
@@ -110,7 +110,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
                                 </svg>
-                                About Us
+                                {{ __('About Us') }}
                             </a>
                         </li>
                         <li>
@@ -121,7 +121,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
                                 </svg>
-                                Product
+                                {{ __('Products') }}
                             </a>
                         </li>
                         <li>
@@ -132,7 +132,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
                                 </svg>
-                                Gallery
+                                {{ __('Gallery') }}
                             </a>
                         </li>
                         <li>
@@ -143,7 +143,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
                                 </svg>
-                                News & Events
+                                {{ __('News & Events') }}
                             </a>
                         </li>
                         <li>
@@ -154,7 +154,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 5l7 7-7 7" />
                                 </svg>
-                                Career
+                                {{ __('Careers') }}
                             </a>
                         </li>
                     </ul>
@@ -162,7 +162,7 @@
 
                 <!-- Contact Info -->
                 <div>
-                    <h4 class="text-lg font-semibold text-white mb-6">Contact Us</h4>
+                    <h4 class="text-lg font-semibold text-white mb-6">{{ __('Contact Us') }}</h4>
                     <ul class="space-y-4">
                         <li class="flex items-start gap-3">
                             <div class="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center shrink-0">
@@ -219,7 +219,7 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
                 <div class="flex flex-col md:flex-row items-center justify-between gap-4">
                     <p class="text-slate-500 text-sm text-center md:text-left">
-                        &copy; {{ '2013 - ' . date('Y') }} {{ config('app.name') }}. All rights reserved.
+                        &copy; {{ '2013 - ' . date('Y') }} {{ config('app.name') }}. {{ __('All Rights Reserved') }}.
                     </p>
                     <div class="flex items-center gap-6">
                         <a href="{{ url('/') }}"

@@ -81,6 +81,14 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 | Public Routes (Frontend)
 |--------------------------------------------------------------------------
 */
+Route::get('/locale/{locale}', function (string $locale) {
+    if (in_array($locale, ['id', 'en'], true)) {
+        session(['locale' => $locale]);
+        cookie()->queue(cookie()->make('locale', $locale, 60 * 24 * 365));
+    }
+    return redirect()->back(fallback: route('home'));
+})->name('set-locale');
+
 Route::get('/', function () {
     // Get active hero slides and prepare for JavaScript
     $heroSlides = \App\Models\HeroSlide::where('is_active', true)

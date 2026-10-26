@@ -23,8 +23,7 @@
                     <span class="text-lg font-bold transition-colors duration-300"
                         :class="(scrolled || solidPage) ? 'text-slate-900 dark:text-white' : 'text-white'">{{ config('app.name') }}</span>
                     <span class="text-xs block -mt-1 transition-colors duration-300 italic"
-                        :class="(scrolled || solidPage) ? 'text-slate-500 dark:text-slate-400' : 'text-white/70'">Affordable Healthcare
-                        Solutions</span>
+                        :class="(scrolled || solidPage) ? 'text-slate-500 dark:text-slate-400' : 'text-white/70'">{{ __('Affordable Healthcare Solutions') }}</span>
                 </div>
             </a>
 
@@ -34,7 +33,7 @@
                 <a href="/" class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    Home
+                    {{ __('Home') }}
                 </a>
 
                 <!-- About Us Dropdown -->
@@ -43,7 +42,7 @@
                         class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                         :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                             'text-white/90 hover:text-white hover:bg-white/10'">
-                        <span>About Us</span>
+                        <span>{{ __('About Us') }}</span>
                         <svg class="w-4 h-4 transition-transform duration-200"
                             :class="aboutDropdown ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -64,7 +63,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                             </svg>
-                            Team
+                            {{ __('Team') }}
                         </a>
                         <a href="{{ route('our-partners') }}"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
@@ -72,7 +71,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
-                            Partners
+                            {{ __('Partners') }}
                         </a>
                         <a href="{{ route('gallery') }}"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
@@ -80,7 +79,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
-                            Gallery
+                            {{ __('Gallery') }}
                         </a>
                         <a href="{{ route('certificates') }}"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
@@ -88,7 +87,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                             </svg>
-                            Certificates
+                            {{ __('Certificates') }}
                         </a>
                     </div>
                 </div>
@@ -98,7 +97,7 @@
                     class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    Product
+                    {{ __('Products') }}
                 </a>
 
                 <!-- News & Event -->
@@ -106,7 +105,7 @@
                     class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    News & Event
+                    {{ __('News & Event') }}
                 </a>
 
                 <!-- Contact -->
@@ -114,7 +113,7 @@
                     class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    Contact
+                    {{ __('Contact') }}
                 </a>
 
                 <!-- Visilab Dropdown -->
@@ -123,7 +122,7 @@
                         class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                         :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                             'text-white/90 hover:text-white hover:bg-white/10'">
-                        <span>Visilab</span>
+                        <span>{{ __('Visilab') }}</span>
                         <svg class="w-4 h-4 transition-transform duration-200"
                             :class="visilabDropdown ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -145,7 +144,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Uji Kesesuaian
+                            {{ __('Uji Kesesuaian') }}
                         </a>
                         <a href="{{ route('visilab.uji-paparan') }}"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
@@ -154,7 +153,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
-                            Uji Paparan
+                            {{ __('Uji Paparan') }}
                         </a>
                         <a href="{{ route('visilab.uji-kalibrasi') }}"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
@@ -163,7 +162,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                             </svg>
-                            Uji Kalibrasi
+                            {{ __('Uji Kalibrasi') }}
                         </a>
                         <a href="{{ route('visilab.ppr') }}"
                             class="flex items-center gap-3 px-4 py-3 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
@@ -172,7 +171,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
-                            PPR
+                            {{ __('PPR') }}
                         </a>
                     </div>
                 </div>
@@ -182,7 +181,7 @@
                     class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    SGM
+                    {{ __('SGM') }}
                 </a>
 
                 <!-- Karir -->
@@ -190,17 +189,49 @@
                     class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    Careers
+                    {{ __('Careers') }}
                 </a>
             </div>
 
             <!-- Right Actions -->
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2 sm:gap-3">
+                @php
+                    $currentLocale = app()->getLocale();
+                @endphp
+
+                <!-- Language Toggle Switch (ID / EN) -->
+                <div class="flex items-center p-0.5 rounded-full text-xs font-semibold transition-all duration-300 shadow-2xs"
+                    :class="(scrolled || solidPage) ?
+                        'bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700' :
+                        'bg-white/15 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-slate-700/60'">
+                    <a href="{{ route('set-locale', 'id') }}"
+                        class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none {{ $currentLocale === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
+                        :class="'{{ $currentLocale }}' === 'id' ?
+                            'bg-blue-600 text-white shadow-xs font-bold' :
+                            ((scrolled || solidPage) ?
+                                'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400' :
+                                'text-white/80 hover:text-white')"
+                        title="Bahasa Indonesia">
+                        <span class="text-xs">ID</span>
+                    </a>
+                    <a href="{{ route('set-locale', 'en') }}"
+                        class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none {{ $currentLocale === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
+                        :class="'{{ $currentLocale }}' === 'en' ?
+                            'bg-blue-600 text-white shadow-xs font-bold' :
+                            ((scrolled || solidPage) ?
+                                'text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400' :
+                                'text-white/80 hover:text-white')"
+                        title="English">
+                        <span class="text-xs">EN</span>
+                    </a>
+                </div>
+
                 <!-- Theme Toggle -->
                 <button @click="toggleDarkMode()"
-                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer"
                     :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
-                        'text-white/80 hover:text-white hover:bg-white/10'">
+                        'text-white/80 hover:text-white hover:bg-white/10'"
+                    title="Toggle Mode Tampilan">
                     <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -215,7 +246,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileOpen = !mobileOpen"
-                    class="lg:hidden w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300"
+                    class="lg:hidden w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer"
                     :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
                     <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -244,7 +275,7 @@
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    Home
+                    {{ __('Home') }}
                 </a>
 
                 <!-- Mobile About Us Accordion -->
@@ -253,7 +284,7 @@
                         class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                         :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                             'text-white hover:bg-white/10'">
-                        <span>About Us</span>
+                        <span>{{ __('About Us') }}</span>
                         <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -268,15 +299,15 @@
                         x-transition:leave-end="opacity-0 -translate-y-2" class="pl-4 overflow-hidden">
                         <a href="{{ route('our-team') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Team</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Team') }}</a>
                         <a href="{{ route('our-partners') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Partners</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Partners') }}</a>
                         <a href="{{ route('gallery') }}" @click="mobileOpen = false" class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Gallery</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Gallery') }}</a>
                         <a href="{{ route('certificates') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Certificates</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Certificates') }}</a>
                     </div>
                 </div>
 
@@ -284,21 +315,21 @@
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    Products
+                    {{ __('Products') }}
                 </a>
 
                 <a href="{{ route('news') }}" @click="mobileOpen = false"
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    News & Event
+                    {{ __('News & Event') }}
                 </a>
 
                 <a href="{{ route('contact') }}" @click="mobileOpen = false"
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    Contact
+                    {{ __('Contact') }}
                 </a>
 
                 <!-- Mobile Visilab Accordion -->
@@ -307,7 +338,7 @@
                         class="w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                         :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                             'text-white hover:bg-white/10'">
-                        <span>Visilab</span>
+                        <span>{{ __('Visilab') }}</span>
                         <svg class="w-4 h-4 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
                             fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -322,18 +353,16 @@
                         x-transition:leave-end="opacity-0 -translate-y-2" class="pl-4 overflow-hidden">
                         <a href="{{ route('visilab.uji-kesesuaian') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Uji
-                            Kesesuaian</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Uji Kesesuaian') }}</a>
                         <a href="{{ route('visilab.uji-paparan') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Uji Paparan</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Uji Paparan') }}</a>
                         <a href="{{ route('visilab.uji-kalibrasi') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">Uji
-                            Kalibrasi</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('Uji Kalibrasi') }}</a>
                         <a href="{{ route('visilab.ppr') }}" @click="mobileOpen = false"
                             class="block px-4 py-2 text-sm"
-                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">PPR</a>
+                            :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400' : 'text-white/80'">{{ __('PPR') }}</a>
                     </div>
                 </div>
 
@@ -341,15 +370,36 @@
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    SGM
+                    {{ __('SGM') }}
                 </a>
 
                 <a href="{{ route('karir') }}" @click="mobileOpen = false"
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    careers
+                    {{ __('Careers') }}
                 </a>
+
+                <!-- Mobile Language Selector -->
+                <div class="pt-3 mt-2 border-t border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between px-2">
+                    <span class="text-xs font-semibold uppercase tracking-wider"
+                        :class="(scrolled || solidPage) ? 'text-slate-500 dark:text-slate-400' : 'text-white/70'">
+                        {{ __('Language') }}
+                    </span>
+                    <div class="inline-flex p-1 rounded-full text-xs font-semibold"
+                        :class="(scrolled || solidPage) ? 'bg-slate-100 dark:bg-slate-700' : 'bg-white/20'">
+                        <a href="{{ route('set-locale', 'id') }}"
+                            class="px-3 py-1 rounded-full transition-all duration-200 {{ $currentLocale === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
+                            :class="'{{ $currentLocale }}' === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : ((scrolled || solidPage) ? 'text-slate-600 dark:text-slate-300' : 'text-white')">
+                            🇮🇩 ID
+                        </a>
+                        <a href="{{ route('set-locale', 'en') }}"
+                            class="px-3 py-1 rounded-full transition-all duration-200 {{ $currentLocale === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
+                            :class="'{{ $currentLocale }}' === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : ((scrolled || solidPage) ? 'text-slate-600 dark:text-slate-300' : 'text-white')">
+                            🇬🇧 EN
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

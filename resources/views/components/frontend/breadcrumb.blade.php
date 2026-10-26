@@ -8,7 +8,7 @@
     // Prepend home if showHome is true
     if ($showHome) {
         array_unshift($items, [
-            'name' => 'Home',
+            'name' => __('Home'),
             'url' => route('home'),
             'icon' => 'home'
         ]);
