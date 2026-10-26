@@ -254,6 +254,57 @@
                 </div>
             </div>
 
+            <!-- Custom styles for responsive multi-card carousel -->
+            <style>
+                .catalog-slider-track {
+                    display: flex !important;
+                    gap: 1.5rem !important;
+                    overflow-x: auto !important;
+                    scroll-snap-type: x mandatory !important;
+                    -webkit-overflow-scrolling: touch !important;
+                    scroll-behavior: smooth !important;
+                    padding-bottom: 1.5rem !important;
+                    padding-top: 0.5rem !important;
+                }
+                .catalog-slider-track::-webkit-scrollbar {
+                    height: 6px;
+                }
+                .catalog-slider-track::-webkit-scrollbar-track {
+                    background: transparent;
+                }
+                .catalog-slider-track::-webkit-scrollbar-thumb {
+                    background: rgba(148, 163, 184, 0.35);
+                    border-radius: 9999px;
+                }
+                .catalog-slider-item {
+                    flex: 0 0 280px !important;
+                    width: 280px !important;
+                    max-width: 280px !important;
+                    scroll-snap-align: start !important;
+                }
+                @media (min-width: 640px) {
+                    .catalog-slider-item {
+                        flex: 0 0 calc(50% - 0.75rem) !important;
+                        width: calc(50% - 0.75rem) !important;
+                        max-width: calc(50% - 0.75rem) !important;
+                    }
+                }
+                @media (min-width: 768px) {
+                    .catalog-slider-item {
+                        flex: 0 0 calc(33.333% - 1rem) !important;
+                        width: calc(33.333% - 1rem) !important;
+                        max-width: calc(33.333% - 1rem) !important;
+                    }
+                }
+                @media (min-width: 1024px) {
+                    .catalog-slider-item {
+                        flex: 0 0 calc(25% - 1.125rem) !important;
+                        width: calc(25% - 1.125rem) !important;
+                        max-width: calc(25% - 1.125rem) !important;
+                    }
+                }
+            </style>
+
             <!-- Products Showcase Track -->
             <div class="relative group/showcase">
                 <!-- Floating Left Arrow (Desktop Slider) -->
@@ -282,13 +333,13 @@
                 <div x-ref="cardTrack"
                     @scroll.passive="updateScrollState()"
                     :class="viewMode === 'slider'
-                        ? 'flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 pt-2 scrollbar-none'
+                        ? 'catalog-slider-track'
                         : 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'"
                     data-gsap-stagger="scale">
                     <template x-for="(product, index) in filteredProducts" :key="product.id">
                         <a :href="'/products/' + product.slug"
                             class="product-card group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-2 flex flex-col justify-between"
-                            :class="viewMode === 'slider' ? 'shrink-0 w-[285px] sm:w-[320px] lg:w-[350px] snap-start' : 'w-full'"
+                            :class="viewMode === 'slider' ? 'catalog-slider-item' : 'w-full'"
                             data-gsap-item>
                             <!-- Product Image -->
                             <div
@@ -780,17 +831,15 @@
 
                 scrollPrev() {
                     if (this.$refs.cardTrack) {
-                        const firstCard = this.$refs.cardTrack.querySelector('.product-card');
-                        const cardWidth = firstCard ? firstCard.offsetWidth : 320;
-                        this.$refs.cardTrack.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' });
+                        const amount = Math.max(300, this.$refs.cardTrack.clientWidth * 0.75);
+                        this.$refs.cardTrack.scrollBy({ left: -amount, behavior: 'smooth' });
                     }
                 },
 
                 scrollNext() {
                     if (this.$refs.cardTrack) {
-                        const firstCard = this.$refs.cardTrack.querySelector('.product-card');
-                        const cardWidth = firstCard ? firstCard.offsetWidth : 320;
-                        this.$refs.cardTrack.scrollBy({ left: (cardWidth + 24), behavior: 'smooth' });
+                        const amount = Math.max(300, this.$refs.cardTrack.clientWidth * 0.75);
+                        this.$refs.cardTrack.scrollBy({ left: amount, behavior: 'smooth' });
                     }
                 },
 
