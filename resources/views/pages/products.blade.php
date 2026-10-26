@@ -146,265 +146,157 @@
     </section>
 
     {{-- Main Products Section --}}
-    <section id="catalog-section" class="py-16 lg:py-24 bg-slate-50/60 dark:bg-slate-900/90 relative overflow-hidden"
-        x-data="productsPage()"
-        @hero-search.window="handleHeroSearch($event.detail)">
-
-        <!-- Subtle Tech Grid Background -->
-        <div class="absolute inset-0 pointer-events-none opacity-40 dark:opacity-10">
+    <section class="py-16 lg:py-24 bg-white dark:bg-slate-900 relative overflow-hidden" x-data="productsPage()" @hero-search.window="searchQuery = $event.detail; filterProducts()">
+        <!-- Background -->
+        <div class="absolute inset-0 opacity-30 dark:opacity-10">
             <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
                 <defs>
-                    <pattern id="medical-catalog-grid" width="36" height="36" patternUnits="userSpaceOnUse">
-                        <circle cx="2" cy="2" r="1.5" fill="currentColor" class="text-blue-500/40 dark:text-blue-400/30" />
+                    <pattern id="product-dots" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1" fill="currentColor"
+                            class="text-slate-700 dark:text-slate-200" />
                     </pattern>
                 </defs>
-                <rect width="100%" height="100%" fill="url(#medical-catalog-grid)" />
+                <rect width="100%" height="100%" fill="url(#product-dots)" />
             </svg>
         </div>
 
-        <!-- Ambient Glow Elements -->
-        <div class="absolute top-1/4 -left-48 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute bottom-1/4 -right-48 w-96 h-96 bg-cyan-500/10 dark:bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
-
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <!-- Section Header -->
-            <div class="text-center mb-10 lg:mb-14" data-gsap="fade-up">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200/80 dark:border-blue-800/60 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider mb-3.5 shadow-xs">
-                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
-                    <span>Katalog Alat Kesehatan & Radiologi</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
-                    E-Katalog Resmi <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-500">PT Visiyosindo Medika</span>
+            <div class="text-center mb-12" data-gsap="fade-up">
+                <span
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-sm font-semibold mb-4">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                    </svg>
+                    Katalog Produk
+                </span>
+                <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                    Jelajahi Produk Kami
                 </h2>
-                <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-                    Peralatan medis dan radiologi berstandar mutu tinggi dengan izin edar resmi, jaminan purna jual terpercaya, dan dukungan teknisi tersertifikasi.
+                <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    Berbagai pilihan alat kesehatan berkualitas tinggi untuk memenuhi kebutuhan rumah sakit, klinik, dan
+                    fasilitas kesehatan Anda
                 </p>
             </div>
 
-            <!-- Integrated Catalog Toolbar & Control Bar -->
-            <div class="bg-white dark:bg-slate-800/90 border border-slate-200/90 dark:border-slate-700/80 rounded-2xl p-4 sm:p-5 shadow-xs mb-8 transition-all" data-gsap="fade-up">
-                <!-- Search, Sort & Counter Controls -->
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
-                    <!-- Live Search Input -->
-                    <div class="relative flex-1">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 pl-3.5 flex items-center text-slate-400 dark:text-slate-500">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </div>
-                        <input type="text" x-model="searchQuery" @input="onSearchInput()"
-                            placeholder="Cari nama produk, brand (e.g. Ineon, Kiran), SKU, atau spesifikasi..."
-                            class="w-full pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all">
-                        <button x-show="searchQuery.length > 0" @click="clearSearch()" type="button"
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors cursor-pointer"
-                            title="Hapus pencarian">
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </div>
-
-                    <!-- Sort Selector & Counter -->
-                    <div class="flex items-center gap-2.5 sm:gap-3 shrink-0">
-                        <!-- Sort Dropdown -->
-                        <div class="relative">
-                            <select x-model="sortBy" @change="filterProducts()"
-                                aria-label="Urutkan produk"
-                                class="appearance-none pl-3.5 pr-8 py-2.5 bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-700 rounded-xl text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 cursor-pointer">
-                                <option value="newest">Urutan: Terbaru</option>
-                                <option value="name_asc">Nama: A — Z</option>
-                                <option value="name_desc">Nama: Z — A</option>
-                                <option value="promo">Prioritas Promo</option>
-                            </select>
-                            <div class="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400">
-                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        <!-- Product Counter Badge -->
-                        <div class="inline-flex items-center px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200/80 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-300 font-medium whitespace-nowrap">
-                            <span>Menampilkan <strong class="text-blue-600 dark:text-blue-400 font-bold" x-text="displayedProducts.length"></strong> dari <strong class="text-slate-900 dark:text-white" x-text="filteredProducts.length"></strong> produk</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Category Filter Pills -->
-                <div class="pt-3 border-t border-slate-100 dark:border-slate-700/60">
-                    <div class="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none">
-                        <template x-for="category in categories" :key="category.id">
-                            <button type="button" @click="setCategory(category.id)"
-                                class="group shrink-0 inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all duration-200 border cursor-pointer"
-                                :class="activeCategory === category.id
-                                    ? 'bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-500/25 ring-2 ring-blue-500/20'
-                                    : 'bg-slate-50 dark:bg-slate-900/60 border-slate-200 dark:border-slate-700/80 text-slate-700 dark:text-slate-300 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400'">
-                                <span x-text="category.name"></span>
-                                <span class="px-1.5 py-0.5 rounded-md text-[10px] font-bold tracking-tight transition-colors"
-                                    :class="activeCategory === category.id
-                                        ? 'bg-white/20 text-white'
-                                        : 'bg-slate-200/80 dark:bg-slate-700 text-slate-600 dark:text-slate-400 group-hover:bg-slate-200 dark:group-hover:bg-slate-600 group-hover:text-slate-900 dark:group-hover:text-white'"
-                                    x-text="category.count"></span>
-                            </button>
-                        </template>
-                    </div>
-                </div>
-
-                <!-- Active Filter Badges Bar -->
-                <div x-show="activeCategory !== 'all' || searchQuery.trim() !== ''"
-                    class="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-100 dark:border-slate-700/60 text-xs">
-                    <span class="text-slate-500 dark:text-slate-400 font-medium">Filter Aktif:</span>
-
-                    <!-- Category Active Chip -->
-                    <span x-show="activeCategory !== 'all'"
-                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800 font-medium">
-                        <span>Kategori: <strong x-text="getActiveCategoryName()"></strong></span>
-                        <button @click="setCategory('all')" type="button" class="hover:text-red-600 dark:hover:text-red-400 ml-0.5 font-bold cursor-pointer" title="Hapus filter kategori">&times;</button>
-                    </span>
-
-                    <!-- Search Active Chip -->
-                    <span x-show="searchQuery.trim() !== ''"
-                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-600 font-medium">
-                        <span>Pencarian: "<strong x-text="searchQuery"></strong>"</span>
-                        <button @click="clearSearch()" type="button" class="hover:text-red-600 dark:hover:text-red-400 ml-0.5 font-bold cursor-pointer" title="Hapus pencarian">&times;</button>
-                    </span>
-
-                    <!-- Reset All Action -->
-                    <button @click="resetFilters()" type="button"
-                        class="inline-flex items-center gap-1 text-xs text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 font-semibold ml-auto cursor-pointer">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        <span>Reset Semua Filter</span>
-                    </button>
-                </div>
+            <!-- Filter Categories -->
+            <div class="flex flex-wrap justify-center gap-3 mb-12" data-gsap="fade-up">
+                <template x-for="(category, index) in categories" :key="index">
+                    <button @click="activeCategory = category.id; filterProducts()"
+                        class="px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300"
+                        :class="activeCategory === category.id ?
+                            'bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30' :
+                            'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'"
+                        x-text="category.name"></button>
+                </template>
             </div>
 
             <!-- Products Grid -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-gsap-stagger="scale">
-                <template x-for="product in displayedProducts" :key="product.id">
-                    <div class="product-card group relative flex flex-col bg-white dark:bg-slate-800/95 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 hover:border-blue-500/60 dark:hover:border-blue-400/60 shadow-xs hover:shadow-xl hover:shadow-blue-500/10 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-gsap-stagger="scale">
+                <template x-for="(product, index) in filteredProducts" :key="product.id">
+                    <a :href="'/products/' + product.slug"
+                        class="product-card group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-2"
                         data-gsap-item>
+                        <!-- Product Image -->
+                        <div
+                            class="relative aspect-square overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
+                            <img :src="product.image" :alt="product.name"
+                                class="product-image w-full h-full object-cover transition-transform duration-700">
 
-                        <!-- Product Visual Stage -->
-                        <div class="relative aspect-[4/3] bg-gradient-to-b from-slate-50 via-slate-100/60 to-slate-50 dark:from-slate-800 dark:via-slate-800/90 dark:to-slate-900/80 p-5 flex items-center justify-center overflow-hidden border-b border-slate-100 dark:border-slate-700/60">
-                            <!-- Ambient Glow Effect -->
-                            <div class="absolute inset-0 bg-radial from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                            <!-- Product Image -->
-                            <a :href="'/products/' + product.slug" class="w-full h-full flex items-center justify-center">
-                                <img :src="product.image" :alt="product.name" loading="lazy"
-                                    class="max-h-full max-w-full object-contain filter drop-shadow-sm group-hover:scale-108 transition-transform duration-500 ease-out">
-                            </a>
-
-                            <!-- Floating Badges: Promo & Baru (Top Left) -->
-                            <div class="absolute top-3 left-3 flex flex-col gap-1.5 z-10 pointer-events-none">
-                                <span x-show="product.isPromo"
-                                    class="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-rose-500 to-red-600 text-white shadow-xs">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                                    Promo
-                                </span>
+                            <!-- Badge -->
+                            <div class="absolute top-4 left-4 flex flex-col gap-2">
                                 <span x-show="product.isNew"
-                                    class="inline-flex items-center px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-xs">
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
                                     Baru
+                                </span>
+                                <span x-show="product.isPromo"
+                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
+                                    Promo
                                 </span>
                             </div>
 
-                            <!-- Floating Brand Pill (Top Right) -->
-                            <div class="absolute top-3 right-3 z-10">
-                                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-[11px] font-bold bg-white/95 dark:bg-slate-900/90 backdrop-blur-md text-blue-600 dark:text-blue-400 border border-slate-200/90 dark:border-slate-700/80 shadow-xs tracking-tight"
-                                    x-text="product.brand"></span>
+                            <!-- Quick View Overlay -->
+                            <div
+                                class="product-overlay absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4">
+                                <span class="inline-flex items-center gap-2 text-white text-sm font-medium">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                    Lihat Detail
+                                </span>
                             </div>
                         </div>
 
-                        <!-- Product Content -->
-                        <div class="p-5 flex-1 flex flex-col">
-                            <!-- Category & SKU Row -->
-                            <div class="flex items-center justify-between text-xs font-semibold uppercase tracking-wider mb-2">
-                                <span class="text-blue-600 dark:text-blue-400 font-bold" x-text="product.category"></span>
-                                <span x-show="product.sku" class="text-[11px] font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-700/60 px-2 py-0.5 rounded" x-text="'SKU: ' + product.sku"></span>
+                        <!-- Product Info -->
+                        <div class="p-5">
+                            <!-- Brand & Category -->
+                            <div class="flex items-center justify-between mb-2">
+                                <span
+                                    class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider"
+                                    x-text="product.brand"></span>
+                                <span class="text-xs text-slate-500 dark:text-slate-400"
+                                    x-text="product.category"></span>
                             </div>
 
                             <!-- Product Name -->
-                            <a :href="'/products/' + product.slug" class="block group/title">
-                                <h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-2 leading-snug group-hover/title:text-blue-600 dark:group-hover/title:text-blue-400 transition-colors mb-2"
-                                    x-text="product.name"></h3>
-                            </a>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                                x-text="product.name"></h3>
 
                             <!-- Short Description -->
-                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed mb-4 flex-1"
-                                x-text="product.shortDesc || 'Peralatan medis berstandar resmi dengan performa presisi dan jaminan purna jual terpercaya.'"></p>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2"
+                                x-text="product.shortDesc"></p>
 
-                            <!-- Trust Markers -->
-                            <div class="flex items-center gap-2 mb-4 pt-3 border-t border-slate-100 dark:border-slate-700/60 text-[11px] text-slate-500 dark:text-slate-400">
-                                <span class="inline-flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <!-- SKU & Action -->
+                            <div
+                                class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                                <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span
+                                        x-text="product.sku"></span></span>
+                                <span
+                                    class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">
+                                    Detail
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M9 5l7 7-7 7" />
                                     </svg>
-                                    Garansi Resmi
                                 </span>
-                                <span class="text-slate-300 dark:text-slate-600">•</span>
-                                <span class="inline-flex items-center gap-1">
-                                    <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                    </svg>
-                                    AKL Kemenkes
-                                </span>
-                            </div>
-
-                            <!-- Card Actions -->
-                            <div class="flex items-center gap-2 pt-1">
-                                <a :href="'/products/' + product.slug"
-                                    class="flex-1 inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700/70 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-slate-700 dark:text-slate-200 text-xs font-semibold transition-all duration-200 group/btn shadow-xs">
-                                    <span>Lihat Detail</span>
-                                    <svg class="w-3.5 h-3.5 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </a>
-                                <a :href="'https://wa.me/6289507240145?text=' + encodeURIComponent('Halo PT Visiyosindo Medika, saya ingin konsultasi terkait produk ' + product.name + (product.sku ? ' (' + product.sku + ')' : '') + ' via web katalog.')"
-                                    target="_blank" rel="noopener noreferrer"
-                                    title="Konsultasi & Penawaran via WhatsApp"
-                                    class="inline-flex items-center justify-center w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 hover:bg-emerald-600 text-emerald-600 dark:text-emerald-400 hover:text-white border border-emerald-200/80 dark:border-emerald-800/60 transition-all duration-200 shrink-0 shadow-xs">
-                                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-                                    </svg>
-                                </a>
                             </div>
                         </div>
-                    </div>
+                    </a>
                 </template>
             </div>
 
             <!-- Empty State -->
-            <div x-show="filteredProducts.length === 0" class="text-center py-16">
-                <div class="max-w-md mx-auto p-8 bg-white dark:bg-slate-800/90 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-lg">
-                    <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200/60 dark:border-blue-800/60 flex items-center justify-center text-blue-600 dark:text-blue-400">
-                        <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Produk Tidak Ditemukan</h3>
-                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">
-                        Tidak ada alat kesehatan yang sesuai dengan kata kunci atau kategori yang Anda pilih. Coba ubah pencarian atau reset filter.
-                    </p>
-                    <button @click="resetFilters()" type="button"
-                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md shadow-blue-500/25 transition-all cursor-pointer">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                        </svg>
-                        <span>Reset Semua Filter</span>
-                    </button>
+            <div x-show="filteredProducts.length === 0" class="text-center py-20">
+                <div
+                    class="w-24 h-24 mx-auto mb-6 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+                    <svg class="w-12 h-12 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
                 </div>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Produk Tidak Ditemukan</h3>
+                <p class="text-slate-500 dark:text-slate-400 mb-6">Coba ubah kata kunci pencarian atau pilih kategori
+                    lain</p>
+                <button @click="searchQuery = ''; activeCategory = 'all'; filterProducts(); window.dispatchEvent(new CustomEvent('clear-hero-search'))"
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full transition-colors">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                    </svg>
+                    Reset Filter
+                </button>
             </div>
 
-            <!-- Load More / Pagination -->
-            <div x-show="displayLimit < filteredProducts.length" class="text-center mt-12">
-                <button @click="loadMore()" type="button"
-                    class="inline-flex items-center gap-2.5 px-8 py-3.5 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold text-sm rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-all duration-200 group cursor-pointer">
-                    <span>Muat Lebih Banyak Produk</span>
-                    <span class="text-xs px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-500 dark:text-slate-400 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/40 group-hover:text-blue-600 dark:group-hover:text-blue-300"
-                        x-text="'(' + (filteredProducts.length - displayLimit) + ' tersisa)'"></span>
-                    <svg class="w-4 h-4 group-hover:translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <!-- Load More -->
+            <div x-show="filteredProducts.length > 0" class="text-center mt-12">
+                <button
+                    class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-full transition-all duration-300">
+                    <span>Lihat Lebih Banyak</span>
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
                 </button>
@@ -733,9 +625,9 @@
                 kesehatan Anda.
             </p>
             <div class="flex flex-wrap justify-center gap-4">
-                <a href="https://wa.me/6289507240145?text={{ urlencode('Halo PT Visiyosindo Medika, saya ingin konsultasi pemilihan produk alat kesehatan.') }}" target="_blank" rel="noopener noreferrer"
+                <a href="https://wa.me/6281234567890" target="_blank"
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                    <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path
                             d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                     </svg>
@@ -759,118 +651,39 @@
             return {
                 searchQuery: '',
                 activeCategory: 'all',
-                sortBy: 'newest',
-                displayLimit: 12,
-                perPage: 12,
 
                 categories: {!! $categoriesJson ?? '[]' !!},
+
                 products: {!! $productsJson ?? '[]' !!},
+
                 filteredProducts: [],
 
                 init() {
-                    // Sync with URL parameters if present
-                    try {
-                        const urlParams = new URLSearchParams(window.location.search);
-                        if (urlParams.has('category')) {
-                            const catParam = urlParams.get('category');
-                            if (this.categories.some(c => c.id === catParam)) {
-                                this.activeCategory = catParam;
-                            }
-                        }
-                        if (urlParams.has('search')) {
-                            this.searchQuery = urlParams.get('search');
-                        }
-                    } catch (e) {
-                        console.error('URL parse error', e);
-                    }
-
-                    this.filterProducts();
-                },
-
-                handleHeroSearch(query) {
-                    this.searchQuery = query || '';
-                    this.displayLimit = this.perPage;
-                    this.filterProducts();
-
-                    // Smooth scroll to catalog section
-                    const el = document.getElementById('catalog-section');
-                    if (el) {
-                        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                    }
-                },
-
-                onSearchInput() {
-                    this.displayLimit = this.perPage;
-                    this.filterProducts();
-                },
-
-                setCategory(categoryId) {
-                    this.activeCategory = categoryId;
-                    this.displayLimit = this.perPage;
-                    this.filterProducts();
-                },
-
-                clearSearch() {
-                    this.searchQuery = '';
-                    this.displayLimit = this.perPage;
-                    this.filterProducts();
-                    window.dispatchEvent(new CustomEvent('clear-hero-search'));
-                },
-
-                resetFilters() {
-                    this.searchQuery = '';
-                    this.activeCategory = 'all';
-                    this.sortBy = 'newest';
-                    this.displayLimit = this.perPage;
-                    this.filterProducts();
-                    window.dispatchEvent(new CustomEvent('clear-hero-search'));
-                },
-
-                getActiveCategoryName() {
-                    const match = this.categories.find(c => c.id === this.activeCategory);
-                    return match ? match.name : '';
+                    this.filteredProducts = this.products;
                 },
 
                 filterProducts() {
-                    let result = [...this.products];
+                    let result = this.products;
 
-                    // Category filter
+                    // Filter by category
                     if (this.activeCategory !== 'all') {
                         result = result.filter(p => p.categoryId === this.activeCategory);
                     }
 
-                    // Text search filter
-                    if (this.searchQuery && this.searchQuery.trim() !== '') {
-                        const q = this.searchQuery.toLowerCase().trim();
+                    // Filter by search query
+                    if (this.searchQuery.trim() !== '') {
+                        const query = this.searchQuery.toLowerCase();
                         result = result.filter(p =>
-                            (p.name && p.name.toLowerCase().includes(q)) ||
-                            (p.brand && p.brand.toLowerCase().includes(q)) ||
-                            (p.category && p.category.toLowerCase().includes(q)) ||
-                            (p.sku && p.sku.toLowerCase().includes(q)) ||
-                            (p.shortDesc && p.shortDesc.toLowerCase().includes(q))
+                            p.name.toLowerCase().includes(query) ||
+                            p.brand.toLowerCase().includes(query) ||
+                            p.category.toLowerCase().includes(query) ||
+                            p.shortDesc.toLowerCase().includes(query)
                         );
                     }
 
-                    // Sort order
-                    if (this.sortBy === 'name_asc') {
-                        result.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
-                    } else if (this.sortBy === 'name_desc') {
-                        result.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
-                    } else if (this.sortBy === 'promo') {
-                        result.sort((a, b) => (b.isPromo ? 1 : 0) - (a.isPromo ? 1 : 0));
-                    }
-
                     this.filteredProducts = result;
-                },
-
-                get displayedProducts() {
-                    return this.filteredProducts.slice(0, this.displayLimit);
-                },
-
-                loadMore() {
-                    this.displayLimit += this.perPage;
                 }
-            };
+            }
         }
     </script>
 </x-layouts.frontend>
