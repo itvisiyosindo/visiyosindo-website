@@ -192,81 +192,190 @@
                 </template>
             </div>
 
-            <!-- Products Grid -->
-            <div class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" data-gsap-stagger="scale">
-                <template x-for="(product, index) in filteredProducts" :key="product.id">
-                    <a :href="'/products/' + product.slug"
-                        class="product-card group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-2"
-                        data-gsap-item>
-                        <!-- Product Image -->
-                        <div
-                            class="relative aspect-square overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
-                            <img :src="product.image" :alt="product.name"
-                                class="product-image w-full h-full object-cover transition-transform duration-700">
+            <!-- View Mode Switcher & Navigation Header -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800" data-gsap="fade-up">
+                <div class="flex items-center gap-3">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 text-xs font-bold">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                        <span x-text="filteredProducts.length"></span> Produk
+                    </span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400"
+                        x-text="viewMode === 'slider' ? 'Geser ke samping untuk menjelajah' : 'Tampilan grid multi-kolom'"></span>
+                </div>
 
-                            <!-- Badge -->
-                            <div class="absolute top-4 left-4 flex flex-col gap-2">
-                                <span x-show="product.isNew"
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
-                                    Baru
-                                </span>
-                                <span x-show="product.isPromo"
-                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
-                                    Promo
-                                </span>
-                            </div>
+                <div class="flex items-center gap-3 self-end sm:self-auto">
+                    <!-- Carousel Nav Buttons -->
+                    <div x-show="viewMode === 'slider'" class="flex items-center gap-1.5">
+                        <button @click="scrollPrev()"
+                            :disabled="!canScrollLeft"
+                            type="button"
+                            class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer"
+                            :class="canScrollLeft ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600' : 'opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400'"
+                            title="Geser sebelumnya">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                            </svg>
+                        </button>
+                        <button @click="scrollNext()"
+                            :disabled="!canScrollRight"
+                            type="button"
+                            class="w-9 h-9 rounded-xl flex items-center justify-center transition-all duration-200 cursor-pointer"
+                            :class="canScrollRight ? 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600' : 'opacity-40 cursor-not-allowed bg-slate-100 dark:bg-slate-800 text-slate-400'"
+                            title="Geser berikutnya">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </button>
+                    </div>
 
-                            <!-- Quick View Overlay -->
+                    <!-- View Switcher (Slider vs Grid) -->
+                    <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-800 rounded-xl">
+                        <button @click="viewMode = 'slider'"
+                            type="button"
+                            class="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all duration-200 cursor-pointer"
+                            :class="viewMode === 'slider' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-xs' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'"
+                            title="Tampilan Scroll Kesamping">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+                            </svg>
+                            <span class="hidden sm:inline">Scroll Kesamping</span>
+                        </button>
+                        <button @click="viewMode = 'grid'"
+                            type="button"
+                            class="px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all duration-200 cursor-pointer"
+                            :class="viewMode === 'grid' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-xs' : 'text-slate-500 hover:text-slate-900 dark:hover:text-white'"
+                            title="Tampilan Grid">
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            </svg>
+                            <span class="hidden sm:inline">Grid</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Products Showcase Track -->
+            <div class="relative group/showcase">
+                <!-- Floating Left Arrow (Desktop Slider) -->
+                <button x-show="viewMode === 'slider' && canScrollLeft"
+                    @click="scrollPrev()"
+                    type="button"
+                    class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-xl border border-slate-200 dark:border-slate-700 items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-300 hover:scale-110 cursor-pointer"
+                    aria-label="Geser ke kiri">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Floating Right Arrow (Desktop Slider) -->
+                <button x-show="viewMode === 'slider' && canScrollRight"
+                    @click="scrollNext()"
+                    type="button"
+                    class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-xl border border-slate-200 dark:border-slate-700 items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-300 hover:scale-110 cursor-pointer"
+                    aria-label="Geser ke kanan">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+                <!-- Dynamic Track (Scroll Kesamping vs Grid) -->
+                <div x-ref="cardTrack"
+                    @scroll.passive="updateScrollState()"
+                    :class="viewMode === 'slider'
+                        ? 'flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 pt-2 scrollbar-none'
+                        : 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'"
+                    data-gsap-stagger="scale">
+                    <template x-for="(product, index) in filteredProducts" :key="product.id">
+                        <a :href="'/products/' + product.slug"
+                            class="product-card group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-2 flex flex-col justify-between"
+                            :class="viewMode === 'slider' ? 'shrink-0 w-[285px] sm:w-[320px] lg:w-[350px] snap-start' : 'w-full'"
+                            data-gsap-item>
+                            <!-- Product Image -->
                             <div
-                                class="product-overlay absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4">
-                                <span class="inline-flex items-center gap-2 text-white text-sm font-medium">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                    </svg>
-                                    Lihat Detail
-                                </span>
+                                class="relative aspect-square overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
+                                <img :src="product.image" :alt="product.name"
+                                    class="product-image w-full h-full object-cover transition-transform duration-700">
+
+                                <!-- Badge -->
+                                <div class="absolute top-4 left-4 flex flex-col gap-2">
+                                    <span x-show="product.isNew"
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
+                                        Baru
+                                    </span>
+                                    <span x-show="product.isPromo"
+                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
+                                        Promo
+                                    </span>
+                                </div>
+
+                                <!-- Quick View Overlay -->
+                                <div
+                                    class="product-overlay absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4">
+                                    <span class="inline-flex items-center gap-2 text-white text-sm font-medium">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        Lihat Detail
+                                    </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Product Info -->
-                        <div class="p-5">
-                            <!-- Brand & Category -->
-                            <div class="flex items-center justify-between mb-2">
-                                <span
-                                    class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider"
-                                    x-text="product.brand"></span>
-                                <span class="text-xs text-slate-500 dark:text-slate-400"
-                                    x-text="product.category"></span>
+                            <!-- Product Info -->
+                            <div class="p-5 flex-1 flex flex-col justify-between">
+                                <div>
+                                    <!-- Brand & Category -->
+                                    <div class="flex items-center justify-between mb-2">
+                                        <span
+                                            class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider"
+                                            x-text="product.brand"></span>
+                                        <span class="text-xs text-slate-500 dark:text-slate-400"
+                                            x-text="product.category"></span>
+                                    </div>
+
+                                    <!-- Product Name -->
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                                        x-text="product.name"></h3>
+
+                                    <!-- Short Description -->
+                                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2"
+                                        x-text="product.shortDesc"></p>
+                                </div>
+
+                                <!-- SKU & Action -->
+                                <div
+                                    class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                                    <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span
+                                            x-text="product.sku"></span></span>
+                                    <span
+                                        class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">
+                                        Detail
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M9 5l7 7-7 7" />
+                                        </svg>
+                                    </span>
+                                </div>
                             </div>
+                        </a>
+                    </template>
+                </div>
+            </div>
 
-                            <!-- Product Name -->
-                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                                x-text="product.name"></h3>
-
-                            <!-- Short Description -->
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2"
-                                x-text="product.shortDesc"></p>
-
-                            <!-- SKU & Action -->
-                            <div
-                                class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
-                                <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span
-                                        x-text="product.sku"></span></span>
-                                <span
-                                    class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">
-                                    Detail
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M9 5l7 7-7 7" />
-                                    </svg>
-                                </span>
-                            </div>
-                        </div>
-                    </a>
-                </template>
+            <!-- Slider Progress Bar & Swipe Hint -->
+            <div x-show="viewMode === 'slider' && filteredProducts.length > 0" class="mt-6" data-gsap="fade-up">
+                <div class="max-w-xs mx-auto h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+                    <div class="h-full bg-linear-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-200"
+                        :style="'width: ' + Math.max(10, scrollPercent) + '%'"></div>
+                </div>
+                <div class="flex items-center justify-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">
+                    <svg class="w-3.5 h-3.5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                    <span>Geser ke samping atau gunakan tombol panah untuk menjelajahi produk</span>
+                </div>
             </div>
 
             <!-- Empty State -->
@@ -291,8 +400,8 @@
                 </button>
             </div>
 
-            <!-- Load More -->
-            <div x-show="filteredProducts.length > 0" class="text-center mt-12">
+            <!-- Load More (Grid View Only) -->
+            <div x-show="viewMode === 'grid' && filteredProducts.length > 8" class="text-center mt-12">
                 <button
                     class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-full transition-all duration-300">
                     <span>Lihat Lebih Banyak</span>
@@ -651,6 +760,10 @@
             return {
                 searchQuery: '',
                 activeCategory: 'all',
+                viewMode: 'slider', // 'slider' | 'grid'
+                canScrollLeft: false,
+                canScrollRight: true,
+                scrollPercent: 0,
 
                 categories: {!! $categoriesJson ?? '[]' !!},
 
@@ -660,6 +773,34 @@
 
                 init() {
                     this.filteredProducts = this.products;
+                    this.$nextTick(() => {
+                        this.updateScrollState();
+                    });
+                },
+
+                scrollPrev() {
+                    if (this.$refs.cardTrack) {
+                        const firstCard = this.$refs.cardTrack.querySelector('.product-card');
+                        const cardWidth = firstCard ? firstCard.offsetWidth : 320;
+                        this.$refs.cardTrack.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' });
+                    }
+                },
+
+                scrollNext() {
+                    if (this.$refs.cardTrack) {
+                        const firstCard = this.$refs.cardTrack.querySelector('.product-card');
+                        const cardWidth = firstCard ? firstCard.offsetWidth : 320;
+                        this.$refs.cardTrack.scrollBy({ left: (cardWidth + 24), behavior: 'smooth' });
+                    }
+                },
+
+                updateScrollState() {
+                    const el = this.$refs.cardTrack;
+                    if (!el) return;
+                    const maxScroll = el.scrollWidth - el.clientWidth;
+                    this.canScrollLeft = el.scrollLeft > 15;
+                    this.canScrollRight = el.scrollLeft < maxScroll - 15;
+                    this.scrollPercent = maxScroll > 0 ? Math.min(100, Math.max(0, (el.scrollLeft / maxScroll) * 100)) : 100;
                 },
 
                 filterProducts() {
@@ -682,6 +823,12 @@
                     }
 
                     this.filteredProducts = result;
+                    this.$nextTick(() => {
+                        if (this.$refs.cardTrack) {
+                            this.$refs.cardTrack.scrollLeft = 0;
+                        }
+                        this.updateScrollState();
+                    });
                 }
             }
         }
