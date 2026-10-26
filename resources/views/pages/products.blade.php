@@ -318,13 +318,30 @@
                     <div class="relative group/row" x-show="row.items.length > 0">
                         <!-- Row Header -->
                         <div class="flex items-center justify-between mb-3 px-1">
-                            <div class="flex items-center gap-2.5">
+                            <div class="flex flex-wrap items-center gap-2.5">
                                 <span class="w-2.5 h-2.5 rounded-full"
-                                    :class="rIndex === 0 ? 'bg-blue-500' : (rIndex === 1 ? 'bg-cyan-500' : 'bg-indigo-500')"></span>
+                                    :class="rIndex === 0 ? 'bg-blue-500' : (rIndex === 1 ? 'bg-cyan-500' : (rIndex === 2 ? 'bg-indigo-500' : 'bg-slate-400'))"></span>
                                 <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200"
                                     x-text="row.title"></span>
                                 <span class="text-xs text-slate-400 dark:text-slate-500 font-medium"
                                     x-text="'(' + row.items.length + ' produk)'"></span>
+
+                                <!-- Badge Rank for Top 3 when on All Products -->
+                                <span x-show="activeCategory === 'all' && searchQuery.trim() === '' && rIndex < 3"
+                                    class="text-[10px] font-bold px-2 py-0.5 rounded-full"
+                                    :class="rIndex === 0 ? 'bg-blue-100 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400' : (rIndex === 1 ? 'bg-cyan-100 dark:bg-cyan-900/40 text-cyan-600 dark:text-cyan-400' : 'bg-indigo-100 dark:bg-indigo-900/40 text-indigo-600 dark:text-indigo-400')"
+                                    x-text="'#' + (rIndex + 1) + ' Terbanyak'"></span>
+
+                                <!-- Focus button when on All Products -->
+                                <button x-show="activeCategory === 'all' && row.categoryId"
+                                    @click="activeCategory = row.categoryId; filterProducts()"
+                                    type="button"
+                                    class="hidden md:inline-flex items-center gap-1 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors ml-1 cursor-pointer">
+                                    <span>Fokus Kategori</span>
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
 
                             <!-- Row Controls: Left / Right Navigation -->
@@ -425,6 +442,41 @@
                         </div>
                     </div>
                 </template>
+
+                <!-- Kategori Lainnya (Quick-Access Bar when in 3-Row View) -->
+                <div x-show="remainingCategories.length > 0 && activeCategory === 'all' && searchQuery.trim() === ''"
+                    class="p-5 sm:p-6 rounded-3xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 backdrop-blur-xs transition-all">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2 h-2 rounded-full bg-slate-400"></span>
+                            <h4 class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                                Kategori Lainnya
+                            </h4>
+                            <span class="text-xs text-slate-400 font-medium"
+                                x-text="'(' + remainingCategories.length + ' kategori)'"></span>
+                        </div>
+                        <button @click="showAllRows = !showAllRows; $nextTick(() => initWheelSupport())"
+                            type="button"
+                            class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 border border-slate-200 dark:border-slate-600 hover:bg-blue-50 dark:hover:bg-slate-600 transition-all cursor-pointer shadow-xs self-start sm:self-auto">
+                            <span x-text="showAllRows ? 'Tampilkan 3 Kategori Terbanyak Saja' : 'Buka Semua Baris Kategori (' + groupedCategories.length + ' Baris)'"></span>
+                            <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="showAllRows ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+                    </div>
+                    
+                    <div class="flex flex-wrap gap-2">
+                        <template x-for="cat in remainingCategories" :key="cat.id">
+                            <button @click="activeCategory = cat.categoryId; filterProducts()"
+                                type="button"
+                                class="px-3 py-1.5 text-xs font-medium rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white border border-slate-200/80 dark:border-slate-600 transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs">
+                                <span x-text="cat.title"></span>
+                                <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-100 dark:bg-slate-600 text-slate-500 dark:text-slate-300 font-bold"
+                                    x-text="cat.items.length"></span>
+                            </button>
+                        </template>
+                    </div>
+                </div>
             </div>
 
             <!-- Grid View (All Products) -->
@@ -870,31 +922,75 @@
                 searchQuery: '',
                 activeCategory: 'all',
                 viewMode: 'slider', // 'slider' | 'grid'
+                showAllRows: false,
                 canScrollLeft: false,
                 canScrollRight: true,
                 scrollPercent: 0,
 
-                // 3-Row Dynamic Distribution
-                get rows() {
+                // All categories grouped and sorted by product count descending
+                get groupedCategories() {
                     const list = this.filteredProducts;
                     if (!list || list.length === 0) return [];
 
-                    // Evenly distribute products across 3 distinct horizontal scroll rails
-                    const r1 = [];
-                    const r2 = [];
-                    const r3 = [];
+                    // If a specific category is selected (not 'all')
+                    if (this.activeCategory !== 'all') {
+                        const catObj = this.categories.find(c => c.id === this.activeCategory);
+                        const title = catObj ? catObj.name : 'Produk Terpilih';
+                        return [
+                            {
+                                id: this.activeCategory,
+                                categoryId: this.activeCategory,
+                                title: title,
+                                items: list
+                            }
+                        ];
+                    }
 
-                    list.forEach((item, index) => {
-                        if (index % 3 === 0) r1.push(item);
-                        else if (index % 3 === 1) r2.push(item);
-                        else r3.push(item);
+                    // When activeCategory is 'all', group products by category
+                    const catMap = {};
+                    list.forEach(item => {
+                        const catKey = item.categoryId || 'other';
+                        if (!catMap[catKey]) {
+                            catMap[catKey] = {
+                                id: catKey,
+                                categoryId: item.categoryId,
+                                title: item.category || 'Kategori Lain',
+                                items: []
+                            };
+                        }
+                        catMap[catKey].items.push(item);
                     });
 
-                    const res = [];
-                    if (r1.length > 0) res.push({ id: 1, title: 'Katalog Baris 1', items: r1 });
-                    if (r2.length > 0) res.push({ id: 2, title: 'Katalog Baris 2', items: r2 });
-                    if (r3.length > 0) res.push({ id: 3, title: 'Katalog Baris 3', items: r3 });
-                    return res;
+                    // Sort categories by number of products descending
+                    return Object.values(catMap).sort((a, b) => {
+                        if (b.items.length !== a.items.length) {
+                            return b.items.length - a.items.length;
+                        }
+                        return a.title.localeCompare(b.title);
+                    });
+                },
+
+                // 3-Row Dynamic Distribution (Top 3 categories by product count)
+                get rows() {
+                    const grouped = this.groupedCategories;
+                    if (!grouped || grouped.length === 0) return [];
+
+                    if (this.activeCategory !== 'all' || this.showAllRows) {
+                        return grouped;
+                    }
+
+                    // Return top 3 categories with the most products
+                    return grouped.slice(0, 3);
+                },
+
+                // Remaining categories when top 3 are shown
+                get remainingCategories() {
+                    if (this.activeCategory !== 'all' || this.showAllRows) {
+                        return [];
+                    }
+                    const grouped = this.groupedCategories;
+                    if (grouped.length <= 3) return [];
+                    return grouped.slice(3);
                 },
 
                 // Active row hover state
@@ -919,6 +1015,18 @@
                     this.$nextTick(() => {
                         const tracks = document.querySelectorAll('.catalog-slider-track');
                         tracks.forEach((track) => {
+                            if (!track._scrollListenerBound) {
+                                track._scrollListenerBound = true;
+                                track.addEventListener('scroll', () => {
+                                    const maxScroll = track.scrollWidth - track.clientWidth;
+                                    if (maxScroll > 0) {
+                                        this.scrollPercent = Math.round((track.scrollLeft / maxScroll) * 100);
+                                        this.canScrollLeft = track.scrollLeft > 5;
+                                        this.canScrollRight = track.scrollLeft < maxScroll - 5;
+                                    }
+                                }, { passive: true });
+                            }
+
                             if (track._wheelBound) return;
                             track._wheelBound = true;
 
@@ -940,6 +1048,22 @@
                                 }
                             }, { passive: false });
                         });
+                    });
+                },
+
+                scrollPrev() {
+                    const tracks = document.querySelectorAll('.catalog-slider-track');
+                    tracks.forEach(track => {
+                        const amount = Math.max(280, track.clientWidth * 0.75);
+                        track.scrollBy({ left: -amount, behavior: 'smooth' });
+                    });
+                },
+
+                scrollNext() {
+                    const tracks = document.querySelectorAll('.catalog-slider-track');
+                    tracks.forEach(track => {
+                        const amount = Math.max(280, track.clientWidth * 0.75);
+                        track.scrollBy({ left: amount, behavior: 'smooth' });
                     });
                 },
 
