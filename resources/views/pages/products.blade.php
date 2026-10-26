@@ -312,137 +312,162 @@
                 }
             </style>
 
-            <!-- Products Showcase Track -->
-            <div class="relative group/showcase" x-ref="showcaseWrapper">
-                <!-- Floating Left Arrow (Desktop Slider) -->
-                <button x-show="viewMode === 'slider' && canScrollLeft"
-                    @click="scrollPrev()"
-                    type="button"
-                    class="hidden md:flex absolute -left-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-xl border border-slate-200 dark:border-slate-700 items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-300 hover:scale-110 cursor-pointer"
-                    aria-label="Geser ke kiri">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-
-                <!-- Floating Right Arrow (Desktop Slider) -->
-                <button x-show="viewMode === 'slider' && canScrollRight"
-                    @click="scrollNext()"
-                    type="button"
-                    class="hidden md:flex absolute -right-5 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-xl border border-slate-200 dark:border-slate-700 items-center justify-center hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white transition-all duration-300 hover:scale-110 cursor-pointer"
-                    aria-label="Geser ke kanan">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                    </svg>
-                </button>
-
-                <!-- Edge Auto-Scroll Visual Indicators -->
-                <div x-show="viewMode === 'slider' && isHoveringCards && hoverScrollSpeed < -0.5"
-                    x-transition.opacity
-                    class="pointer-events-none absolute left-0 top-0 bottom-6 w-24 bg-linear-to-r from-blue-500/20 via-blue-500/5 to-transparent z-10 flex items-center pl-3">
-                    <div class="w-8 h-8 rounded-full bg-blue-600/80 text-white flex items-center justify-center shadow-lg">
-                        <svg class="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </div>
-                </div>
-                <div x-show="viewMode === 'slider' && isHoveringCards && hoverScrollSpeed > 0.5"
-                    x-transition.opacity
-                    class="pointer-events-none absolute right-0 top-0 bottom-6 w-24 bg-linear-to-l from-blue-500/20 via-blue-500/5 to-transparent z-10 flex items-center justify-end pr-3">
-                    <div class="w-8 h-8 rounded-full bg-blue-600/80 text-white flex items-center justify-center shadow-lg">
-                        <svg class="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-
-                <!-- Dynamic Track (Scroll Kesamping vs Grid) -->
-                <div x-ref="cardTrack"
-                    @scroll.passive="updateScrollState()"
-                    @mouseenter="onCardMouseEnter($event)"
-                    @mousemove="onCardMouseMove($event)"
-                    @mouseleave="onCardMouseLeave()"
-                    :class="viewMode === 'slider'
-                        ? 'catalog-slider-track'
-                        : 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'"
-                    data-gsap-stagger="scale">
-                    <template x-for="(product, index) in filteredProducts" :key="product.id">
-                        <a :href="'/products/' + product.slug"
-                            class="product-card group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-2 flex flex-col justify-between"
-                            :class="viewMode === 'slider' ? 'catalog-slider-item' : 'w-full'"
-                            data-gsap-item>
-                            <!-- Product Image -->
-                            <div
-                                class="relative aspect-square overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
-                                <img :src="product.image" :alt="product.name"
-                                    class="product-image w-full h-full object-cover transition-transform duration-700">
-
-                                <!-- Badge -->
-                                <div class="absolute top-4 left-4 flex flex-col gap-2">
-                                    <span x-show="product.isNew"
-                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
-                                        Baru
-                                    </span>
-                                    <span x-show="product.isPromo"
-                                        class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
-                                        Promo
-                                    </span>
-                                </div>
-
-                                <!-- Quick View Overlay -->
-                                <div
-                                    class="product-overlay absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4">
-                                    <span class="inline-flex items-center gap-2 text-white text-sm font-medium">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                        </svg>
-                                        Lihat Detail
-                                    </span>
-                                </div>
+            <!-- Products Showcase (3 Horizontal Rows in Slider Mode) -->
+            <div x-show="viewMode === 'slider' && filteredProducts.length > 0" class="space-y-8" x-ref="showcaseWrapper">
+                <template x-for="(row, rIndex) in rows" :key="row.id">
+                    <div class="relative group/row" x-show="row.items.length > 0">
+                        <!-- Row Header -->
+                        <div class="flex items-center justify-between mb-3 px-1">
+                            <div class="flex items-center gap-2.5">
+                                <span class="w-2.5 h-2.5 rounded-full"
+                                    :class="rIndex === 0 ? 'bg-blue-500' : (rIndex === 1 ? 'bg-cyan-500' : 'bg-indigo-500')"></span>
+                                <span class="text-xs sm:text-sm font-bold uppercase tracking-wider text-slate-800 dark:text-slate-200"
+                                    x-text="row.title"></span>
+                                <span class="text-xs text-slate-400 dark:text-slate-500 font-medium"
+                                    x-text="'(' + row.items.length + ' produk)'"></span>
                             </div>
 
-                            <!-- Product Info -->
-                            <div class="p-5 flex-1 flex flex-col justify-between">
-                                <div>
-                                    <!-- Brand & Category -->
-                                    <div class="flex items-center justify-between mb-2">
-                                        <span
-                                            class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider"
-                                            x-text="product.brand"></span>
-                                        <span class="text-xs text-slate-500 dark:text-slate-400"
-                                            x-text="product.category"></span>
-                                    </div>
-
-                                    <!-- Product Name -->
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
-                                        x-text="product.name"></h3>
-
-                                    <!-- Short Description -->
-                                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2"
-                                        x-text="product.shortDesc"></p>
-                                </div>
-
-                                <!-- SKU & Action -->
-                                <div
-                                    class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
-                                    <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span
-                                            x-text="product.sku"></span></span>
-                                    <span
-                                        class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">
-                                        Detail
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M9 5l7 7-7 7" />
-                                        </svg>
-                                    </span>
-                                </div>
+                            <!-- Row Controls: Left / Right Navigation -->
+                            <div class="flex items-center gap-1.5">
+                                <button @click="scrollRowPrev(rIndex)"
+                                    type="button"
+                                    class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                                    title="Geser sebelumnya">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+                                <button @click="scrollRowNext(rIndex)"
+                                    type="button"
+                                    class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white flex items-center justify-center transition-all cursor-pointer shadow-xs"
+                                    title="Geser berikutnya">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
-                        </a>
-                    </template>
-                </div>
+                        </div>
+
+                        <!-- Row Track -->
+                        <div class="relative">
+                            <div :id="'catalog-track-' + rIndex"
+                                @mouseenter="onRowMouseEnter(rIndex, $event)"
+                                @mousemove="onRowMouseMove(rIndex, $event)"
+                                @mouseleave="onRowMouseLeave(rIndex)"
+                                class="catalog-slider-track">
+                                <template x-for="product in row.items" :key="product.id">
+                                    <a :href="'/products/' + product.slug"
+                                        class="product-card catalog-slider-item group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-1.5 flex flex-col justify-between"
+                                        data-gsap-item>
+                                        <!-- Product Image -->
+                                        <div class="relative aspect-square overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
+                                            <img :src="product.image" :alt="product.name"
+                                                class="product-image w-full h-full object-cover transition-transform duration-700">
+
+                                            <!-- Badge -->
+                                            <div class="absolute top-4 left-4 flex flex-col gap-2">
+                                                <span x-show="product.isNew"
+                                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">
+                                                    Baru
+                                                </span>
+                                                <span x-show="product.isPromo"
+                                                    class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">
+                                                    Promo
+                                                </span>
+                                            </div>
+
+                                            <!-- Quick View Overlay -->
+                                            <div class="product-overlay absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4">
+                                                <span class="inline-flex items-center gap-2 text-white text-sm font-medium">
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    Lihat Detail
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <!-- Product Info -->
+                                        <div class="p-5 flex-1 flex flex-col justify-between">
+                                            <div>
+                                                <!-- Brand & Category -->
+                                                <div class="flex items-center justify-between mb-2">
+                                                    <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider"
+                                                        x-text="product.brand"></span>
+                                                    <span class="text-xs text-slate-500 dark:text-slate-400"
+                                                        x-text="product.category"></span>
+                                                </div>
+
+                                                <!-- Product Name -->
+                                                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors"
+                                                    x-text="product.name"></h3>
+
+                                                <!-- Short Description -->
+                                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2"
+                                                    x-text="product.shortDesc"></p>
+                                            </div>
+
+                                            <!-- SKU & Action -->
+                                            <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                                                <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span x-text="product.sku"></span></span>
+                                                <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">
+                                                    Detail
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                                                    </svg>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </template>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Grid View (All Products) -->
+            <div x-show="viewMode === 'grid'"
+                class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+                data-gsap-stagger="scale">
+                <template x-for="(product, index) in filteredProducts" :key="product.id">
+                    <a :href="'/products/' + product.slug"
+                        class="product-card group block bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 border border-slate-100 dark:border-slate-700 hover:border-blue-200 dark:hover:border-blue-800 hover:-translate-y-2 flex flex-col justify-between w-full"
+                        data-gsap-item>
+                        <!-- Product Image -->
+                        <div class="relative aspect-square overflow-hidden bg-linear-to-br from-slate-50 to-slate-100 dark:from-slate-700 dark:to-slate-800">
+                            <img :src="product.image" :alt="product.name" class="product-image w-full h-full object-cover transition-transform duration-700">
+                            <div class="absolute top-4 left-4 flex flex-col gap-2">
+                                <span x-show="product.isNew" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-green-500 text-white">Baru</span>
+                                <span x-show="product.isPromo" class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-red-500 text-white">Promo</span>
+                            </div>
+                            <div class="product-overlay absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/40 to-transparent opacity-0 transition-opacity duration-300 flex items-end p-4">
+                                <span class="inline-flex items-center gap-2 text-white text-sm font-medium">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                    </svg>
+                                    Lihat Detail
+                                </span>
+                            </div>
+                        </div>
+                        <div class="p-5 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider" x-text="product.brand"></span>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400" x-text="product.category"></span>
+                                </div>
+                                <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" x-text="product.name"></h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4 line-clamp-2" x-text="product.shortDesc"></p>
+                            </div>
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
+                                <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span x-text="product.sku"></span></span>
+                                <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Detail <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></span>
+                            </div>
+                        </div>
+                    </a>
+                </template>
             </div>
 
             <!-- Slider Progress Bar & Auto-Scroll Hint -->
@@ -458,7 +483,7 @@
                         </svg>
                         Auto-Scroll Kursor Aktif
                     </span>
-                    <span>Arahkan kursor ke sisi kanan/kiri kartu atau putar roda mouse untuk bergeser otomatis</span>
+                    <span>Arahkan kursor ke sisi kanan/kiri kartu atau putar roda mouse pada baris yang diinginkan untuk scroll otomatis</span>
                 </div>
             </div>
 
@@ -849,10 +874,33 @@
                 canScrollRight: true,
                 scrollPercent: 0,
 
-                // Hover & Wheel Auto-Scroll State
+                // 3-Row Dynamic Distribution
+                get rows() {
+                    const list = this.filteredProducts;
+                    if (!list || list.length === 0) return [];
+
+                    // Evenly distribute products across 3 distinct horizontal scroll rails
+                    const r1 = [];
+                    const r2 = [];
+                    const r3 = [];
+
+                    list.forEach((item, index) => {
+                        if (index % 3 === 0) r1.push(item);
+                        else if (index % 3 === 1) r2.push(item);
+                        else r3.push(item);
+                    });
+
+                    const res = [];
+                    if (r1.length > 0) res.push({ id: 1, title: 'Katalog Baris 1', items: r1 });
+                    if (r2.length > 0) res.push({ id: 2, title: 'Katalog Baris 2', items: r2 });
+                    if (r3.length > 0) res.push({ id: 3, title: 'Katalog Baris 3', items: r3 });
+                    return res;
+                },
+
+                // Active row hover state
+                activeRowIndex: null,
                 hoverScrollRaf: null,
                 hoverScrollSpeed: 0,
-                isHoveringCards: false,
 
                 categories: {!! $categoriesJson ?? '[]' !!},
 
@@ -863,88 +911,84 @@
                 init() {
                     this.filteredProducts = this.products;
                     this.$nextTick(() => {
-                        this.updateScrollState();
                         this.initWheelSupport();
                     });
                 },
 
                 initWheelSupport() {
-                    const el = this.$refs.cardTrack;
-                    if (!el) return;
+                    this.$nextTick(() => {
+                        const tracks = document.querySelectorAll('.catalog-slider-track');
+                        tracks.forEach((track) => {
+                            if (track._wheelBound) return;
+                            track._wheelBound = true;
 
-                    const handleWheel = (e) => {
-                        if (this.viewMode !== 'slider') return;
+                            track.addEventListener('wheel', (e) => {
+                                if (this.viewMode !== 'slider') return;
 
-                        // Prioritize vertical wheel roll (deltaY) or horizontal (deltaX)
-                        const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
-                        if (delta === 0) return;
+                                const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+                                if (delta === 0) return;
 
-                        const maxScroll = el.scrollWidth - el.clientWidth;
-                        if (maxScroll <= 0) return;
+                                const maxScroll = track.scrollWidth - track.clientWidth;
+                                if (maxScroll <= 0) return;
 
-                        // Check if we can scroll horizontally in this direction
-                        const canScrollRight = delta > 0 && el.scrollLeft < maxScroll - 1;
-                        const canScrollLeft = delta < 0 && el.scrollLeft > 1;
+                                const canScrollRight = delta > 0 && track.scrollLeft < maxScroll - 1;
+                                const canScrollLeft = delta < 0 && track.scrollLeft > 1;
 
-                        if (canScrollRight || canScrollLeft) {
-                            e.preventDefault(); // Intercept normal vertical scroll
-                            el.scrollLeft += delta * 1.25;
-                            this.updateScrollState();
+                                if (canScrollRight || canScrollLeft) {
+                                    e.preventDefault();
+                                    track.scrollLeft += delta * 1.25;
+                                }
+                            }, { passive: false });
+                        });
+                    });
+                },
+
+                scrollRowPrev(rIndex) {
+                    const el = document.getElementById('catalog-track-' + rIndex);
+                    if (el) {
+                        const amount = Math.max(280, el.clientWidth * 0.75);
+                        el.scrollBy({ left: -amount, behavior: 'smooth' });
+                    }
+                },
+
+                scrollRowNext(rIndex) {
+                    const el = document.getElementById('catalog-track-' + rIndex);
+                    if (el) {
+                        const amount = Math.max(280, el.clientWidth * 0.75);
+                        el.scrollBy({ left: amount, behavior: 'smooth' });
+                    }
+                },
+
+                onRowMouseEnter(rIndex, e) {
+                    if (this.viewMode !== 'slider') return;
+                    this.activeRowIndex = rIndex;
+                    this.calculateRowHoverSpeed(rIndex, e);
+                    this.startRowHoverScrollLoop();
+                },
+
+                onRowMouseMove(rIndex, e) {
+                    if (this.viewMode !== 'slider') return;
+                    this.calculateRowHoverSpeed(rIndex, e);
+                },
+
+                onRowMouseLeave(rIndex) {
+                    if (this.activeRowIndex === rIndex) {
+                        this.activeRowIndex = null;
+                        this.hoverScrollSpeed = 0;
+                        if (this.hoverScrollRaf) {
+                            cancelAnimationFrame(this.hoverScrollRaf);
+                            this.hoverScrollRaf = null;
                         }
-                    };
-
-                    // Must use { passive: false } so e.preventDefault() is allowed by the browser
-                    el.addEventListener('wheel', handleWheel, { passive: false });
-                    if (this.$refs.showcaseWrapper) {
-                        this.$refs.showcaseWrapper.addEventListener('wheel', handleWheel, { passive: false });
                     }
                 },
 
-                scrollPrev() {
-                    if (this.$refs.cardTrack) {
-                        const amount = Math.max(300, this.$refs.cardTrack.clientWidth * 0.75);
-                        this.$refs.cardTrack.scrollBy({ left: -amount, behavior: 'smooth' });
-                    }
-                },
-
-                scrollNext() {
-                    if (this.$refs.cardTrack) {
-                        const amount = Math.max(300, this.$refs.cardTrack.clientWidth * 0.75);
-                        this.$refs.cardTrack.scrollBy({ left: amount, behavior: 'smooth' });
-                    }
-                },
-
-                onCardMouseEnter(e) {
-                    if (this.viewMode !== 'slider') return;
-                    this.isHoveringCards = true;
-                    this.calculateHoverSpeed(e);
-                    this.startHoverScrollLoop();
-                },
-
-                onCardMouseMove(e) {
-                    if (this.viewMode !== 'slider') return;
-                    this.calculateHoverSpeed(e);
-                },
-
-                onCardMouseLeave() {
-                    this.isHoveringCards = false;
-                    this.hoverScrollSpeed = 0;
-                    if (this.hoverScrollRaf) {
-                        cancelAnimationFrame(this.hoverScrollRaf);
-                        this.hoverScrollRaf = null;
-                    }
-                },
-
-                calculateHoverSpeed(e) {
-                    const el = this.$refs.cardTrack;
+                calculateRowHoverSpeed(rIndex, e) {
+                    const el = document.getElementById('catalog-track-' + rIndex);
                     if (!el) return;
                     const rect = el.getBoundingClientRect();
                     const x = e.clientX - rect.left;
                     const ratio = Math.max(0, Math.min(1, x / rect.width));
 
-                    // Cursor towards the right (> 55%): scrolls right
-                    // Cursor towards the left (< 45%): scrolls left
-                    // Center (45% - 55%): neutral zone, stops for easy clicking
                     const maxSpeed = 10;
                     if (ratio > 0.55) {
                         const factor = (ratio - 0.55) / 0.45;
@@ -956,25 +1000,29 @@
                         this.hoverScrollSpeed = 0;
                     }
 
-                    if (!this.hoverScrollRaf && this.isHoveringCards) {
-                        this.startHoverScrollLoop();
+                    if (!this.hoverScrollRaf && this.activeRowIndex !== null) {
+                        this.startRowHoverScrollLoop();
                     }
                 },
 
-                startHoverScrollLoop() {
+                startRowHoverScrollLoop() {
                     const loop = () => {
-                        if (!this.isHoveringCards || !this.$refs.cardTrack || this.viewMode !== 'slider') {
+                        if (this.activeRowIndex === null || this.viewMode !== 'slider') {
+                            this.hoverScrollRaf = null;
+                            return;
+                        }
+
+                        const el = document.getElementById('catalog-track-' + this.activeRowIndex);
+                        if (!el) {
                             this.hoverScrollRaf = null;
                             return;
                         }
 
                         if (Math.abs(this.hoverScrollSpeed) > 0.05) {
-                            const el = this.$refs.cardTrack;
                             const maxScroll = el.scrollWidth - el.clientWidth;
                             if ((this.hoverScrollSpeed > 0 && el.scrollLeft < maxScroll) ||
                                 (this.hoverScrollSpeed < 0 && el.scrollLeft > 0)) {
                                 el.scrollLeft += this.hoverScrollSpeed;
-                                this.updateScrollState();
                             }
                         }
 
@@ -985,15 +1033,6 @@
                         cancelAnimationFrame(this.hoverScrollRaf);
                     }
                     this.hoverScrollRaf = requestAnimationFrame(loop);
-                },
-
-                updateScrollState() {
-                    const el = this.$refs.cardTrack;
-                    if (!el) return;
-                    const maxScroll = el.scrollWidth - el.clientWidth;
-                    this.canScrollLeft = el.scrollLeft > 15;
-                    this.canScrollRight = el.scrollLeft < maxScroll - 15;
-                    this.scrollPercent = maxScroll > 0 ? Math.min(100, Math.max(0, (el.scrollLeft / maxScroll) * 100)) : 100;
                 },
 
                 filterProducts() {
@@ -1017,10 +1056,7 @@
 
                     this.filteredProducts = result;
                     this.$nextTick(() => {
-                        if (this.$refs.cardTrack) {
-                            this.$refs.cardTrack.scrollLeft = 0;
-                        }
-                        this.updateScrollState();
+                        this.initWheelSupport();
                     });
                 }
             }
