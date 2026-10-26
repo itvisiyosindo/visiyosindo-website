@@ -260,11 +260,15 @@
                     display: flex !important;
                     gap: 1.5rem !important;
                     overflow-x: auto !important;
-                    scroll-snap-type: x mandatory !important;
+                    scroll-snap-type: x proximity !important;
                     -webkit-overflow-scrolling: touch !important;
-                    scroll-behavior: smooth !important;
+                    scroll-behavior: auto !important;
                     padding-bottom: 1.5rem !important;
                     padding-top: 0.5rem !important;
+                    cursor: grab;
+                }
+                .catalog-slider-track:active {
+                    cursor: grabbing;
                 }
                 .catalog-slider-track::-webkit-scrollbar {
                     height: 6px;
@@ -275,6 +279,9 @@
                 .catalog-slider-track::-webkit-scrollbar-thumb {
                     background: rgba(148, 163, 184, 0.35);
                     border-radius: 9999px;
+                }
+                .catalog-slider-track::-webkit-scrollbar-thumb:hover {
+                    background: rgba(59, 130, 246, 0.6);
                 }
                 .catalog-slider-item {
                     flex: 0 0 280px !important;
@@ -329,9 +336,33 @@
                     </svg>
                 </button>
 
+                <!-- Edge Auto-Scroll Visual Indicators -->
+                <div x-show="viewMode === 'slider' && isHoveringCards && hoverScrollSpeed < -0.5"
+                    x-transition.opacity
+                    class="pointer-events-none absolute left-0 top-0 bottom-6 w-24 bg-linear-to-r from-blue-500/20 via-blue-500/5 to-transparent z-10 flex items-center pl-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-600/80 text-white flex items-center justify-center shadow-lg">
+                        <svg class="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </div>
+                </div>
+                <div x-show="viewMode === 'slider' && isHoveringCards && hoverScrollSpeed > 0.5"
+                    x-transition.opacity
+                    class="pointer-events-none absolute right-0 top-0 bottom-6 w-24 bg-linear-to-l from-blue-500/20 via-blue-500/5 to-transparent z-10 flex items-center justify-end pr-3">
+                    <div class="w-8 h-8 rounded-full bg-blue-600/80 text-white flex items-center justify-center shadow-lg">
+                        <svg class="w-4 h-4 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+
                 <!-- Dynamic Track (Scroll Kesamping vs Grid) -->
                 <div x-ref="cardTrack"
                     @scroll.passive="updateScrollState()"
+                    @mouseenter="onCardMouseEnter($event)"
+                    @mousemove="onCardMouseMove($event)"
+                    @mouseleave="onCardMouseLeave()"
+                    @wheel="onCardWheel($event)"
                     :class="viewMode === 'slider'
                         ? 'catalog-slider-track'
                         : 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'"
@@ -415,17 +446,20 @@
                 </div>
             </div>
 
-            <!-- Slider Progress Bar & Swipe Hint -->
+            <!-- Slider Progress Bar & Auto-Scroll Hint -->
             <div x-show="viewMode === 'slider' && filteredProducts.length > 0" class="mt-6" data-gsap="fade-up">
                 <div class="max-w-xs mx-auto h-1.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
                     <div class="h-full bg-linear-to-r from-blue-500 to-cyan-500 rounded-full transition-all duration-200"
                         :style="'width: ' + Math.max(10, scrollPercent) + '%'"></div>
                 </div>
-                <div class="flex items-center justify-center gap-1.5 text-xs text-slate-400 dark:text-slate-500 mt-2 text-center">
-                    <svg class="w-3.5 h-3.5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                    <span>Geser ke samping atau gunakan tombol panah untuk menjelajahi produk</span>
+                <div class="flex flex-wrap items-center justify-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-3 text-center">
+                    <span class="inline-flex items-center gap-1.5 font-medium px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-600 dark:text-blue-400">
+                        <svg class="w-3.5 h-3.5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
+                        </svg>
+                        Auto-Scroll Kursor Aktif
+                    </span>
+                    <span>Arahkan kursor ke sisi kanan/kiri kartu atau putar roda mouse untuk bergeser otomatis</span>
                 </div>
             </div>
 
@@ -816,6 +850,11 @@
                 canScrollRight: true,
                 scrollPercent: 0,
 
+                // Hover & Wheel Auto-Scroll State
+                hoverScrollRaf: null,
+                hoverScrollSpeed: 0,
+                isHoveringCards: false,
+
                 categories: {!! $categoriesJson ?? '[]' !!},
 
                 products: {!! $productsJson ?? '[]' !!},
@@ -840,6 +879,94 @@
                     if (this.$refs.cardTrack) {
                         const amount = Math.max(300, this.$refs.cardTrack.clientWidth * 0.75);
                         this.$refs.cardTrack.scrollBy({ left: amount, behavior: 'smooth' });
+                    }
+                },
+
+                onCardMouseEnter(e) {
+                    if (this.viewMode !== 'slider') return;
+                    this.isHoveringCards = true;
+                    this.calculateHoverSpeed(e);
+                    this.startHoverScrollLoop();
+                },
+
+                onCardMouseMove(e) {
+                    if (this.viewMode !== 'slider') return;
+                    this.calculateHoverSpeed(e);
+                },
+
+                onCardMouseLeave() {
+                    this.isHoveringCards = false;
+                    this.hoverScrollSpeed = 0;
+                    if (this.hoverScrollRaf) {
+                        cancelAnimationFrame(this.hoverScrollRaf);
+                        this.hoverScrollRaf = null;
+                    }
+                },
+
+                calculateHoverSpeed(e) {
+                    const el = this.$refs.cardTrack;
+                    if (!el) return;
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const ratio = Math.max(0, Math.min(1, x / rect.width));
+
+                    // Cursor towards the right (> 55%): scrolls right
+                    // Cursor towards the left (< 45%): scrolls left
+                    // Center (45% - 55%): neutral zone, stops for easy clicking
+                    const maxSpeed = 10;
+                    if (ratio > 0.55) {
+                        const factor = (ratio - 0.55) / 0.45;
+                        this.hoverScrollSpeed = factor * factor * maxSpeed;
+                    } else if (ratio < 0.45) {
+                        const factor = (0.45 - ratio) / 0.45;
+                        this.hoverScrollSpeed = -(factor * factor * maxSpeed);
+                    } else {
+                        this.hoverScrollSpeed = 0;
+                    }
+
+                    if (!this.hoverScrollRaf && this.isHoveringCards) {
+                        this.startHoverScrollLoop();
+                    }
+                },
+
+                startHoverScrollLoop() {
+                    const loop = () => {
+                        if (!this.isHoveringCards || !this.$refs.cardTrack || this.viewMode !== 'slider') {
+                            this.hoverScrollRaf = null;
+                            return;
+                        }
+
+                        if (Math.abs(this.hoverScrollSpeed) > 0.05) {
+                            const el = this.$refs.cardTrack;
+                            const maxScroll = el.scrollWidth - el.clientWidth;
+                            if ((this.hoverScrollSpeed > 0 && el.scrollLeft < maxScroll) ||
+                                (this.hoverScrollSpeed < 0 && el.scrollLeft > 0)) {
+                                el.scrollLeft += this.hoverScrollSpeed;
+                                this.updateScrollState();
+                            }
+                        }
+
+                        this.hoverScrollRaf = requestAnimationFrame(loop);
+                    };
+
+                    if (this.hoverScrollRaf) {
+                        cancelAnimationFrame(this.hoverScrollRaf);
+                    }
+                    this.hoverScrollRaf = requestAnimationFrame(loop);
+                },
+
+                onCardWheel(e) {
+                    if (!this.$refs.cardTrack || this.viewMode !== 'slider') return;
+                    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+                    if (delta !== 0) {
+                        const el = this.$refs.cardTrack;
+                        const maxScroll = el.scrollWidth - el.clientWidth;
+                        const canScroll = (delta > 0 && el.scrollLeft < maxScroll - 2) || (delta < 0 && el.scrollLeft > 2);
+                        if (canScroll) {
+                            e.preventDefault();
+                            el.scrollLeft += delta * 0.85;
+                            this.updateScrollState();
+                        }
                     }
                 },
 
