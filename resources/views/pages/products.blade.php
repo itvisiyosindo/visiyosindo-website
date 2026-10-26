@@ -313,7 +313,7 @@
             </style>
 
             <!-- Products Showcase Track -->
-            <div class="relative group/showcase">
+            <div class="relative group/showcase" x-ref="showcaseWrapper">
                 <!-- Floating Left Arrow (Desktop Slider) -->
                 <button x-show="viewMode === 'slider' && canScrollLeft"
                     @click="scrollPrev()"
@@ -362,7 +362,6 @@
                     @mouseenter="onCardMouseEnter($event)"
                     @mousemove="onCardMouseMove($event)"
                     @mouseleave="onCardMouseLeave()"
-                    @wheel="onCardWheel($event)"
                     :class="viewMode === 'slider'
                         ? 'catalog-slider-track'
                         : 'grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6'"
@@ -865,7 +864,40 @@
                     this.filteredProducts = this.products;
                     this.$nextTick(() => {
                         this.updateScrollState();
+                        this.initWheelSupport();
                     });
+                },
+
+                initWheelSupport() {
+                    const el = this.$refs.cardTrack;
+                    if (!el) return;
+
+                    const handleWheel = (e) => {
+                        if (this.viewMode !== 'slider') return;
+
+                        // Prioritize vertical wheel roll (deltaY) or horizontal (deltaX)
+                        const delta = Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+                        if (delta === 0) return;
+
+                        const maxScroll = el.scrollWidth - el.clientWidth;
+                        if (maxScroll <= 0) return;
+
+                        // Check if we can scroll horizontally in this direction
+                        const canScrollRight = delta > 0 && el.scrollLeft < maxScroll - 1;
+                        const canScrollLeft = delta < 0 && el.scrollLeft > 1;
+
+                        if (canScrollRight || canScrollLeft) {
+                            e.preventDefault(); // Intercept normal vertical scroll
+                            el.scrollLeft += delta * 1.25;
+                            this.updateScrollState();
+                        }
+                    };
+
+                    // Must use { passive: false } so e.preventDefault() is allowed by the browser
+                    el.addEventListener('wheel', handleWheel, { passive: false });
+                    if (this.$refs.showcaseWrapper) {
+                        this.$refs.showcaseWrapper.addEventListener('wheel', handleWheel, { passive: false });
+                    }
                 },
 
                 scrollPrev() {
@@ -953,21 +985,6 @@
                         cancelAnimationFrame(this.hoverScrollRaf);
                     }
                     this.hoverScrollRaf = requestAnimationFrame(loop);
-                },
-
-                onCardWheel(e) {
-                    if (!this.$refs.cardTrack || this.viewMode !== 'slider') return;
-                    const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-                    if (delta !== 0) {
-                        const el = this.$refs.cardTrack;
-                        const maxScroll = el.scrollWidth - el.clientWidth;
-                        const canScroll = (delta > 0 && el.scrollLeft < maxScroll - 2) || (delta < 0 && el.scrollLeft > 2);
-                        if (canScroll) {
-                            e.preventDefault();
-                            el.scrollLeft += delta * 0.85;
-                            this.updateScrollState();
-                        }
-                    }
                 },
 
                 updateScrollState() {
