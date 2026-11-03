@@ -165,6 +165,9 @@
                 @if($clients->count() <= 6)
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-{{ min(6, $clients->count()) }} gap-4 lg:gap-5 justify-items-center">
                         @foreach($clients as $client)
+                            @if(stripos($client->name, 'jpi') !== false)
+                                @continue
+                            @endif
                             @php
                                 $logoExists = !empty($client->logo_path) && \Illuminate\Support\Facades\Storage::disk('public')->exists($client->logo_path);
                                 $initials = collect(explode(' ', $client->name))->map(fn($word) => strtoupper(substr($word, 0, 1)))->take(2)->join('');
@@ -227,6 +230,9 @@
                                     <div class="flex w-max gap-4 lg:gap-5 py-1 {{ $rowAnimation }} group-hover:[animation-play-state:paused]">
                                         @for($dup = 0; $dup < 2; $dup++)
                                             @foreach($clients as $client)
+                            @if(stripos($client->name, 'jpi') !== false)
+                                @continue
+                            @endif
                                                 @php
                                                     $logoExists = !empty($client->logo_path) && \Illuminate\Support\Facades\Storage::disk('public')->exists($client->logo_path);
                                                     $initials = collect(explode(' ', $client->name))->map(fn($word) => strtoupper(substr($word, 0, 1)))->take(2)->join('');

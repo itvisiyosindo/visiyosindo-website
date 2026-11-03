@@ -21,6 +21,7 @@ class PartnerController extends Controller
             ->get();
 
         $clients = Client::active()
+            ->where('name', 'not like', '%jpi%')
             ->orderBy('display_order', 'asc')
             ->orderBy('name', 'asc')
             ->get();
