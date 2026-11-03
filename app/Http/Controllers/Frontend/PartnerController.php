@@ -15,6 +15,7 @@ class PartnerController extends Controller
     public function index(): View
     {
         $partners = Partner::active()
+            ->where('name', 'not like', '%jpi%')
             ->orderBy('display_order', 'asc')
             ->orderBy('name', 'asc')
             ->get();

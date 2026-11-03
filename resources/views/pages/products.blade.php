@@ -707,7 +707,6 @@
 				['name' => 'SGM', 'logo' => 'SGM.png'],
                 ['name' => 'Vacutec', 'logo' => 'Vacutec.png'],
                 ['name' => 'Iatome', 'logo' => 'Iatome.png'],
-				['name' => 'JPI Healthcare', 'logo' => 'jpi-healthcare.png'],
             ];
         @endphp
 
@@ -728,7 +727,7 @@
                     @mouseenter="paused = true" @mouseleave="paused = false">
                     @foreach ($partners as $partner)
                         <div
-                            class="flex-shrink-0 w-[180px] h-[80px] rounded-2xl bg-slate-50 dark:bg-slate-200 flex items-center justify-center p-4 overflow-hidden grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer">
+                            class="flex-shrink-0 w-[180px] h-[80px] rounded-2xl bg-slate-50 dark:bg-slate-200 flex items-center justify-center p-4 overflow-hidden transition-all duration-300 cursor-pointer">
                             @if (file_exists(public_path('assets/logo/partners/' . $partner['logo'])))
                                 <img src="{{ asset('assets/logo/partners/' . $partner['logo']) }}"
                                     alt="{{ $partner['name'] }}" class="max-h-14 max-w-[160px] w-auto h-auto object-contain transition-transform duration-300 {{ $partner['scale'] ?? '' }}">
@@ -744,7 +743,7 @@
                     @mouseenter="paused = true" @mouseleave="paused = false" aria-hidden="true">
                     @foreach ($partners as $partner)
                         <div
-                            class="flex-shrink-0 w-[180px] h-[80px] rounded-2xl bg-slate-50 dark:bg-slate-200 flex items-center justify-center p-4 overflow-hidden grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer">
+                            class="flex-shrink-0 w-[180px] h-[80px] rounded-2xl bg-slate-50 dark:bg-slate-200 flex items-center justify-center p-4 overflow-hidden transition-all duration-300 cursor-pointer">
                             @if (file_exists(public_path('assets/logo/partners/' . $partner['logo'])))
                                 <img src="{{ asset('assets/logo/partners/' . $partner['logo']) }}"
                                     alt="{{ $partner['name'] }}" class="max-h-14 max-w-[160px] w-auto h-auto object-contain transition-transform duration-300 {{ $partner['scale'] ?? '' }}">

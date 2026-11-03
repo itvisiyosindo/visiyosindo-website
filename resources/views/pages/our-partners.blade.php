@@ -80,6 +80,9 @@
                                 <div class="flex {{ $animationClass }} gap-6 px-3" :class="paused ? 'pause-animation' : ''"
                                     @mouseenter="paused = true" @mouseleave="paused = false" {!! $i > 0 ? 'aria-hidden="true"' : '' !!}>
                                     @foreach($partners as $partner)
+                                        @if(stripos($partner->name, 'jpi') !== false)
+                                            @continue
+                                        @endif
                                         <div class="flex-shrink-0">
                                             @php
                                                 $logoExists = !empty($partner->logo_path) && \Illuminate\Support\Facades\Storage::disk('public')->exists($partner->logo_path);
@@ -98,7 +101,7 @@
                                                                 alt="{{ $partner->name }}" 
                                                                 loading="lazy"
                                                                 decoding="async"
-                                                                class="max-h-16 max-w-full w-auto h-auto object-contain grayscale hover:grayscale-0 opacity-70 dark:opacity-75 hover:opacity-100 transition-all duration-300">
+                                                                class="max-h-16 max-w-full w-auto h-auto object-contain transition-all duration-300">
                                                         </div>
                                                     @else
                                                         <div class="w-56 h-24 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 flex flex-col items-center justify-center p-4 hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 shadow-sm hover:scale-110 hover:-translate-y-2">
@@ -115,7 +118,7 @@
                                                                 alt="{{ $partner->name }}" 
                                                                 loading="lazy"
                                                                 decoding="async"
-                                                                class="max-h-16 max-w-full w-auto h-auto object-contain grayscale hover:grayscale-0 opacity-70 dark:opacity-75 hover:opacity-100 transition-all duration-300">
+                                                                class="max-h-16 max-w-full w-auto h-auto object-contain transition-all duration-300">
                                                         </div>
                                                     @else
                                                         <div class="w-56 h-24 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-50 dark:from-slate-700/50 dark:to-slate-800/50 flex flex-col items-center justify-center p-4 hover:shadow-xl transition-all duration-300 border border-slate-200 dark:border-slate-700 shadow-sm hover:scale-110 hover:-translate-y-2">
@@ -179,7 +182,7 @@
                                                 alt="{{ $client->name }}"
                                                 loading="lazy"
                                                 decoding="async"
-                                                class="w-full h-full object-contain object-center grayscale group-hover/logo:grayscale-0 opacity-80 group-hover/logo:opacity-100 transition-all duration-300">
+                                                class="w-full h-full object-contain object-center transition-all duration-300">
                                         </div>
                                     @else
                                         <div class="w-full h-full flex flex-col items-center justify-center text-center overflow-hidden">
@@ -242,7 +245,7 @@
                                                                     alt="{{ $client->name }}"
                                                                     loading="lazy"
                                                                     decoding="async"
-                                                                    class="w-full h-full object-contain object-center grayscale group-hover/logo:grayscale-0 opacity-80 group-hover/logo:opacity-100 transition-all duration-300">
+                                                                    class="w-full h-full object-contain object-center transition-all duration-300">
                                                             </div>
                                                         @else
                                                             <div class="w-full h-full flex flex-col items-center justify-center text-center overflow-hidden">
