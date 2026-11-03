@@ -12,17 +12,47 @@
                 <p class="mt-0.5 text-[13px] text-surface-500 dark:text-surface-400">Monitor pengunjung dan performa website Anda</p>
             </div>
             <div class="flex items-center gap-2">
-                <form method="GET" class="flex items-center gap-2">
-                    <select 
-                        name="period" 
-                        onchange="this.form.submit()"
-                        class="px-4 py-2 text-sm border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-                    >
-                        <option value="7" {{ $period == 7 ? 'selected' : '' }}>7 Hari Terakhir</option>
-                        <option value="30" {{ $period == 30 ? 'selected' : '' }}>30 Hari Terakhir</option>
-                        <option value="60" {{ $period == 60 ? 'selected' : '' }}>60 Hari Terakhir</option>
-                        <option value="90" {{ $period == 90 ? 'selected' : '' }}>90 Hari Terakhir</option>
-                    </select>
+                <form method="GET" action="{{ route('dashboard.analytics.index') }}" class="flex flex-wrap items-center gap-2">
+                    {{-- Filter Tahun --}}
+                    <div class="relative">
+                        <select 
+                            name="year" 
+                            onchange="this.form.submit()"
+                            class="px-3.5 py-2 text-sm font-medium border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer shadow-sm"
+                        >
+                            <option value="">Semua Tahun</option>
+                            @foreach($availableYears as $y)
+                                <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    {{-- Filter Rentang Hari --}}
+                    <div class="relative">
+                        <select 
+                            name="period" 
+                            onchange="if(this.form.year) { this.form.year.value = ''; } this.form.submit()"
+                            class="px-3.5 py-2 text-sm font-medium border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer shadow-sm {{ $selectedYear ? 'opacity-50' : '' }}"
+                            title="{{ $selectedYear ? 'Memilih rentang hari akan mereset filter tahun' : 'Filter rentang hari' }}"
+                        >
+                            <option value="7" {{ !$selectedYear && $period == 7 ? 'selected' : '' }}>7 Hari Terakhir</option>
+                            <option value="30" {{ !$selectedYear && $period == 30 ? 'selected' : '' }}>30 Hari Terakhir</option>
+                            <option value="60" {{ !$selectedYear && $period == 60 ? 'selected' : '' }}>60 Hari Terakhir</option>
+                            <option value="90" {{ !$selectedYear && $period == 90 ? 'selected' : '' }}>90 Hari Terakhir</option>
+                            <option value="365" {{ !$selectedYear && $period == 365 ? 'selected' : '' }}>365 Hari Terakhir</option>
+                        </select>
+                    </div>
+
+                    @if($selectedYear)
+                        <a href="{{ route('dashboard.analytics.index') }}" 
+                           class="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-surface-100 hover:bg-surface-200 dark:bg-surface-700 dark:hover:bg-surface-600 text-surface-600 dark:text-surface-300 transition-colors"
+                           title="Reset filter">
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                            Reset
+                        </a>
+                    @endif
                 </form>
             </div>
         </div>
@@ -36,7 +66,7 @@
                 <div>
                     <p class="text-sm text-surface-500 dark:text-surface-400 mb-1">Total Views</p>
                     <h3 class="text-2xl font-bold text-surface-900 dark:text-white">{{ number_format($totalViews) }}</h3>
-                    <p class="text-xs text-surface-400 dark:text-surface-500 mt-1">{{ $period }} hari terakhir</p>
+                    <p class="text-xs text-surface-400 dark:text-surface-500 mt-1">{{ $periodLabel }}</p>
                 </div>
                 <div class="w-12 h-12 rounded-xl bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
                     <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -109,7 +139,12 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-5">
         {{-- Traffic Trend Chart --}}
         <x-dashboard.card>
-            <h3 class="text-lg font-semibold text-surface-900 dark:text-white mb-4">Traffic Trend</h3>
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg font-semibold text-surface-900 dark:text-white">Traffic Trend</h3>
+                <span class="inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300">
+                    {{ $chartPeriodLabel }}
+                </span>
+            </div>
             <div style="position: relative; height: 300px;">
                 <canvas id="trafficChart"></canvas>
             </div>
@@ -163,7 +198,7 @@
                                 <div class="w-full h-1.5 bg-surface-200 dark:bg-surface-700 rounded-full mt-1">
                                     <div 
                                         class="h-full bg-primary-500 rounded-full"
-                                        style="width: {{ ($country->total / $totalViews) * 100 }}%"
+                                        style="width: {{ $totalViews > 0 ? ($country->total / $totalViews) * 100 : 0 }}%"
                                     ></div>
                                 </div>
                             </div>

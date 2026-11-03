@@ -122,6 +122,74 @@ class PageView extends Model
     }
 
     /**
+     * Get monthly stats for a specific year
+     */
+    public static function getMonthlyStatsByYear(int $year)
+    {
+        $isSqlite = DB::connection()->getDriverName() === 'sqlite';
+        $monthExpr = $isSqlite ? "CAST(strftime('%m', created_at) AS INTEGER)" : "MONTH(created_at)";
+
+        $results = static::realUsers()
+            ->select(
+                DB::raw("{$monthExpr} as month"),
+                DB::raw('COUNT(*) as views'),
+                DB::raw('COUNT(DISTINCT session_id) as visitors')
+            )
+            ->whereYear('created_at', $year)
+            ->groupBy('month')
+            ->orderBy('month', 'asc')
+            ->get()
+            ->keyBy('month');
+
+        $monthNames = [
+            1 => 'Jan', 2 => 'Feb', 3 => 'Mar', 4 => 'Apr',
+            5 => 'Mei', 6 => 'Jun', 7 => 'Jul', 8 => 'Agu',
+            9 => 'Sep', 10 => 'Okt', 11 => 'Nov', 12 => 'Des'
+        ];
+
+        $data = [];
+        for ($m = 1; $m <= 12; $m++) {
+            $row = $results->get($m);
+            $data[] = [
+                'date' => $monthNames[$m],
+                'views' => $row ? (int) $row->views : 0,
+                'visitors' => $row ? (int) $row->visitors : 0,
+            ];
+        }
+
+        return $data;
+    }
+
+    /**
+     * Get list of years that have page views
+     */
+    public static function getAvailableYears()
+    {
+        $isSqlite = DB::connection()->getDriverName() === 'sqlite';
+        $yearExpr = $isSqlite ? "CAST(strftime('%Y', created_at) AS INTEGER)" : "YEAR(created_at)";
+
+        try {
+            $years = static::selectRaw("{$yearExpr} as year")
+                ->distinct()
+                ->whereNotNull('created_at')
+                ->orderByDesc('year')
+                ->pluck('year')
+                ->map(fn($y) => (int) $y)
+                ->filter()
+                ->values();
+        } catch (\Throwable $e) {
+            $years = collect([]);
+        }
+
+        $currentYear = (int) now()->year;
+        if (!$years->contains($currentYear)) {
+            $years->prepend($currentYear);
+        }
+
+        return $years;
+    }
+
+    /**
      * Get device statistics
      */
     public static function getDeviceStats($startDate = null, $endDate = null)

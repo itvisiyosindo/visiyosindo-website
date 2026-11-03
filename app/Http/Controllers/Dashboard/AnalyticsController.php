@@ -16,24 +16,59 @@ class AnalyticsController extends Controller
      */
     public function index(Request $request): View
     {
+        $availableYears = PageView::getAvailableYears();
+        $selectedYear = $request->filled('year') ? (int) $request->get('year') : null;
+
+        if ($selectedYear && !$availableYears->contains($selectedYear)) {
+            $selectedYear = (int) now()->year;
+        }
+
         $defaultPeriod = (int) data_get($request->user()?->preferences ?? [], 'dashboard.default_analytics_period', 30);
         $period = (int) $request->get('period', $defaultPeriod);
 
-        if (!in_array($period, [7, 30, 60, 90], true)) {
+        if (!in_array($period, [7, 30, 60, 90, 365], true)) {
             $period = $defaultPeriod;
         }
 
-        $startDate = now()->subDays($period);
+        if ($selectedYear) {
+            $startDate = \Carbon\Carbon::createFromDate($selectedYear, 1, 1)->startOfDay();
+            $endDate = \Carbon\Carbon::createFromDate($selectedYear, 12, 31)->endOfDay();
 
-        // Total views and unique visitors
-        $totalViews = PageView::realUsers()
-            ->where('created_at', '>=', $startDate)
-            ->count();
+            // Total views and unique visitors for the selected year
+            $totalViews = PageView::realUsers()
+                ->where('created_at', '>=', $startDate)
+                ->where('created_at', '<=', $endDate)
+                ->count();
 
-        $uniqueVisitors = PageView::realUsers()
-            ->where('created_at', '>=', $startDate)
-            ->distinct('session_id')
-            ->count('session_id');
+            $uniqueVisitors = PageView::realUsers()
+                ->where('created_at', '>=', $startDate)
+                ->where('created_at', '<=', $endDate)
+                ->distinct('session_id')
+                ->count('session_id');
+
+            // Monthly stats for chart
+            $dailyStats = PageView::getMonthlyStatsByYear($selectedYear);
+            $chartPeriodLabel = "Tahun {$selectedYear} (Bulanan)";
+            $periodLabel = "Tahun {$selectedYear}";
+        } else {
+            $startDate = now()->subDays($period);
+            $endDate = null;
+
+            // Total views and unique visitors
+            $totalViews = PageView::realUsers()
+                ->where('created_at', '>=', $startDate)
+                ->count();
+
+            $uniqueVisitors = PageView::realUsers()
+                ->where('created_at', '>=', $startDate)
+                ->distinct('session_id')
+                ->count('session_id');
+
+            // Daily stats for chart
+            $dailyStats = PageView::getDailyStats((int)$period);
+            $chartPeriodLabel = "{$period} Hari Terakhir";
+            $periodLabel = "{$period} hari terakhir";
+        }
 
         // Today's stats
         $todayViews = PageView::realUsers()
@@ -46,19 +81,16 @@ class AnalyticsController extends Controller
             ->count('session_id');
 
         // Top pages
-        $topPages = PageView::getViewsByPath($startDate, null, 10);
+        $topPages = PageView::getViewsByPath($startDate, $endDate, 10);
 
         // Views by country
-        $viewsByCountry = PageView::getViewsByCountry($startDate);
+        $viewsByCountry = PageView::getViewsByCountry($startDate, $endDate);
 
         // Device stats
-        $deviceStats = PageView::getDeviceStats($startDate);
+        $deviceStats = PageView::getDeviceStats($startDate, $endDate);
 
         // Browser stats
-        $browserStats = PageView::getBrowserStats($startDate);
-
-        // Daily stats for chart
-        $dailyStats = PageView::getDailyStats((int)$period);
+        $browserStats = PageView::getBrowserStats($startDate, $endDate);
 
         // Calculate health score (0-100)
         $healthScore = $this->calculateHealthScore($totalViews, $uniqueVisitors, $todayViews);
@@ -74,7 +106,11 @@ class AnalyticsController extends Controller
             'browserStats',
             'dailyStats',
             'healthScore',
-            'period'
+            'period',
+            'selectedYear',
+            'availableYears',
+            'periodLabel',
+            'chartPeriodLabel'
         ));
     }
 
@@ -83,8 +119,33 @@ class AnalyticsController extends Controller
      */
     public function getChartData(Request $request): JsonResponse
     {
-        $period = $request->get('period', 30);
+        $year = $request->filled('year') ? (int) $request->get('year') : null;
+        $period = (int) $request->get('period', 30);
         $type = $request->get('type', 'daily');
+
+        if ($year) {
+            $startDate = \Carbon\Carbon::createFromDate($year, 1, 1)->startOfDay();
+            $endDate = \Carbon\Carbon::createFromDate($year, 12, 31)->endOfDay();
+
+            switch ($type) {
+                case 'daily':
+                    $data = PageView::getMonthlyStatsByYear($year);
+                    break;
+                case 'country':
+                    $data = PageView::getViewsByCountry($startDate, $endDate);
+                    break;
+                case 'device':
+                    $data = PageView::getDeviceStats($startDate, $endDate);
+                    break;
+                case 'browser':
+                    $data = PageView::getBrowserStats($startDate, $endDate);
+                    break;
+                default:
+                    return response()->json(['error' => 'Invalid type'], 400);
+            }
+
+            return response()->json($data);
+        }
 
         switch ($type) {
             case 'daily':
