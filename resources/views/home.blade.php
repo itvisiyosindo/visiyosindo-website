@@ -621,28 +621,6 @@
                             <span>Hubungi Kami</span>
                         </a>
                     </div>
-
-                    {{-- Interactive Slide Topic Tabs --}}
-                    <div class="vh-hero-tabs">
-                        @foreach ($heroSlides as $index => $slide)
-                            <button type="button" @click="goToSlide({{ $index }})" class="vh-hero-tab"
-                                :class="currentSlide === {{ $index }} ? 'is-active' : ''"
-                                class="{{ $index === 0 ? 'is-active' : '' }}">
-                                <span class="vh-tab-num">0{{ $index + 1 }}</span>
-                                <span class="vh-tab-label">
-                                    @if ($index === 0)
-                                        Alat Radiologi
-                                    @elseif ($index === 1)
-                                        Mitra Strategis
-                                    @elseif ($index === 2)
-                                        Pengadaan Resmi
-                                    @else
-                                        {{ Str::words($slide['title'], 2, '') }}
-                                    @endif
-                                </span>
-                            </button>
-                        @endforeach
-                    </div>
                 </div>
 
                 {{-- Right: Visual Tech Showcase Card --}}
