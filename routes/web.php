@@ -141,6 +141,46 @@ Route::get('/', function () {
         ]);
     }
     
+    // Ensure the 3 latest official flyers are active in the database
+    try {
+        $hasBatch6 = PromoBanner::where('title', 'like', '%Batch 6%')->exists();
+        if (! $hasBatch6) {
+            PromoBanner::where('is_active', true)->update(['is_active' => false]);
+            PromoBanner::create([
+                'title' => 'Open Registration PPR Medik TK II - Batch 6',
+                'label' => 'Open Registration Batch 6',
+                'description' => 'Ikuti pelatihan bersama Visi Academy! Jadwal Pelatihan: 2-6 Des 2026, Ujian SIB: 7-8 Des 2026 di VISILAB Pekanbaru. Promo diskon 10%.',
+                'image_path' => 'assets/images/flyers/ppr-batch-6.jpg',
+                'link_url' => 'https://visiyosindo.id/PendaftaranPelatihanPetugasProteksiRadiasiMedikTKII',
+                'button_text' => 'Daftar Batch 6',
+                'display_order' => 1,
+                'is_active' => true,
+            ]);
+            PromoBanner::create([
+                'title' => 'Visi Academy Membership - Bayar Sekali, Nikmati 1 Tahun Penuh!',
+                'label' => 'Program Keanggotaan',
+                'description' => 'Hanya Rp100.000/tahun. Nikmati diskon webinar 10%, diskon pelatihan PPR 10%, diskon Training Center 20%, reward referral 10%.',
+                'image_path' => 'assets/images/flyers/membership-visilab-academy.jpg',
+                'link_url' => 'https://forms.gle/kNpBp9LCQF5yLDWz7',
+                'button_text' => 'Daftar Membership',
+                'display_order' => 2,
+                'is_active' => true,
+            ]);
+            PromoBanner::create([
+                'title' => 'Visilab Calibration Care+: Program Kontrak Kalibrasi Alat X-Ray',
+                'label' => 'Program Kontrak Khusus',
+                'description' => 'Layanan kalibrasi selama 3 periode layanan, berkesempatan memperoleh UPAR + gratis 1 kali kalibrasi pada periode tahun ke-4.',
+                'image_path' => 'assets/images/flyers/calibration-care.jpg',
+                'link_url' => 'https://wa.me/6289507240145?text=Halo%20Admin%20VISILAB%2C%20saya%20tertarik%20dengan%20program%20Visilab%20Calibration%20Care%2B',
+                'button_text' => 'Konsultasi Care+',
+                'display_order' => 3,
+                'is_active' => true,
+            ]);
+        }
+    } catch (\Throwable $e) {
+        // Silently continue
+    }
+
     // Get active promo banners or fallback to 3 official active flyers
     $dbPromoBanners = PromoBanner::where('is_active', true)
         ->orderBy('display_order')
@@ -148,7 +188,7 @@ Route::get('/', function () {
 
     if ($dbPromoBanners->isNotEmpty()) {
         $promoBanners = $dbPromoBanners->map(function($banner, $idx) {
-            $isPpr = str_contains(strtolower($banner->title ?? ''), 'ppr');
+            $isPpr = str_contains(strtolower($banner->title ?? ''), 'ppr') || str_contains(strtolower($banner->title ?? ''), 'radiasi') || str_contains(strtolower($banner->title ?? ''), 'batch 6');
             $isMember = str_contains(strtolower($banner->title ?? ''), 'member');
             $isCalib = str_contains(strtolower($banner->title ?? ''), 'kalibrasi') || str_contains(strtolower($banner->title ?? ''), 'care');
 
@@ -162,11 +202,21 @@ Route::get('/', function () {
             if ($isPpr) {
                 $highlights = ['📅 Ujian SIB: 07 - 08 Des 2026', '📍 VISILAB Pekanbaru', '🎓 Biaya: Rp6.000.000', '🎁 Promo Diskon 10%', '📲 Kuota Terbatas'];
             } elseif ($isMember) {
-                $highlights = ['💰 Hanya Rp100.000/tahun', '🎓 Diskon Webinar SKP 10%', '⚡ Diskon Pelatihan PPR 10%', '🏥 Training Center Diskon 20%', '🎁 Referral Reward 10%'];
+                $highlights = ['💰 Hanya Rp100.000/tahun', '🎓 Diskon Webinar SKP 10%', '⚡ Diskon Pelatihan PPR 10%', '🏥 Training Center Diskon 20%', '🎁 Referral Reward Hingga 10%'];
             } elseif ($isCalib) {
                 $highlights = ['🏥 Mobile, Portable & Stationary X-Ray', '🎁 Gratis 1x Kalibrasi + UPAR Thn ke-4', '📋 Kontrak 3 Periode Layanan', '🛡️ Jaminan Standar BAPETEN'];
             } else {
                 $highlights = array_filter([$banner->description ? Str::limit($banner->description, 35) : null, '📍 Pekanbaru', '📲 Kuota Terbatas']);
+            }
+
+            $imagePath = $banner->image_path ?? '';
+            $resolvedImage = '';
+            if (file_exists(public_path('assets/images/flyers/' . basename($imagePath)))) {
+                $resolvedImage = asset('assets/images/flyers/' . basename($imagePath));
+            } elseif (str_starts_with($imagePath, 'assets/')) {
+                $resolvedImage = asset($imagePath);
+            } else {
+                $resolvedImage = Storage::url($imagePath);
             }
 
             return [
@@ -184,9 +234,7 @@ Route::get('/', function () {
                 'contactText' => 'Info WA: 0895-0724-0145',
                 'contactLink' => 'https://wa.me/6289507240145',
                 'bgClass' => 'bg-linear-to-r from-blue-600 to-cyan-600',
-                'image' => file_exists(public_path('assets/images/flyers/' . basename($banner->image_path)))
-                    ? asset('assets/images/flyers/' . basename($banner->image_path))
-                    : Storage::url($banner->image_path)
+                'image' => $resolvedImage
             ];
         });
     } else {
