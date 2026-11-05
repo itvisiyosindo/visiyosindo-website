@@ -136,15 +136,30 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    {{-- Seamless Bilingual Auto-Translation Styles --}}
+    {{-- Seamless Bilingual Auto-Translation Styles (Hide Google Translate Banner & Floats) --}}
     <style>
+        .skiptranslate,
         .goog-te-banner-frame,
         .goog-te-banner-frame.skiptranslate,
         iframe.goog-te-banner-frame,
+        iframe.skiptranslate,
+        iframe[id^=":1."],
+        iframe[id^=":2."],
+        .VIpgJd-ZVi9od-ORHb-Oxf9ae,
+        .VIpgJd-ZVi9od-xl07Ob-Oxf9ae,
         .goog-te-balloon-frame,
-        #goog-gt-tt {
+        #goog-gt-tt,
+        .goog-tooltip,
+        .goog-tooltip:hover {
             display: none !important;
             visibility: hidden !important;
+            width: 0 !important;
+            height: 0 !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+            position: absolute !important;
+            top: -9999px !important;
+            left: -9999px !important;
         }
         body {
             top: 0px !important;
@@ -261,6 +276,26 @@
             } else {
                 setCookieLocale('googtrans', '/id/id', 365);
             }
+
+            // Suppress Google Translate banner from displacing body or showing visually
+            function suppressGtBanner() {
+                if (document.body && document.body.style.top && document.body.style.top !== '0px') {
+                    document.body.style.top = '0px';
+                }
+                const elements = document.querySelectorAll('.skiptranslate, .goog-te-banner-frame, iframe.skiptranslate, iframe[id^=":1."], .VIpgJd-ZVi9od-ORHb-Oxf9ae');
+                elements.forEach(function(el) {
+                    if (el.id !== 'google_translate_element' && !el.closest('#google_translate_element')) {
+                        el.style.setProperty('display', 'none', 'important');
+                        el.style.setProperty('visibility', 'hidden', 'important');
+                        el.style.setProperty('height', '0px', 'important');
+                        el.style.setProperty('width', '0px', 'important');
+                    }
+                });
+            }
+
+            setInterval(suppressGtBanner, 100);
+            window.addEventListener('DOMContentLoaded', suppressGtBanner);
+            window.addEventListener('load', suppressGtBanner);
         })();
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
