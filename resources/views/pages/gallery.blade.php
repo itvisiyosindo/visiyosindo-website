@@ -44,94 +44,191 @@
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Filter Tabs -->
+            <!-- Filter Tabs with Inline Category Gallery Expansion -->
             <div data-gsap="fade-down" class="flex flex-wrap justify-center gap-3 mb-12">
-                <template x-for="(category, index) in categories" :key="index">
+                {{-- Button 'Semua' --}}
+                <button 
+                    type="button"
+                    @click="selectCategory('all')"
+                    class="px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 cursor-pointer"
+                    :class="activeFilter === 'all' 
+                        ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                        : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'"
+                >
+                    Semua
+                </button>
+
+                @foreach($categories as $cat)
+                    {{-- Button Kategori --}}
                     <button 
-                        @click="activeFilter = category.id"
-                        class="px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300"
-                        :class="activeFilter === category.id 
-                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30' 
+                        type="button"
+                        @click="selectCategory('{{ $cat->slug }}')"
+                        class="px-6 py-3 text-sm font-semibold rounded-full transition-all duration-300 cursor-pointer"
+                        :class="activeFilter === '{{ $cat->slug }}' 
+                            ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 ring-2 ring-blue-400' 
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-700'"
-                        x-text="category.name"
-                    ></button>
-                </template>
-            </div>
-
-            <!-- Empty State -->
-            <div x-show="filteredImages.length === 0" class="text-center py-20">
-                <div class="max-w-md mx-auto">
-                    <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center">
-                        <svg class="w-12 h-12 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
-                    </div>
-                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Belum Ada Galeri</h3>
-                    <p class="text-slate-600 dark:text-slate-400 mb-6">
-                        <span x-show="activeFilter === 'all'">Galeri masih kosong. Silakan tambahkan gambar untuk ditampilkan.</span>
-                        <span x-show="activeFilter !== 'all'">Tidak ada galeri dalam kategori ini.</span>
-                    </p>
-                    <button 
-                        @click="activeFilter = 'all'"
-                        x-show="activeFilter !== 'all'"
-                        class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-all duration-300"
                     >
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                        </svg>
-                        Lihat Semua Kategori
+                        {{ $cat->name }}
                     </button>
-                </div>
-            </div>
 
-            <!-- Bento Grid Gallery -->
-            <div data-gsap-stagger="scale" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[200px]" x-show="filteredImages.length > 0">
-                <template x-for="(image, index) in filteredImages" :key="image.id">
+                    {{-- Panel Foto Inline: Muncul tepat di bawah kategori yang dipilih dan di tengah-tengah kategori lain --}}
                     <div 
-                        data-gsap-item
-                        @click="openLightbox(index)"
-                        class="relative group cursor-pointer overflow-hidden rounded-2xl"
-                        :class="image.size"
+                        id="category-gallery-{{ $cat->slug }}"
+                        x-show="activeFilter === '{{ $cat->slug }}'"
+                        x-cloak
+                        x-transition:enter="transition ease-out duration-300"
+                        x-transition:enter-start="opacity-0 -translate-y-4"
+                        x-transition:enter-end="opacity-100 translate-y-0"
+                        class="basis-full w-full my-6 p-6 sm:p-8 rounded-3xl bg-slate-50 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 shadow-xl transition-all text-left"
                     >
-                        <!-- Image -->
-                        <img 
-                            :src="image.src" 
-                            :alt="image.title"
-                            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        >
-                        
-                        <!-- Overlay -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-                            <!-- Content -->
-                            <div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                <span class="inline-block px-3 py-1 text-xs font-semibold text-blue-400 bg-blue-500/20 rounded-full mb-2" x-text="image.category"></span>
-                                <h3 class="text-lg font-bold text-white mb-1" x-text="image.title"></h3>
-                                <p class="text-sm text-slate-300 line-clamp-2" x-text="image.description"></p>
+                        {{-- Header Panel Kategori --}}
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 mb-6 border-b border-slate-200 dark:border-slate-700">
+                            <div class="flex items-center gap-3">
+                                <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold shadow-md shadow-blue-500/30">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <div class="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider mb-0.5">
+                                        <span>Galeri Terpilih</span>
+                                    </div>
+                                    <h3 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">{{ $cat->name }}</h3>
+                                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5" x-text="filteredImages.length + ' foto dokumentasi'"></p>
+                                </div>
                             </div>
-
-                            <!-- Zoom Icon -->
-                            <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-50 group-hover:scale-100">
-                                <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                                </svg>
+                            <div class="flex items-center gap-2">
+                                <button 
+                                    type="button"
+                                    @click="selectCategory('all')"
+                                    class="inline-flex items-center gap-1.5 px-4 py-2 text-xs sm:text-sm font-semibold rounded-full bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-600 transition-colors shadow-sm cursor-pointer"
+                                >
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                    <span>Tutup</span>
+                                </button>
                             </div>
                         </div>
+
+                        {{-- Empty State Kategori --}}
+                        <div x-show="filteredImages.length === 0" class="text-center py-12">
+                            <svg class="w-12 h-12 mx-auto mb-3 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                            <p class="text-slate-600 dark:text-slate-300 font-medium">Belum ada foto dalam kategori ini.</p>
+                        </div>
+
+                        {{-- Bento Grid Foto Kategori --}}
+                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[200px]" x-show="filteredImages.length > 0">
+                            <template x-for="(image, imgIndex) in filteredImages" :key="image.id">
+                                <div 
+                                    @click="openLightbox(imgIndex)"
+                                    class="relative group cursor-pointer overflow-hidden rounded-2xl shadow-sm hover:shadow-lg transition-all"
+                                    :class="image.size"
+                                >
+                                    <img 
+                                        :src="image.src" 
+                                        :alt="image.title"
+                                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                        loading="lazy"
+                                    >
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                        <div class="absolute bottom-0 left-0 right-0 p-4 transform translate-y-3 group-hover:translate-y-0 transition-transform duration-500">
+                                            <span class="inline-block px-2.5 py-0.5 text-[11px] font-semibold text-blue-400 bg-blue-500/20 rounded-full mb-1.5" x-text="image.category"></span>
+                                            <h4 class="text-sm sm:text-base font-bold text-white line-clamp-1" x-text="image.title"></h4>
+                                            <p class="text-xs text-slate-300 line-clamp-2" x-text="image.description"></p>
+                                        </div>
+                                        <div class="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                            <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+
+                        {{-- Load More Kategori --}}
+                        <div class="text-center mt-8" x-show="canLoadMore">
+                            <button 
+                                type="button"
+                                @click="loadMore()"
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 text-sm font-semibold rounded-full border border-slate-200 dark:border-slate-600 shadow-sm transition-all hover:scale-105 cursor-pointer"
+                            >
+                                <span>Lihat Lebih Banyak</span>
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                </template>
+                @endforeach
             </div>
 
-            <!-- Load More Button -->
-            <div class="text-center mt-12">
-                <button 
-                    @click="loadMore()"
-                    x-show="canLoadMore"
-                    class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-full transition-all duration-300 hover:scale-105"
-                >
-                    <span>Lihat Lebih Banyak</span>
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
+            {{-- Default Grid Gallery saat memilih 'Semua' --}}
+            <div x-show="activeFilter === 'all'" class="space-y-12">
+                <!-- Empty State -->
+                <div x-show="filteredImages.length === 0" class="text-center py-20">
+                    <div class="max-w-md mx-auto">
+                        <div class="w-24 h-24 mx-auto mb-6 rounded-full bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 flex items-center justify-center">
+                            <svg class="w-12 h-12 text-slate-400 dark:text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                            </svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Belum Ada Galeri</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-6">Galeri masih kosong. Silakan tambahkan gambar untuk ditampilkan.</p>
+                    </div>
+                </div>
+
+                <!-- Bento Grid Gallery -->
+                <div data-gsap-stagger="scale" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 auto-rows-[200px]" x-show="filteredImages.length > 0">
+                    <template x-for="(image, index) in filteredImages" :key="image.id">
+                        <div 
+                            data-gsap-item
+                            @click="openLightbox(index)"
+                            class="relative group cursor-pointer overflow-hidden rounded-2xl"
+                            :class="image.size"
+                        >
+                            <!-- Image -->
+                            <img 
+                                :src="image.src" 
+                                :alt="image.title"
+                                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            >
+                            
+                            <!-- Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                                <!-- Content -->
+                                <div class="absolute bottom-0 left-0 right-0 p-5 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <span class="inline-block px-3 py-1 text-xs font-semibold text-blue-400 bg-blue-500/20 rounded-full mb-2" x-text="image.category"></span>
+                                    <h3 class="text-lg font-bold text-white mb-1" x-text="image.title"></h3>
+                                    <p class="text-sm text-slate-300 line-clamp-2" x-text="image.description"></p>
+                                </div>
+
+                                <!-- Zoom Icon -->
+                                <div class="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-500 transform scale-50 group-hover:scale-100">
+                                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-12" x-show="canLoadMore">
+                    <button 
+                        @click="loadMore()"
+                        class="inline-flex items-center gap-2 px-8 py-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold rounded-full transition-all duration-300 hover:scale-105 cursor-pointer"
+                    >
+                        <span>Lihat Lebih Banyak</span>
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -410,6 +507,23 @@
                 currentIndex: 0,
                 activeFilter: 'all',
                 displayCount: 12,
+
+                selectCategory(id) {
+                    if (this.activeFilter === id) {
+                        this.activeFilter = 'all';
+                    } else {
+                        this.activeFilter = id;
+                        this.displayCount = 12;
+                        if (id !== 'all') {
+                            this.$nextTick(() => {
+                                const el = document.getElementById('category-gallery-' + id);
+                                if (el) {
+                                    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                }
+                            });
+                        }
+                    }
+                },
                 
                 categories: [
                     { id: 'all', name: 'Semua' },
@@ -423,10 +537,10 @@
                     {
                         id: {{ $gallery->id }},
                         src: '{{ $gallery->image_url }}',
-                        title: '{{ $gallery->title }}',
-                        description: '{{ $gallery->description }}',
-                        category: '{{ $gallery->category->name }}',
-                        categoryId: '{{ $gallery->category->slug }}',
+                        title: '{{ addslashes($gallery->title) }}',
+                        description: '{{ addslashes($gallery->description ?? "") }}',
+                        category: '{{ addslashes($gallery->category?->name ?? "") }}',
+                        categoryId: '{{ $gallery->category?->slug ?? "" }}',
                         size: '{{ $gallery->size }}'
                     },
                     @endforeach
