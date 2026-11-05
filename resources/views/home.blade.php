@@ -571,6 +571,9 @@
             text-decoration: none;
             transition: transform .3s ease, box-shadow .3s ease;
             background: #f1f5f9;
+            padding: 0;
+            cursor: pointer;
+            outline: none;
         }
         html.dark .vh-poster-thumb {
             border-color: #334155;
@@ -739,7 +742,10 @@
 
                             {{-- Part C: Flyer Visual Preview --}}
                             <div class="vh-ticket-poster">
-                                <a href="{{ $banner['image'] }}" target="_blank" rel="noopener noreferrer" class="vh-poster-thumb" title="{{ __('Buka Flyer') }}">
+                                <button type="button" 
+                                    @click="openFlyer('{{ $banner['image'] }}', @js(__($banner['title'])))"
+                                    class="vh-poster-thumb" 
+                                    title="{{ __('Lihat Flyer') }}">
                                     <img src="{{ $banner['image'] }}" alt="{{ __($banner['title']) }}" loading="eager"
                                         onerror="if (!this.dataset.tried) { this.dataset.tried = '1'; this.src='{{ url('/assets/images/flyers/calibration-care.jpg') }}'; }">
                                     <div class="vh-poster-thumb-overlay">
@@ -748,7 +754,7 @@
                                         </svg>
                                         <span>{{ __('Lihat Flyer') }}</span>
                                     </div>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     @endforeach
@@ -764,6 +770,83 @@
                         @endforeach
                     </div>
                 @endif
+
+                {{-- Flyer Lightbox Modal (Popup) --}}
+                <div x-show="modalOpen" 
+                     x-cloak
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     @keydown.escape.window="closeFlyer()"
+                     class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5"
+                     style="display: none;">
+                    
+                    {{-- Backdrop --}}
+                    <div class="fixed inset-0 bg-slate-950/85 backdrop-blur-md transition-opacity" 
+                         @click="closeFlyer()"></div>
+
+                    {{-- Modal Card --}}
+                    <div x-show="modalOpen"
+                         x-transition:enter="transition ease-out duration-300 transform"
+                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-200 transform"
+                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+                         class="relative z-10 w-full max-w-lg sm:max-w-xl max-h-[92vh] flex flex-col bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden"
+                         @click.stop>
+                        
+                        {{-- Modal Header --}}
+                        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-slate-800">
+                            <div class="flex items-center gap-2.5 min-w-0 pr-3">
+                                <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-500/15 text-blue-400 text-sm">
+                                    📋
+                                </span>
+                                <div class="min-w-0">
+                                    <h4 class="text-sm font-semibold text-white truncate" x-text="modalTitle"></h4>
+                                    <p class="text-[11px] text-slate-400">{{ __('Preview Flyer Resmi') }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <a :href="modalImage" target="_blank" rel="noopener noreferrer" 
+                                   class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" 
+                                   title="{{ __('Buka di Tab Baru') }}">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </a>
+                                <button type="button" @click="closeFlyer()" 
+                                        class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-red-500/20 hover:text-red-400 transition" 
+                                        title="{{ __('Tutup') }}">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {{-- Modal Body: Full Image Display --}}
+                        <div class="flex-1 overflow-auto p-3 sm:p-4 flex items-center justify-center bg-slate-950/70">
+                            <img :src="modalImage" :alt="modalTitle" 
+                                 class="max-h-[72vh] w-auto h-auto max-w-full object-contain rounded-xl shadow-lg border border-slate-800/80">
+                        </div>
+
+                        {{-- Modal Footer --}}
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/95 border-t border-slate-800 text-xs text-slate-400">
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
+                                <kbd class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700">ESC</kbd>
+                                {{ __('atau klik area luar untuk menutup') }}
+                            </span>
+                            <button type="button" @click="closeFlyer()" 
+                                    class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition text-xs">
+                                {{ __('Tutup') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
     @endif
@@ -1888,20 +1971,42 @@
                 currentBanner: 0,
                 totalBanners: {{ $promoBanners->count() }},
                 autoSlideInterval: null,
+                modalOpen: false,
+                modalImage: '',
+                modalTitle: '',
 
                 initPromo() {
                     if (this.totalBanners <= 1) return;
+                    this.startAutoSlide();
+                },
+
+                startAutoSlide() {
+                    if (this.autoSlideInterval) {
+                        clearInterval(this.autoSlideInterval);
+                    }
                     this.autoSlideInterval = setInterval(() => {
-                        this.currentBanner = (this.currentBanner + 1) % this.totalBanners;
+                        if (!this.modalOpen) {
+                            this.currentBanner = (this.currentBanner + 1) % this.totalBanners;
+                        }
                     }, 6000);
                 },
 
                 goToBanner(index) {
                     this.currentBanner = index;
-                    if (this.autoSlideInterval) {
-                        clearInterval(this.autoSlideInterval);
-                        this.initPromo();
-                    }
+                    this.startAutoSlide();
+                },
+
+                openFlyer(image, title) {
+                    this.modalImage = image;
+                    this.modalTitle = title || '';
+                    this.modalOpen = true;
+                    document.body.style.overflow = 'hidden';
+                },
+
+                closeFlyer() {
+                    this.modalOpen = false;
+                    document.body.style.overflow = '';
+                    this.startAutoSlide();
                 }
             };
         }
