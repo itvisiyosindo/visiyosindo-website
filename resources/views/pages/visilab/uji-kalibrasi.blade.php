@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Uji Kalibrasi - Visilab'">
+<x-layouts.frontend :title="__('Uji Kalibrasi') . ' - Visilab'">
     {{-- Hero Section - Matching Our Team & Gallery Style --}}
     <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900/50 to-slate-900 overflow-hidden">
         <!-- Background Pattern -->
@@ -65,7 +65,7 @@
                             <div class="absolute bottom-4 left-4 right-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                 <span class="inline-block px-3 py-1 {{ $colorVariants[$index]['badge'] ?? 'bg-blue-500/80' }} backdrop-blur-sm rounded-full text-white text-xs font-semibold mb-2">{{ $image['badge'] ?? '' }}</span>
                                 <p class="text-white font-semibold">{{ $image['label'] ?? '' }}</p>
-                                <p class="text-white/80 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Kualitas terjamin</p>
+                                <p class="text-white/80 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{{ __('Kualitas terjamin') }}</p>
                             </div>
                         </div>
                         @endforeach
@@ -74,7 +74,7 @@
                     <!-- Stats Badge -->
                     <div class="absolute -top-4 -left-4 lg:left-0 z-20 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border border-slate-100 dark:border-slate-700 transform -rotate-3 hover:rotate-0 transition-transform duration-300">
                         <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">ISO/IEC 17025</div>
-                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Akreditasi KAN</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">{{ __('Akreditasi KAN') }}</div>
                     </div>
 
                     <!-- Decorative Elements -->
@@ -87,7 +87,7 @@
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        Tentang Layanan
+                        {{ __('Tentang Layanan') }}
                     </span>
 
                     <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
@@ -109,8 +109,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Akreditasi KAN</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Laboratorium terakreditasi ISO/IEC 17025</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Akreditasi KAN') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Laboratorium terakreditasi ISO/IEC 17025') }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -120,8 +120,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Standar Nasional</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Traceable to SNI & standar internasional</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Standar Nasional') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Traceable to SNI & standar internasional') }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -131,8 +131,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Teknisi Bersertifikat</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tim teknisi kompeten tersertifikasi BNSP</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Teknisi Bersertifikat') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Tim teknisi kompeten tersertifikasi BNSP') }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -142,8 +142,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Sertifikat Kalibrasi</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dokumentasi lengkap dengan ketidakpastian</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Sertifikat Kalibrasi') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Dokumentasi lengkap dengan ketidakpastian') }}</p>
                             </div>
                         </div>
                     </div>
@@ -173,13 +173,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
                     </svg>
-                    Jenis Kalibrasi
+                    {{ __('Jenis Kalibrasi') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                     {{ $page->services_title ?? 'Layanan Kalibrasi Kami' }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Kalibrasi komprehensif untuk berbagai jenis alat ukur dan peralatan medis
+                    {{ __('Kalibrasi komprehensif untuk berbagai jenis alat ukur dan peralatan medis') }}
                 </p>
             </div>
 
@@ -257,13 +257,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
-                    Standar Acuan
+                    {{ __('Standar Acuan') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Standar yang Kami Gunakan
+                    {{ __('Standar yang Kami Gunakan') }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Kalibrasi dilakukan berdasarkan standar nasional dan internasional yang terakreditasi
+                    {{ __('Kalibrasi dilakukan berdasarkan standar nasional dan internasional yang terakreditasi') }}
                 </p>
             </div>
 
@@ -275,7 +275,7 @@
                         <span class="text-2xl font-bold text-blue-600 dark:text-blue-400">KAN</span>
                     </div>
                     <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">ISO/IEC 17025</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Akreditasi Komite Akreditasi Nasional</p>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Akreditasi Komite Akreditasi Nasional') }}</p>
                 </div>
 
                 <!-- Standard 2 -->
@@ -283,8 +283,8 @@
                     <div class="w-16 h-16 mx-auto mb-4 bg-blue-100 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center">
                         <span class="text-xl font-bold text-blue-600 dark:text-blue-400">SNI</span>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Standar Nasional</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Standar Nasional Indonesia untuk Kalibrasi</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Standar Nasional') }}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Standar Nasional Indonesia untuk Kalibrasi') }}</p>
                 </div>
 
                 <!-- Standard 3 -->
@@ -323,13 +323,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    Proses Kerja
+                    {{ __('Proses Kerja') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                     {{ $page->process_title ?? 'Alur Layanan Kalibrasi' }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Proses kalibrasi yang sistematis untuk hasil yang akurat dan terpercaya
+                    {{ __('Proses kalibrasi yang sistematis untuk hasil yang akurat dan terpercaya') }}
                 </p>
             </div>
 
@@ -506,20 +506,20 @@
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a 
-                    href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20layanan%20Uji%20Kalibrasi" 
+                    href="https://wa.me/6281234567890?text={{ rawurlencode(__('Halo, saya tertarik dengan layanan Uji Kalibrasi')) }}" 
                     target="_blank"
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                     </svg>
-                    <span>Hubungi Kami</span>
+                    <span>{{ __('Hubungi Kami') }}</span>
                 </a>
                 <a 
                     href="{{ route('contact') }}" 
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105"
                 >
-                    <span>Lihat Kontak Lainnya</span>
+                    <span>{{ __('Lihat Kontak Lainnya') }}</span>
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

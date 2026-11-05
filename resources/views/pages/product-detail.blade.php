@@ -18,12 +18,12 @@
             <nav>
                 <ol class="flex items-center gap-2 text-sm">
                     <li>
-                        <a href="/" class="text-white/70 hover:text-white transition-colors">Home</a>
+                        <a href="/" class="text-white/70 hover:text-white transition-colors">{{ __('Beranda') }}</a>
                     </li>
                     <li class="text-white/40">/</li>
                     <li>
                         <a href="{{ route('products') }}"
-                            class="text-white/70 hover:text-white transition-colors">Produk</a>
+                            class="text-white/70 hover:text-white transition-colors">{{ __('Produk') }}</a>
                     </li>
                     <li class="text-white/40">/</li>
                     <li class="text-white font-medium">{{ $product->name }}</li>
@@ -58,11 +58,11 @@
                                 <span x-show="product.isNew"
                                     class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-green-500 text-white">
                                     <span class="w-2 h-2 bg-green-200 rounded-full mr-2 animate-pulse"></span>
-                                    Produk Baru
+                                    {{ __('Produk Baru') }}
                                 </span>
                                 <span x-show="product.isPromo"
                                     class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-semibold bg-red-500 text-white">
-                                    Promo
+                                    {{ __('Promo') }}
                                 </span>
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                Termasuk 3 Contoh Hasil Citra Radiografi Digital (Klik thumbnail untuk melihat)
+                                {{ __('Termasuk 3 Contoh Hasil Citra Radiografi Digital (Klik thumbnail untuk melihat)') }}
                             </span>
                         </div>
                     </div>
@@ -109,11 +109,11 @@
                         <!-- SKU & Status -->
                         <div class="flex items-center gap-6">
                             <span class="text-sm text-slate-500 dark:text-slate-400">SKU: <span
-                                    class="font-medium text-slate-700 dark:text-slate-300"
-                                    x-text="product.sku"></span></span>
+                                     class="font-medium text-slate-700 dark:text-slate-300"
+                                     x-text="product.sku"></span></span>
                             <span class="inline-flex items-center gap-1.5 text-sm">
                                 <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-                                <span class="text-green-600 dark:text-green-400 font-medium">Tersedia</span>
+                                <span class="text-green-600 dark:text-green-400 font-medium">{{ __('Tersedia') }}</span>
                             </span>
                         </div>
 
@@ -127,7 +127,7 @@
                             x-show="product.features && product.features.length > 0">
                             <h3
                                 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">
-                                Fitur Utama</h3>
+                                {{ __('Fitur Utama') }}</h3>
                             <ul class="space-y-3">
                                 <template x-for="(feature, index) in product.features" :key="index">
                                     <li class="flex items-start gap-3">
@@ -155,7 +155,7 @@
                                     <path
                                         d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                                 </svg>
-                                <span>Hubungi Marketing</span>
+                                <span>{{ __('Hubungi Marketing') }}</span>
                             </a>
                         </div>
 
@@ -168,7 +168,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                <span>Brosur</span>
+                                <span>{{ __('Brosur') }}</span>
                             </a>
                             <a :href="product.ecatalogLink || '#'" target="_blank" x-show="product.ecatalogLink"
                                 class="inline-flex items-center gap-2 px-4 py-2.5 bg-blue-50 dark:bg-blue-900/30 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-medium rounded-xl border border-blue-200 dark:border-blue-700 transition-all duration-300 text-sm">
@@ -184,19 +184,19 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                                 </svg>
-                                <span>Sertifikat AKL</span>
+                                <span>{{ __('Sertifikat AKL') }}</span>
                             </a>
                         </div>
 
                         <!-- Share -->
                         <div class="flex items-center gap-4 pt-4 border-t border-slate-200 dark:border-slate-700">
-                            <span class="text-sm text-slate-500 dark:text-slate-400">Bagikan:</span>
+                            <span class="text-sm text-slate-500 dark:text-slate-400">{{ __('Bagikan:') }}</span>
                             <div class="flex items-center gap-3">
                                 <!-- WhatsApp -->
                                 <a :href="'https://wa.me/?text=' + encodeURIComponent(product.name + ' - ' + window.location.href)"
                                     target="_blank"
                                     class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-green-500 text-slate-500 dark:text-slate-400 hover:text-white transition-all duration-300 flex items-center justify-center"
-                                    title="Bagikan ke WhatsApp">
+                                    title="{{ __('Bagikan ke WhatsApp') }}">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
@@ -207,7 +207,7 @@
                                     .href)"
                                     target="_blank"
                                     class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-600 text-slate-500 dark:text-slate-400 hover:text-white transition-all duration-300 flex items-center justify-center"
-                                    title="Bagikan ke Facebook">
+                                    title="{{ __('Bagikan ke Facebook') }}">
                                     <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                         <path
                                             d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
@@ -232,7 +232,7 @@
                             ?
                             'text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400' :
                             'text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300'">
-                        Deskripsi Produk
+                        {{ __('Deskripsi Produk') }}
                     </button>
                     <button @click="activeTab = 'specifications'"
                         class="px-6 py-4 text-sm font-semibold transition-all duration-300 border-b-2 -mb-px"
@@ -240,7 +240,7 @@
                             ?
                             'text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400' :
                             'text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300'">
-                        Spesifikasi Teknis
+                        {{ __('Spesifikasi Teknis') }}
                     </button>
                     <button @click="activeTab = 'features'"
                         class="px-6 py-4 text-sm font-semibold transition-all duration-300 border-b-2 -mb-px"
@@ -248,7 +248,7 @@
                             ?
                             'text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400' :
                             'text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300'">
-                        Fitur & Keunggulan
+                        {{ __('Fitur & Keunggulan') }}
                     </button>
                     <button @click="activeTab = 'warranty'"
                         class="px-6 py-4 text-sm font-semibold transition-all duration-300 border-b-2 -mb-px"
@@ -256,7 +256,7 @@
                             ?
                             'text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400' :
                             'text-slate-500 dark:text-slate-400 border-transparent hover:text-slate-700 dark:hover:text-slate-300'">
-                        Garansi & Support
+                        {{ __('Garansi & Support') }}
                     </button>
                 </div>
 
@@ -265,15 +265,15 @@
                     data-gsap="fade-up">
                     <!-- Description Tab -->
                     <div x-show="activeTab === 'description'" x-transition>
-                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Tentang Produk Ini</h3>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">{{ __('Tentang Produk Ini') }}</h3>
                         <div class="prose prose-lg dark:prose-invert max-w-none"
-                            x-html="product.description || '<p class=\'text-slate-600 dark:text-slate-400\'>Deskripsi produk belum tersedia.</p>'">
+                            x-html="product.description || @js('<p class=\'text-slate-600 dark:text-slate-400\'>' . __('Deskripsi produk belum tersedia.') . '</p>')">
                         </div>
                     </div>
 
                     <!-- Specifications Tab -->
                     <div x-show="activeTab === 'specifications'" x-transition>
-                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Spesifikasi Teknis</h3>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">{{ __('Spesifikasi Teknis') }}</h3>
                         <div x-show="product.specifications && typeof product.specifications === 'object' && Object.keys(product.specifications).length > 0">
                             <div class="grid md:grid-cols-2 gap-6">
                                 <div class="space-y-4">
@@ -303,13 +303,13 @@
                             </div>
                         </div>
                         <div x-show="!product.specifications || typeof product.specifications !== 'object' || Object.keys(product.specifications).length === 0">
-                            <p class="text-slate-500 dark:text-slate-400">Spesifikasi teknis belum tersedia.</p>
+                            <p class="text-slate-500 dark:text-slate-400">{{ __('Spesifikasi teknis belum tersedia.') }}</p>
                         </div>
                     </div>
 
                     <!-- Features Tab -->
                     <div x-show="activeTab === 'features'" x-transition>
-                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Fitur & Keunggulan</h3>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">{{ __('Fitur & Keunggulan') }}</h3>
                         <template x-if="product.features && product.features.length > 0">
                             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                                 <template x-for="(feature, index) in product.features" :key="index">
@@ -338,13 +338,13 @@
                             </div>
                         </template>
                         <template x-if="!product.features || product.features.length === 0">
-                            <p class="text-slate-500 dark:text-slate-400">Fitur produk belum tersedia.</p>
+                            <p class="text-slate-500 dark:text-slate-400">{{ __('Fitur produk belum tersedia.') }}</p>
                         </template>
                     </div>
 
                     <!-- Warranty Tab -->
                     <div x-show="activeTab === 'warranty'" x-transition>
-                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Garansi & Layanan Purna Jual
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">{{ __('Garansi & Layanan Purna Jual') }}
                         </h3>
                         <template
                             x-if="(product.guarantees && product.guarantees.length > 0) || (product.guaranteeTerms && product.guaranteeTerms.length > 0)">
@@ -381,8 +381,7 @@
                                 <template x-if="product.guaranteeTerms && product.guaranteeTerms.length > 0">
                                     <div
                                         class="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl p-6 border border-blue-100 dark:border-blue-800">
-                                        <h4 class="font-bold text-slate-900 dark:text-white mb-4">Yang Termasuk dalam
-                                            Garansi:</h4>
+                                        <h4 class="font-bold text-slate-900 dark:text-white mb-4">{{ __('Yang Termasuk dalam Garansi:') }}</h4>
                                         <ul class="space-y-3">
                                             <template x-for="(term, index) in product.guaranteeTerms"
                                                 :key="index">
@@ -402,7 +401,7 @@
                         </template>
                         <template
                             x-if="(!product.guarantees || product.guarantees.length === 0) && (!product.guaranteeTerms || product.guaranteeTerms.length === 0)">
-                            <p class="text-slate-500 dark:text-slate-400">Informasi garansi belum tersedia.</p>
+                            <p class="text-slate-500 dark:text-slate-400">{{ __('Informasi garansi belum tersedia.') }}</p>
                         </template>
                     </div>
                 </div>
@@ -431,10 +430,10 @@
                         Clinical Imaging Results
                     </span>
                     <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
-                        Contoh Hasil Citra Radiografi Digital
+                        {{ __('Contoh Hasil Citra Radiografi Digital') }}
                     </h2>
                     <p class="text-slate-400 text-base sm:text-lg">
-                        Kualitas pencitraan radiografi digital dengan resolusi tinggi, ketajaman kontras optimal, dan visualisasi struktur anatomi yang presisi.
+                        {{ __('Kualitas pencitraan radiografi digital dengan resolusi tinggi, ketajaman kontras optimal, dan visualisasi struktur anatomi yang presisi.') }}
                     </p>
                 </div>
 
@@ -462,14 +461,14 @@
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                                             </svg>
-                                            Klik untuk Fullscreen
+                                            {{ __('Klik untuk Fullscreen') }}
                                         </span>
                                         <button 
                                             type="button"
                                             @click.stop="currentImage = sample.url; window.scrollTo({ top: 150, behavior: 'smooth' })"
                                             class="text-xs text-blue-300 hover:text-white underline font-medium cursor-pointer"
                                         >
-                                            Tampilkan di Atas &uarr;
+                                            {{ __('Tampilkan di Atas') }} &uarr;
                                         </button>
                                     </div>
                                 </div>
@@ -492,14 +491,14 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                         </svg>
-                                        Lihat Fullscreen
+                                        {{ __('Lihat Fullscreen') }}
                                     </button>
                                     <button 
                                         type="button"
                                         @click="currentImage = sample.url; window.scrollTo({ top: 150, behavior: 'smooth' })"
                                         class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-700/70 hover:bg-blue-600 text-slate-200 hover:text-white transition-all cursor-pointer"
                                     >
-                                        <span>Ganti Viewer Atas</span>
+                                        <span>{{ __('Ganti Viewer Atas') }}</span>
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
                                         </svg>
@@ -523,11 +522,10 @@
                             <path
                                 d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
                         </svg>
-                        Video Produk
+                        {{ __('Video Produk') }}
                     </span>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Lihat Video Produk</h2>
-                    <p class="text-slate-600 dark:text-slate-400 mt-2">Pelajari lebih lanjut tentang produk ini melalui
-                        video berikut</p>
+                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{{ __('Lihat Video Produk') }}</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mt-2">{{ __('Pelajari lebih lanjut tentang produk ini melalui video berikut') }}</p>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-6" data-gsap="fade-up">
@@ -553,13 +551,13 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6z" />
                             </svg>
-                            Produk Terkait
+                            {{ __('Produk Terkait') }}
                         </span>
-                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Anda Mungkin Juga Tertarik</h2>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">{{ __('Anda Mungkin Juga Tertarik') }}</h2>
                     </div>
                     <a href="{{ route('products') }}"
                         class="hidden sm:inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 font-semibold hover:gap-3 transition-all">
-                        Lihat Semua
+                        {{ __('Lihat Semua') }}
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
@@ -588,7 +586,7 @@
                     </template>
                 </div>
                 <div x-show="relatedProducts.length === 0" class="text-center py-8">
-                    <p class="text-slate-500 dark:text-slate-400">Tidak ada produk terkait saat ini.</p>
+                    <p class="text-slate-500 dark:text-slate-400">{{ __('Tidak ada produk terkait saat ini.') }}</p>
                 </div>
             </div>
         </section>
@@ -602,12 +600,10 @@
 
             <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6" data-gsap="fade-up">
-                    Tertarik dengan Produk Ini?
+                    {{ __('Tertarik dengan Produk Ini?') }}
                 </h2>
                 <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                    Hubungi tim marketing kami untuk mendapatkan penawaran terbaik dan konsultasi gratis sesuai
-                    kebutuhan
-                    Anda.
+                    {{ __('Hubungi tim marketing kami untuk mendapatkan penawaran terbaik dan konsultasi gratis sesuai kebutuhan Anda.') }}
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="https://wa.me/6281234567890" target="_blank"
@@ -616,11 +612,11 @@
                             <path
                                 d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                         </svg>
-                        <span>Hubungi Marketing</span>
+                        <span>{{ __('Hubungi Marketing') }}</span>
                     </a>
                     <a href="{{ route('products') }}"
                         class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                        <span>Lihat Produk Lain</span>
+                        <span>{{ __('Lihat Produk Lain') }}</span>
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -681,7 +677,7 @@
                         @click="currentImage = activeSample?.url; closeSampleModal(); window.scrollTo({ top: 150, behavior: 'smooth' })"
                         class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg transition-all cursor-pointer"
                     >
-                        Tampilkan di Viewer Utama
+                        {{ __('Tampilkan di Viewer Utama') }}
                     </button>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Uji Kesesuaian - Visilab'">
+<x-layouts.frontend :title="__('Uji Kesesuaian') . ' - Visilab'">
     {{-- Hero Section - Matching Our Team & Gallery Style --}}
     <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
         <!-- Background Pattern -->
@@ -65,7 +65,7 @@
                             <div class="absolute bottom-4 left-4 right-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
                                 <span class="inline-block px-3 py-1 {{ $colorVariants[$index]['badge'] ?? 'bg-green-500/80' }} backdrop-blur-sm rounded-full text-white text-xs font-semibold mb-2">{{ $image['badge'] ?? '' }}</span>
                                 <p class="text-white font-semibold">{{ $image['label'] ?? '' }}</p>
-                                <p class="text-white/80 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">Kualitas terjamin</p>
+                                <p class="text-white/80 text-xs mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">{{ __('Kualitas terjamin') }}</p>
                             </div>
                         </div>
                         @endforeach
@@ -74,7 +74,7 @@
                     <!-- Stats Badge -->
                     <div class="absolute -top-4 -right-4 lg:right-0 z-20 bg-white dark:bg-slate-800 rounded-2xl shadow-xl p-4 border border-slate-100 dark:border-slate-700 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                         <div class="text-3xl font-bold text-blue-600 dark:text-blue-400">100%</div>
-                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">Akurasi Terjamin</div>
+                        <div class="text-xs text-slate-500 dark:text-slate-400 font-medium">{{ __('Akurasi Terjamin') }}</div>
                     </div>
 
                     <!-- Decorative Elements -->
@@ -87,7 +87,7 @@
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                        Tentang Layanan
+                        {{ __('Tentang Layanan') }}
                     </span>
 
                     <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
@@ -109,8 +109,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Standar BPAFK</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Sesuai regulasi Balai Pengamanan Fasilitas Kesehatan</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Standar BPAFK') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Sesuai regulasi Balai Pengamanan Fasilitas Kesehatan') }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -120,8 +120,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Standar Internasional</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Mengikuti standar IEC, ISO, dan NFPA</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Standar Internasional') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Mengikuti standar IEC, ISO, dan NFPA') }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -131,8 +131,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Teknisi Bersertifikat</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Tim ahli yang terlatih dan kompeten</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Teknisi Bersertifikat') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Tim ahli yang terlatih dan kompeten') }}</p>
                             </div>
                         </div>
                         <div class="flex items-start gap-3 p-4 rounded-xl bg-slate-50 dark:bg-slate-800/50">
@@ -142,8 +142,8 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">Laporan Lengkap</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Dokumentasi hasil pengujian komprehensif</p>
+                                <h4 class="font-semibold text-slate-900 dark:text-white text-sm">{{ __('Laporan Lengkap') }}</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('Dokumentasi hasil pengujian komprehensif') }}</p>
                             </div>
                         </div>
                     </div>
@@ -173,13 +173,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                     </svg>
-                    Jenis Pengujian
+                    {{ __('Jenis Pengujian') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                     {{ $page->services_title ?? 'Layanan Uji Kesesuaian Kami' }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Kami menyediakan berbagai layanan pengujian kesesuaian untuk beragam jenis peralatan medis
+                    {{ __('Kami menyediakan berbagai layanan pengujian kesesuaian untuk beragam jenis peralatan medis') }}
                 </p>
             </div>
 
@@ -283,13 +283,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
-                    Proses Kerja
+                    {{ __('Proses Kerja') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
                     {{ $page->process_title ?? 'Alur Layanan Uji Kesesuaian' }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Proses pengujian yang terstruktur untuk memastikan hasil yang akurat dan terpercaya
+                    {{ __('Proses pengujian yang terstruktur untuk memastikan hasil yang akurat dan terpercaya') }}
                 </p>
             </div>
 
@@ -466,20 +466,20 @@
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a 
-                    href="https://wa.me/6281234567890?text=Halo,%20saya%20tertarik%20dengan%20layanan%20Uji%20Kesesuaian" 
+                    href="https://wa.me/6281234567890?text={{ rawurlencode(__('Halo, saya tertarik dengan layanan Uji Kesesuaian')) }}" 
                     target="_blank"
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
                     </svg>
-                    <span>Hubungi Kami</span>
+                    <span>{{ __('Hubungi Kami') }}</span>
                 </a>
                 <a 
                     href="{{ route('contact') }}" 
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105"
                 >
-                    <span>Lihat Kontak Lainnya</span>
+                    <span>{{ __('Lihat Kontak Lainnya') }}</span>
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

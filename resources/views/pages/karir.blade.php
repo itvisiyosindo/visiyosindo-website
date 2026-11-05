@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Karir'">
+<x-layouts.frontend :title="__('Karir')">
     {{-- Hero Section --}}
     <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
         <!-- Background Pattern -->
@@ -18,10 +18,10 @@
                 <span>Join Our Team</span>
             </span>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Bergabung Bersama <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Kami</span>
+                {{ __('Bergabung Bersama') }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">{{ __('Kami') }}</span>
             </h1>
             <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto">
-                Bangun karir Anda di industri kesehatan bersama PT Visi Yosindo Medikal. Kami mencari talenta terbaik untuk berkembang bersama.
+                {{ __('Bangun karir Anda di industri kesehatan bersama PT Visi Yosindo Medikal. Kami mencari talenta terbaik untuk berkembang bersama.') }}
             </p>
         </div>
     </section>
@@ -34,13 +34,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
-                    Keuntungan
+                    {{ __('Keuntungan') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Mengapa Bergabung dengan Kami?
+                    {{ __('Mengapa Bergabung dengan Kami?') }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Kami menawarkan lingkungan kerja yang mendukung pengembangan karir dan kesejahteraan karyawan.
+                    {{ __('Kami menawarkan lingkungan kerja yang mendukung pengembangan karir dan kesejahteraan karyawan.') }}
                 </p>
             </div>
 
@@ -52,8 +52,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Gaji Kompetitif</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm">Kompensasi yang kompetitif sesuai dengan pengalaman dan kemampuan</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Gaji Kompetitif') }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">{{ __('Kompensasi yang kompetitif sesuai dengan pengalaman dan kemampuan') }}</p>
                 </div>
 
                 <!-- Benefit 2 -->
@@ -63,8 +63,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Asuransi Kesehatan</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm">BPJS Kesehatan dan asuransi tambahan untuk karyawan dan keluarga</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Asuransi Kesehatan') }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">{{ __('BPJS Kesehatan dan asuransi tambahan untuk karyawan dan keluarga') }}</p>
                 </div>
 
                 <!-- Benefit 3 -->
@@ -74,8 +74,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Jenjang Karir</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm">Kesempatan untuk berkembang dan naik jabatan berdasarkan performa</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Jenjang Karir') }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">{{ __('Kesempatan untuk berkembang dan naik jabatan berdasarkan performa') }}</p>
                 </div>
 
                 <!-- Benefit 4 -->
@@ -85,8 +85,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Training & Development</h3>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm">Program pelatihan berkelanjutan untuk meningkatkan skill</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Training & Development') }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm">{{ __('Program pelatihan berkelanjutan untuk meningkatkan skill') }}</p>
                 </div>
             </div>
         </div>
@@ -103,10 +103,10 @@
                     We're Hiring!
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Lowongan Terbaru
+                    {{ __('Lowongan Terbaru') }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Lihat flyer lowongan kerja terbaru kami dan temukan posisi yang sesuai dengan keahlian Anda.
+                    {{ __('Lihat flyer lowongan kerja terbaru kami dan temukan posisi yang sesuai dengan keahlian Anda.') }}
                 </p>
             </div>
 
@@ -115,7 +115,7 @@
                 <x-frontend.job-flyer :images="$flyerImages" />
             @else
                 <div class="text-center py-12 text-slate-500 dark:text-slate-400">
-                    <p>Belum ada flyer lowongan yang tersedia.</p>
+                    <p>{{ __('Belum ada flyer lowongan yang tersedia.') }}</p>
                 </div>
             @endif
         </div>
@@ -132,10 +132,10 @@
                     Open Positions
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Posisi yang Tersedia
+                    {{ __('Posisi yang Tersedia') }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Pilih posisi yang sesuai dengan keahlian dan minat Anda.
+                    {{ __('Pilih posisi yang sesuai dengan keahlian dan minat Anda.') }}
                 </p>
             </div>
 
@@ -222,13 +222,13 @@
                                 :href="'/karir/' + job.slug"
                                 class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 text-sm font-semibold rounded-xl hover:bg-slate-200 dark:hover:bg-slate-600 transition-colors"
                             >
-                                Detail
+                                {{ __('Detail') }}
                             </a>
                             <button 
                                 @click="openApplyModal(job)"
                                 class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-blue-500 to-blue-600 text-white text-sm font-semibold rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 transition-all"
                             >
-                                Lamar
+                                {{ __('Lamar') }}
                             </button>
                         </div>
                     </div>
@@ -243,8 +243,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Tidak Ada Lowongan</h3>
-                    <p class="text-slate-500 dark:text-slate-400">Belum ada lowongan untuk departemen ini saat ini.</p>
+                    <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{{ __('Tidak Ada Lowongan') }}</h3>
+                    <p class="text-slate-500 dark:text-slate-400">{{ __('Belum ada lowongan untuk departemen ini saat ini.') }}</p>
                 </div>
             </template>
         </div>
@@ -262,10 +262,10 @@
 
         <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">
-                Tidak Menemukan Posisi yang Sesuai?
+                {{ __('Tidak Menemukan Posisi yang Sesuai?') }}
             </h2>
             <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                Kirimkan CV Anda kepada kami dan kami akan menghubungi Anda jika ada posisi yang cocok.
+                {{ __('Kirimkan CV Anda kepada kami dan kami akan menghubungi Anda jika ada posisi yang cocok.') }}
             </p>
             <a 
                 href="mailto:hrd@visiyosindo.co.id"
@@ -274,7 +274,7 @@
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
-                Kirim CV ke HRD
+                {{ __('Kirim CV ke HRD') }}
             </a>
         </div>
     </section>

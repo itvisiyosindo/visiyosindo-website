@@ -64,11 +64,11 @@
                     {{-- Text Content --}}
                     <div class="flex-1">
                         <h3 id="cookie-consent-title" class="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-2">
-                            🍪 We use cookies to improve your experience
+                            🍪 {{ __('Kami menggunakan cookie untuk meningkatkan pengalaman Anda') }}
                         </h3>
                         <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-                            We use cookies to analyze website traffic and improve your experience. By accepting, you agree to our use of cookies for analytics purposes. Your data is anonymized and never shared with third parties.
-                            <a href="{{ route('contact') }}" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">Learn more</a>
+                            {{ __('Kami menggunakan cookie untuk menganalisis lalu lintas situs web dan meningkatkan pengalaman Anda. Dengan menerima, Anda menyetujui penggunaan cookie kami untuk keperluan analitik. Data Anda dianonimkan dan tidak pernah dibagikan kepada pihak ketiga.') }}
+                            <a href="{{ route('contact') }}" class="text-primary-600 dark:text-primary-400 hover:underline font-medium">{{ __('Pelajari lebih lanjut') }}</a>
                         </p>
                     </div>
                 </div>
@@ -80,14 +80,14 @@
                         type="button"
                         class="px-5 py-2.5 text-sm font-medium text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 rounded-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400 dark:focus:ring-slate-500"
                     >
-                        Decline
+                        {{ __('Tolak') }}
                     </button>
                     <button 
                         @click="acceptCookies"
                         type="button"
                         class="px-6 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-primary-600 to-blue-600 hover:from-primary-700 hover:to-blue-700 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary-500 shadow-lg shadow-primary-500/25"
                     >
-                        Accept Cookies
+                        {{ __('Terima Cookie') }}
                     </button>
                 </div>
             </div>

@@ -231,7 +231,7 @@
                     class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer"
                     :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/80 hover:text-white hover:bg-white/10'"
-                    title="Toggle Mode Tampilan">
+                    title="{{ __('Toggle Mode Tampilan') }}">
                     <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

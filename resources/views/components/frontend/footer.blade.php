@@ -29,13 +29,11 @@
                         </div>
                         <div>
                             <span class="text-xl font-bold text-white block">{{ config('app.name') }}</span>
-                            <span class="text-sm text-slate-400 italic">Affordable Healthcare
-                                Soluitions</span>
+                            <span class="text-sm text-slate-400 italic">{{ __('Affordable Healthcare Solutions') }}</span>
                         </div>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed mb-6">
-                        PT Visi Yosindo Medikal is a trusted medical equipment distributor in Indonesia, delivering
-                        high-quality healthcare solutions that meet national and international standards.
+                        {{ __('PT Visi Yosindo Medikal adalah distributor alat kesehatan terpercaya di Indonesia, yang menghadirkan solusi layanan kesehatan berkualitas tinggi sesuai standar nasional dan internasional.') }}
                     </p>
 
                     <!-- Social Links -->
@@ -223,13 +221,11 @@
                     </p>
                     <div class="flex items-center gap-6">
                         <a href="{{ url('/') }}"
-                            class="text-slate-500 hover:text-blue-400 text-sm transition-colors duration-300">Privacy
-                            Policy</a>
+                            class="text-slate-500 hover:text-blue-400 text-sm transition-colors duration-300">{{ __('Kebijakan Privasi') }}</a>
                         <a href="{{ url('/') }}"
-                            class="text-slate-500 hover:text-blue-400 text-sm transition-colors duration-300">Terms of
-                            Service</a>
+                            class="text-slate-500 hover:text-blue-400 text-sm transition-colors duration-300">{{ __('Syarat & Ketentuan') }}</a>
                         <a href="{{ url('/') }}"
-                            class="text-slate-500 hover:text-blue-400 text-sm transition-colors duration-300">Sitemap</a>
+                            class="text-slate-500 hover:text-blue-400 text-sm transition-colors duration-300">{{ __('Peta Situs') }}</a>
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 @php
     $metaTitle = 'News & Updates - PT Visi Yosindo Medikal';
-    $metaDescription = 'Berita terbaru dan update seputar inovasi alat kesehatan, produk terbaru, dan perkembangan industri kesehatan di Indonesia.';
+    $metaDescription = __('Berita terbaru dan update seputar inovasi alat kesehatan, produk terbaru, dan perkembangan industri kesehatan di Indonesia.');
     $ogImage = asset('images/og-news.jpg');
 @endphp
 
@@ -31,7 +31,7 @@
                 <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                 </svg>
-                <span>Berita & Update Terbaru</span>
+                <span>{{ __('Berita & Update Terbaru') }}</span>
             </span>
 
             <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
@@ -39,7 +39,7 @@
             </h1>
 
             <p class="text-lg sm:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                Informasi terkini seputar inovasi, produk baru, dan perkembangan industri alat kesehatan
+                {{ __('Informasi terkini seputar inovasi, produk baru, dan perkembangan industri alat kesehatan') }}
             </p>
         </div>
     </section>
@@ -51,7 +51,7 @@
                 <div class="flex items-center justify-between mb-8">
                     <div>
                         <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">Featured Stories</h2>
-                        <p class="text-slate-600 dark:text-slate-400">Berita pilihan yang paling banyak dibaca</p>
+                        <p class="text-slate-600 dark:text-slate-400">{{ __('Berita pilihan yang paling banyak dibaca') }}</p>
                     </div>
                 </div>
 
@@ -130,7 +130,7 @@
                                 type="text" 
                                 name="search" 
                                 value="{{ request('search') }}"
-                                placeholder="Cari berita..."
+                                placeholder="{{ __('Cari berita...') }}"
                                 class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500"
                             >
                             
@@ -139,7 +139,7 @@
                                 onchange="this.form.submit()"
                                 class="px-4 py-2 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white text-sm focus:ring-2 focus:ring-blue-500"
                             >
-                                <option value="">Semua Kategori</option>
+                                <option value="">{{ __('Semua Kategori') }}</option>
                                 @foreach($categories as $cat)
                                     <option value="{{ $cat }}" {{ request('category') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
                                 @endforeach
@@ -212,7 +212,7 @@
                                                 </div>
                                                 
                                                 <span class="text-blue-600 dark:text-blue-400 font-medium group-hover:gap-3 flex items-center gap-2 transition-all">
-                                                    Baca Selengkapnya
+                                                    {{ __('Baca Selengkapnya') }}
                                                     <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                                     </svg>
@@ -235,13 +235,13 @@
                             <svg class="w-16 h-16 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                             </svg>
-                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">Tidak ada berita ditemukan</h3>
-                            <p class="text-slate-600 dark:text-slate-400 mb-6">Coba ubah filter atau cari dengan kata kunci lain</p>
+                            <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{{ __('Tidak ada berita ditemukan') }}</h3>
+                            <p class="text-slate-600 dark:text-slate-400 mb-6">{{ __('Coba ubah filter atau cari dengan kata kunci lain') }}</p>
                             <a href="{{ route('news') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                 </svg>
-                                Reset Filter
+                                {{ __('Reset Filter') }}
                             </a>
                         </div>
                     @endif
@@ -255,11 +255,11 @@
                             <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke line-join="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                             </svg>
-                            Kategori
+                            {{ __('Kategori') }}
                         </h3>
                         <div class="space-y-2">
                             <a href="{{ route('news') }}" class="block px-3 py-2 rounded-lg {{ !request('category') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
-                                Semua Kategori
+                                {{ __('Semua Kategori') }}
                             </a>
                             @foreach($categories as $cat)
                                 <a href="{{ route('news', ['category' => $cat]) }}" class="block px-3 py-2 rounded-lg {{ request('category') === $cat ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
@@ -278,12 +278,12 @@
                                 </svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-lg mb-1">Butuh Konsultasi?</h4>
-                                <p class="text-sm text-blue-100">Tim kami siap membantu Anda</p>
+                                <h4 class="font-bold text-lg mb-1">{{ __('Butuh Konsultasi?') }}</h4>
+                                <p class="text-sm text-blue-100">{{ __('Tim kami siap membantu Anda') }}</p>
                             </div>
                         </div>
                         <a href="{{ route('contact') }}" class="block w-full px-4 py-2.5 bg-white text-blue-600 rounded-lg font-medium text-center hover:bg-blue-50 transition-colors">
-                            Hubungi Kami
+                            {{ __('Hubungi Kami') }}
                         </a>
                     </div>
                 </aside>

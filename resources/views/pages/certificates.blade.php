@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Sertifikat Kami'">
+<x-layouts.frontend :title="__('Sertifikat Kami')">
     {{-- Hero Section - Matching Our Team & Gallery Style --}}
     <section class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
         <!-- Background Pattern -->
@@ -18,10 +18,10 @@
                 <span>Certified Excellence</span>
             </span>
             <h1 data-gsap="fade-up" class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Sertifikat & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Akreditasi</span>
+                {{ __('Sertifikat &') }} <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">{{ __('Akreditasi') }}</span>
             </h1>
             <p data-gsap="fade-up" class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto">
-                Komitmen kami terhadap kualitas dibuktikan melalui berbagai sertifikasi dan akreditasi dari lembaga terpercaya nasional maupun internasional.
+                {{ __('Komitmen kami terhadap kualitas dibuktikan melalui berbagai sertifikasi dan akreditasi dari lembaga terpercaya nasional maupun internasional.') }}
             </p>
         </div>
     </section>
@@ -50,13 +50,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
-                    Sertifikasi Kami
+                    {{ __('Sertifikasi Kami') }}
                 </span>
                 <h2 data-gsap="fade-up" class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Standar Kualitas Terjamin
+                    {{ __('Standar Kualitas Terjamin') }}
                 </h2>
                 <p data-gsap="fade-up" class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Kami bangga memiliki berbagai sertifikasi yang membuktikan komitmen kami terhadap kualitas dan kepatuhan
+                    {{ __('Kami bangga memiliki berbagai sertifikasi yang membuktikan komitmen kami terhadap kualitas dan kepatuhan') }}
                 </p>
             </div>
 
@@ -82,10 +82,10 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">Belum Ada Sertifikat</h3>
+                    <h3 class="text-2xl font-bold text-slate-800 dark:text-white mb-3">{{ __('Belum Ada Sertifikat') }}</h3>
                     <p class="text-slate-600 dark:text-slate-400 mb-6">
-                        <span x-show="activeFilter === 'all'">Belum ada sertifikat yang ditampilkan.</span>
-                        <span x-show="activeFilter !== 'all'">Tidak ada sertifikat dalam kategori ini.</span>
+                        <span x-show="activeFilter === 'all'">{{ __('Belum ada sertifikat yang ditampilkan.') }}</span>
+                        <span x-show="activeFilter !== 'all'">{{ __('Tidak ada sertifikat dalam kategori ini.') }}</span>
                     </p>
                     <button 
                         @click="activeFilter = 'all'"
@@ -95,7 +95,7 @@
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                         </svg>
-                        Lihat Semua Kategori
+                        {{ __('Lihat Semua Kategori') }}
                     </button>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                                             : 'bg-slate-500 text-white'"
                                     >
                                         <span class="w-1.5 h-1.5 rounded-full" :class="cert.status === 'active' ? 'bg-green-200 animate-pulse' : 'bg-slate-300'"></span>
-                                        <span x-text="cert.status === 'active' ? 'Aktif' : 'Dalam Proses'"></span>
+                                        <span x-text="cert.status === 'active' ? @js(__('Aktif')) : @js(__('Dalam Proses'))"></span>
                                     </span>
                                 </div>
 
@@ -153,7 +153,7 @@
                                         </svg>
                                     </div>
                                     <div>
-                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">Dikeluarkan oleh</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('Dikeluarkan oleh') }}</p>
                                         <p class="text-sm font-semibold text-slate-700 dark:text-slate-300" x-text="cert.issuer"></p>
                                     </div>
                                 </div>
@@ -167,7 +167,7 @@
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
-                                        <span>Berlaku: <span x-text="cert.validUntil"></span></span>
+                                        <span>{{ __('Berlaku:') }} <span x-text="cert.validUntil"></span></span>
                                     </div>
                                     <span class="px-2 py-1 text-xs font-medium rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-400" x-text="cert.category"></span>
                                 </div>
@@ -236,7 +236,7 @@
                                         : 'bg-slate-500 text-white'"
                                 >
                                     <span class="w-2 h-2 rounded-full" :class="selectedCert.status === 'active' ? 'bg-green-200 animate-pulse' : 'bg-slate-300'"></span>
-                                    <span x-text="selectedCert.status === 'active' ? 'Sertifikat Aktif' : 'Dalam Proses'"></span>
+                                    <span x-text="selectedCert.status === 'active' ? @js(__('Sertifikat Aktif')) : @js(__('Dalam Proses'))"></span>
                                 </span>
                             </div>
                         </div>
@@ -253,13 +253,13 @@
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                                         </svg>
-                                        Download
+                                        {{ __('Download') }}
                                     </button>
                                     <button class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-400 text-sm font-medium transition-colors flex items-center gap-2">
                                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
                                         </svg>
-                                        Share
+                                        {{ __('Bagikan') }}
                                     </button>
                                 </div>
                             </div>
@@ -276,7 +276,7 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-xs text-slate-500 dark:text-slate-400">Lembaga Penerbit</p>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('Lembaga Penerbit') }}</p>
                                             <p class="font-semibold text-slate-900 dark:text-white" x-text="selectedCert.issuer"></p>
                                         </div>
                                     </div>
@@ -290,7 +290,7 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-xs text-slate-500 dark:text-slate-400">Nomor Sertifikat</p>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('Nomor Sertifikat') }}</p>
                                             <p class="font-semibold text-slate-900 dark:text-white" x-text="selectedCert.certNumber"></p>
                                         </div>
                                     </div>
@@ -304,7 +304,7 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-xs text-slate-500 dark:text-slate-400">Tanggal Terbit</p>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('Tanggal Terbit') }}</p>
                                             <p class="font-semibold text-slate-900 dark:text-white" x-text="selectedCert.issuedDate"></p>
                                         </div>
                                     </div>
@@ -318,7 +318,7 @@
                                             </svg>
                                         </div>
                                         <div>
-                                            <p class="text-xs text-slate-500 dark:text-slate-400">Berlaku Sampai</p>
+                                            <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('Berlaku Sampai') }}</p>
                                             <p class="font-semibold text-slate-900 dark:text-white" x-text="selectedCert.validUntil"></p>
                                         </div>
                                     </div>
@@ -336,10 +336,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
                 <h2 data-gsap="fade-up" class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Mengapa Sertifikasi Penting?
+                    {{ __('Mengapa Sertifikasi Penting?') }}
                 </h2>
                 <p data-gsap="fade-up" class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Sertifikasi adalah bukti komitmen kami terhadap standar kualitas tertinggi
+                    {{ __('Sertifikasi adalah bukti komitmen kami terhadap standar kualitas tertinggi') }}
                 </p>
             </div>
 
@@ -351,8 +351,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Jaminan Kualitas</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Produk dan layanan kami telah melewati standar pengujian ketat dari lembaga terpercaya.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Jaminan Kualitas') }}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Produk dan layanan kami telah melewati standar pengujian ketat dari lembaga terpercaya.') }}</p>
                 </div>
 
                 <!-- Card 2 -->
@@ -362,8 +362,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Kepatuhan Regulasi</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Memenuhi semua persyaratan regulasi kesehatan nasional dan internasional.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Kepatuhan Regulasi') }}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Memenuhi semua persyaratan regulasi kesehatan nasional dan internasional.') }}</p>
                 </div>
 
                 <!-- Card 3 -->
@@ -373,8 +373,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Kepercayaan Pelanggan</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Membangun kepercayaan dengan mitra dan pelanggan melalui transparansi.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Kepercayaan Pelanggan') }}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Membangun kepercayaan dengan mitra dan pelanggan melalui transparansi.') }}</p>
                 </div>
 
                 <!-- Card 4 -->
@@ -384,8 +384,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Peningkatan Berkelanjutan</h3>
-                    <p class="text-sm text-slate-500 dark:text-slate-400">Komitmen untuk terus meningkatkan kualitas layanan dan produk kami.</p>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">{{ __('Peningkatan Berkelanjutan') }}</h3>
+                    <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Komitmen untuk terus meningkatkan kualitas layanan dan produk kami.') }}</p>
                 </div>
             </div>
         </div>
@@ -400,17 +400,17 @@
 
         <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 data-gsap="fade-up" class="text-3xl lg:text-4xl font-bold text-white mb-6">
-                Butuh Informasi Lebih Lanjut?
+                {{ __('Butuh Informasi Lebih Lanjut?') }}
             </h2>
             <p data-gsap="fade-up" class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                Tim kami siap membantu menjawab pertanyaan Anda mengenai sertifikasi dan standar kualitas kami.
+                {{ __('Tim kami siap membantu menjawab pertanyaan Anda mengenai sertifikasi dan standar kualitas kami.') }}
             </p>
             <div data-gsap="scale-up" class="flex flex-wrap justify-center gap-4">
                 <a 
                     href="{{ route('contact') }}" 
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
                 >
-                    <span>Hubungi Kami</span>
+                    <span>{{ __('Hubungi Kami') }}</span>
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -419,7 +419,7 @@
                     href="{{ route('our-team') }}" 
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105"
                 >
-                    <span>Tentang Kami</span>
+                    <span>{{ __('Tentang Kami') }}</span>
                 </a>
             </div>
         </div>
@@ -438,7 +438,7 @@
                         'name' => $cat->name,
                     ])->values()->prepend([
                         'id' => 'all',
-                        'name' => 'Semua',
+                        'name' => __('Semua'),
                     ]);
 
                     $certificateItems = $certificates->map(fn ($cert) => [
@@ -446,7 +446,7 @@
                         'title' => $cert->title,
                         'description' => $cert->description ?? '',
                         'image' => $cert->image_url,
-                        'category' => $cert->category?->name ?? 'Tanpa Kategori',
+                        'category' => $cert->category?->name ?? __('Tanpa Kategori'),
                         'categoryId' => $cert->category?->slug ?? 'uncategorized',
                         'issuer' => $cert->issuer,
                         'certNumber' => $cert->cert_number ?? '-',

@@ -597,28 +597,28 @@
                 <div class="vh-hero-copy">
                     <div class="vh-hero-badge">
                         <span class="vh-hero-badge-dot"></span>
-                        <span>Distributor Resmi Alat Radiologi Sejak 2013</span>
+                        <span>{{ __('Distributor Resmi Alat Radiologi Sejak 2013') }}</span>
                     </div>
 
                     <h1 class="vh-hero-title">
-                        Solusi <span>Radiologi</span> &amp; Alkes Terdepan di Indonesia
+                        {{ __('Solusi') }} <span>{{ __('Radiologi') }}</span> &amp; {{ __('Alkes Terdepan di Indonesia') }}
                     </h1>
 
                     <p class="vh-hero-desc" x-text="slides[currentSlide] ? slides[currentSlide].description : ''">
-                        {{ $heroSlides[0]['description'] ?? 'Distributor resmi peralatan radiologi dengan teknologi pencitraan presisi tinggi untuk fasilitas kesehatan di Indonesia.' }}
+                        {{ $heroSlides[0]['description'] ?? __('Distributor resmi peralatan radiologi dengan teknologi pencitraan presisi tinggi untuk fasilitas kesehatan di Indonesia.') }}
                     </p>
 
                     <div class="vh-hero-actions">
                         <a :href="slides[currentSlide] ? (slides[currentSlide].button_url || '{{ route('products') }}') : '{{ route('products') }}'" class="vh-hero-btn vh-hero-btn-primary">
-                            <span x-text="slides[currentSlide] ? (slides[currentSlide].button_text || 'Eksplorasi Katalog Produk') : 'Eksplorasi Katalog Produk'">
-                                {{ $heroSlides[0]['button_text'] ?: 'Eksplorasi Katalog Produk' }}
+                            <span x-text="slides[currentSlide] ? (slides[currentSlide].button_text || @js(__('Eksplorasi Katalog Produk'))) : @js(__('Eksplorasi Katalog Produk'))">
+                                {{ $heroSlides[0]['button_text'] ?: __('Eksplorasi Katalog Produk') }}
                             </span>
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>
                         </a>
                         <a href="{{ route('contact') }}" class="vh-hero-btn vh-hero-btn-ghost">
-                            <span>Hubungi Kami</span>
+                            <span>{{ __('Hubungi Kami') }}</span>
                         </a>
                     </div>
                 </div>
@@ -642,13 +642,13 @@
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                             </svg>
-                            <span>Izin Edar Kemenkes RI</span>
+                            <span>{{ __('Izin Edar Kemenkes RI') }}</span>
                         </div>
                         <div class="vh-spec-badge vh-spec-bottom">
                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                             </svg>
-                            <span>100+ Mitra Rumah Sakit</span>
+                            <span>{{ __('100+ Mitra Rumah Sakit') }}</span>
                         </div>
                     </div>
                 </div>
@@ -678,7 +678,7 @@
                             <div class="vh-ticket-body">
                                 <span class="vh-ticket-type">
                                     <span>⚡</span>
-                                    <span>{{ $banner['label'] ?: 'Agenda Pelatihan Resmi' }}</span>
+                                    <span>{{ $banner['label'] ?: __('Agenda Pelatihan Resmi') }}</span>
                                 </span>
                                 <h3 class="vh-ticket-title">{{ $banner['title'] }}</h3>
 
@@ -699,7 +699,7 @@
 
                                 <div class="vh-ticket-actions">
                                     <a href="{{ $banner['link'] }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-btn">
-                                        <span>{{ $banner['buttonText'] ?: 'Daftar Sekarang' }}</span>
+                                        <span>{{ $banner['buttonText'] ?: __('Daftar Sekarang') }}</span>
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                         </svg>
@@ -715,13 +715,13 @@
 
                             {{-- Part C: Flyer Visual Preview --}}
                             <div class="vh-ticket-poster">
-                                <a href="{{ $banner['image'] }}" target="_blank" rel="noopener noreferrer" class="vh-poster-thumb" title="Buka Flyer">
+                                <a href="{{ $banner['image'] }}" target="_blank" rel="noopener noreferrer" class="vh-poster-thumb" title="{{ __('Buka Flyer') }}">
                                     <img src="{{ $banner['image'] }}" alt="{{ $banner['title'] }}" loading="lazy">
                                     <div class="vh-poster-thumb-overlay">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
                                         </svg>
-                                        <span>Lihat Flyer</span>
+                                        <span>{{ __('Lihat Flyer') }}</span>
                                     </div>
                                 </a>
                             </div>
@@ -830,13 +830,13 @@
             <div class="va-grid">
                 {{-- Content --}}
                 <div data-gsap="fade-right">
-                    <span class="va-eyebrow"><i></i> Introduction Of Us</span>
+                    <span class="va-eyebrow"><i></i> {{ __('Introduction Of Us') }}</span>
 
                     <h2 class="va-title">
                         @if ($introduction)
                             {!! nl2br(e($introduction->title)) !!}
                         @else
-                            Menghadirkan Solusi<br>Alat Radiologi Terbaik<br>Untuk Indonesia
+                            {!! __('Menghadirkan Solusi<br>Alat Radiologi Terbaik<br>Untuk Indonesia') !!}
                         @endif
                     </h2>
 
@@ -848,10 +848,7 @@
                         @if ($introduction)
                             {!! nl2br(e($introduction->description)) !!}
                         @else
-                            PT Visi Yosindo Medikal merupakan perusahaan distributor alat kesehatan yang berfokus pada
-                            solusi radiologi dan sistem pencitraan medis. Sejak berdiri, kami berkomitmen mendukung
-                            peningkatan kualitas layanan diagnostik melalui penyediaan produk yang andal dan berstandar
-                            internasional.
+                            {{ __('PT Visi Yosindo Medikal merupakan perusahaan distributor alat kesehatan yang berfokus pada solusi radiologi dan sistem pencitraan medis. Sejak berdiri, kami berkomitmen mendukung peningkatan kualitas layanan diagnostik melalui penyediaan produk yang andal dan berstandar internasional.') }}
                         @endif
                     </p>
 
@@ -874,10 +871,10 @@
                             @endforeach
                         @else
                             @foreach ([
-                                ['Quality Radiology Products', 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'],
-                                ['Responsive Technical Support', 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'],
-                                ['Official Guarantee & Certification', 'M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z'],
-                                ['Experienced Technical Team', 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z'],
+                                [__('Quality Radiology Products'), 'M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'],
+                                [__('Responsive Technical Support'), 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z'],
+                                [__('Official Guarantee & Certification'), 'M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z'],
+                                [__('Experienced Technical Team'), 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z'],
                             ] as $item)
                                 <li class="va-feature">
                                     <span class="va-feature-icon">
@@ -892,7 +889,7 @@
                     </ul>
 
                     <a href="{{ route('our-team') }}" class="va-cta">
-                        <span>More About Us</span>
+                        <span>{{ __('More About Us') }}</span>
                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
@@ -904,14 +901,14 @@
                     <div class="va-video-frame">
                         <img src="{{ URL::asset('assets/content/thumbnail-video.webp') }}" alt="Company Video">
                         <div class="va-video-shade"></div>
-                        <button type="button" @click="showModal = true" class="va-play" aria-label="Putar video profil perusahaan">
+                        <button type="button" @click="showModal = true" class="va-play" aria-label="{{ __('Putar video profil perusahaan') }}">
                             <span class="va-play-btn">
                                 <svg fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                             </span>
                         </button>
                         <div class="va-video-cap">
-                            <strong>Watch Our Corporate Profile Video</strong>
-                            <span>Durasi: 1:35</span>
+                            <strong>{{ __('Watch Our Corporate Profile Video') }}</strong>
+                            <span>{{ __('Durasi: 1:35') }}</span>
                         </div>
                     </div>
 
@@ -921,7 +918,7 @@
                         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0" @keydown.escape.window="showModal = false" class="va-modal">
                         <div class="va-modal-box" @click.away="showModal = false">
-                            <button type="button" @click="showModal = false" class="va-modal-close" aria-label="Tutup video">
+                            <button type="button" @click="showModal = false" class="va-modal-close" aria-label="{{ __('Tutup video') }}">
                                 <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                 </svg>
@@ -990,17 +987,17 @@
         <div class="vs-container">
             {{-- Section Header --}}
             <div class="vs-head" data-gsap="fade-up">
-                <span class="vs-eyebrow"><i></i> Company Achievement</span>
-                <h2 class="vs-title">Company <span>Activity Highlights</span></h2>
+                <span class="vs-eyebrow"><i></i> {{ __('Company Achievement') }}</span>
+                <h2 class="vs-title">{{ __('Company') }} <span>{{ __('Activity Highlights') }}</span></h2>
             </div>
 
             {{-- Statistics Grid (hooks: data-gsap-stagger, data-gsap-item, data-counter) --}}
             <div class="vs-grid" data-gsap-stagger="scale">
                 @foreach ([
-                    [30, 'Professional Employees', 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z'],
-                    [1000, 'Project Completed', 'M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z'],
-                    [500, "Client & Partner's", 'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z'],
-                    [13, "Experience's", 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5'],
+                    [30, __('Professional Employees'), 'M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z'],
+                    [1000, __('Project Completed'), 'M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z'],
+                    [500, __("Client & Partner's"), 'M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z'],
+                    [13, __("Experience's"), 'M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5'],
                 ] as $stat)
                     <div data-gsap-item>
                         <div class="vs-card">
@@ -1078,8 +1075,8 @@
         <div class="vg-container">
             {{-- Section Header --}}
             <div class="vg-head" data-gsap="fade-up">
-                <span class="vg-eyebrow"><i></i> Gallery</span>
-                <h2 class="vg-title">Activity <span>Documentation</span></h2>
+                <span class="vg-eyebrow"><i></i> {{ __('Gallery') }}</span>
+                <h2 class="vg-title">{{ __('Activity') }} <span>{{ __('Documentation') }}</span></h2>
             </div>
 
             @if ($galleries && $galleries->count() > 0)
@@ -1108,14 +1105,14 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                     </svg>
-                    <p>Belum ada galeri tersedia</p>
+                    <p>{{ __('Belum ada galeri tersedia') }}</p>
                 </div>
             @endif
 
             {{-- More Button --}}
             <div class="vg-more" data-gsap="fade-up">
                 <a href="{{ Route('gallery') }}" class="vg-btn">
-                    <span>Explore Our Gallery</span>
+                    <span>{{ __('Explore Our Gallery') }}</span>
                     <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -1308,11 +1305,11 @@
             {{-- Section Header --}}
             <div class="vn-head" data-gsap="fade-up">
                 <div>
-                    <span class="vn-eyebrow"><i></i> Berita &amp; Artikel</span>
-                    <h2 class="vn-title">What’s <span>New</span></h2>
+                    <span class="vn-eyebrow"><i></i> {{ __('Berita & Artikel') }}</span>
+                    <h2 class="vn-title">{{ __("What's") }} <span>{{ __('New') }}</span></h2>
                 </div>
                 <a href="{{ route('news') }}" class="vn-all">
-                    <span>Lihat Semua Berita</span>
+                    <span>{{ __('Lihat Semua Berita') }}</span>
                     <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -1348,12 +1345,12 @@
                                             </svg>
                                         </div>
                                         <span class="vn-fallback-brand">VISI YOSINDO MEDIKAL</span>
-                                        <span class="vn-fallback-tag">Artikel &amp; Publikasi</span>
+                                        <span class="vn-fallback-tag">{{ __('Artikel & Publikasi') }}</span>
                                     </div>
                                 </div>
                                 <span class="vn-featured-badge">
                                     <span class="vn-badge-dot"></span>
-                                    Featured
+                                    {{ __('Featured') }}
                                 </span>
                             </div>
                             <div class="vn-featured-content">
@@ -1369,7 +1366,7 @@
                                 </div>
                                 <div class="vn-featured-footer">
                                     <span class="vn-read-btn">
-                                        <span>Baca Selengkapnya</span>
+                                        <span>{{ __('Baca Selengkapnya') }}</span>
                                         <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                                     </span>
                                 </div>
@@ -1406,7 +1403,7 @@
                                         <h4 class="vn-side-title">{{ $post->title }}</h4>
                                         <p class="vn-side-desc">{{ Str::limit(strip_tags($post->content), 85) }}</p>
                                         <span class="vn-side-cta">
-                                            <span>Baca Artikel</span>
+                                            <span>{{ __('Baca Artikel') }}</span>
                                             <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
                                         </span>
                                     </div>
@@ -1422,7 +1419,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                             d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                     </svg>
-                    <p>Belum ada berita tersedia</p>
+                    <p>{{ __('Belum ada berita tersedia') }}</p>
                 </div>
             @endif
         </div>
@@ -1521,8 +1518,8 @@
         <div class="vc-container">
             {{-- Section Header --}}
             <div class="vc-head" data-gsap="fade-up">
-                <span class="vc-eyebrow"><i></i> Contact Us</span>
-                <h2 class="vc-title">We Are Ready to <span>Assist You</span></h2>
+                <span class="vc-eyebrow"><i></i> {{ __('Contact Us') }}</span>
+                <h2 class="vc-title">{{ __('We Are Ready to') }} <span>{{ __('Assist You') }}</span></h2>
             </div>
 
             <div class="vc-grid">
@@ -1537,7 +1534,7 @@
                         </div>
                         <div>
                             <h4>Email</h4>
-                            <p>Submit your inquiries via email</p>
+                            <p>{{ __('Submit your inquiries via email') }}</p>
                             <a href="mailto:admin@visiyosindo.com" class="vc-link">admin@visiyosindo.com</a>
                         </div>
                     </div>
@@ -1546,12 +1543,12 @@
                     <div class="vc-card">
                         <div class="vc-icon">
                             <svg fill="currentColor" viewBox="0 0 24 24">
-                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                             </svg>
                         </div>
                         <div>
                             <h4>WhatsApp</h4>
-                            <p>Chat directly with our team</p>
+                            <p>{{ __('Chat directly with our team') }}</p>
                             <a href="https://wa.me/6281261457547" target="_blank" rel="noopener" class="vc-link">+62 812 6145 7547</a>
                         </div>
                     </div>
@@ -1564,9 +1561,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h4>Jam Operasional</h4>
-                            <p>Monday – Friday: 08:00 – 17:00 (WIB)</p>
-                            <p class="vc-note">Saturday, Sunday &amp; Public Holidays: Closed</p>
+                            <h4>{{ __('Jam Operasional') }}</h4>
+                            <p>{{ __('Senin – Jumat: 08:00 – 17:00 (WIB)') }}</p>
+                            <p class="vc-note">{{ __('Sabtu, Minggu & Hari Libur Nasional: Tutup') }}</p>
                         </div>
                     </div>
                 </div>
@@ -1574,7 +1571,7 @@
                 {{-- Contact Form --}}
                 <div data-gsap="fade-left">
                     <div class="vc-form-card">
-                        <h3 class="vc-form-title">Send Us a Message</h3>
+                        <h3 class="vc-form-title">{{ __('Send Us a Message') }}</h3>
 
                         <form x-data="contactForm()" @submit.prevent="submitForm()">
                             @csrf
@@ -1596,20 +1593,20 @@
 
                                 {{-- Name --}}
                                 <div>
-                                    <label for="name" class="vc-label">Full Name <span class="vc-req">*</span></label>
+                                    <label for="name" class="vc-label">{{ __('Nama Lengkap') }} <span class="vc-req">*</span></label>
                                     <input type="text" id="name" name="name" x-model="form.name" class="vc-input"
-                                        placeholder="Masukkan nama lengkap Anda" required>
+                                        placeholder="{{ __('Masukkan nama lengkap Anda') }}" required>
                                 </div>
 
                                 {{-- Email & Phone --}}
                                 <div class="vc-row is-two">
                                     <div>
-                                        <label for="email" class="vc-label">Email <span class="vc-req">*</span></label>
+                                        <label for="email" class="vc-label">{{ __('Email') }} <span class="vc-req">*</span></label>
                                         <input type="email" id="email" name="email" x-model="form.email" class="vc-input"
                                             placeholder="email@example.com" required>
                                     </div>
                                     <div>
-                                        <label for="phone" class="vc-label">Phone Number</label>
+                                        <label for="phone" class="vc-label">{{ __('Nomor Telepon') }}</label>
                                         <input type="tel" id="phone" name="phone" x-model="form.phone" class="vc-input"
                                             placeholder="+62 812 3456 7890">
                                     </div>
@@ -1618,35 +1615,35 @@
                                 {{-- Company & Subject --}}
                                 <div class="vc-row is-two">
                                     <div>
-                                        <label for="company" class="vc-label">Company / Institution</label>
+                                        <label for="company" class="vc-label">{{ __('Perusahaan / Institusi') }}</label>
                                         <input type="text" id="company" name="company" x-model="form.company" class="vc-input"
-                                            placeholder="Nama perusahaan">
+                                            placeholder="{{ __('Nama perusahaan') }}">
                                     </div>
                                     <div>
-                                        <label for="subject" class="vc-label">Subject <span class="vc-req">*</span></label>
+                                        <label for="subject" class="vc-label">{{ __('Subjek') }} <span class="vc-req">*</span></label>
                                         <select id="subject" name="subject" x-model="form.subject" class="vc-input" required>
-                                            <option value="" selected disabled>Select a subject</option>
-                                            <option value="general">General Inquiry</option>
-                                            <option value="product">Product Information</option>
-                                            <option value="service">Service &amp; Support</option>
-                                            <option value="partnership">Partnership Opportunity</option>
-                                            <option value="other">Other</option>
+                                            <option value="" selected disabled>{{ __('Pilih subjek') }}</option>
+                                            <option value="general">{{ __('Pertanyaan Umum') }}</option>
+                                            <option value="product">{{ __('Informasi Produk') }}</option>
+                                            <option value="service">{{ __('Layanan & Dukungan') }}</option>
+                                            <option value="partnership">{{ __('Peluang Kemitraan') }}</option>
+                                            <option value="other">{{ __('Lainnya') }}</option>
                                         </select>
                                     </div>
                                 </div>
 
                                 {{-- Message --}}
                                 <div>
-                                    <label for="message" class="vc-label">Pesan <span class="vc-req">*</span></label>
+                                    <label for="message" class="vc-label">{{ __('Pesan') }} <span class="vc-req">*</span></label>
                                     <textarea id="message" name="message" x-model="form.message" rows="5" class="vc-input"
-                                        placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                                        placeholder="{{ __('Tuliskan pesan Anda di sini...') }}" required></textarea>
                                 </div>
 
                                 {{-- Submit Button --}}
                                 <button type="submit" :disabled="isSubmitting" class="vc-submit">
-                                    <span x-show="!isSubmitting">Send Message</span>
+                                    <span x-show="!isSubmitting">{{ __('Kirim Pesan') }}</span>
                                     <span x-show="isSubmitting" style="display:inline-flex; align-items:center; gap:.5rem;">
-                                        Sending
+                                        {{ __('Mengirim...') }}
                                         <svg class="vc-spin" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                             <path stroke-linecap="round" d="M12 3v3m6.364-.364-2.12 2.12M21 12h-3m.364 6.364-2.12-2.12M12 21v-3m-6.364.364 2.12-2.12M3 12h3m-.364-6.364 2.12 2.12" />
                                         </svg>
@@ -1657,8 +1654,7 @@
                                 </button>
 
                                 <p class="vc-privacy">
-                                    We respect your privacy. Your information will be kept confidential and will not be
-                                    shared with third parties.
+                                    {{ __('Kami menghargai privasi Anda. Informasi Anda akan dijaga kerahasiaannya dan tidak akan dibagikan kepada pihak ketiga.') }}
                                 </p>
                             </div>
                         </form>
@@ -1756,8 +1752,8 @@
         <div class="vo-container">
             {{-- Section Header --}}
             <div class="vo-head" data-gsap="fade-up">
-                <span class="vo-eyebrow"><i></i> Our Offices</span>
-                <h2 class="vo-title">Where We <span>Operate</span></h2>
+                <span class="vo-eyebrow"><i></i> {{ __('Our Offices') }}</span>
+                <h2 class="vo-title">{{ __('Where We') }} <span>{{ __('Operate') }}</span></h2>
             </div>
 
             {{-- Office Cards (hooks: data-gsap-stagger, data-gsap-item) --}}
@@ -1770,7 +1766,7 @@
                                     <div class="vo-icon">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
                                             <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                                                 d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                                         </svg>
                                     </div>
 
@@ -1779,7 +1775,7 @@
                                             <svg fill="currentColor" viewBox="0 0 20 20">
                                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                                             </svg>
-                                            Head Office
+                                            {{ __('Head Office') }}
                                         </span>
                                     @endif
                                 </div>
@@ -1819,7 +1815,7 @@
                     </div>
                 @empty
                     <div class="vo-empty">
-                        Belum ada lokasi kantor yang ditambahkan.
+                        {{ __('Belum ada lokasi kantor yang ditambahkan.') }}
                     </div>
                 @endforelse
             </div>
@@ -2049,7 +2045,7 @@
                             }, 8000);
                         } else {
                             // Error
-                            this.errorMessage = data.message || 'Terjadi kesalahan. Silakan coba lagi.';
+                            this.errorMessage = data.message || @js(__('Terjadi kesalahan. Silakan coba lagi.'));
 
                             // Scroll to error message
                             setTimeout(() => {
@@ -2062,7 +2058,7 @@
                     } catch (error) {
                         console.error('Contact form error:', error);
                         this.errorMessage =
-                            'Terjadi kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.';
+                            @js(__('Terjadi kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.'));
 
                         // Scroll to error message
                         setTimeout(() => {

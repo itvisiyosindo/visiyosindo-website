@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Produk Kami'">
+<x-layouts.frontend :title="__('Produk Kami')">
     {{-- Hero Section with Parallax Scroll Effects --}}
     <section class="relative pt-32 pb-20 overflow-hidden" x-data="{
         scrollY: 0,
@@ -73,24 +73,22 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
                 </svg>
-                <span>E-Catalog Produk</span>
+                <span>{{ __('E-Catalog Produk') }}</span>
             </span>
 
             <!-- Heading with Stagger Animation -->
             <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 tracking-tight transition-all duration-500"
                 :style="'transform: translateY(' + Math.min(scrollY * 0.15, 30) + 'px); opacity: ' + Math.max(0, 1 - scrollY /
                     350)">
-                Produk <span
-                    class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-400 to-blue-400 animate-linear">Alat
-                    Kesehatan</span>
+                {{ __('Produk') }} <span
+                    class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 via-cyan-400 to-blue-400 animate-linear">{{ __('Alat Kesehatan') }}</span>
             </h1>
 
             <!-- Description with Stagger Animation -->
             <p class="text-lg sm:text-xl text-white/80 max-w-3xl mx-auto mb-10 leading-relaxed transition-all duration-500"
                 :style="'transform: translateY(' + Math.min(scrollY * 0.2, 40) + 'px); opacity: ' + Math.max(0, 1 - scrollY /
                     320)">
-                Temukan berbagai produk alat kesehatan berkualitas tinggi dengan standar internasional untuk mendukung
-                kebutuhan medis Anda.
+                {{ __('Temukan berbagai produk alat kesehatan berkualitas tinggi dengan standar internasional untuk mendukung kebutuhan medis Anda.') }}
             </p>
 
             <!-- Search Bar with Animation -->
@@ -102,7 +100,7 @@
                         class="absolute -inset-1 bg-linear-to-r from-blue-500 to-cyan-500 rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-500">
                     </div>
                     <input type="text" x-model="heroSearch" @input="onHeroSearch()"
-                        placeholder="Cari produk berdasarkan nama, kategori, atau brand..."
+                        placeholder="{{ __('Cari produk berdasarkan nama, kategori, atau brand...') }}"
                         class="relative w-full px-6 py-4 pl-14 bg-white/10 backdrop-blur-xl border border-white/30 rounded-2xl text-white placeholder-white/50 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent transition-all duration-300">
                     <svg class="absolute left-5 top-1/2 -translate-y-1/2 w-5 h-5 text-white/60" fill="none"
                         viewBox="0 0 24 24" stroke="currentColor">
@@ -120,21 +118,21 @@
                     <div
                         class="text-4xl lg:text-5xl font-bold text-white mb-1 group-hover:scale-110 transition-transform">
                         500+</div>
-                    <div class="text-sm text-white/60 font-medium">Produk Tersedia</div>
+                    <div class="text-sm text-white/60 font-medium">{{ __('Produk Tersedia') }}</div>
                 </div>
                 <div class="w-px h-16 bg-white/20 hidden sm:block"></div>
                 <div class="text-center group">
                     <div
                         class="text-4xl lg:text-5xl font-bold text-white mb-1 group-hover:scale-110 transition-transform">
                         50+</div>
-                    <div class="text-sm text-white/60 font-medium">Brand Partner</div>
+                    <div class="text-sm text-white/60 font-medium">{{ __('Brand Partner') }}</div>
                 </div>
                 <div class="w-px h-16 bg-white/20 hidden sm:block"></div>
                 <div class="text-center group">
                     <div
                         class="text-4xl lg:text-5xl font-bold text-white mb-1 group-hover:scale-110 transition-transform">
                         24/7</div>
-                    <div class="text-sm text-white/60 font-medium">Support</div>
+                    <div class="text-sm text-white/60 font-medium">{{ __('Support') }}</div>
                 </div>
             </div>
         </div>
@@ -175,8 +173,7 @@
                     {{ __('Explore Our Products') }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Berbagai pilihan alat kesehatan berkualitas tinggi untuk memenuhi kebutuhan rumah sakit, klinik, dan
-                    fasilitas kesehatan Anda
+                    {{ __('Berbagai pilihan alat kesehatan berkualitas tinggi untuk memenuhi kebutuhan rumah sakit, klinik, dan fasilitas kesehatan Anda') }}
                 </p>
             </div>
 
@@ -400,7 +397,7 @@
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                     </svg>
-                                                    Lihat Detail
+                                                    {{ __('Lihat Detail') }}
                                                 </span>
                                             </div>
                                         </div>
@@ -429,7 +426,7 @@
                                             <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
                                                 <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span x-text="product.sku"></span></span>
                                                 <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">
-                                                    Detail
+                                                    {{ __('Detail') }}
                                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                                     </svg>
@@ -500,7 +497,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                     </svg>
-                                    Lihat Detail
+                                    {{ __('Lihat Detail') }}
                                 </span>
                             </div>
                         </div>
@@ -515,7 +512,7 @@
                             </div>
                             <div class="flex items-center justify-between pt-4 border-t border-slate-100 dark:border-slate-700">
                                 <span class="text-xs text-slate-400 dark:text-slate-500">SKU: <span x-text="product.sku"></span></span>
-                                <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Detail <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></span>
+                                <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">{{ __('Detail') }} <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" /></svg></span>
                             </div>
                         </div>
                     </a>
@@ -533,9 +530,9 @@
                         <svg class="w-3.5 h-3.5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 15l-2 5L9 9l11 4-5 2zm0 0l5 5M7.188 2.239l.777 2.897M5.136 7.965l-2.898-.777M13.95 4.05l-2.122 2.122m-5.657 5.656l-2.12 2.122" />
                         </svg>
-                        Auto-Scroll Kursor Aktif
+                        {{ __('Auto-Scroll Kursor Aktif') }}
                     </span>
-                    <span>Arahkan kursor ke sisi kanan/kiri kartu atau putar roda mouse pada baris yang diinginkan untuk scroll otomatis</span>
+                    <span>{{ __('Arahkan kursor ke sisi kanan/kiri kartu atau putar roda mouse pada baris yang diinginkan untuk scroll otomatis') }}</span>
                 </div>
             </div>
 
@@ -548,16 +545,15 @@
                             d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                 </div>
-                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Produk Tidak Ditemukan</h3>
-                <p class="text-slate-500 dark:text-slate-400 mb-6">Coba ubah kata kunci pencarian atau pilih kategori
-                    lain</p>
+                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">{{ __('Product Not Found') }}</h3>
+                <p class="text-slate-500 dark:text-slate-400 mb-6">{{ __('Coba ubah kata kunci pencarian atau pilih kategori lain') }}</p>
                 <button @click="searchQuery = ''; activeCategory = 'all'; filterProducts(); window.dispatchEvent(new CustomEvent('clear-hero-search'))"
-                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full transition-colors">
+                    class="inline-flex items-center gap-2 px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-full transition-colors cursor-pointer">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                     </svg>
-                    Reset Filter
+                    {{ __('Reset Filter') }}
                 </button>
             </div>
 
@@ -584,13 +580,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                     </svg>
-                    Kategori Unggulan
+                    {{ __('Kategori Unggulan') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Jelajahi Berdasarkan Kategori
+                    {{ __('Jelajahi Berdasarkan Kategori') }}
                 </h2>
                 <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Temukan produk yang tepat untuk kebutuhan spesifik fasilitas kesehatan Anda
+                    {{ __('Temukan produk yang tepat untuk kebutuhan spesifik fasilitas kesehatan Anda') }}
                 </p>
             </div>
 
@@ -657,7 +653,7 @@
                                     </div>
                                     <span
                                         class="{{ $color['text'] }} text-sm font-medium">{{ $category->products_count }}
-                                        Produk</span>
+                                        {{ __('Produk') }}</span>
                                 </div>
                                 <h3 class="text-xl font-bold text-white mb-1">{{ $category->name }}</h3>
                             </div>
@@ -666,7 +662,7 @@
                 </div>
             @else
                 <div class="text-center py-12">
-                    <p class="text-slate-500 dark:text-slate-400">Belum ada kategori produk tersedia.</p>
+                    <p class="text-slate-500 dark:text-slate-400">{{ __('Belum ada kategori produk tersedia.') }}</p>
                 </div>
             @endif
         </div>
@@ -682,13 +678,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
-                    Brand Partners
+                    {{ __('Brand Partners') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Distributor Resmi Brand Terkemuka
+                    {{ __('Distributor Resmi Brand Terkemuka') }}
                 </h2>
                 <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-                    Kami adalah distributor resmi berbagai brand alat kesehatan internasional terkemuka
+                    {{ __('Kami adalah distributor resmi berbagai brand alat kesehatan internasional terkemuka') }}
                 </p>
             </div>
         </div>
@@ -767,13 +763,13 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                     </svg>
-                    Sertifikat Kalibrasi
+                    {{ __('Sertifikat Kalibrasi') }}
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Sertifikat <span class="text-blue-600">Kalibrasi Kami</span>
+                    {{ __('Sertifikat') }} <span class="text-blue-600">{{ __('Kalibrasi Kami') }}</span>
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto">
-                    Peralatan kalibrasi kami tersertifikasi dan terakreditasi untuk memastikan akurasi dan keandalan layanan Visilab
+                    {{ __('Peralatan kalibrasi kami tersertifikasi dan terakreditasi untuk memastikan akurasi dan keandalan layanan Visilab') }}
                 </p>
             </div>
 
@@ -833,8 +829,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Sertifikat Akreditasi KAN</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Laboratorium kalibrasi terakreditasi ISO/IEC 17025</p>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">{{ __('Sertifikat Akreditasi KAN') }}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Laboratorium kalibrasi terakreditasi ISO/IEC 17025') }}</p>
                 </div>
                 <div data-gsap-item class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
                     <div class="w-14 h-14 rounded-2xl bg-linear-to-br from-green-500 to-green-600 flex items-center justify-center mb-4">
@@ -842,8 +838,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Kalibrasi BPFK</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Standar kalibrasi nasional untuk alat kesehatan</p>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">{{ __('Kalibrasi BPFK') }}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Standar kalibrasi nasional untuk alat kesehatan') }}</p>
                 </div>
                 <div data-gsap-item class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
                     <div class="w-14 h-14 rounded-2xl bg-linear-to-br from-purple-500 to-purple-600 flex items-center justify-center mb-4">
@@ -851,8 +847,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Sertifikat IEC</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Standar internasional elektromedis IEC 62353</p>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">{{ __('Sertifikat IEC') }}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Standar internasional elektromedis IEC 62353') }}</p>
                 </div>
                 <div data-gsap-item class="bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-200 dark:border-slate-700">
                     <div class="w-14 h-14 rounded-2xl bg-linear-to-br from-orange-500 to-orange-600 flex items-center justify-center mb-4">
@@ -860,8 +856,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
                         </svg>
                     </div>
-                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Kalibrasi BAPETEN</h3>
-                    <p class="text-sm text-slate-600 dark:text-slate-400">Lisensi kalibrasi peralatan radiasi medis</p>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">{{ __('Kalibrasi BAPETEN') }}</h3>
+                    <p class="text-sm text-slate-600 dark:text-slate-400">{{ __('Lisensi kalibrasi peralatan radiasi medis') }}</p>
                 </div>
                 @endforelse
             </div>
@@ -869,7 +865,7 @@
             <div class="text-center mt-12" data-gsap="fade-up">
                 <a href="{{ route('certificates') }}" 
                     class="inline-flex items-center gap-2 px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 shadow-lg shadow-blue-600/30">
-                    <span>Lihat Semua Sertifikat</span>
+                    <span>{{ __('Lihat Semua Sertifikat') }}</span>
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>
@@ -887,11 +883,10 @@
 
         <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl lg:text-4xl font-bold text-white mb-6" data-gsap="fade-up">
-                Butuh Bantuan Memilih Produk?
+                {{ __('Butuh Bantuan Memilih Produk?') }}
             </h2>
             <p class="text-lg text-blue-100 mb-8 max-w-2xl mx-auto">
-                Tim marketing kami siap membantu Anda menemukan produk yang tepat sesuai dengan kebutuhan fasilitas
-                kesehatan Anda.
+                {{ __('Tim marketing kami siap membantu Anda menemukan produk yang tepat sesuai dengan kebutuhan fasilitas kesehatan Anda.') }}
             </p>
             <div class="flex flex-wrap justify-center gap-4">
                 <a href="https://wa.me/6281234567890" target="_blank"
@@ -900,11 +895,11 @@
                         <path
                             d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
                     </svg>
-                    <span>Hubungi via WhatsApp</span>
+                    <span>{{ __('Hubungi via WhatsApp') }}</span>
                 </a>
                 <a href="{{ route('contact') }}"
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white/10 text-white font-semibold rounded-full border border-white/30 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                    <span>Kirim Inquiry</span>
+                    <span>{{ __('Kirim Inquiry') }}</span>
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -934,7 +929,7 @@
                     // If a specific category is selected (not 'all')
                     if (this.activeCategory !== 'all') {
                         const catObj = this.categories.find(c => c.id === this.activeCategory);
-                        const title = catObj ? catObj.name : 'Produk Terpilih';
+                        const title = catObj ? catObj.name : @js(__('Produk Terpilih'));
                         return [
                             {
                                 id: this.activeCategory,
@@ -953,7 +948,7 @@
                             catMap[catKey] = {
                                 id: catKey,
                                 categoryId: item.categoryId,
-                                title: item.category || 'Kategori Lain',
+                                title: item.category || @js(__('Kategori Lain')),
                                 items: []
                             };
                         }

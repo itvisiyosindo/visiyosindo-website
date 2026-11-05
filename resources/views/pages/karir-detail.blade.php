@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Detail Lowongan'">
+<x-layouts.frontend :title="__('Detail Lowongan')">
     {{-- Menggabungkan x-data langsung ke pembungkus utama --}}
     <div x-data="jobDetail()">
         {{-- Sesi Detail Lowongan --}}
@@ -11,11 +11,11 @@
                 
                 <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8" data-gsap="glow-reveal">
                     <nav class="flex items-center gap-2 text-sm text-slate-300 mb-8">
-                        <a href="{{ route('home') }}" class="hover:text-white transition-colors">Home</a>
+                        <a href="{{ route('home') }}" class="hover:text-white transition-colors">{{ __('Home') }}</a>
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
-                        <a href="{{ route('karir') }}" class="hover:text-white transition-colors">Karir</a>
+                        <a href="{{ route('karir') }}" class="hover:text-white transition-colors">{{ __('Karir') }}</a>
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                         </svg>
@@ -57,7 +57,7 @@
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
-                                    <span>Diposting: <span x-text="job.postedDate"></span></span>
+                                    <span>{{ __('Diposting') }}: <span x-text="job.postedDate"></span></span>
                                 </span>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                 </svg>
-                                Lamar Sekarang
+                                {{ __('Lamar Sekarang') }}
                             </button>
                         </div>
                     </div>
@@ -90,7 +90,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
                                     </div>
-                                    Deskripsi Pekerjaan
+                                    {{ __('Deskripsi Pekerjaan') }}
                                 </h2>
                                 <div class="text-slate-600 dark:text-slate-400 space-y-4" x-html="job.description"></div>
                             </div>
@@ -102,7 +102,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
                                         </svg>
                                     </div>
-                                    Tanggung Jawab
+                                    {{ __('Tanggung Jawab') }}
                                 </h2>
                                 <ul class="space-y-3">
                                     <template x-for="(item, index) in job.responsibilities" :key="index">
@@ -123,7 +123,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                         </svg>
                                     </div>
-                                    Kualifikasi
+                                    {{ __('Kualifikasi') }}
                                 </h2>
                                 <ul class="space-y-3">
                                     <template x-for="(item, index) in job.requirements" :key="index">
@@ -144,7 +144,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                     </div>
-                                    Benefit
+                                    {{ __('Benefit') }}
                                 </h2>
                                 <div class="grid sm:grid-cols-2 gap-4">
                                     <template x-for="(benefit, index) in job.benefits" :key="index">
@@ -163,7 +163,7 @@
                         <div class="lg:col-span-1" data-gsap="fade-left">
                             <div class="sticky top-24 space-y-6">
                                 <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6">
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Ringkasan Pekerjaan</h3>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">{{ __('Ringkasan Pekerjaan') }}</h3>
                                     <div class="space-y-4">
                                         <div class="flex items-center gap-3">
                                             <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400">
@@ -172,7 +172,7 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400">Lokasi</p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Lokasi') }}</p>
                                                 <p class="font-semibold text-slate-900 dark:text-white" x-text="job.location"></p>
                                             </div>
                                         </div>
@@ -183,7 +183,7 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400">Tipe</p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Tipe') }}</p>
                                                 <p class="font-semibold text-slate-900 dark:text-white" x-text="job.type"></p>
                                             </div>
                                         </div>
@@ -194,7 +194,7 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400">Pengalaman</p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Pengalaman') }}</p>
                                                 <p class="font-semibold text-slate-900 dark:text-white" x-text="job.experience"></p>
                                             </div>
                                         </div>
@@ -205,7 +205,7 @@
                                                 </svg>
                                             </div>
                                             <div>
-                                                <p class="text-sm text-slate-500 dark:text-slate-400">Pendidikan</p>
+                                                <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Pendidikan') }}</p>
                                                 <p class="font-semibold text-slate-900 dark:text-white" x-text="job.education"></p>
                                             </div>
                                         </div>
@@ -213,7 +213,7 @@
                                 </div>
         
                                 <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6">
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Skills</h3>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">{{ __('Keahlian') }}</h3>
                                     <div class="flex flex-wrap gap-2">
                                         <template x-for="(skill, index) in job.skills" :key="index">
                                             <span class="px-3 py-1.5 text-sm font-medium bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg border border-slate-200 dark:border-slate-600" x-text="skill"></span>
@@ -222,8 +222,8 @@
                                 </div>
         
                                 <div class="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white">
-                                    <h3 class="text-lg font-bold mb-2">Tertarik dengan posisi ini?</h3>
-                                    <p class="text-blue-100 text-sm mb-4">Kirim lamaran Anda sekarang dan bergabunglah dengan tim kami.</p>
+                                    <h3 class="text-lg font-bold mb-2">{{ __('Tertarik dengan posisi ini?') }}</h3>
+                                    <p class="text-blue-100 text-sm mb-4">{{ __('Kirim lamaran Anda sekarang dan bergabunglah dengan tim kami.') }}</p>
                                     <button 
                                         @click="openApplyModal()"
                                         class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-blue-600 font-semibold rounded-xl hover:bg-blue-50 transition-colors"
@@ -231,12 +231,12 @@
                                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                         </svg>
-                                        Lamar Sekarang
+                                        {{ __('Lamar Sekarang') }}
                                     </button>
                                 </div>
         
                                 <div class="bg-slate-50 dark:bg-slate-800/50 rounded-2xl p-6">
-                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">Bagikan Lowongan</h3>
+                                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4">{{ __('Bagikan Lowongan') }}</h3>
                                     <div class="flex gap-3">
                                         <a href="#" class="w-10 h-10 bg-white dark:bg-slate-700 rounded-lg flex items-center justify-center text-slate-600 dark:text-slate-400 hover:bg-blue-500 hover:text-white transition-all">
                                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

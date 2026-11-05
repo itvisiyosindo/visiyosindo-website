@@ -181,8 +181,8 @@
                 title: '',
                 message: '',
                 type: 'danger',
-                confirmText: 'Konfirmasi',
-                cancelText: 'Batal',
+                confirmText: @js(__('Konfirmasi')),
+                cancelText: @js(__('Batal')),
                 onConfirm: null,
                 onCancel: null
             },
@@ -237,22 +237,22 @@
             getToastTitle(type, customTitle) {
                 if (customTitle) return customTitle;
                 const titles = {
-                    success: 'Berhasil!',
+                    success: @js(__('Berhasil!')),
                     error: 'Error!',
-                    warning: 'Peringatan!',
-                    info: 'Informasi'
+                    warning: @js(__('Peringatan!')),
+                    info: @js(__('Informasi'))
                 };
-                return titles[type] || 'Notifikasi';
+                return titles[type] || @js(__('Notifikasi'));
             },
 
             showConfirm(options) {
                 this.confirmDialog = {
                     show: true,
-                    title: options.title || 'Konfirmasi',
-                    message: options.message || 'Apakah Anda yakin?',
+                    title: options.title || @js(__('Konfirmasi')),
+                    message: options.message || @js(__('Apakah Anda yakin?')),
                     type: options.type || 'danger',
-                    confirmText: options.confirmText || 'Ya, Hapus',
-                    cancelText: options.cancelText || 'Batal',
+                    confirmText: options.confirmText || @js(__('Ya, Hapus')),
+                    cancelText: options.cancelText || @js(__('Batal')),
                     onConfirm: options.onConfirm || null,
                     onCancel: options.onCancel || null
                 };
@@ -294,11 +294,11 @@
             return new Promise((resolve) => {
                 window.dispatchEvent(new CustomEvent('confirm', {
                     detail: {
-                        title: options.title || 'Konfirmasi',
-                        message: options.message || 'Apakah Anda yakin?',
+                        title: options.title || @js(__('Konfirmasi')),
+                        message: options.message || @js(__('Apakah Anda yakin?')),
                         type: options.type || 'danger',
-                        confirmText: options.confirmText || 'Ya, Lanjutkan',
-                        cancelText: options.cancelText || 'Batal',
+                        confirmText: options.confirmText || @js(__('Ya, Lanjutkan')),
+                        cancelText: options.cancelText || @js(__('Batal')),
                         onConfirm: () => resolve(true),
                         onCancel: () => resolve(false)
                     }

@@ -1,6 +1,6 @@
 <x-layouts.frontend 
-    title="Our Partners - PT Visi Yosindo Medikal"
-    description="Trusted partners and clients of PT Visi Yosindo Medikal. We proudly collaborate with leading healthcare organizations and medical institutions."
+    :title="__('Mitra Kami') . ' - ' . config('app.name')"
+    :description="__('Mitra dan klien terpercaya dari PT Visi Yosindo Medikal. Kami dengan bangga berkolaborasi dengan organisasi kesehatan dan institusi medis terkemuka.')"
 >
     {{-- Hero Section --}}
     <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
@@ -25,17 +25,17 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
-                    Trusted Partnerships
+                    {{ __('Kemitraan Terpercaya') }}
                 </div>
 
                 {{-- Heading --}}
                 <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white mb-6 leading-tight">
-                    Our <span class="bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">Partners</span>
+                    {{ __('Mitra') }} <span class="bg-gradient-to-r from-primary-600 to-blue-600 bg-clip-text text-transparent">{{ __('Kami') }}</span>
                 </h1>
 
                 {{-- Description --}}
                 <p class="text-lg text-slate-600 dark:text-slate-300 leading-relaxed">
-                    We collaborate with leading healthcare organizations, medical institutions, and industry partners to deliver excellence in medical equipment and services.
+                    {{ __('Kami berkolaborasi dengan organisasi kesehatan, institusi medis, dan mitra industri terkemuka untuk menghadirkan keunggulan dalam peralatan dan layanan medis.') }}
                 </p>
             </div>
         </div>
@@ -46,10 +46,10 @@
         <div class="container mx-auto px-4 mb-16">
             <div class="text-center max-w-2xl mx-auto">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                    Brands & Clients We Work With
+                    {{ __('Brand & Klien yang Bekerjasama dengan Kami') }}
                 </h2>
                 <p class="text-slate-600 dark:text-slate-400">
-                    Trusted by healthcare providers across Indonesia. Hover to pause the marquee.
+                    {{ __('Dipercaya oleh penyedia layanan kesehatan di seluruh Indonesia. Arahkan kursor untuk menjeda marquee.') }}
                 </p>
             </div>
         </div>
@@ -142,8 +142,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
-                    <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">No Partners Yet</h3>
-                    <p class="text-slate-600 dark:text-slate-400">Partner logos will appear here once added.</p>
+                    <h3 class="text-xl font-semibold text-slate-900 dark:text-white mb-2">{{ __('Belum Ada Mitra') }}</h3>
+                    <p class="text-slate-600 dark:text-slate-400">{{ __('Logo mitra akan muncul di sini setelah ditambahkan.') }}</p>
                 </div>
             @endif
         </div>
@@ -154,10 +154,10 @@
         <div class="container mx-auto px-4">
             <div class="text-center max-w-2xl mx-auto mb-10">
                 <h2 class="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                    Our Clients
+                    {{ __('Klien Kami') }}
                 </h2>
                 <p class="text-slate-600 dark:text-slate-400">
-                    Organisasi dan institusi yang telah mempercayakan kebutuhan layanan medisnya kepada kami.
+                    {{ __('Organisasi dan institusi yang telah mempercayakan kebutuhan layanan medisnya kepada kami.') }}
                 </p>
             </div>
 
@@ -290,7 +290,7 @@
                 @endif
             @else
                 <div class="text-center py-10 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-700">
-                    <p class="text-slate-600 dark:text-slate-400">Daftar client akan tampil di sini setelah ditambahkan dari dashboard.</p>
+                    <p class="text-slate-600 dark:text-slate-400">{{ __('Daftar client akan tampil di sini setelah ditambahkan dari dashboard.') }}</p>
                 </div>
             @endif
         </div>
@@ -301,17 +301,17 @@
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center text-white">
                 <h2 class="text-3xl md:text-4xl font-bold mb-4">
-                    Want to Partner With Us?
+                    {{ __('Tertarik Menjadi Mitra Kami?') }}
                 </h2>
                 <p class="text-lg text-white/90 mb-8">
-                    Join our growing network of trusted healthcare partners and experience excellence in medical equipment solutions.
+                    {{ __('Bergabunglah dengan jaringan mitra kesehatan kami yang terus berkembang dan rasakan keunggulan dalam solusi peralatan medis.') }}
                 </p>
                 <a href="{{ route('contact') }}" 
                     class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-600 rounded-full font-semibold hover:bg-primary-50 transition-all duration-300 hover:scale-105 shadow-lg">
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    Contact Us
+                    {{ __('Hubungi Kami') }}
                 </a>
             </div>
         </div>

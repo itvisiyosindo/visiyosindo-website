@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -272,9 +272,9 @@
     <div class="error-content">
         <!-- Header -->
         <div class="header">
-            <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Logo" class="logo">
+            <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="{{ __('Logo') }}" class="logo">
             <p class="company-name">PT Visi Yosindo Medikal</p>
-            <p class="company-tagline">Affordable Healthcare Solutions</p>
+            <p class="company-tagline">{{ __('Affordable Healthcare Solutions') }}</p>
         </div>
 
         <!-- Error -->
@@ -284,15 +284,15 @@
 
         <!-- Actions -->
         <div class="actions">
-            <a href="{{ url('/') }}" class="btn btn-primary">← Kembali ke Beranda</a>
+            <a href="{{ url('/') }}" class="btn btn-primary">← {{ __('Back to Home') }}</a>
             @if(auth()->check())
-                <a href="{{ url('/dashboard') }}" class="btn btn-secondary">Dashboard</a>
+                <a href="{{ url('/dashboard') }}" class="btn btn-secondary">{{ __('Dashboard') }}</a>
             @endif
         </div>
 
         <!-- Footer -->
         <div class="footer">
-            <p>Butuh bantuan? <a href="mailto:support@visiyosindo.com" class="support-link">Hubungi tim support kami</a></p>
+            <p>{{ __('Butuh bantuan?') }} <a href="mailto:support@visiyosindo.com" class="support-link">{{ __('Hubungi tim support kami') }}</a></p>
             <p class="copyright">© 2024 PT Visi Yosindo Medikal</p>
         </div>
     </div>

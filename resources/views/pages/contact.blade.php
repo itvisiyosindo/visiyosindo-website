@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="'Hubungi Kami'">
+<x-layouts.frontend :title="__('Hubungi Kami')">
     {{-- Hero Section --}}
     <section class="relative pt-32 pb-20 bg-linear-to-br from-slate-900 via-blue-900 to-slate-900 overflow-hidden">
         <!-- Background Pattern -->
@@ -23,10 +23,10 @@
                 <span>Get In Touch</span>
             </span>
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
-                Hubungi <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-400">Kami</span>
+                {{ __('Hubungi') }} <span class="text-transparent bg-clip-text bg-linear-to-r from-blue-400 to-cyan-400">{{ __('Kami') }}</span>
             </h1>
             <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto">
-                Kami siap membantu Anda. Hubungi kami untuk informasi lebih lanjut tentang produk dan layanan kami.
+                {{ __('Kami siap membantu Anda. Hubungi kami untuk informasi lebih lanjut tentang produk dan layanan kami.') }}
             </p>
         </div>
     </section>
@@ -58,13 +58,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
-                        Lokasi Kami
+                        {{ __('Lokasi Kami') }}
                     </span>
                     <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-6">
-                        Informasi Kontak
+                        {{ __('Informasi Kontak') }}
                     </h2>
                     <p class="text-lg text-slate-600 dark:text-slate-400 mb-10">
-                        Jangan ragu untuk menghubungi kami. Tim kami siap membantu menjawab semua pertanyaan Anda.
+                        {{ __('Jangan ragu untuk menghubungi kami. Tim kami siap membantu menjawab semua pertanyaan Anda.') }}
                     </p>
 
                     <!-- Contact Cards -->
@@ -84,7 +84,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Alamat Kantor</h3>
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">{{ __('Alamat Kantor') }}</h3>
                                 <p class="text-slate-600 dark:text-slate-400">
                                     Jl. Inpres No.268D<br>
                                     Kec. Marpoyan Damai<br>
@@ -108,7 +108,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Telepon</h3>
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">{{ __('Telepon') }}</h3>
                                 <p class="text-slate-600 dark:text-slate-400">
                                     <a href="https://wa.me/6281261457547" target="_blank"
                                         class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">+62 812
@@ -130,7 +130,7 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Email</h3>
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">{{ __('Email') }}</h3>
                                 <p class="text-slate-600 dark:text-slate-400">
                                     <a href="mailto:info@visiyosindo.co.id"
                                         class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">admin@visiyosindo.com</a><br>
@@ -153,11 +153,11 @@
                                 </svg>
                             </div>
                             <div>
-                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">Jam Operasional
+                                <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-1">{{ __('Jam Operasional') }}
                                 </h3>
                                 <p class="text-slate-600 dark:text-slate-400">
-                                    Senin - Jumat: 08:00 - 17:00<br>
-                                    <i>Sabtu/Minggu & Hari Libur: Tutup</i>
+                                    {{ __('Senin - Jumat: 08:00 - 17:00') }}<br>
+                                    <i>{{ __('Sabtu/Minggu & Hari Libur: Tutup') }}</i>
                                 </p>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
 
                     <!-- Social Media -->
                     <div class="mt-10">
-                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">Ikuti Kami</h3>
+                        <h3 class="text-lg font-semibold text-slate-900 dark:text-white mb-4">{{ __('Ikuti Kami') }}</h3>
                         <div class="flex gap-3">
                             <a href="https://www.facebook.com/visi.yosindomedikal/" target="_blank"
                                 rel="noopener noreferrer"
@@ -206,9 +206,8 @@
                 <div data-gsap="fade-left">
                     <div
                         class="bg-white dark:bg-slate-800 rounded-3xl shadow-xl border border-slate-100 dark:border-slate-700 p-8 lg:p-10">
-                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Kirim Pesan</h3>
-                        <p class="text-slate-600 dark:text-slate-400 mb-8">Isi formulir di bawah ini dan kami akan
-                            segera menghubungi Anda.</p>
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">{{ __('Kirim Pesan') }}</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8">{{ __('Isi formulir di bawah ini dan kami akan segera menghubungi Anda.') }}</p>
 
                         <form x-data="contactForm()" @submit.prevent="submitForm()">
                             @csrf
@@ -242,11 +241,11 @@
                                 <div>
                                     <label for="name"
                                         class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                        Nama Lengkap <span class="text-red-500">*</span>
+                                        {{ __('Nama Lengkap') }} <span class="text-red-500">*</span>
                                     </label>
                                     <input type="text" id="name" name="name" x-model="form.name"
                                         class="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                                        placeholder="Masukkan nama lengkap Anda" required>
+                                        placeholder="{{ __('Masukkan nama lengkap Anda') }}" required>
                                 </div>
 
                                 <!-- Email & Phone -->
@@ -254,7 +253,7 @@
                                     <div>
                                         <label for="email"
                                             class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                            Email <span class="text-red-500">*</span>
+                                            {{ __('Email') }} <span class="text-red-500">*</span>
                                         </label>
                                         <input type="email" id="email" name="email" x-model="form.email"
                                             class="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
@@ -263,7 +262,7 @@
                                     <div>
                                         <label for="phone"
                                             class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                            No. Telepon
+                                            {{ __('No. Telepon') }}
                                         </label>
                                         <input type="tel" id="phone" name="phone" x-model="form.phone"
                                             class="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
@@ -276,26 +275,26 @@
                                     <div>
                                         <label for="company"
                                             class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                            Perusahaan / Institusi
+                                            {{ __('Perusahaan / Institusi') }}
                                         </label>
                                         <input type="text" id="company" name="company" x-model="form.company"
                                             class="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
-                                            placeholder="Nama perusahaan">
+                                            placeholder="{{ __('Nama perusahaan') }}">
                                     </div>
                                     <div>
                                         <label for="subject"
                                             class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                            Subjek <span class="text-red-500">*</span>
+                                            {{ __('Subjek') }} <span class="text-red-500">*</span>
                                         </label>
                                         <select id="subject" name="subject" x-model="form.subject"
                                             class="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
                                             required>
-                                            <option value="">Pilih subjek</option>
-                                            <option value="product">Informasi Produk</option>
-                                            <option value="quote">Permintaan Penawaran</option>
-                                            <option value="service">Layanan Purna Jual</option>
-                                            <option value="partnership">Kerjasama</option>
-                                            <option value="other">Lainnya</option>
+                                            <option value="">{{ __('Pilih subjek') }}</option>
+                                            <option value="product">{{ __('Informasi Produk') }}</option>
+                                            <option value="quote">{{ __('Permintaan Penawaran') }}</option>
+                                            <option value="service">{{ __('Layanan Purna Jual') }}</option>
+                                            <option value="partnership">{{ __('Kerjasama') }}</option>
+                                            <option value="other">{{ __('Lainnya') }}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -304,26 +303,26 @@
                                 <div>
                                     <label for="message"
                                         class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
-                                        Pesan <span class="text-red-500">*</span>
+                                        {{ __('Pesan') }} <span class="text-red-500">*</span>
                                     </label>
                                     <textarea id="message" name="message" x-model="form.message" rows="5"
                                         class="w-full px-4 py-3.5 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
-                                        placeholder="Tuliskan pesan Anda di sini..." required></textarea>
+                                        placeholder="{{ __('Tuliskan pesan Anda di sini...') }}" required></textarea>
                                 </div>
 
                                 <!-- Submit Button -->
                                 <button type="submit" :disabled="isSubmitting"
                                     class="w-full inline-flex items-center justify-center gap-2 px-8 py-4 bg-linear-to-r from-blue-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg shadow-blue-500/30 hover:shadow-xl hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed">
-                                    <span x-show="!isSubmitting">Kirim Pesan</span>
+                                    <span x-show="!isSubmitting">{{ __('Kirim Pesan') }}</span>
                                     <span x-show="isSubmitting" class="inline-flex items-center gap-2">
                                         <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                                             <circle class="opacity-25" cx="12" cy="12" r="10"
                                                 stroke="currentColor" stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor"
+                                             <path class="opacity-75" fill="currentColor"
                                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                             </path>
                                         </svg>
-                                        Mengirim...
+                                        {{ __('Mengirim...') }}
                                     </span>
                                     <svg x-show="!isSubmitting" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                                         stroke="currentColor">
@@ -359,7 +358,7 @@
                     </svg>
                 </div>
                 <div>
-                    <h3 class="font-bold text-slate-900 dark:text-white">Kantor Pusat</h3>
+                    <h3 class="font-bold text-slate-900 dark:text-white">{{ __('Kantor Pusat') }}</h3>
                     <p class="text-sm text-slate-500 dark:text-slate-400">PT Visi Yosindo Medikal</p>
                 </div>
             </div>
@@ -370,7 +369,7 @@
             </p>
             <a href="https://maps.app.goo.gl/kMNWYSWzRVwPdS1F8" target="_blank"
                 class="inline-flex items-center gap-2 text-blue-600 dark:text-blue-400 text-sm font-semibold hover:gap-3 transition-all">
-                Buka di Google Maps
+                {{ __('Buka di Google Maps') }}
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -392,10 +391,10 @@
                     FAQ
                 </span>
                 <h2 class="text-3xl lg:text-4xl font-bold text-slate-900 dark:text-white mb-4">
-                    Pertanyaan yang Sering Diajukan
+                    {{ __('Pertanyaan yang Sering Diajukan') }}
                 </h2>
                 <p class="text-lg text-slate-600 dark:text-slate-400">
-                    Temukan jawaban untuk pertanyaan umum tentang produk dan layanan kami.
+                    {{ __('Temukan jawaban untuk pertanyaan umum tentang produk dan layanan kami.') }}
                 </p>
             </div>
 
@@ -405,8 +404,7 @@
                     data-gsap-item>
                     <button @click="activeAccordion = activeAccordion === 1 ? null : 1"
                         class="w-full flex items-center justify-between p-6 text-left">
-                        <span class="text-lg font-semibold text-slate-900 dark:text-white">Bagaimana cara memesan
-                            produk?</span>
+                        <span class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Bagaimana cara memesan produk?') }}</span>
                         <svg class="w-5 h-5 text-slate-500 transition-transform duration-300"
                             :class="activeAccordion === 1 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -419,9 +417,7 @@
                         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0">
                         <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
-                            Anda dapat memesan produk dengan menghubungi tim sales kami melalui telepon, email, atau
-                            mengisi formulir kontak di website ini. Tim kami akan menghubungi Anda untuk memproses
-                            pesanan.
+                            {{ __('Anda dapat memesan produk dengan menghubungi tim sales kami melalui telepon, email, atau mengisi formulir kontak di website ini. Tim kami akan menghubungi Anda untuk memproses pesanan.') }}
                         </div>
                     </div>
                 </div>
@@ -431,8 +427,7 @@
                     data-gsap-item>
                     <button @click="activeAccordion = activeAccordion === 2 ? null : 2"
                         class="w-full flex items-center justify-between p-6 text-left">
-                        <span class="text-lg font-semibold text-slate-900 dark:text-white">Apakah tersedia layanan
-                            instalasi?</span>
+                        <span class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Apakah tersedia layanan instalasi?') }}</span>
                         <svg class="w-5 h-5 text-slate-500 transition-transform duration-300"
                             :class="activeAccordion === 2 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -445,9 +440,7 @@
                         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0">
                         <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
-                            Ya, kami menyediakan layanan instalasi profesional untuk semua produk yang kami jual. Tim
-                            teknisi berpengalaman kami akan memastikan alat terpasang dengan benar dan berfungsi
-                            optimal.
+                            {{ __('Ya, kami menyediakan layanan instalasi profesional untuk semua produk yang kami jual. Tim teknisi berpengalaman kami akan memastikan alat terpasang dengan benar dan berfungsi optimal.') }}
                         </div>
                     </div>
                 </div>
@@ -457,8 +450,7 @@
                     data-gsap-item>
                     <button @click="activeAccordion = activeAccordion === 3 ? null : 3"
                         class="w-full flex items-center justify-between p-6 text-left">
-                        <span class="text-lg font-semibold text-slate-900 dark:text-white">Berapa lama garansi
-                            produk?</span>
+                        <span class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Berapa lama garansi produk?') }}</span>
                         <svg class="w-5 h-5 text-slate-500 transition-transform duration-300"
                             :class="activeAccordion === 3 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -471,8 +463,7 @@
                         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0">
                         <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
-                            Garansi bervariasi tergantung jenis produk, mulai dari 1 hingga 3 tahun. Detail garansi akan
-                            dijelaskan pada saat pembelian dan tercantum dalam dokumen garansi resmi.
+                            {{ __('Garansi bervariasi tergantung jenis produk, mulai dari 1 hingga 3 tahun. Detail garansi akan dijelaskan pada saat pembelian dan tercantum dalam dokumen garansi resmi.') }}
                         </div>
                     </div>
                 </div>
@@ -482,8 +473,7 @@
                     data-gsap-item>
                     <button @click="activeAccordion = activeAccordion === 4 ? null : 4"
                         class="w-full flex items-center justify-between p-6 text-left">
-                        <span class="text-lg font-semibold text-slate-900 dark:text-white">Apakah tersedia layanan
-                            maintenance?</span>
+                        <span class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Apakah tersedia layanan maintenance?') }}</span>
                         <svg class="w-5 h-5 text-slate-500 transition-transform duration-300"
                             :class="activeAccordion === 4 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -496,8 +486,59 @@
                         x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
                         x-transition:leave-end="opacity-0">
                         <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
-                            Kami menyediakan layanan maintenance berkala dan kontrak service tahunan. Layanan ini
-                            memastikan alat Anda selalu dalam kondisi prima dan sesuai standar kalibrasi.
+                            {{ __('Kami menyediakan layanan maintenance berkala dan kontrak service tahunan. Layanan ini memastikan alat Anda selalu dalam kondisi prima dan sesuai standar kalibrasi.') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden"
+                    data-gsap-item>
+                    <button @click="activeAccordion = activeAccordion === 3 ? null : 3"
+                        class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Berapa lama garansi produk?') }}</span>
+                        <svg class="w-5 h-5 text-slate-500 transition-transform duration-300"
+                            :class="activeAccordion === 3 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="activeAccordion === 3" x-cloak x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0">
+                        <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                            {{ __('Garansi bervariasi tergantung jenis produk, mulai dari 1 hingga 3 tahun. Detail garansi akan dijelaskan pada saat pembelian dan tercantum dalam dokumen garansi resmi.') }}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 overflow-hidden"
+                    data-gsap-item>
+                    <button @click="activeAccordion = activeAccordion === 4 ? null : 4"
+                        class="w-full flex items-center justify-between p-6 text-left">
+                        <span class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Apakah tersedia layanan maintenance?') }}</span>
+                        <svg class="w-5 h-5 text-slate-500 transition-transform duration-300"
+                            :class="activeAccordion === 4 ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                    <div x-show="activeAccordion === 4" x-cloak x-transition:enter="transition ease-out duration-200"
+                        x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                        x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                        x-transition:leave-end="opacity-0">
+                        <div class="px-6 pb-6 text-slate-600 dark:text-slate-400">
+                            {{ __('Kami menyediakan layanan maintenance berkala dan kontrak service tahunan. Layanan ini memastikan alat Anda selalu dalam kondisi prima dan sesuai standar kalibrasi.') }}
                         </div>
                     </div>
                 </div>
@@ -578,7 +619,7 @@
                             }, 8000);
                         } else {
                             // Error
-                            this.errorMessage = data.message || 'Terjadi kesalahan. Silakan coba lagi.';
+                            this.errorMessage = data.message || @js(__('Terjadi kesalahan. Silakan coba lagi.'));
                             
                             // Scroll to error message
                             setTimeout(() => {
@@ -590,7 +631,7 @@
                         }
                     } catch (error) {
                         console.error('Contact form error:', error);
-                        this.errorMessage = 'Terjadi kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.';
+                        this.errorMessage = @js(__('Terjadi kesalahan jaringan. Silakan periksa koneksi internet Anda dan coba lagi.'));
                         
                         // Scroll to error message
                         setTimeout(() => {

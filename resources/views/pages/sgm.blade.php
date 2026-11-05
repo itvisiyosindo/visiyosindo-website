@@ -1,4 +1,4 @@
-<x-layouts.frontend :title="$page->company_name . ' - Subsidiary of PT Visi Yosindo Medikal'">
+<x-layouts.frontend :title="$page->company_name . ' - ' . __('Subsidiary of PT Visi Yosindo Medikal')">
     {{-- Hero Section --}}
     <section 
         class="relative pt-32 pb-20 bg-gradient-to-br from-slate-900 via-emerald-900 to-slate-900 overflow-hidden"
@@ -45,7 +45,7 @@
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                 </svg>
-                <span>Subsidiary Company</span>
+                <span>{{ __('Subsidiary Company') }}</span>
             </span>
             
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
@@ -92,23 +92,23 @@
                                 src="{{ URL::asset('assets/logo/sgm.png') }}" 
                                 alt="{{ $page->company_name }}" 
                                 class="max-h-24 w-auto object-contain"
-                                onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-slate-400 text-center\'><svg class=\'w-12 h-12 mx-auto mb-2\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'currentColor\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4\'/></svg><p class=\'text-xs\'>Logo Perusahaan</p></div>';"
+                                onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'text-slate-400 text-center\'><svg class=\'w-12 h-12 mx-auto mb-2\' fill=\'none\' viewBox=\'0 0 24 24\' stroke=\'currentColor\'><path stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4\'/></svg><p class=\'text-xs\'>{{ __('Logo Perusahaan') }}</p></div>';"
                             >
                         </div>
                         
                         <div class="text-center mb-6">
                             <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-1">{{ $page->company_name }}</h3>
-                            <p class="text-slate-500 dark:text-slate-400 text-sm">Anak Perusahaan {{ $page->parent_company_name }}</p>
+                            <p class="text-slate-500 dark:text-slate-400 text-sm">{{ __('Anak Perusahaan') }} {{ $page->parent_company_name }}</p>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-4 pt-6">
                             <div class="text-center">
-                                <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Didirikan</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{{ __('Didirikan') }}</p>
                                 <p class="text-lg font-bold text-slate-900 dark:text-white">{{ $page->founded_year }}</p>
                             </div>
                             <div class="text-center">
-                                <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">Bidang Usaha</p>
-                                <p class="text-lg font-bold text-slate-900 dark:text-white">Alat Kesehatan</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wide mb-1">{{ __('Bidang Usaha') }}</p>
+                                <p class="text-lg font-bold text-slate-900 dark:text-white">{{ __('Alat Kesehatan') }}</p>
                             </div>
                         </div>
                     </div>
@@ -121,10 +121,10 @@
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
-                            Tentang Kami
+                            {{ __('Tentang Kami') }}
                         </span>
                         <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                            Mengenal <span class="text-emerald-600 dark:text-emerald-400">{{ $page->company_name }}</span>
+                            {{ __('Mengenal') }} <span class="text-emerald-600 dark:text-emerald-400">{{ $page->company_name }}</span>
                         </h2>
                         <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed mb-6">
                             {{ $page->company_description }}
@@ -166,10 +166,10 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                     </svg>
-                    Visi & Misi
+                    {{ __('Visi & Misi') }}
                 </span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                    Arah & <span class="text-emerald-600 dark:text-emerald-400">Tujuan</span> Kami
+                    {{ __('Arah &') }} <span class="text-emerald-600 dark:text-emerald-400">{{ __('Tujuan') }}</span> {{ __('Kami') }}
                 </h2>
             </div>
 
@@ -181,7 +181,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Visi</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ __('Visi') }}</h3>
                     <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
                         {{ $page->vision_text }}
                     </p>
@@ -194,7 +194,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                         </svg>
                     </div>
-                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">Misi</h3>
+                    <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-4">{{ __('Misi') }}</h3>
                     <ul class="space-y-3">
                         @foreach($page->mission_items as $mission)
                         <li class="flex items-start gap-3">
@@ -223,7 +223,7 @@
                     {{ $page->services_title }}
                 </span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-                    Layanan <span class="text-emerald-600 dark:text-emerald-400">Kami</span>
+                    {{ __('Layanan') }} <span class="text-emerald-600 dark:text-emerald-400">{{ __('Kami') }}</span>
                 </h2>
                 @if($page->services_subtitle)
                 <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
@@ -273,10 +273,10 @@
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                     </svg>
-                    Partnership
+                    {{ __('Partnership') }}
                 </span>
                 <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
-                    Bagian dari <span class="text-emerald-400">{{ $page->parent_company_name }}</span>
+                    {{ __('Bagian dari') }} <span class="text-emerald-400">{{ $page->parent_company_name }}</span>
                 </h2>
                 <p class="text-lg text-slate-300 max-w-3xl mx-auto">
                     {{ $page->parent_company_description }}
@@ -294,7 +294,7 @@
                             >
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">{{ $page->parent_company_name }}</h3>
-                    <p class="text-white/80 text-sm">Perusahaan Induk</p>
+                    <p class="text-white/80 text-sm">{{ __('Perusahaan Induk') }}</p>
                 </div>
 
                 <!-- Connection -->
@@ -318,7 +318,7 @@
                             >
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">{{ $page->company_name }}</h3>
-                    <p class="text-white/80 text-sm">Anak Perusahaan</p>
+                    <p class="text-white/80 text-sm">{{ __('Anak Perusahaan') }}</p>
                 </div>
             </div>
 
@@ -351,10 +351,10 @@
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                 </svg>
-                Hubungi Kami
+                {{ __('Hubungi Kami') }}
             </span>
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-                {!! str_replace(['Bekerja Sama', 'Bekerja', 'Sama'], ['<span class="text-emerald-200">Bekerja Sama</span>', '<span class="text-emerald-200">Bekerja</span>', '<span class="text-emerald-200">Sama</span>'], $page->cta_title) !!}
+                {!! str_replace(['Bekerja Sama', 'Bekerja', 'Sama'], ['<span class="text-emerald-200">' . __('Bekerja Sama') . '</span>', '<span class="text-emerald-200">' . __('Bekerja') . '</span>', '<span class="text-emerald-200">' . __('Sama') . '</span>'], $page->cta_title) !!}
             </h2>
             <p class="text-lg text-white/90 mb-10 max-w-2xl mx-auto">
                 {{ $page->cta_subtitle }}
@@ -367,7 +367,7 @@
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg>
-                    Hubungi Kami
+                    {{ __('Hubungi Kami') }}
                 </a>
                 @if($page->whatsapp_number)
                 <a 
