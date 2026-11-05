@@ -161,7 +161,7 @@ class PageView extends Model
     }
 
     /**
-     * Get list of years that have page views
+     * Get list of years that have page views (ensuring from 2024 to current/latest year)
      */
     public static function getAvailableYears()
     {
@@ -169,7 +169,7 @@ class PageView extends Model
         $yearExpr = $isSqlite ? "CAST(strftime('%Y', created_at) AS INTEGER)" : "YEAR(created_at)";
 
         try {
-            $years = static::selectRaw("{$yearExpr} as year")
+            $dbYears = static::selectRaw("{$yearExpr} as year")
                 ->distinct()
                 ->whereNotNull('created_at')
                 ->orderByDesc('year')
@@ -178,15 +178,20 @@ class PageView extends Model
                 ->filter()
                 ->values();
         } catch (\Throwable $e) {
-            $years = collect([]);
+            $dbYears = collect([]);
         }
 
         $currentYear = (int) now()->year;
-        if (!$years->contains($currentYear)) {
-            $years->prepend($currentYear);
-        }
+        $startYear = 2024;
+        $endYear = max($currentYear, 2026);
 
-        return $years;
+        // Always include all years from 2024 up to latest year
+        $rangeYears = collect(range($startYear, $endYear));
+
+        return $dbYears->merge($rangeYears)
+            ->unique()
+            ->sortDesc()
+            ->values();
     }
 
     /**

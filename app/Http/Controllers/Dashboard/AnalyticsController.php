@@ -17,20 +17,25 @@ class AnalyticsController extends Controller
     public function index(Request $request): View
     {
         $availableYears = PageView::getAvailableYears();
-        $rawPeriod = $request->get('period');
         $selectedYear = null;
 
-        if ($request->filled('year')) {
-            $selectedYear = (int) $request->get('year');
-        } elseif (is_string($rawPeriod) && (str_starts_with($rawPeriod, 'year_') || str_starts_with($rawPeriod, 'year:'))) {
-            $selectedYear = (int) preg_replace('/[^0-9]/', '', $rawPeriod);
-        }
-
-        if ($selectedYear && !$availableYears->contains($selectedYear)) {
-            $selectedYear = (int) now()->year;
+        if ($request->has('year') && $request->get('year') !== '' && $request->get('year') !== null) {
+            $yearVal = (int) $request->get('year');
+            if ($availableYears->contains($yearVal)) {
+                $selectedYear = $yearVal;
+            }
+        } elseif ($request->has('period')) {
+            $rawPeriod = $request->get('period');
+            if (is_string($rawPeriod) && (str_starts_with($rawPeriod, 'year_') || str_starts_with($rawPeriod, 'year:'))) {
+                $yearVal = (int) preg_replace('/[^0-9]/', '', $rawPeriod);
+                if ($availableYears->contains($yearVal)) {
+                    $selectedYear = $yearVal;
+                }
+            }
         }
 
         $defaultPeriod = (int) data_get($request->user()?->preferences ?? [], 'dashboard.default_analytics_period', 30);
+        $rawPeriod = $request->get('period');
         $period = is_numeric($rawPeriod) ? (int) $rawPeriod : $defaultPeriod;
 
         if (!in_array($period, [7, 30, 60, 90, 365], true)) {
