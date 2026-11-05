@@ -64,6 +64,27 @@ Route::middleware(['throttle:60,1'])->group(function () {
 // Sitemap doesn't need rate limiting as it's cached
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
+// Digital Radiography clinical sample images route
+Route::get('/assets/images/radiography-samples/{filename}', function (string $filename) {
+    $filename = basename($filename);
+    $paths = [
+        base_path('public/assets/images/radiography-samples/' . $filename),
+        public_path('assets/images/radiography-samples/' . $filename),
+        storage_path('app/public/radiography-samples/' . $filename),
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Content-Type' => 'image/png',
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    abort(404);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes

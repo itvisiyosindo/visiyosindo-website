@@ -108,6 +108,41 @@ class ProductController extends Controller
             ->limit(4)
             ->get();
 
+        // Check if product belongs to DIGITAL RADIOGRAPHY category
+        $categoryName = strtolower(trim($product->category->name ?? ''));
+        $categorySlug = strtolower(trim($product->category->slug ?? ''));
+        $isDigitalRadiography = (str_contains($categoryName, 'digital') && str_contains($categoryName, 'radiograph'))
+            || (str_contains($categorySlug, 'digital') && str_contains($categorySlug, 'radiograph'))
+            || str_contains($categoryName, 'radiologi digital')
+            || str_contains($categorySlug, 'radiologi-digital')
+            || $categorySlug === 'digital-radiography'
+            || $categorySlug === 'dr'
+            || $categoryName === 'digital radiography';
+
+        $sampleImages = [];
+        if ($isDigitalRadiography) {
+            $sampleImages = [
+                [
+                    'url' => asset('assets/images/radiography-samples/dr-sample-chest-xray.png'),
+                    'title' => 'Citra Radiografi Thorax (Dada)',
+                    'subtitle' => 'Chest X-Ray Examination',
+                    'description' => 'Hasil citra radiografi resolusi tinggi untuk pemeriksaan rongga dada (thorax), menampilkan detail struktur paru dan tulang rusuk dengan kontras tajam.',
+                ],
+                [
+                    'url' => asset('assets/images/radiography-samples/dr-sample-hand-xray.png'),
+                    'title' => 'Citra Radiografi Ekstremitas (Tangan)',
+                    'subtitle' => 'Hand / Extremity Examination',
+                    'description' => 'Pencitraan detail tulang dan persendian jari hingga pergelangan tangan (manus), memperlihatkan densitas trabekular tulang secara jernih.',
+                ],
+                [
+                    'url' => asset('assets/images/radiography-samples/dr-sample-vet-xray.png'),
+                    'title' => 'Citra Radiografi Veteriner (Pelvis & Spine)',
+                    'subtitle' => 'Veterinary Examination',
+                    'description' => 'Aplikasi pemeriksaan radiografi digital untuk hewan/veteriner, menampilkan anatomi pelvis dan kolumna vertebra secara presisi.',
+                ],
+            ];
+        }
+
         // Prepare product data for the frontend
         $productData = [
             'id' => $product->id,
@@ -129,7 +164,9 @@ class ProductController extends Controller
             'ytVideoLinks' => $product->yt_video_links ?? [],
             'isNew' => $product->created_at->diffInDays(now()) <= 30,
             'isPromo' => $product->is_promo ?? false,
-            'gallery' => $this->getProductGallery($product),
+            'isDigitalRadiography' => $isDigitalRadiography,
+            'sampleImages' => $sampleImages,
+            'gallery' => $this->getProductGallery($product, $isDigitalRadiography),
         ];
 
         // Prepare related products data
@@ -156,7 +193,7 @@ class ProductController extends Controller
     /**
      * Get product gallery images.
      */
-    protected function getProductGallery(ProductContent $product): array
+    protected function getProductGallery(ProductContent $product, bool $isDigitalRadiography = false): array
     {
         $gallery = [];
 
@@ -168,6 +205,13 @@ class ProductController extends Controller
         // Add all product images
         foreach ($product->images as $image) {
             $gallery[] = asset('storage/' . $image->image_path);
+        }
+
+        // For Digital Radiography products, append the 3 clinical sample X-ray images
+        if ($isDigitalRadiography) {
+            $gallery[] = asset('assets/images/radiography-samples/dr-sample-chest-xray.png');
+            $gallery[] = asset('assets/images/radiography-samples/dr-sample-hand-xray.png');
+            $gallery[] = asset('assets/images/radiography-samples/dr-sample-vet-xray.png');
         }
 
         // If no images, add placeholder

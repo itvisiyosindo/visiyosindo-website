@@ -46,7 +46,8 @@
                         <div class="image-zoom-container relative aspect-square rounded-3xl overflow-hidden bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-700 cursor-zoom-in"
                             @mousemove="handleImageZoom($event)" @mouseleave="resetImageZoom()"
                             @mouseenter="isZooming = true">
-                            <img :src="currentImage" :alt="product.name" class="w-full h-full object-cover"
+                            <img :src="currentImage" :alt="product.name" class="w-full h-full object-cover transition-all"
+                                :class="currentImage.includes('radiography-samples') ? '!object-contain bg-black p-2' : 'object-cover'"
                                 :style="isZooming ?
                                     `transform: scale(2); transform-origin: ${zoomPosition.x}% ${zoomPosition.y}%` :
                                     ''"
@@ -70,13 +71,24 @@
                         <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide">
                             <template x-for="(img, index) in product.gallery" :key="index">
                                 <button @click="currentImage = img"
-                                    class="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-300"
+                                    class="flex-shrink-0 w-20 h-20 rounded-xl overflow-hidden border-2 transition-all duration-300 cursor-pointer"
                                     :class="currentImage === img ? 'border-blue-500 ring-2 ring-blue-500/30' :
                                         'border-transparent hover:border-slate-300 dark:hover:border-slate-600'">
                                     <img :src="img" :alt="'Thumbnail ' + (index + 1)"
-                                        class="w-full h-full object-cover">
+                                        class="w-full h-full object-cover"
+                                        :class="img.includes('radiography-samples') ? 'bg-black !object-contain p-1' : 'object-cover'">
                                 </button>
                             </template>
+                        </div>
+
+                        <!-- Digital Radiography Samples Badge -->
+                        <div x-show="product.isDigitalRadiography" class="pt-2">
+                            <span class="inline-flex items-center gap-1.5 text-xs text-blue-600 dark:text-blue-400 font-semibold bg-blue-50 dark:bg-blue-900/30 px-3 py-1.5 rounded-full border border-blue-200 dark:border-blue-800">
+                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                                Termasuk 3 Contoh Hasil Citra Radiografi Digital (Klik thumbnail untuk melihat)
+                            </span>
                         </div>
                     </div>
 
@@ -397,6 +409,109 @@
             </div>
         </section>
 
+        {{-- Clinical Sample X-Ray Images Section (Khusus Kategori Digital Radiography) --}}
+        <section 
+            class="py-20 bg-slate-900 text-white relative overflow-hidden" 
+            x-show="product.isDigitalRadiography && product.sampleImages && product.sampleImages.length > 0"
+            x-cloak
+        >
+            <!-- Background Glow & Pattern -->
+            <div class="absolute inset-0 opacity-20 pointer-events-none">
+                <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/30 rounded-full blur-3xl animate-pulse"></div>
+                <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" style="animation-delay: 2s;"></div>
+            </div>
+
+            <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="text-center max-w-3xl mx-auto mb-14" data-gsap="fade-up">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-4">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        Clinical Imaging Results
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">
+                        Contoh Hasil Citra Radiografi Digital
+                    </h2>
+                    <p class="text-slate-400 text-base sm:text-lg">
+                        Kualitas pencitraan radiografi digital dengan resolusi tinggi, ketajaman kontras optimal, dan visualisasi struktur anatomi yang presisi.
+                    </p>
+                </div>
+
+                <!-- 3 Sample Images Grid -->
+                <div class="grid md:grid-cols-3 gap-8">
+                    <template x-for="(sample, sIndex) in product.sampleImages" :key="sIndex">
+                        <div 
+                            class="group rounded-3xl bg-slate-800/80 border border-slate-700/80 hover:border-blue-500/60 overflow-hidden shadow-2xl transition-all duration-300 flex flex-col"
+                        >
+                            <!-- Image Container -->
+                            <div 
+                                class="relative aspect-square bg-black overflow-hidden flex items-center justify-center cursor-pointer group"
+                                @click="openSampleModal(sample)"
+                            >
+                                <img 
+                                    :src="sample.url" 
+                                    :alt="sample.title" 
+                                    class="w-full h-full object-contain p-3 transition-transform duration-500 group-hover:scale-105"
+                                    loading="lazy"
+                                >
+                                <!-- Hover Zoom Overlay -->
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col justify-end p-5">
+                                    <div class="flex items-center justify-between text-white">
+                                        <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full bg-blue-600 shadow-md">
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                            </svg>
+                                            Klik untuk Fullscreen
+                                        </span>
+                                        <button 
+                                            type="button"
+                                            @click.stop="currentImage = sample.url; window.scrollTo({ top: 150, behavior: 'smooth' })"
+                                            class="text-xs text-blue-300 hover:text-white underline font-medium cursor-pointer"
+                                        >
+                                            Tampilkan di Atas &uarr;
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Content Info -->
+                            <div class="p-6 flex-1 flex flex-col justify-between bg-slate-800/60">
+                                <div>
+                                    <span class="text-xs font-bold text-blue-400 uppercase tracking-wider block mb-1.5" x-text="sample.subtitle"></span>
+                                    <h3 class="text-xl font-bold text-white mb-2 group-hover:text-blue-300 transition-colors" x-text="sample.title"></h3>
+                                    <p class="text-sm text-slate-300 leading-relaxed" x-text="sample.description"></p>
+                                </div>
+                                <div class="mt-6 pt-4 border-t border-slate-700/60 flex items-center justify-between">
+                                    <button 
+                                        type="button"
+                                        @click="openSampleModal(sample)"
+                                        class="inline-flex items-center gap-2 text-xs font-semibold text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
+                                    >
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                        </svg>
+                                        Lihat Fullscreen
+                                    </button>
+                                    <button 
+                                        type="button"
+                                        @click="currentImage = sample.url; window.scrollTo({ top: 150, behavior: 'smooth' })"
+                                        class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-xl bg-slate-700/70 hover:bg-blue-600 text-slate-200 hover:text-white transition-all cursor-pointer"
+                                    >
+                                        <span>Ganti Viewer Atas</span>
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </section>
+
         {{-- YouTube Videos Section --}}
         <section class="py-16 bg-white dark:bg-slate-900"
             x-show="product.ytVideoLinks && product.ytVideoLinks.length > 0" x-cloak>
@@ -515,6 +630,63 @@
             </div>
         </section>
 
+        <!-- Sample Image Fullscreen Modal -->
+        <div 
+            x-show="sampleModalOpen" 
+            x-cloak
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/90 backdrop-blur-md"
+            @keydown.escape.window="closeSampleModal()"
+        >
+            <div 
+                class="relative max-w-4xl w-full bg-slate-900 border border-slate-700 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
+                @click.away="closeSampleModal()"
+            >
+                <!-- Modal Header -->
+                <div class="flex items-center justify-between p-5 border-b border-slate-800">
+                    <div>
+                        <h4 class="text-lg font-bold text-white" x-text="activeSample?.title"></h4>
+                        <p class="text-xs text-blue-400 font-medium" x-text="activeSample?.subtitle"></p>
+                    </div>
+                    <button 
+                        type="button"
+                        @click="closeSampleModal()"
+                        class="w-10 h-10 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                    >
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Modal Body with Centered Image -->
+                <div class="flex-1 bg-black overflow-auto flex items-center justify-center p-4 min-h-[300px]">
+                    <img 
+                        :src="activeSample?.url" 
+                        :alt="activeSample?.title" 
+                        class="max-h-[60vh] max-w-full object-contain rounded-lg shadow-lg"
+                    >
+                </div>
+
+                <!-- Modal Footer -->
+                <div class="p-5 border-t border-slate-800 bg-slate-900/90 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                    <p class="text-xs sm:text-sm text-slate-300" x-text="activeSample?.description"></p>
+                    <button 
+                        type="button"
+                        @click="currentImage = activeSample?.url; closeSampleModal(); window.scrollTo({ top: 150, behavior: 'smooth' })"
+                        class="flex-shrink-0 inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-lg transition-all cursor-pointer"
+                    >
+                        Tampilkan di Viewer Utama
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>{{-- End productDetail() wrapper --}}
 
     {{-- Alpine.js Component --}}
@@ -522,6 +694,8 @@
         function productDetail() {
             return {
                 lightboxOpen: false,
+                sampleModalOpen: false,
+                activeSample: null,
                 currentImage: '',
                 isZooming: false,
                 zoomPosition: {
@@ -541,6 +715,18 @@
                     console.log('Specifications:', this.product.specifications);
                     console.log('Specifications Type:', typeof this.product.specifications);
                     console.log('Specifications Keys:', Object.keys(this.product.specifications || {}));
+                },
+
+                openSampleModal(sample) {
+                    this.activeSample = sample;
+                    this.sampleModalOpen = true;
+                    document.body.style.overflow = 'hidden';
+                },
+
+                closeSampleModal() {
+                    this.sampleModalOpen = false;
+                    this.activeSample = null;
+                    document.body.style.overflow = '';
                 },
 
                 handleImageZoom(event) {
