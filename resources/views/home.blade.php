@@ -666,11 +666,11 @@
                             style="{{ $index === 0 ? '' : 'display: none;' }}">
                             {{-- Part A: Ticket Date & Location Stub --}}
                             <div class="vh-ticket-date">
-                                <span class="vh-date-month">NOV</span>
+                                <span class="vh-date-month">{{ __('NOV') }}</span>
                                 <span class="vh-date-day">05-09</span>
-                                <span class="vh-date-year">2026 • PEKANBARU</span>
+                                <span class="vh-date-year">2026 • {{ strtoupper(__('Pekanbaru')) }}</span>
                                 <span class="vh-date-badge">
-                                    <span>PELATIHAN SIB</span>
+                                    <span>{{ __('PELATIHAN SIB') }}</span>
                                 </span>
                             </div>
 
@@ -678,28 +678,28 @@
                             <div class="vh-ticket-body">
                                 <span class="vh-ticket-type">
                                     <span>⚡</span>
-                                    <span>{{ $banner['label'] ?: __('Agenda Pelatihan Resmi') }}</span>
+                                    <span>{{ __($banner['label'] ?: 'Agenda Pelatihan Resmi') }}</span>
                                 </span>
-                                <h3 class="vh-ticket-title">{{ $banner['title'] }}</h3>
+                                <h3 class="vh-ticket-title">{{ __($banner['title']) }}</h3>
 
                                 <div class="vh-ticket-highlights">
                                     <span class="vh-pill-tag">
-                                        <span>📅 Ujian SIB: 10 - 11 Nov</span>
+                                        <span>📅 {{ __('Ujian SIB: 10 - 11 Nov') }}</span>
                                     </span>
                                     <span class="vh-pill-tag">
-                                        <span>📍 Pekanbaru</span>
+                                        <span>📍 {{ __('Pekanbaru') }}</span>
                                     </span>
                                     <span class="vh-pill-tag">
-                                        <span>🎓 Diskon 10% D3 Radiologi</span>
+                                        <span>🎓 {{ __('Diskon 10% D3 Radiologi') }}</span>
                                     </span>
                                     <span class="vh-pill-tag" style="color:#2563eb; font-weight:600;">
-                                        <span>📲 Kuota Terbatas</span>
+                                        <span>📲 {{ __('Kuota Terbatas') }}</span>
                                     </span>
                                 </div>
 
                                 <div class="vh-ticket-actions">
                                     <a href="{{ $banner['link'] }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-btn">
-                                        <span>{{ $banner['buttonText'] ?: __('Daftar Sekarang') }}</span>
+                                        <span>{{ __($banner['buttonText'] ?: 'Daftar Sekarang') }}</span>
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                         </svg>
@@ -708,7 +708,7 @@
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
-                                        <span>Info WA: 0895-0724-0145</span>
+                                        <span>{{ __('Info WA') }}: 0895-0724-0145</span>
                                     </a>
                                 </div>
                             </div>
@@ -834,19 +834,19 @@
 
                     <h2 class="va-title">
                         @if ($introduction)
-                            {!! nl2br(e($introduction->title)) !!}
+                            {!! nl2br(e(__($introduction->title))) !!}
                         @else
                             {!! __('Menghadirkan Solusi<br>Alat Radiologi Terbaik<br>Untuk Indonesia') !!}
                         @endif
                     </h2>
 
                     @if ($introduction && $introduction->subtitle)
-                        <p class="va-sub">{{ $introduction->subtitle }}</p>
+                        <p class="va-sub">{{ __($introduction->subtitle) }}</p>
                     @endif
 
                     <p class="va-desc">
                         @if ($introduction)
-                            {!! nl2br(e($introduction->description)) !!}
+                            {!! nl2br(e(__($introduction->description))) !!}
                         @else
                             {{ __('PT Visi Yosindo Medikal merupakan perusahaan distributor alat kesehatan yang berfokus pada solusi radiologi dan sistem pencitraan medis. Sejak berdiri, kami berkomitmen mendukung peningkatan kualitas layanan diagnostik melalui penyediaan produk yang andal dan berstandar internasional.') }}
                         @endif
@@ -859,14 +859,14 @@
                                 <li class="va-feature">
                                     <span class="va-feature-icon">
                                         @if (!empty($feature['icon']))
-                                            <img src="{{ Storage::url($feature['icon']) }}" alt="{{ $feature['text'] }}">
+                                            <img src="{{ Storage::url($feature['icon']) }}" alt="{{ __($feature['text']) }}">
                                         @else
                                             <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
                                             </svg>
                                         @endif
                                     </span>
-                                    <span class="va-feature-text">{{ $feature['text'] }}</span>
+                                    <span class="va-feature-text">{{ __($feature['text']) }}</span>
                                 </li>
                             @endforeach
                         @else

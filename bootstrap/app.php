@@ -14,10 +14,11 @@ return Application::configure(basePath: dirname(__DIR__))
         // Trust proxy headers so request IP/device headers are accurate behind CDN/load balancers.
         $middleware->trustProxies(at: '*');
 
-        // Consent cookie is written from JavaScript (plain), so it must be excluded from encryption
-        // to be readable in TrackPageView middleware.
+        // Consent and locale cookies are read/written directly by JavaScript and Google Translate
         $middleware->encryptCookies(except: [
             'cookies_accepted',
+            'locale',
+            'googtrans',
         ]);
 
         $middleware->web(append: [

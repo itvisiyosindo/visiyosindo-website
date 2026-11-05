@@ -136,6 +136,32 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- Seamless Bilingual Auto-Translation Styles --}}
+    <style>
+        .goog-te-banner-frame,
+        .goog-te-banner-frame.skiptranslate,
+        iframe.goog-te-banner-frame,
+        .goog-te-balloon-frame,
+        #goog-gt-tt {
+            display: none !important;
+            visibility: hidden !important;
+        }
+        body {
+            top: 0px !important;
+            position: static !important;
+        }
+        .goog-text-highlight {
+            background-color: transparent !important;
+            box-shadow: none !important;
+        }
+        .goog-te-spinner-pos {
+            display: none !important;
+        }
+        #google_translate_element {
+            display: none !important;
+        }
+    </style>
+
     {{-- Additional Head Content (for page-specific styles/scripts) --}}
     @stack('head')
 </head>
@@ -183,6 +209,61 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18" />
         </svg>
     </button>
+    <!-- Hidden Google Translate Element -->
+    <div id="google_translate_element" style="display:none;" aria-hidden="true"></div>
+
+    <script>
+        function setCookieLocale(name, value, days) {
+            let expires = "";
+            if (days) {
+                const date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            const host = window.location.hostname;
+            document.cookie = name + "=" + (value || "") + expires + "; path=/;";
+            if (host && host.indexOf('.') !== -1) {
+                document.cookie = name + "=" + (value || "") + expires + "; path=/; domain=" + host + ";";
+                document.cookie = name + "=" + (value || "") + expires + "; path=/; domain=." + host + ";";
+            }
+        }
+
+        window.changeWebsiteLanguage = function(lang) {
+            if (lang === 'en') {
+                setCookieLocale('googtrans', '/id/en', 365);
+                setCookieLocale('locale', 'en', 365);
+            } else {
+                setCookieLocale('googtrans', '/id/id', 365);
+                setCookieLocale('locale', 'id', 365);
+            }
+
+            const selectEl = document.querySelector('.goog-te-combo');
+            if (selectEl) {
+                selectEl.value = lang;
+                selectEl.dispatchEvent(new Event('change'));
+            }
+
+            window.location.href = "{{ url('/locale') }}/" + lang;
+        };
+
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'id',
+                includedLanguages: 'id,en',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        (function() {
+            const currentLocale = @js(app()->getLocale());
+            if (currentLocale === 'en') {
+                setCookieLocale('googtrans', '/id/en', 365);
+            } else {
+                setCookieLocale('googtrans', '/id/id', 365);
+            }
+        })();
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit" async defer></script>
 </body>
 
 </html>

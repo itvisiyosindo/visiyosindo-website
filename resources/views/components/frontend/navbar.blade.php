@@ -205,6 +205,7 @@
                         'bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700' :
                         'bg-white/15 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-slate-700/60'">
                     <a href="{{ route('set-locale', 'id') }}"
+                        @click.prevent="window.changeWebsiteLanguage ? window.changeWebsiteLanguage('id') : (window.location.href='{{ route('set-locale', 'id') }}')"
                         class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none {{ $currentLocale === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
                         :class="'{{ $currentLocale }}' === 'id' ?
                             'bg-blue-600 text-white shadow-xs font-bold' :
@@ -215,6 +216,7 @@
                         <span class="text-xs">ID</span>
                     </a>
                     <a href="{{ route('set-locale', 'en') }}"
+                        @click.prevent="window.changeWebsiteLanguage ? window.changeWebsiteLanguage('en') : (window.location.href='{{ route('set-locale', 'en') }}')"
                         class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none {{ $currentLocale === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
                         :class="'{{ $currentLocale }}' === 'en' ?
                             'bg-blue-600 text-white shadow-xs font-bold' :
@@ -389,11 +391,13 @@
                     <div class="inline-flex p-1 rounded-full text-xs font-semibold"
                         :class="(scrolled || solidPage) ? 'bg-slate-100 dark:bg-slate-700' : 'bg-white/20'">
                         <a href="{{ route('set-locale', 'id') }}"
+                            @click.prevent="window.changeWebsiteLanguage ? window.changeWebsiteLanguage('id') : (window.location.href='{{ route('set-locale', 'id') }}')"
                             class="px-3 py-1 rounded-full transition-all duration-200 {{ $currentLocale === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
                             :class="'{{ $currentLocale }}' === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : ((scrolled || solidPage) ? 'text-slate-600 dark:text-slate-300' : 'text-white')">
                             🇮🇩 ID
                         </a>
                         <a href="{{ route('set-locale', 'en') }}"
+                            @click.prevent="window.changeWebsiteLanguage ? window.changeWebsiteLanguage('en') : (window.location.href='{{ route('set-locale', 'en') }}')"
                             class="px-3 py-1 rounded-full transition-all duration-200 {{ $currentLocale === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
                             :class="'{{ $currentLocale }}' === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : ((scrolled || solidPage) ? 'text-slate-600 dark:text-slate-300' : 'text-white')">
                             🇬🇧 EN

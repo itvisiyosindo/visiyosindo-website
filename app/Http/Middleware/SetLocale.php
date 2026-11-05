@@ -18,9 +18,13 @@ class SetLocale
     {
         $supportedLocales = ['id', 'en'];
 
-        // Determine locale from session, cookie, or default 'id'
+        // Determine locale from session, cookie, googtrans, or default 'id'
+        $gtCookie = $request->cookie('googtrans');
+        $gtLocale = ($gtCookie === '/id/en' || $gtCookie === '/auto/en') ? 'en' : null;
+
         $locale = $request->session()->get('locale') 
             ?? $request->cookie('locale') 
+            ?? $gtLocale
             ?? config('app.locale', 'id');
 
         if (!in_array($locale, $supportedLocales, true)) {
@@ -28,6 +32,9 @@ class SetLocale
         }
 
         App::setLocale($locale);
+        if (class_exists(\Carbon\Carbon::class)) {
+            \Carbon\Carbon::setLocale($locale);
+        }
 
         return $next($request);
     }

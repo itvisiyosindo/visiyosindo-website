@@ -105,7 +105,10 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 Route::get('/locale/{locale}', function (string $locale) {
     if (in_array($locale, ['id', 'en'], true)) {
         session(['locale' => $locale]);
-        cookie()->queue(cookie()->make('locale', $locale, 60 * 24 * 365));
+        cookie()->queue(cookie()->make('locale', $locale, 60 * 24 * 365, '/', null, false, false));
+
+        $gtValue = $locale === 'en' ? '/id/en' : '/id/id';
+        cookie()->queue(cookie()->make('googtrans', $gtValue, 60 * 24 * 365, '/', null, false, false));
     }
     return redirect()->back(fallback: route('home'));
 })->name('set-locale');
@@ -118,9 +121,9 @@ Route::get('/', function () {
         ->map(function($slide) {
             return [
                 'image' => Storage::url($slide->image_path),
-                'description' => $slide->description ?? '',
-                'title' => $slide->title ?? '',
-                'button_text' => $slide->button_text ?? '',
+                'description' => __($slide->description ?? ''),
+                'title' => __($slide->title ?? ''),
+                'button_text' => __($slide->button_text ?? ''),
                 'button_url' => $slide->button_url ?? '#'
             ];
         });
@@ -130,8 +133,8 @@ Route::get('/', function () {
         $heroSlides = collect([
             [
                 'image' => asset('assets/carousel/slider-default-1.png'),
-                'description' => 'Distributor resmi peralatan radiologi dengan teknologi pencitraan presisi tinggi',
-                'title' => 'Solusi Radiologi Terpercaya',
+                'description' => __('Distributor resmi peralatan radiologi dengan teknologi pencitraan presisi tinggi'),
+                'title' => __('Solusi Radiologi Terpercaya'),
                 'button_text' => '',
                 'button_url' => '#'
             ]
@@ -144,10 +147,10 @@ Route::get('/', function () {
         ->get()
         ->map(function($banner) {
             return [
-                'label' => $banner->label ?? '',
-                'title' => $banner->title ?? '',
-                'description' => $banner->description ?? '',
-                'buttonText' => $banner->button_text ?? 'Lihat Detail',
+                'label' => __($banner->label ?? ''),
+                'title' => __($banner->title ?? ''),
+                'description' => __($banner->description ?? ''),
+                'buttonText' => __($banner->button_text ?? 'Lihat Detail'),
                 'link' => $banner->link_url ?? '#',
                 'bgClass' => 'bg-linear-to-r from-blue-600 to-cyan-600',
                 'image' => Storage::url($banner->image_path)
