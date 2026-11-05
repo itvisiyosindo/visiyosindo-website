@@ -17,14 +17,21 @@ class AnalyticsController extends Controller
     public function index(Request $request): View
     {
         $availableYears = PageView::getAvailableYears();
-        $selectedYear = $request->filled('year') ? (int) $request->get('year') : null;
+        $rawPeriod = $request->get('period');
+        $selectedYear = null;
+
+        if ($request->filled('year')) {
+            $selectedYear = (int) $request->get('year');
+        } elseif (is_string($rawPeriod) && (str_starts_with($rawPeriod, 'year_') || str_starts_with($rawPeriod, 'year:'))) {
+            $selectedYear = (int) preg_replace('/[^0-9]/', '', $rawPeriod);
+        }
 
         if ($selectedYear && !$availableYears->contains($selectedYear)) {
             $selectedYear = (int) now()->year;
         }
 
         $defaultPeriod = (int) data_get($request->user()?->preferences ?? [], 'dashboard.default_analytics_period', 30);
-        $period = (int) $request->get('period', $defaultPeriod);
+        $period = is_numeric($rawPeriod) ? (int) $rawPeriod : $defaultPeriod;
 
         if (!in_array($period, [7, 30, 60, 90, 365], true)) {
             $period = $defaultPeriod;

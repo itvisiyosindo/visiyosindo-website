@@ -12,45 +12,38 @@
                 <p class="mt-0.5 text-[13px] text-surface-500 dark:text-surface-400">Monitor pengunjung dan performa website Anda</p>
             </div>
             <div class="flex items-center gap-2">
-                <form method="GET" action="{{ route('dashboard.analytics.index') }}" class="flex flex-wrap items-center gap-2">
-                    {{-- Filter Tahun --}}
-                    <div class="relative">
-                        <select 
-                            name="year" 
-                            onchange="this.form.submit()"
-                            class="px-3.5 py-2 text-sm font-medium border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer shadow-sm"
-                        >
-                            <option value="">Semua Tahun</option>
-                            @foreach($availableYears as $y)
-                                <option value="{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>Tahun {{ $y }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    {{-- Filter Rentang Hari --}}
+                <form method="GET" action="{{ route('dashboard.analytics.index') }}" class="flex items-center gap-2">
                     <div class="relative">
                         <select 
                             name="period" 
-                            onchange="if(this.form.year) { this.form.year.value = ''; } this.form.submit()"
-                            class="px-3.5 py-2 text-sm font-medium border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer shadow-sm {{ $selectedYear ? 'opacity-50' : '' }}"
-                            title="{{ $selectedYear ? 'Memilih rentang hari akan mereset filter tahun' : 'Filter rentang hari' }}"
+                            onchange="this.form.submit()"
+                            class="px-4 py-2 pr-9 text-sm font-medium border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-primary-500 focus:border-transparent cursor-pointer shadow-sm"
                         >
-                            <option value="7" {{ !$selectedYear && $period == 7 ? 'selected' : '' }}>7 Hari Terakhir</option>
-                            <option value="30" {{ !$selectedYear && $period == 30 ? 'selected' : '' }}>30 Hari Terakhir</option>
-                            <option value="60" {{ !$selectedYear && $period == 60 ? 'selected' : '' }}>60 Hari Terakhir</option>
-                            <option value="90" {{ !$selectedYear && $period == 90 ? 'selected' : '' }}>90 Hari Terakhir</option>
-                            <option value="365" {{ !$selectedYear && $period == 365 ? 'selected' : '' }}>365 Hari Terakhir</option>
+                            <optgroup label="Rentang Waktu">
+                                <option value="7" {{ !$selectedYear && $period == 7 ? 'selected' : '' }}>7 Hari Terakhir</option>
+                                <option value="30" {{ !$selectedYear && $period == 30 ? 'selected' : '' }}>30 Hari Terakhir</option>
+                                <option value="60" {{ !$selectedYear && $period == 60 ? 'selected' : '' }}>60 Hari Terakhir</option>
+                                <option value="90" {{ !$selectedYear && $period == 90 ? 'selected' : '' }}>90 Hari Terakhir</option>
+                                <option value="365" {{ !$selectedYear && $period == 365 ? 'selected' : '' }}>365 Hari Terakhir (1 Tahun)</option>
+                            </optgroup>
+                            <optgroup label="Berdasarkan Tahun Kalender">
+                                @foreach($availableYears as $y)
+                                    <option value="year_{{ $y }}" {{ $selectedYear == $y ? 'selected' : '' }}>
+                                        Tahun {{ $y }} {{ $y == now()->year ? '(Tahun Berjalan)' : '' }}
+                                    </option>
+                                @endforeach
+                            </optgroup>
                         </select>
                     </div>
 
                     @if($selectedYear)
                         <a href="{{ route('dashboard.analytics.index') }}" 
                            class="inline-flex items-center gap-1 px-3 py-2 text-xs font-semibold rounded-lg bg-surface-100 hover:bg-surface-200 dark:bg-surface-700 dark:hover:bg-surface-600 text-surface-600 dark:text-surface-300 transition-colors"
-                           title="Reset filter">
+                           title="Kembali ke default">
                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                             </svg>
-                            Reset
+                            Default
                         </a>
                     @endif
                 </form>
