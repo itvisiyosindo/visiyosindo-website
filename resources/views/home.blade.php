@@ -391,31 +391,37 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2.25rem 1.5rem;
-            background: linear-gradient(135deg, #1e3a8a, #0284c7);
+            padding: 2.25rem 1.25rem;
+            background: linear-gradient(145deg, #1d4ed8, #0284c7);
             color: #ffffff;
             position: relative;
         }
+        @media (min-width: 1024px) {
+            .vh-ticket-date {
+                border-right: 2px dashed rgba(255, 255, 255, .3);
+            }
+        }
         .vh-date-month {
-            font-size: .85rem;
+            font-size: .8rem;
             font-weight: 800;
-            letter-spacing: .15em;
+            letter-spacing: .12em;
             text-transform: uppercase;
             color: #93c5fd;
         }
         .vh-date-day {
-            font-size: 2.75rem;
+            font-size: clamp(1.85rem, 2.6vw, 2.35rem);
             font-weight: 800;
-            line-height: 1;
-            letter-spacing: -.03em;
+            line-height: 1.15;
+            letter-spacing: -.02em;
             margin: .35rem 0;
             color: #ffffff;
+            white-space: nowrap;
         }
         .vh-date-year {
-            font-size: .78rem;
+            font-size: .75rem;
             font-weight: 600;
-            letter-spacing: .08em;
-            color: rgba(255, 255, 255, .85);
+            letter-spacing: .06em;
+            color: rgba(255, 255, 255, .9);
             text-transform: uppercase;
         }
         .vh-date-badge {
@@ -423,14 +429,15 @@
             display: inline-flex;
             align-items: center;
             gap: .35rem;
-            padding: .25rem .75rem;
+            padding: .3rem .85rem;
             border-radius: 999px;
-            font-size: .7rem;
+            font-size: .68rem;
             font-weight: 700;
-            letter-spacing: .05em;
+            letter-spacing: .04em;
             text-transform: uppercase;
-            background: rgba(255, 255, 255, .2);
-            border: 1px solid rgba(255, 255, 255, .3);
+            background: rgba(255, 255, 255, .22);
+            border: 1px solid rgba(255, 255, 255, .35);
+            backdrop-filter: blur(4px);
         }
 
         /* Part B: Ticket Content (Center) */
@@ -551,24 +558,33 @@
 
         .vh-poster-thumb {
             position: relative;
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             width: 100%;
-            max-width: 220px;
-            height: 100%;
-            max-height: 240px;
+            max-width: 195px;
+            aspect-ratio: 4 / 5;
             border-radius: 1rem;
             overflow: hidden;
-            box-shadow: 0 10px 25px -8px rgba(15, 23, 42, .15);
+            box-shadow: 0 10px 25px -8px rgba(15, 23, 42, .18);
             border: 1px solid #e2e8f0;
             text-decoration: none;
-            transition: transform .3s ease;
+            transition: transform .3s ease, box-shadow .3s ease;
+            background: #f1f5f9;
         }
-        html.dark .vh-poster-thumb { border-color: #334155; }
-        .vh-poster-thumb:hover { transform: scale(1.03); }
+        html.dark .vh-poster-thumb {
+            border-color: #334155;
+            background: #1e293b;
+        }
+        .vh-poster-thumb:hover {
+            transform: scale(1.03);
+            box-shadow: 0 16px 32px -8px rgba(37, 99, 235, .25);
+        }
         .vh-poster-thumb img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
         .vh-poster-thumb-overlay {
             position: absolute;
@@ -666,11 +682,11 @@
                             style="{{ $index === 0 ? '' : 'display: none;' }}">
                             {{-- Part A: Ticket Date & Location Stub --}}
                             <div class="vh-ticket-date">
-                                <span class="vh-date-month">{{ __($banner['stub_month'] ?? 'DES') }}</span>
-                                <span class="vh-date-day">{{ $banner['stub_day'] ?? '02-06' }}</span>
-                                <span class="vh-date-year">{{ $banner['stub_year'] ?? '2026' }} • {{ strtoupper(__($banner['stub_location'] ?? 'Pekanbaru')) }}</span>
+                                <span class="vh-date-month">{{ __($banner['stub_month'] ?? 'Pelatihan') }}</span>
+                                <span class="vh-date-day">{{ __($banner['stub_day'] ?? '02-06') }}</span>
+                                <span class="vh-date-year">{{ __($banner['stub_year'] ?? '2026') }} • {{ strtoupper(__($banner['stub_location'] ?? 'PEKANBARU')) }}</span>
                                 <span class="vh-date-badge">
-                                    <span>{{ __($banner['badge'] ?? 'PELATIHAN SIB') }}</span>
+                                    <span>{{ __($banner['badge'] ?? 'SIB MEDIK TK II') }}</span>
                                 </span>
                             </div>
 
@@ -724,7 +740,8 @@
                             {{-- Part C: Flyer Visual Preview --}}
                             <div class="vh-ticket-poster">
                                 <a href="{{ $banner['image'] }}" target="_blank" rel="noopener noreferrer" class="vh-poster-thumb" title="{{ __('Buka Flyer') }}">
-                                    <img src="{{ $banner['image'] }}" alt="{{ $banner['title'] }}" loading="lazy">
+                                    <img src="{{ $banner['image'] }}" alt="{{ __($banner['title']) }}" loading="eager"
+                                        onerror="if (!this.dataset.tried) { this.dataset.tried = '1'; this.src='{{ url('/assets/images/flyers/calibration-care.jpg') }}'; }">
                                     <div class="vh-poster-thumb-overlay">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />

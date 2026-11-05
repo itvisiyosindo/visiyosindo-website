@@ -85,6 +85,55 @@ Route::get('/assets/images/radiography-samples/{filename}', function (string $fi
     abort(404);
 });
 
+// Promo & Visilab Flyer images route (guarantees flyers always load 200 OK)
+Route::get('/assets/images/flyers/{filename}', function (string $filename) {
+    $filename = basename($filename);
+    $paths = [
+        base_path('public/assets/images/flyers/' . $filename),
+        public_path('assets/images/flyers/' . $filename),
+        storage_path('app/public/flyers/' . $filename),
+        base_path('public/images/flyers/' . $filename),
+        public_path('images/flyers/' . $filename),
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Content-Type' => str_ends_with(strtolower($filename), '.png') ? 'image/png' : 'image/jpeg',
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    abort(404);
+});
+
+Route::get('/storage/flyers/{filename}', function (string $filename) {
+    $filename = basename($filename);
+    $paths = [
+        storage_path('app/public/flyers/' . $filename),
+        base_path('public/assets/images/flyers/' . $filename),
+        public_path('assets/images/flyers/' . $filename),
+        base_path('public/images/flyers/' . $filename),
+        public_path('images/flyers/' . $filename),
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Content-Type' => str_ends_with(strtolower($filename), '.png') ? 'image/png' : 'image/jpeg',
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    return redirect()->to(url('/assets/images/flyers/' . $filename));
+});
+
+Route::get('/images/flyers/{filename}', function (string $filename) {
+    return redirect()->to(url('/assets/images/flyers/' . basename($filename)));
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
@@ -192,31 +241,69 @@ Route::get('/', function () {
             $isMember = str_contains(strtolower($banner->title ?? ''), 'member');
             $isCalib = str_contains(strtolower($banner->title ?? ''), 'kalibrasi') || str_contains(strtolower($banner->title ?? ''), 'care');
 
-            $stubMonth = $isPpr ? 'DES' : ($isMember ? '1 THN' : ($isCalib ? '3 THN' : 'PROMO'));
-            $stubDay = $isPpr ? '02-06' : ($isMember ? 'HEMAT' : ($isCalib ? 'PAKET' : '2026'));
-            $stubYear = '2026';
-            $stubLocation = $isPpr ? 'PEKANBARU' : ($isMember ? 'VISI ACADEMY' : ($isCalib ? 'KALIBRASI' : 'OFFICIAL'));
-            $badge = $isPpr ? 'PELATIHAN SIB' : ($isMember ? 'MEMBERSHIP' : ($isCalib ? 'CALIBRATION CARE+' : 'PROMO RESMI'));
-
-            $highlights = [];
             if ($isPpr) {
-                $highlights = ['📅 Ujian SIB: 07 - 08 Des 2026', '📍 VISILAB Pekanbaru', '🎓 Biaya: Rp6.000.000', '🎁 Promo Diskon 10%', '📲 Kuota Terbatas'];
+                $stubMonth = 'Pelatihan';
+                $stubDay = '02-06';
+                $stubYear = 'DES 2026';
+                $stubLocation = 'PEKANBARU';
+                $badge = 'SIB MEDIK TK II';
+                $highlights = [
+                    '📅 Ujian SIB: 07 - 08 Des 2026',
+                    '📍 VISILAB Pekanbaru',
+                    '🎓 Biaya: Rp6.000.000',
+                    '🎁 Promo Diskon 10%',
+                    '📲 Kuota Terbatas',
+                ];
             } elseif ($isMember) {
-                $highlights = ['💰 Hanya Rp100.000/tahun', '🎓 Diskon Webinar SKP 10%', '⚡ Diskon Pelatihan PPR 10%', '🏥 Training Center Diskon 20%', '🎁 Referral Reward Hingga 10%'];
+                $stubMonth = 'Membership';
+                $stubDay = '1 TAHUN';
+                $stubYear = '2026';
+                $stubLocation = 'VISI ACADEMY';
+                $badge = 'ALL ACCESS PASS';
+                $highlights = [
+                    '💰 Hanya Rp100.000/tahun',
+                    '🎓 Diskon Webinar SKP 10%',
+                    '⚡ Diskon Pelatihan PPR 10%',
+                    '🏥 Training Center Diskon 20%',
+                    '🎁 Referral Reward Hingga 10%',
+                ];
             } elseif ($isCalib) {
-                $highlights = ['🏥 Mobile, Portable & Stationary X-Ray', '🎁 Gratis 1x Kalibrasi + UPAR Thn ke-4', '📋 Kontrak 3 Periode Layanan', '🛡️ Jaminan Standar BAPETEN'];
+                $stubMonth = 'KONTRAK RESMI';
+                $stubDay = '3 TAHUN';
+                $stubYear = '2026';
+                $stubLocation = 'VISILAB CARE+';
+                $badge = 'STANDAR BAPETEN';
+                $highlights = [
+                    '🏥 Mobile, Portable & Stationary X-Ray',
+                    '🎁 Gratis 1x Kalibrasi + UPAR Thn ke-4',
+                    '📋 Kontrak 3 Periode Layanan',
+                    '🛡️ Jaminan Standar BAPETEN',
+                ];
             } else {
+                $stubMonth = 'PROMO';
+                $stubDay = '2026';
+                $stubYear = '2026';
+                $stubLocation = 'OFFICIAL';
+                $badge = 'PROMO RESMI';
                 $highlights = array_filter([$banner->description ? Str::limit($banner->description, 35) : null, '📍 Pekanbaru', '📲 Kuota Terbatas']);
             }
 
             $imagePath = $banner->image_path ?? '';
-            $resolvedImage = '';
-            if (file_exists(public_path('assets/images/flyers/' . basename($imagePath)))) {
-                $resolvedImage = asset('assets/images/flyers/' . basename($imagePath));
+            $basename = basename($imagePath);
+            $lowerTitle = strtolower($banner->title ?? '');
+
+            if (str_contains($lowerTitle, 'kalibrasi') || str_contains($lowerTitle, 'care') || str_contains(strtolower($basename), 'calibration')) {
+                $resolvedImage = url('/assets/images/flyers/calibration-care.jpg');
+            } elseif (str_contains($lowerTitle, 'member') || str_contains(strtolower($basename), 'membership')) {
+                $resolvedImage = url('/assets/images/flyers/membership-visilab-academy.jpg');
+            } elseif (str_contains($lowerTitle, 'ppr') || str_contains($lowerTitle, 'radiasi') || str_contains($lowerTitle, 'batch') || str_contains(strtolower($basename), 'ppr')) {
+                $resolvedImage = url('/assets/images/flyers/ppr-batch-6.jpg');
+            } elseif (str_starts_with($imagePath, 'http')) {
+                $resolvedImage = $imagePath;
             } elseif (str_starts_with($imagePath, 'assets/')) {
                 $resolvedImage = asset($imagePath);
             } else {
-                $resolvedImage = Storage::url($imagePath);
+                $resolvedImage = url('/assets/images/flyers/' . $basename);
             }
 
             return [
@@ -240,11 +327,11 @@ Route::get('/', function () {
     } else {
         $promoBanners = collect([
             [
-                'stub_month' => 'DES',
+                'stub_month' => 'Pelatihan',
                 'stub_day' => '02-06',
-                'stub_year' => '2026',
+                'stub_year' => 'DES 2026',
                 'stub_location' => 'PEKANBARU',
-                'badge' => 'PELATIHAN SIB',
+                'badge' => 'SIB MEDIK TK II',
                 'label' => __('Open Registration Batch 6'),
                 'title' => __('Open Registration PPR Medik TK II - Batch 6'),
                 'description' => __('Ikuti pelatihan bersama Visi Academy! Pembelajaran teori, praktik langsung di RS, serta simulasi ujian tertulis, praktik & wawancara.'),
@@ -260,14 +347,14 @@ Route::get('/', function () {
                 'contactText' => 'Info WA: 0895-0724-0145',
                 'contactLink' => 'https://wa.me/6289507240145',
                 'bgClass' => 'bg-linear-to-r from-blue-600 to-cyan-600',
-                'image' => asset('assets/images/flyers/ppr-batch-6.jpg'),
+                'image' => url('/assets/images/flyers/ppr-batch-6.jpg'),
             ],
             [
-                'stub_month' => '1 THN',
-                'stub_day' => 'HEMAT',
-                'stub_year' => 'MEMBER',
+                'stub_month' => 'Membership',
+                'stub_day' => '1 TAHUN',
+                'stub_year' => '2026',
                 'stub_location' => 'VISI ACADEMY',
-                'badge' => 'MEMBERSHIP',
+                'badge' => 'ALL ACCESS PASS',
                 'label' => __('Program Keanggotaan'),
                 'title' => __('Visi Academy Membership - Bayar Sekali, Nikmati 1 Tahun Penuh!'),
                 'description' => __('Ingin lebih hemat saat mengikuti webinar, pelatihan, dan kegiatan Visi Academy? Cukup bayar 1 kali Rp100.000/tahun.'),
@@ -283,29 +370,29 @@ Route::get('/', function () {
                 'contactText' => 'Info WA: 0895-0724-0145',
                 'contactLink' => 'https://wa.me/6289507240145',
                 'bgClass' => 'bg-linear-to-r from-purple-600 to-pink-600',
-                'image' => asset('assets/images/flyers/membership-visilab-academy.jpg'),
+                'image' => url('/assets/images/flyers/membership-visilab-academy.jpg'),
             ],
             [
-                'stub_month' => '3 THN',
-                'stub_day' => 'PAKET',
-                'stub_year' => 'KONTRAK',
-                'stub_location' => 'KALIBRASI',
-                'badge' => 'CALIBRATION CARE+',
+                'stub_month' => 'KONTRAK RESMI',
+                'stub_day' => '3 TAHUN',
+                'stub_year' => '2026',
+                'stub_location' => 'VISILAB CARE+',
+                'badge' => 'STANDAR BAPETEN',
                 'label' => __('Program Kontrak Khusus'),
                 'title' => __('Visilab Calibration Care+: Program Kontrak Kalibrasi Alat X-Ray'),
                 'description' => __('Layanan kalibrasi selama 3 periode layanan, sekaligus berkesempatan memperoleh UPAR + gratis 1 kali kalibrasi pada periode tahun ke-4.'),
                 'highlights' => [
                     '🏥 Mobile, Portable & Stationary X-Ray',
-                    '🎁 UPAR + Gratis 1x Kalibrasi Thn ke-4',
+                    '🎁 Gratis 1x Kalibrasi + UPAR Thn ke-4',
                     '📋 Kontrak 3 Periode Layanan',
                     '🛡️ Jaminan Standar BAPETEN',
                 ],
-                'buttonText' => __('Konsultasi Program'),
+                'buttonText' => __('Konsultasi Care+'),
                 'link' => 'https://wa.me/6289507240145?text=Halo%20Admin%20VISILAB%2C%20saya%20tertarik%20dengan%20program%20Visilab%20Calibration%20Care%2B',
                 'contactText' => 'Info WA: 0895-0724-0145',
                 'contactLink' => 'https://wa.me/6289507240145?text=Halo%20Admin%20VISILAB%2C%20saya%20tertarik%20dengan%20program%20Visilab%20Calibration%20Care%2B',
                 'bgClass' => 'bg-linear-to-r from-cyan-600 to-blue-600',
-                'image' => asset('assets/images/flyers/calibration-care.jpg'),
+                'image' => url('/assets/images/flyers/calibration-care.jpg'),
             ],
         ]);
     }
