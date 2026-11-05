@@ -314,14 +314,16 @@ class VisilabPageSeeder extends Seeder
                 'cta_title' => 'Daftar Sekarang',
                 'cta_description' => 'Jangan lewatkan kesempatan untuk mengikuti program Pelatihan Petugas Radiasi. Daftar sekarang dan tingkatkan karir Anda di bidang radiasi medis!',
                 'additional_data' => [
+                    'flyer_image' => '/storage/flyers/ppr-batch-6.jpg',
+                    'registration_url' => 'https://visiyosindo.id/PendaftaranPelatihanPetugasProteksiRadiasiMedikTKII',
                     'pricing' => [
-                        'regular' => 5000000,
-                        'early_bird' => 4500000,
-                        'group_rate' => 4250000,
-                        'group_min' => 5
+                        'regular' => 6000000,
+                        'early_bird' => 950000,
+                        'group_rate' => 5400000,
+                        'group_min' => 3
                     ],
-                    'duration' => '5 Hari',
-                    'schedule' => 'Setiap bulan',
+                    'duration' => '5 Hari (2-6 Des 2026)',
+                    'schedule' => 'Batch 6: 2-6 Des 2026 (Ujian SIB: 7-8 Des 2026)',
                     'max_participants' => 30,
                     'facilities' => [
                         'Modul & Materi Lengkap',

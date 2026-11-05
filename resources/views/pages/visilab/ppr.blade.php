@@ -64,7 +64,7 @@
                         <div class="relative aspect-[3/4] rounded-2xl overflow-hidden bg-white dark:bg-slate-800 shadow-inner">
                             <!-- Dynamic Flyer Image from Database -->
                             <img 
-                                src="{{ $page->additional_data['flyer_image'] ?? 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=600&h=800&fit=crop' }}" 
+                                src="{{ $page->additional_data['flyer_image'] ?? asset('assets/images/flyers/ppr-batch-6.jpg') }}" 
                                 alt="{{ __('Flyer') }} {{ $page->hero_title }}" 
                                 loading="lazy"
                                 decoding="async"
@@ -81,7 +81,7 @@
                                         </svg>
                                         {{ __('Batch Terbaru') }}
                                     </span>
-                                    <p class="text-white text-lg font-bold">PPR 2026</p>
+                                    <p class="text-white text-lg font-bold">PPR 2026 - Batch 6</p>
                                 </div>
                             </div>
                         </div>
@@ -203,18 +203,18 @@
                     <div class="space-y-3">
                         <div class="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800">
                             <span class="text-slate-600 dark:text-slate-400">{{ __('Biaya Pelatihan') }}</span>
-                            <span class="font-bold text-green-600 dark:text-green-400">Rp {{ number_format($page->additional_data['pricing']['regular'] ?? 5000000, 0, ',', '.') }}</span>
+                            <span class="font-bold text-green-600 dark:text-green-400">Rp {{ number_format($page->additional_data['pricing']['regular'] ?? 6000000, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex items-center justify-between py-2 border-b border-slate-100 dark:border-slate-800">
-                            <span class="text-slate-600 dark:text-slate-400">{{ __('Early Bird') }}</span>
-                            <span class="font-bold text-purple-600 dark:text-purple-400">Rp {{ number_format($page->additional_data['pricing']['early_bird'] ?? 4500000, 0, ',', '.') }}</span>
+                            <span class="text-slate-600 dark:text-slate-400">{{ __('Ujian SIB') }}</span>
+                            <span class="font-bold text-purple-600 dark:text-purple-400">Rp {{ number_format($page->additional_data['pricing']['early_bird'] ?? 950000, 0, ',', '.') }}</span>
                         </div>
                         <div class="flex items-center justify-between py-2">
-                            <span class="text-slate-600 dark:text-slate-400">{{ __('Grup') }} (min {{ $page->additional_data['pricing']['group_min'] ?? 5 }})</span>
-                            <span class="font-bold text-violet-600 dark:text-violet-400">Rp {{ number_format($page->additional_data['pricing']['group_rate'] ?? 4250000, 0, ',', '.') }}/{{ __('org') }}</span>
+                            <span class="text-slate-600 dark:text-slate-400">{{ __('Promo Diskon') }}</span>
+                            <span class="font-bold text-violet-600 dark:text-violet-400">10% (S&K Berlaku)</span>
                         </div>
                     </div>
-                    <p class="mt-4 text-sm text-slate-500 dark:text-slate-500">*{{ __('Harga sudah termasuk sertifikat') }}</p>
+                    <p class="mt-4 text-sm text-slate-500 dark:text-slate-500">*{{ __('Biaya pelatihan belum termasuk PPN') }}</p>
                 </div>
 
                 <!-- Fasilitas -->
@@ -329,14 +329,15 @@
             <!-- CTA Button -->
             <div class="text-center mt-16">
                 <a 
-                    href="#" 
+                    href="https://visiyosindo.id/PendaftaranPelatihanPetugasProteksiRadiasiMedikTKII" 
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-purple-600 to-violet-600 hover:from-purple-700 hover:to-violet-700 text-white font-bold rounded-2xl shadow-lg hover:shadow-purple-500/25 transform hover:-translate-y-1 transition-all duration-300"
                 >
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                     </svg>
-                    {{ __('Daftar Sekarang via Google Form') }}
+                    {{ __('Daftar Sekarang - PPR Batch 6') }}
                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                     </svg>

@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // First, seed RBAC system (roles and permissions)
-        $this->call([RbacSeeder::class, SgmPageSeeder::class, VisilabPageSeeder::class]);
+        // First, seed RBAC system, SGM, Visilab, and Promo Banners
+        $this->call([RbacSeeder::class, SgmPageSeeder::class, VisilabPageSeeder::class, PromoBannerSeeder::class]);
 
         // Create Admin User and assign admin role
         $admin = User::create([

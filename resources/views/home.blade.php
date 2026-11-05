@@ -666,11 +666,11 @@
                             style="{{ $index === 0 ? '' : 'display: none;' }}">
                             {{-- Part A: Ticket Date & Location Stub --}}
                             <div class="vh-ticket-date">
-                                <span class="vh-date-month">{{ __('NOV') }}</span>
-                                <span class="vh-date-day">05-09</span>
-                                <span class="vh-date-year">2026 • {{ strtoupper(__('Pekanbaru')) }}</span>
+                                <span class="vh-date-month">{{ __($banner['stub_month'] ?? 'DES') }}</span>
+                                <span class="vh-date-day">{{ $banner['stub_day'] ?? '02-06' }}</span>
+                                <span class="vh-date-year">{{ $banner['stub_year'] ?? '2026' }} • {{ strtoupper(__($banner['stub_location'] ?? 'Pekanbaru')) }}</span>
                                 <span class="vh-date-badge">
-                                    <span>{{ __('PELATIHAN SIB') }}</span>
+                                    <span>{{ __($banner['badge'] ?? 'PELATIHAN SIB') }}</span>
                                 </span>
                             </div>
 
@@ -683,18 +683,26 @@
                                 <h3 class="vh-ticket-title">{{ __($banner['title']) }}</h3>
 
                                 <div class="vh-ticket-highlights">
-                                    <span class="vh-pill-tag">
-                                        <span>📅 {{ __('Ujian SIB: 10 - 11 Nov') }}</span>
-                                    </span>
-                                    <span class="vh-pill-tag">
-                                        <span>📍 {{ __('Pekanbaru') }}</span>
-                                    </span>
-                                    <span class="vh-pill-tag">
-                                        <span>🎓 {{ __('Diskon 10% D3 Radiologi') }}</span>
-                                    </span>
-                                    <span class="vh-pill-tag" style="color:#2563eb; font-weight:600;">
-                                        <span>📲 {{ __('Kuota Terbatas') }}</span>
-                                    </span>
+                                    @if (!empty($banner['highlights']))
+                                        @foreach ($banner['highlights'] as $highlight)
+                                            <span class="vh-pill-tag">
+                                                <span>{{ __($highlight) }}</span>
+                                            </span>
+                                        @endforeach
+                                    @else
+                                        <span class="vh-pill-tag">
+                                            <span>📅 {{ __('Ujian SIB: 07 - 08 Des 2026') }}</span>
+                                        </span>
+                                        <span class="vh-pill-tag">
+                                            <span>📍 {{ __('Pekanbaru') }}</span>
+                                        </span>
+                                        <span class="vh-pill-tag">
+                                            <span>🎓 {{ __('Diskon 10%') }}</span>
+                                        </span>
+                                        <span class="vh-pill-tag" style="color:#2563eb; font-weight:600;">
+                                            <span>📲 {{ __('Kuota Terbatas') }}</span>
+                                        </span>
+                                    @endif
                                 </div>
 
                                 <div class="vh-ticket-actions">
@@ -704,11 +712,11 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                         </svg>
                                     </a>
-                                    <a href="https://wa.me/6289507240145" target="_blank" rel="noopener noreferrer" class="vh-ticket-contact">
+                                    <a href="{{ $banner['contactLink'] ?? 'https://wa.me/6289507240145' }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-contact">
                                         <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                         </svg>
-                                        <span>{{ __('Info WA') }}: 0895-0724-0145</span>
+                                        <span>{{ __($banner['contactText'] ?? 'Info WA: 0895-0724-0145') }}</span>
                                     </a>
                                 </div>
                             </div>
