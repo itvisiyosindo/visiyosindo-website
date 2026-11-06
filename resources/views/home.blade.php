@@ -851,6 +851,634 @@
         </section>
     @endif
 
+    {{-- SPECIAL DEAL AKHIR TAHUN Section --}}
+    @php
+        $dealPostersList = $dealPosters ?? [
+            ['id' => 1, 'title' => __('Special Deal Akhir Tahun #1'), 'image' => url('/assets/images/deals/deal-1.jpg'), 'badge' => __('Special Deal')],
+            ['id' => 2, 'title' => __('Special Deal Akhir Tahun #2'), 'image' => url('/assets/images/deals/deal-2.jpg'), 'badge' => __('Special Deal')],
+            ['id' => 3, 'title' => __('Special Deal Akhir Tahun #3'), 'image' => url('/assets/images/deals/deal-3.jpg'), 'badge' => __('Special Deal')],
+            ['id' => 4, 'title' => __('Special Deal Akhir Tahun #4'), 'image' => url('/assets/images/deals/deal-4.jpg'), 'badge' => __('Special Deal')],
+            ['id' => 5, 'title' => __('Special Deal Akhir Tahun #5'), 'image' => url('/assets/images/deals/deal-5.jpg'), 'badge' => __('Special Deal')],
+            ['id' => 6, 'title' => __('Special Deal Akhir Tahun #6'), 'image' => url('/assets/images/deals/deal-6.jpg'), 'badge' => __('Special Deal')],
+            ['id' => 7, 'title' => __('Special Deal Akhir Tahun #7'), 'image' => url('/assets/images/deals/deal-7.jpg'), 'badge' => __('Special Deal')],
+        ];
+    @endphp
+
+    <style>
+        /* Scoped styles prefix vsd- */
+        .vsd-section {
+            position: relative;
+            padding: 4.5rem 0 5rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 50%, #f8fafc 100%);
+            border-bottom: 1px solid #e2e8f0;
+            overflow: hidden;
+            transition: background .3s ease, border-color .3s ease;
+        }
+        html.dark .vsd-section {
+            background: linear-gradient(180deg, #091122 0%, #0c162c 50%, #091122 100%);
+            border-bottom-color: #1e293b;
+        }
+        .vsd-section::before {
+            content: "";
+            position: absolute;
+            top: -6rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 48rem;
+            height: 24rem;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(37, 99, 235, .08), rgba(37, 99, 235, 0) 70%);
+            pointer-events: none;
+        }
+        html.dark .vsd-section::before {
+            background: radial-gradient(circle, rgba(59, 130, 246, .12), rgba(59, 130, 246, 0) 70%);
+        }
+        .vsd-container {
+            position: relative;
+            z-index: 1;
+            max-width: 80rem;
+            margin: 0 auto;
+            padding: 0 1.25rem;
+        }
+        @media (min-width: 640px) {
+            .vsd-container { padding: 0 1.5rem; }
+        }
+        @media (min-width: 1024px) {
+            .vsd-container { padding: 0 2rem; }
+        }
+
+        /* Header */
+        .vsd-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 2.75rem;
+        }
+        .vsd-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            margin-bottom: 1rem;
+            padding: .4rem .95rem;
+            font-size: .78rem;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: #dc2626;
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            border-radius: 999px;
+            box-shadow: 0 2px 6px -1px rgba(220, 38, 38, .12);
+        }
+        html.dark .vsd-eyebrow {
+            color: #f87171;
+            background: rgba(239, 68, 68, .12);
+            border-color: rgba(239, 68, 68, .25);
+        }
+        .vsd-eyebrow i {
+            display: inline-block;
+            width: .45rem;
+            height: .45rem;
+            border-radius: 50%;
+            background: currentColor;
+            animation: vsd-pulse 1.8s infinite;
+        }
+        @keyframes vsd-pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: .4; transform: scale(.8); }
+        }
+        .vsd-title {
+            margin: 0 0 1rem;
+            font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+            font-weight: 800;
+            letter-spacing: -.03em;
+            line-height: 1.2;
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #0284c7 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        html.dark .vsd-title {
+            background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 50%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .vsd-desc {
+            max-width: 44rem;
+            margin: 0 auto 1.75rem;
+            font-size: 1rem;
+            line-height: 1.65;
+            color: #475569;
+        }
+        html.dark .vsd-desc {
+            color: #94a3b8;
+        }
+        .vsd-cro-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .65rem;
+            padding: .85rem 1.65rem;
+            border-radius: 999px;
+            font-size: .95rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-decoration: none;
+            background: linear-gradient(135deg, #16a34a, #15803d);
+            box-shadow: 0 8px 20px -6px rgba(22, 163, 74, .45);
+            transition: all .3s cubic-bezier(.22, 1, .36, 1);
+        }
+        .vsd-cro-btn:hover {
+            transform: translateY(-2px);
+            background: linear-gradient(135deg, #22c55e, #16a34a);
+            box-shadow: 0 14px 28px -6px rgba(22, 163, 74, .6);
+            color: #ffffff;
+        }
+        .vsd-cro-btn svg {
+            width: 1.25rem;
+            height: 1.25rem;
+            flex-shrink: 0;
+        }
+
+        /* Carousel Outer & Controls */
+        .vsd-carousel-wrapper {
+            position: relative;
+            margin: 0 auto;
+        }
+        .vsd-track-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding: 1rem .5rem 1.75rem;
+        }
+        .vsd-track-container::-webkit-scrollbar {
+            display: none;
+        }
+        .vsd-track {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        /* Poster Card */
+        .vsd-card {
+            flex: 0 0 82%;
+            scroll-snap-align: center;
+            position: relative;
+            border-radius: 1.25rem;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 30px -10px rgba(15, 23, 42, .08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: all .35s cubic-bezier(.22, 1, .36, 1);
+        }
+        @media (min-width: 640px) {
+            .vsd-card { flex: 0 0 calc(50% - .75rem); scroll-snap-align: start; }
+        }
+        @media (min-width: 1024px) {
+            .vsd-card { flex: 0 0 calc(33.333% - 1rem); }
+        }
+        @media (min-width: 1280px) {
+            .vsd-card { flex: 0 0 calc(25% - 1.125rem); }
+        }
+
+        html.dark .vsd-card {
+            background: #111b2e;
+            border-color: #1e293b;
+            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .5);
+        }
+        .vsd-card:hover {
+            transform: translateY(-5px);
+            border-color: #93c5fd;
+            box-shadow: 0 20px 40px -12px rgba(37, 99, 235, .2);
+        }
+        html.dark .vsd-card:hover {
+            border-color: #3b82f6;
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 0, .7);
+        }
+
+        .vsd-card-img-wrap {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 4 / 5;
+            background: #0f172a;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        .vsd-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform .5s cubic-bezier(.22, 1, .36, 1);
+        }
+        .vsd-card:hover .vsd-card-img {
+            transform: scale(1.04);
+        }
+        .vsd-card-badge {
+            position: absolute;
+            top: .85rem;
+            left: .85rem;
+            z-index: 2;
+            padding: .3rem .7rem;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: .03em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            color: #ffffff;
+            background: rgba(15, 23, 42, .75);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, .2);
+        }
+        .vsd-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(0deg, rgba(15, 23, 42, .7) 0%, rgba(15, 23, 42, 0) 50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity .3s ease;
+        }
+        .vsd-card-img-wrap:hover .vsd-card-overlay {
+            opacity: 1;
+        }
+        .vsd-card-zoom-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .5rem;
+            padding: .65rem 1.15rem;
+            border-radius: 999px;
+            font-size: .82rem;
+            font-weight: 600;
+            color: #ffffff;
+            background: rgba(37, 99, 235, .9);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, .3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, .3);
+            transform: translateY(8px);
+            transition: all .3s cubic-bezier(.22, 1, .36, 1);
+        }
+        .vsd-card-img-wrap:hover .vsd-card-zoom-btn {
+            transform: translateY(0);
+        }
+        .vsd-card-zoom-btn svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        .vsd-card-body {
+            padding: 1rem 1.15rem 1.15rem;
+            display: flex;
+            flex-direction: column;
+            gap: .75rem;
+            flex-grow: 1;
+        }
+        .vsd-card-title {
+            margin: 0;
+            font-size: .92rem;
+            font-weight: 700;
+            line-height: 1.35;
+            color: #1e293b;
+        }
+        html.dark .vsd-card-title {
+            color: #f1f5f9;
+        }
+        .vsd-card-actions {
+            display: flex;
+            gap: .5rem;
+            margin-top: auto;
+        }
+        .vsd-btn-view {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            padding: .55rem .75rem;
+            border-radius: .75rem;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #2563eb;
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            cursor: pointer;
+            transition: all .2s ease;
+        }
+        html.dark .vsd-btn-view {
+            color: #93c5fd;
+            background: rgba(59, 130, 246, .12);
+            border-color: rgba(59, 130, 246, .25);
+        }
+        .vsd-btn-view:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+        }
+        html.dark .vsd-btn-view:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+        }
+        .vsd-btn-wa {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: .4rem;
+            padding: .55rem .75rem;
+            border-radius: .75rem;
+            font-size: .8rem;
+            font-weight: 600;
+            color: #15803d;
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            text-decoration: none;
+            transition: all .2s ease;
+        }
+        html.dark .vsd-btn-wa {
+            color: #4ade80;
+            background: rgba(34, 197, 94, .12);
+            border-color: rgba(34, 197, 94, .25);
+        }
+        .vsd-btn-wa:hover {
+            background: #16a34a;
+            color: #ffffff;
+            border-color: #16a34a;
+        }
+        html.dark .vsd-btn-wa:hover {
+            background: #22c55e;
+            color: #ffffff;
+            border-color: #22c55e;
+        }
+
+        /* Nav Arrows & Indicators */
+        .vsd-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 5;
+            width: 2.75rem;
+            height: 2.75rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, .95);
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, .12);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            color: #1e293b;
+            cursor: pointer;
+            transition: all .25s ease;
+        }
+        @media (min-width: 768px) {
+            .vsd-nav-btn { display: inline-flex; }
+        }
+        html.dark .vsd-nav-btn {
+            background: rgba(17, 27, 46, .92);
+            border-color: #334155;
+            color: #f1f5f9;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, .5);
+        }
+        .vsd-nav-btn:hover {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #2563eb;
+            transform: translateY(-50%) scale(1.08);
+        }
+        html.dark .vsd-nav-btn:hover {
+            background: #3b82f6;
+            color: #ffffff;
+            border-color: #3b82f6;
+        }
+        .vsd-nav-prev { left: -.75rem; }
+        .vsd-nav-next { right: -.75rem; }
+        @media (min-width: 1280px) {
+            .vsd-nav-prev { left: -1.25rem; }
+            .vsd-nav-next { right: -1.25rem; }
+        }
+
+        .vsd-dots {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: .5rem;
+            margin-top: 1rem;
+        }
+        .vsd-dot {
+            width: .55rem;
+            height: .55rem;
+            border-radius: 999px;
+            background: #cbd5e1;
+            border: none;
+            cursor: pointer;
+            transition: all .3s ease;
+            padding: 0;
+        }
+        html.dark .vsd-dot { background: #334155; }
+        .vsd-dot.is-active {
+            width: 1.75rem;
+            background: #2563eb;
+        }
+    </style>
+
+    <section class="vsd-section" id="special-deals" x-data="specialDealsSlider()" x-init="initDeals()">
+        <div class="vsd-container">
+            <!-- Section Header -->
+            <div class="vsd-header">
+                <span class="vsd-eyebrow">
+                    <i></i>
+                    <span>{{ __('PROMO AKHIR TAHUN') }}</span>
+                </span>
+                <h2 class="vsd-title">{{ __('SPECIAL DEAL AKHIR TAHUN') }}</h2>
+                <p class="vsd-desc">
+                    {{ __('Dapatkan penawaran harga spesial dan paket promo pilihan untuk alat kesehatan & radiologi. Hubungi CRO kami untuk informasi penawaran terbaik!') }}
+                </p>
+                <a href="https://wa.me/6281261457547?text={{ rawurlencode(__('Halo CRO PT Visi Yosindo Medikal, saya tertarik dengan promo Special Deal Akhir Tahun')) }}" 
+                   target="_blank" rel="noopener noreferrer" class="vsd-cro-btn">
+                    <svg fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.812 2.791.812 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.76.459 3.413 1.258 4.856l-1.332 4.869 4.996-1.31c1.401.765 3.003 1.191 4.706 1.191 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+                    </svg>
+                    <span>{{ __('Info Penawaran (Hubungi CRO)') }}</span>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Carousel / Grid Showcase -->
+            <div class="vsd-carousel-wrapper">
+                <!-- Prev Button -->
+                <button type="button" class="vsd-nav-btn vsd-nav-prev" @click="scrollPrev()" aria-label="Previous Poster">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+
+                <!-- Track Container -->
+                <div class="vsd-track-container" x-ref="dealsTrack">
+                    <div class="vsd-track">
+                        @foreach ($dealPostersList as $poster)
+                            <div class="vsd-card">
+                                <!-- Image Frame with Zoom Trigger -->
+                                <div class="vsd-card-img-wrap" 
+                                     @click="openDeal('{{ $poster['image'] }}', @js($poster['title']))">
+                                    <span class="vsd-card-badge">
+                                        Deal #{{ $poster['id'] }}
+                                    </span>
+                                    <img src="{{ $poster['image'] }}" 
+                                         alt="{{ $poster['title'] }}" 
+                                         class="vsd-card-img" 
+                                         loading="lazy">
+                                    <div class="vsd-card-overlay">
+                                        <span class="vsd-card-zoom-btn">
+                                            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                            </svg>
+                                            <span>{{ __('Lihat Poster') }}</span>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Card Footer / Action Buttons -->
+                                <div class="vsd-card-body">
+                                    <h4 class="vsd-card-title">{{ $poster['title'] }}</h4>
+                                    <div class="vsd-card-actions">
+                                        <button type="button" 
+                                                class="vsd-btn-view" 
+                                                @click="openDeal('{{ $poster['image'] }}', @js($poster['title']))">
+                                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
+                                            <span>{{ __('Lihat Poster') }}</span>
+                                        </button>
+                                        <a href="https://wa.me/6281261457547?text={{ rawurlencode(__('Halo CRO PT Visi Yosindo Medikal, saya tertarik dengan promo')) }}%20{{ rawurlencode($poster['title']) }}" 
+                                           target="_blank" rel="noopener noreferrer" 
+                                           class="vsd-btn-wa">
+                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                                                <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.812 2.791.812 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.76.459 3.413 1.258 4.856l-1.332 4.869 4.996-1.31c1.401.765 3.003 1.191 4.706 1.191 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+                                            </svg>
+                                            <span>{{ __('Tanya CRO') }}</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                </div>
+
+                <!-- Next Button -->
+                <button type="button" class="vsd-nav-btn vsd-nav-next" @click="scrollNext()" aria-label="Next Poster">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Dot Indicators -->
+            <div class="vsd-dots">
+                @foreach ($dealPostersList as $idx => $poster)
+                    <button type="button" 
+                            class="vsd-dot" 
+                            :class="currentIndex === {{ $idx }} ? 'is-active' : ''"
+                            @click="scrollToIndex({{ $idx }})" 
+                            aria-label="Deal {{ $poster['id'] }}"></button>
+                @endforeach
+            </div>
+
+            <!-- Deal Poster Lightbox Popup Modal -->
+            <div x-show="modalOpen" 
+                 x-cloak
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0"
+                 x-transition:enter-end="opacity-100"
+                 x-transition:leave="transition ease-in duration-200"
+                 x-transition:leave-start="opacity-100"
+                 x-transition:leave-end="opacity-0"
+                 @keydown.escape.window="closeDeal()"
+                 class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5"
+                 style="display: none;">
+                
+                <div class="fixed inset-0 bg-slate-950/85 backdrop-blur-md transition-opacity" 
+                     @click="closeDeal()"></div>
+
+                <div x-show="modalOpen"
+                     x-transition:enter="transition ease-out duration-300 transform"
+                     x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+                     x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave="transition ease-in duration-200 transform"
+                     x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                     x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+                     class="relative z-10 w-full max-w-lg sm:max-w-xl max-h-[92vh] flex flex-col bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden"
+                     @click.stop>
+                    
+                    <!-- Modal Header -->
+                    <div class="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-slate-800">
+                        <div class="flex items-center gap-2.5 min-w-0 pr-3">
+                            <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-red-500/15 text-red-400 text-sm">
+                                🏷️
+                            </span>
+                            <div class="min-w-0">
+                                <h4 class="text-sm font-semibold text-white truncate" x-text="modalTitle"></h4>
+                                <p class="text-[11px] text-slate-400">{{ __('Preview Poster Promo') }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1.5 shrink-0">
+                            <a :href="modalImage" target="_blank" rel="noopener noreferrer" 
+                               class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" 
+                               title="{{ __('Buka di Tab Baru') }}">
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                </svg>
+                            </a>
+                            <button type="button" @click="closeDeal()" 
+                                    class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-red-500/20 hover:text-red-400 transition" 
+                                    title="{{ __('Tutup') }}">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Modal Image Body -->
+                    <div class="flex-1 overflow-auto p-3 sm:p-4 flex items-center justify-center bg-slate-950/70">
+                        <img :src="modalImage" :alt="modalTitle" 
+                             class="max-h-[70vh] w-auto h-auto max-w-full object-contain rounded-xl shadow-lg border border-slate-800/80">
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-2.5 px-4 py-3 bg-slate-900/95 border-t border-slate-800 text-xs text-slate-400">
+                        <span class="text-[11px] text-slate-400 flex items-center gap-1.5 order-2 sm:order-1">
+                            <kbd class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700">ESC</kbd>
+                            {{ __('atau klik area luar untuk menutup') }}
+                        </span>
+                        <div class="flex items-center gap-2 w-full sm:w-auto order-1 sm:order-2 justify-end">
+                            <a :href="modalWaUrl" target="_blank" rel="noopener noreferrer" 
+                               class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition text-xs">
+                                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.812 2.791.812 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.76.459 3.413 1.258 4.856l-1.332 4.869 4.996-1.31c1.401.765 3.003 1.191 4.706 1.191 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
+                                </svg>
+                                <span>{{ __('Konsultasi Promo Ini via WhatsApp') }}</span>
+                            </a>
+                            <button type="button" @click="closeDeal()" 
+                                    class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition text-xs">
+                                {{ __('Tutup') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- Introduction Section (redesigned, scoped styles prefix va-) --}}
     <style>
         .va-section { position: relative; overflow: hidden; padding: 5rem 0; background: #fff; }
@@ -2007,6 +2635,72 @@
                     this.modalOpen = false;
                     document.body.style.overflow = '';
                     this.startAutoSlide();
+                }
+            };
+        }
+
+        function specialDealsSlider() {
+            return {
+                currentIndex: 0,
+                totalItems: 7,
+                modalOpen: false,
+                modalImage: '',
+                modalTitle: '',
+                modalWaUrl: '',
+
+                initDeals() {
+                    const track = this.$refs.dealsTrack;
+                    if (track) {
+                        track.addEventListener('scroll', () => {
+                            const card = track.querySelector('.vsd-card');
+                            if (card) {
+                                const cardWidth = card.offsetWidth + 24;
+                                this.currentIndex = Math.min(Math.max(Math.round(track.scrollLeft / cardWidth), 0), this.totalItems - 1);
+                            }
+                        }, { passive: true });
+                    }
+                },
+
+                scrollPrev() {
+                    const track = this.$refs.dealsTrack;
+                    if (track) {
+                        const card = track.querySelector('.vsd-card');
+                        const scrollAmount = card ? card.offsetWidth + 24 : 320;
+                        track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+                    }
+                },
+
+                scrollNext() {
+                    const track = this.$refs.dealsTrack;
+                    if (track) {
+                        const card = track.querySelector('.vsd-card');
+                        const scrollAmount = card ? card.offsetWidth + 24 : 320;
+                        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+                    }
+                },
+
+                scrollToIndex(idx) {
+                    const track = this.$refs.dealsTrack;
+                    if (track) {
+                        const card = track.querySelector('.vsd-card');
+                        const scrollAmount = card ? card.offsetWidth + 24 : 320;
+                        track.scrollTo({ left: idx * scrollAmount, behavior: 'smooth' });
+                        this.currentIndex = idx;
+                    }
+                },
+
+                openDeal(image, title) {
+                    this.modalImage = image;
+                    this.modalTitle = title || '{{ __('SPECIAL DEAL AKHIR TAHUN') }}';
+                    const text = encodeURIComponent('{{ __('Halo CRO PT Visi Yosindo Medikal, saya tertarik dengan promo') }} ' + (title || '{{ __('SPECIAL DEAL AKHIR TAHUN') }}'));
+                    this.modalWaUrl = 'https://wa.me/6281261457547?text=' + text;
+                    this.modalOpen = true;
+                    document.body.style.overflow = 'hidden';
+                },
+
+                closeDeal() {
+                    this.modalOpen = false;
+                    document.body.style.overflow = '';
                 }
             };
         }

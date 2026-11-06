@@ -134,6 +134,55 @@ Route::get('/images/flyers/{filename}', function (string $filename) {
     return redirect()->to(url('/assets/images/flyers/' . basename($filename)));
 });
 
+// Year-End Special Deals images route (guarantees deal posters always load 200 OK)
+Route::get('/assets/images/deals/{filename}', function (string $filename) {
+    $filename = basename($filename);
+    $paths = [
+        base_path('public/assets/images/deals/' . $filename),
+        public_path('assets/images/deals/' . $filename),
+        storage_path('app/public/deals/' . $filename),
+        base_path('public/images/deals/' . $filename),
+        public_path('images/deals/' . $filename),
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Content-Type' => str_ends_with(strtolower($filename), '.png') ? 'image/png' : 'image/jpeg',
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    abort(404);
+});
+
+Route::get('/storage/deals/{filename}', function (string $filename) {
+    $filename = basename($filename);
+    $paths = [
+        storage_path('app/public/deals/' . $filename),
+        base_path('public/assets/images/deals/' . $filename),
+        public_path('assets/images/deals/' . $filename),
+        base_path('public/images/deals/' . $filename),
+        public_path('images/deals/' . $filename),
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Content-Type' => str_ends_with(strtolower($filename), '.png') ? 'image/png' : 'image/jpeg',
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    return redirect()->to(url('/assets/images/deals/' . $filename));
+});
+
+Route::get('/images/deals/{filename}', function (string $filename) {
+    return redirect()->to(url('/assets/images/deals/' . basename($filename)));
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Routes
@@ -190,7 +239,7 @@ Route::get('/', function () {
         ]);
     }
     
-    // Ensure the 3 latest official flyers are active in the database
+    // Ensure the 4 latest official flyers are active in the database
     try {
         $hasBatch6 = PromoBanner::where('title', 'like', '%Batch 6%')->exists();
         if (! $hasBatch6) {
@@ -226,6 +275,20 @@ Route::get('/', function () {
                 'is_active' => true,
             ]);
         }
+
+        $hasWebinar = PromoBanner::where('title', 'like', '%Portable X-Ray%')->orWhere('title', 'like', '%Webinar%')->exists();
+        if (! $hasWebinar) {
+            PromoBanner::create([
+                'title' => 'Webinar Visi Academy: Pemahaman Regulasi Penggunaan Portable X-Ray',
+                'label' => 'Webinar Visi Academy',
+                'description' => 'Pahami regulasi penggunaan Portable X-Ray bersama BAPETEN. 25 Nov 2026, 08.30 WIB via Online Meeting. Early bird Rp35.000 (s/d 11 Nov).',
+                'image_path' => 'assets/images/flyers/webinar-portable-xray.jpg',
+                'link_url' => 'https://bit.ly/PemahamanRegulasiMengenaiPenggunaanPortableX-RaypadaPemeriksaanKesehatan',
+                'button_text' => 'Daftar Webinar',
+                'display_order' => 4,
+                'is_active' => true,
+            ]);
+        }
     } catch (\Throwable $e) {
         // Silently continue
     }
@@ -240,6 +303,7 @@ Route::get('/', function () {
             $isPpr = str_contains(strtolower($banner->title ?? ''), 'ppr') || str_contains(strtolower($banner->title ?? ''), 'radiasi') || str_contains(strtolower($banner->title ?? ''), 'batch 6');
             $isMember = str_contains(strtolower($banner->title ?? ''), 'member');
             $isCalib = str_contains(strtolower($banner->title ?? ''), 'kalibrasi') || str_contains(strtolower($banner->title ?? ''), 'care');
+            $isWebinar = str_contains(strtolower($banner->title ?? ''), 'webinar') || str_contains(strtolower($banner->title ?? ''), 'portable');
 
             if ($isPpr) {
                 $stubMonth = 'Pelatihan';
@@ -279,6 +343,19 @@ Route::get('/', function () {
                     '📋 Kontrak 3 Periode Layanan',
                     '🛡️ Jaminan Standar BAPETEN',
                 ];
+            } elseif ($isWebinar) {
+                $stubMonth = 'Webinar';
+                $stubDay = '25 NOV';
+                $stubYear = '2026';
+                $stubLocation = 'ONLINE';
+                $badge = 'SKP / BAPETEN';
+                $highlights = [
+                    '🎙️ Narasumber: Perwakilan BAPETEN',
+                    '⏰ 25 Nov 2026 • 08.30 WIB',
+                    '🎁 E-Certificate, Materi & Rekaman',
+                    '🏷️ Early Bird Rp35.000 (s/d 11 Nov)',
+                    '📲 Kuota Terbatas',
+                ];
             } else {
                 $stubMonth = 'PROMO';
                 $stubDay = '2026';
@@ -298,6 +375,8 @@ Route::get('/', function () {
                 $resolvedImage = url('/assets/images/flyers/membership-visilab-academy.jpg');
             } elseif (str_contains($lowerTitle, 'ppr') || str_contains($lowerTitle, 'radiasi') || str_contains($lowerTitle, 'batch') || str_contains(strtolower($basename), 'ppr')) {
                 $resolvedImage = url('/assets/images/flyers/ppr-batch-6.jpg');
+            } elseif (str_contains($lowerTitle, 'webinar') || str_contains($lowerTitle, 'portable') || str_contains(strtolower($basename), 'webinar')) {
+                $resolvedImage = url('/assets/images/flyers/webinar-portable-xray.jpg');
             } elseif (str_starts_with($imagePath, 'http')) {
                 $resolvedImage = $imagePath;
             } elseif (str_starts_with($imagePath, 'assets/')) {
@@ -312,15 +391,15 @@ Route::get('/', function () {
                 'stub_year' => $stubYear,
                 'stub_location' => $stubLocation,
                 'badge' => $badge,
-                'label' => __($banner->label ?? ($isPpr ? 'Open Registration Batch 6' : ($isMember ? 'Program Keanggotaan' : ($isCalib ? 'Program Kontrak Khusus' : 'Agenda Resmi')))),
+                'label' => __($banner->label ?? ($isPpr ? 'Open Registration Batch 6' : ($isMember ? 'Program Keanggotaan' : ($isCalib ? 'Program Kontrak Khusus' : ($isWebinar ? 'Webinar Visi Academy' : 'Agenda Resmi'))))),
                 'title' => __($banner->title ?? ''),
                 'description' => __($banner->description ?? ''),
                 'highlights' => $highlights,
-                'buttonText' => __($banner->button_text ?? ($isPpr ? 'Daftar Batch 6' : ($isMember ? 'Daftar Membership' : ($isCalib ? 'Konsultasi Care+' : 'Lihat Detail')))),
+                'buttonText' => __($banner->button_text ?? ($isPpr ? 'Daftar Batch 6' : ($isMember ? 'Daftar Membership' : ($isCalib ? 'Konsultasi Care+' : ($isWebinar ? 'Daftar Webinar' : 'Lihat Detail'))))),
                 'link' => $banner->link_url ?? '#',
                 'contactText' => 'Info WA: 0895-0724-0145',
-                'contactLink' => 'https://wa.me/6289507240145',
-                'bgClass' => 'bg-linear-to-r from-blue-600 to-cyan-600',
+                'contactLink' => $isWebinar ? 'https://wa.me/6289507240145?text=Halo%20Admin%20VISILAB%2C%20saya%20ingin%20tanya%20tentang%20Webinar%20Regulasi%20Portable%20X-Ray' : ($isCalib ? 'https://wa.me/6289507240145?text=Halo%20Admin%20VISILAB%2C%20saya%20tertarik%20dengan%20program%20Visilab%20Calibration%20Care%2B' : 'https://wa.me/6289507240145'),
+                'bgClass' => $isWebinar ? 'bg-linear-to-r from-emerald-600 to-teal-600' : ($isMember ? 'bg-linear-to-r from-purple-600 to-pink-600' : ($isCalib ? 'bg-linear-to-r from-cyan-600 to-blue-600' : 'bg-linear-to-r from-blue-600 to-cyan-600')),
                 'image' => $resolvedImage
             ];
         });
@@ -394,8 +473,42 @@ Route::get('/', function () {
                 'bgClass' => 'bg-linear-to-r from-cyan-600 to-blue-600',
                 'image' => url('/assets/images/flyers/calibration-care.jpg'),
             ],
+            [
+                'stub_month' => 'Webinar',
+                'stub_day' => '25 NOV',
+                'stub_year' => '2026',
+                'stub_location' => 'ONLINE',
+                'badge' => 'SKP / BAPETEN',
+                'label' => __('Webinar Visi Academy'),
+                'title' => __('Webinar Visi Academy: Pemahaman Regulasi Penggunaan Portable X-Ray'),
+                'description' => __('Pahami regulasi penggunaan Portable X-Ray langsung bersama narasumber dari BAPETEN! Special early bird hanya Rp35.000 (include PPN).'),
+                'highlights' => [
+                    '🎙️ Narasumber: Perwakilan BAPETEN',
+                    '⏰ 25 Nov 2026 • 08.30 WIB',
+                    '🎁 E-Certificate, Materi & Rekaman',
+                    '🏷️ Early Bird Rp35.000 (s/d 11 Nov)',
+                    '📲 Kuota Terbatas',
+                ],
+                'buttonText' => __('Daftar Webinar'),
+                'link' => 'https://bit.ly/PemahamanRegulasiMengenaiPenggunaanPortableX-RaypadaPemeriksaanKesehatan',
+                'contactText' => 'Info WA: 0895-0724-0145',
+                'contactLink' => 'https://wa.me/6289507240145?text=Halo%20Admin%20VISILAB%2C%20saya%20ingin%20tanya%20tentang%20Webinar%20Regulasi%20Portable%20X-Ray',
+                'bgClass' => 'bg-linear-to-r from-emerald-600 to-teal-600',
+                'image' => url('/assets/images/flyers/webinar-portable-xray.jpg'),
+            ],
         ]);
     }
+
+    // Special Deal Akhir Tahun Posters
+    $dealPosters = [
+        ['id' => 1, 'title' => __('Special Deal Akhir Tahun #1'), 'image' => url('/assets/images/deals/deal-1.jpg'), 'badge' => __('Special Deal')],
+        ['id' => 2, 'title' => __('Special Deal Akhir Tahun #2'), 'image' => url('/assets/images/deals/deal-2.jpg'), 'badge' => __('Special Deal')],
+        ['id' => 3, 'title' => __('Special Deal Akhir Tahun #3'), 'image' => url('/assets/images/deals/deal-3.jpg'), 'badge' => __('Special Deal')],
+        ['id' => 4, 'title' => __('Special Deal Akhir Tahun #4'), 'image' => url('/assets/images/deals/deal-4.jpg'), 'badge' => __('Special Deal')],
+        ['id' => 5, 'title' => __('Special Deal Akhir Tahun #5'), 'image' => url('/assets/images/deals/deal-5.jpg'), 'badge' => __('Special Deal')],
+        ['id' => 6, 'title' => __('Special Deal Akhir Tahun #6'), 'image' => url('/assets/images/deals/deal-6.jpg'), 'badge' => __('Special Deal')],
+        ['id' => 7, 'title' => __('Special Deal Akhir Tahun #7'), 'image' => url('/assets/images/deals/deal-7.jpg'), 'badge' => __('Special Deal')],
+    ];
     
     // Get active home introduction
     $introduction = \App\Models\HomeIntroduction::where('is_active', true)
@@ -420,7 +533,7 @@ Route::get('/', function () {
         ->take(5)
         ->get();
     
-    return view('home', compact('heroSlides', 'promoBanners', 'introduction', 'offices', 'galleries', 'news'));
+    return view('home', compact('heroSlides', 'promoBanners', 'dealPosters', 'introduction', 'offices', 'galleries', 'news'));
 })->name('home');
 
 Route::get('/gallery', [\App\Http\Controllers\Frontend\GalleryController::class, 'index'])->name('gallery');
