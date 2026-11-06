@@ -391,10 +391,13 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 2.25rem 1.25rem;
+            padding: 2rem 1.25rem;
             background: linear-gradient(145deg, #1d4ed8, #0284c7);
             color: #ffffff;
             position: relative;
+            overflow: hidden;
+            box-sizing: border-box;
+            width: 100%;
         }
         @media (min-width: 1024px) {
             .vh-ticket-date {
@@ -409,13 +412,16 @@
             color: #93c5fd;
         }
         .vh-date-day {
-            font-size: clamp(1.85rem, 2.6vw, 2.35rem);
+            font-size: clamp(1.65rem, 2.2vw, 2.25rem);
             font-weight: 800;
             line-height: 1.15;
             letter-spacing: -.02em;
             margin: .35rem 0;
             color: #ffffff;
             white-space: nowrap;
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .vh-date-year {
             font-size: .75rem;
@@ -674,182 +680,6 @@
             </div>
         </div>
     </section>
-
-    {{-- Event Ticket Pass Promo Section (SSR with Alpine Interactivity) --}}
-    @if ($promoBanners->isNotEmpty())
-        <section class="vh-promo">
-            <div class="vh-promo-container" x-data="heroPromoPass()" x-init="initPromo()">
-                <div class="vh-ticket-wrapper">
-                    @foreach ($promoBanners as $index => $banner)
-                        <div class="vh-ticket" x-show="currentBanner === {{ $index }}"
-                            style="{{ $index === 0 ? '' : 'display: none;' }}">
-                            {{-- Part A: Ticket Date & Location Stub --}}
-                            <div class="vh-ticket-date">
-                                <span class="vh-date-month">{{ __($banner['stub_month'] ?? 'Pelatihan') }}</span>
-                                <span class="vh-date-day">{{ __($banner['stub_day'] ?? '02-06') }}</span>
-                                <span class="vh-date-year">{{ __($banner['stub_year'] ?? '2026') }} • {{ strtoupper(__($banner['stub_location'] ?? 'PEKANBARU')) }}</span>
-                                <span class="vh-date-badge">
-                                    <span>{{ __($banner['badge'] ?? 'SIB MEDIK TK II') }}</span>
-                                </span>
-                            </div>
-
-                            {{-- Part B: Ticket Content & Details --}}
-                            <div class="vh-ticket-body">
-                                <span class="vh-ticket-type">
-                                    <span>⚡</span>
-                                    <span>{{ __($banner['label'] ?: 'Agenda Pelatihan Resmi') }}</span>
-                                </span>
-                                <h3 class="vh-ticket-title">{{ __($banner['title']) }}</h3>
-
-                                <div class="vh-ticket-highlights">
-                                    @if (!empty($banner['highlights']))
-                                        @foreach ($banner['highlights'] as $highlight)
-                                            <span class="vh-pill-tag">
-                                                <span>{{ __($highlight) }}</span>
-                                            </span>
-                                        @endforeach
-                                    @else
-                                        <span class="vh-pill-tag">
-                                            <span>📅 {{ __('Ujian SIB: 07 - 08 Des 2026') }}</span>
-                                        </span>
-                                        <span class="vh-pill-tag">
-                                            <span>📍 {{ __('Pekanbaru') }}</span>
-                                        </span>
-                                        <span class="vh-pill-tag">
-                                            <span>🎓 {{ __('Diskon 10%') }}</span>
-                                        </span>
-                                        <span class="vh-pill-tag" style="color:#2563eb; font-weight:600;">
-                                            <span>📲 {{ __('Kuota Terbatas') }}</span>
-                                        </span>
-                                    @endif
-                                </div>
-
-                                <div class="vh-ticket-actions">
-                                    <a href="{{ $banner['link'] }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-btn">
-                                        <span>{{ __($banner['buttonText'] ?: 'Daftar Sekarang') }}</span>
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                        </svg>
-                                    </a>
-                                    <a href="{{ $banner['contactLink'] ?? 'https://wa.me/6289507240145' }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-contact">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        <span>{{ __($banner['contactText'] ?? 'Info WA: 0895-0724-0145') }}</span>
-                                    </a>
-                                </div>
-                            </div>
-
-                            {{-- Part C: Flyer Visual Preview --}}
-                            <div class="vh-ticket-poster">
-                                <button type="button" 
-                                    @click="openFlyer('{{ $banner['image'] }}', @js(__($banner['title'])))"
-                                    class="vh-poster-thumb" 
-                                    title="{{ __('Lihat Flyer') }}">
-                                    <img src="{{ $banner['image'] }}" alt="{{ __($banner['title']) }}" loading="eager"
-                                        onerror="if (!this.dataset.tried) { this.dataset.tried = '1'; this.src='{{ url('/assets/images/flyers/calibration-care.jpg') }}'; }">
-                                    <div class="vh-poster-thumb-overlay">
-                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
-                                        </svg>
-                                        <span>{{ __('Lihat Flyer') }}</span>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-
-                @if ($promoBanners->count() > 1)
-                    <div class="vh-ticket-dots">
-                        @foreach ($promoBanners as $index => $b)
-                            <button type="button" @click="goToBanner({{ $index }})"
-                                class="vh-ticket-dot"
-                                :class="currentBanner === {{ $index }} ? 'is-active' : ''"
-                                aria-label="Promo {{ $index + 1 }}"></button>
-                        @endforeach
-                    </div>
-                @endif
-
-                {{-- Flyer Lightbox Modal (Popup) --}}
-                <div x-show="modalOpen" 
-                     x-cloak
-                     x-transition:enter="transition ease-out duration-300"
-                     x-transition:enter-start="opacity-0"
-                     x-transition:enter-end="opacity-100"
-                     x-transition:leave="transition ease-in duration-200"
-                     x-transition:leave-start="opacity-100"
-                     x-transition:leave-end="opacity-0"
-                     @keydown.escape.window="closeFlyer()"
-                     class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5"
-                     style="display: none;">
-                    
-                    {{-- Backdrop --}}
-                    <div class="fixed inset-0 bg-slate-950/85 backdrop-blur-md transition-opacity" 
-                         @click="closeFlyer()"></div>
-
-                    {{-- Modal Card --}}
-                    <div x-show="modalOpen"
-                         x-transition:enter="transition ease-out duration-300 transform"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-200 transform"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="relative z-10 w-full max-w-lg sm:max-w-xl max-h-[92vh] flex flex-col bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden"
-                         @click.stop>
-                        
-                        {{-- Modal Header --}}
-                        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-slate-800">
-                            <div class="flex items-center gap-2.5 min-w-0 pr-3">
-                                <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-500/15 text-blue-400 text-sm">
-                                    📋
-                                </span>
-                                <div class="min-w-0">
-                                    <h4 class="text-sm font-semibold text-white truncate" x-text="modalTitle"></h4>
-                                    <p class="text-[11px] text-slate-400">{{ __('Preview Flyer Resmi') }}</p>
-                                </div>
-                            </div>
-                            <div class="flex items-center gap-1.5 shrink-0">
-                                <a :href="modalImage" target="_blank" rel="noopener noreferrer" 
-                                   class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" 
-                                   title="{{ __('Buka di Tab Baru') }}">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                                    </svg>
-                                </a>
-                                <button type="button" @click="closeFlyer()" 
-                                        class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-red-500/20 hover:text-red-400 transition" 
-                                        title="{{ __('Tutup') }}">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-
-                        {{-- Modal Body: Full Image Display --}}
-                        <div class="flex-1 overflow-auto p-3 sm:p-4 flex items-center justify-center bg-slate-950/70">
-                            <img :src="modalImage" :alt="modalTitle" 
-                                 class="max-h-[72vh] w-auto h-auto max-w-full object-contain rounded-xl shadow-lg border border-slate-800/80">
-                        </div>
-
-                        {{-- Modal Footer --}}
-                        <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/95 border-t border-slate-800 text-xs text-slate-400">
-                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
-                                <kbd class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700">ESC</kbd>
-                                {{ __('atau klik area luar untuk menutup') }}
-                            </span>
-                            <button type="button" @click="closeFlyer()" 
-                                    class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition text-xs">
-                                {{ __('Tutup') }}
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endif
 
     {{-- SPECIAL DEAL AKHIR TAHUN Section --}}
     @php
@@ -1305,7 +1135,7 @@
                     <svg fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.812 2.791.812 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.76.459 3.413 1.258 4.856l-1.332 4.869 4.996-1.31c1.401.765 3.003 1.191 4.706 1.191 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
                     </svg>
-                    <span>{{ __('Info Penawaran (Hubungi CRO)') }}</span>
+                    <span>{{ __('Contact Us (Info Penawaran)') }}</span>
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
@@ -1365,7 +1195,7 @@
                                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                                                 <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.812 2.791.812 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.76.459 3.413 1.258 4.856l-1.332 4.869 4.996-1.31c1.401.765 3.003 1.191 4.706 1.191 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
                                             </svg>
-                                            <span>{{ __('Tanya CRO') }}</span>
+                                            <span>{{ __('Contact Us') }}</span>
                                         </a>
                                     </div>
                                 </div>
@@ -1466,7 +1296,7 @@
                                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.598 2.669-.699c.969.54 1.772.812 2.791.812 3.179 0 5.767-2.587 5.767-5.766.001-3.187-2.575-5.77-5.767-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.275.072.376-.044c.101-.116.433-.506.549-.68.116-.174.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.099.824zm-3.392-12.416c-5.514 0-10 4.486-10 10 0 1.76.459 3.413 1.258 4.856l-1.332 4.869 4.996-1.31c1.401.765 3.003 1.191 4.706 1.191 5.514 0 10-4.486 10-10s-4.486-10-10-10z"/>
                                 </svg>
-                                <span>{{ __('Konsultasi Promo Ini via WhatsApp') }}</span>
+                                <span>{{ __('Contact Us via WhatsApp') }}</span>
                             </a>
                             <button type="button" @click="closeDeal()" 
                                     class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-medium transition text-xs">
@@ -1478,6 +1308,182 @@
             </div>
         </div>
     </section>
+
+    {{-- Event Ticket Pass Promo Section (SSR with Alpine Interactivity) --}}
+    @if ($promoBanners->isNotEmpty())
+        <section class="vh-promo">
+            <div class="vh-promo-container" x-data="heroPromoPass()" x-init="initPromo()">
+                <div class="vh-ticket-wrapper">
+                    @foreach ($promoBanners as $index => $banner)
+                        <div class="vh-ticket" x-show="currentBanner === {{ $index }}"
+                            style="{{ $index === 0 ? '' : 'display: none;' }}">
+                            {{-- Part A: Ticket Date & Location Stub --}}
+                            <div class="vh-ticket-date notranslate" translate="no">
+                                <span class="vh-date-month notranslate" translate="no">{{ __($banner['stub_month'] ?? 'Pelatihan') }}</span>
+                                <span class="vh-date-day notranslate" translate="no">{{ __($banner['stub_day'] ?? '02-06') }}</span>
+                                <span class="vh-date-year notranslate" translate="no">{{ __($banner['stub_year'] ?? '2026') }} • {{ strtoupper(__($banner['stub_location'] ?? 'PEKANBARU')) }}</span>
+                                <span class="vh-date-badge notranslate" translate="no">
+                                    <span>{{ __($banner['badge'] ?? 'SIB MEDIK TK II') }}</span>
+                                </span>
+                            </div>
+
+                            {{-- Part B: Ticket Content & Details --}}
+                            <div class="vh-ticket-body">
+                                <span class="vh-ticket-type">
+                                    <span>⚡</span>
+                                    <span>{{ __($banner['label'] ?: 'Agenda Pelatihan Resmi') }}</span>
+                                </span>
+                                <h3 class="vh-ticket-title">{{ __($banner['title']) }}</h3>
+
+                                <div class="vh-ticket-highlights">
+                                    @if (!empty($banner['highlights']))
+                                        @foreach ($banner['highlights'] as $highlight)
+                                            <span class="vh-pill-tag">
+                                                <span>{{ __($highlight) }}</span>
+                                            </span>
+                                        @endforeach
+                                    @else
+                                        <span class="vh-pill-tag">
+                                            <span>📅 {{ __('Ujian SIB: 07 - 08 Des 2026') }}</span>
+                                        </span>
+                                        <span class="vh-pill-tag">
+                                            <span>📍 {{ __('Pekanbaru') }}</span>
+                                        </span>
+                                        <span class="vh-pill-tag">
+                                            <span>🎓 {{ __('Diskon 10%') }}</span>
+                                        </span>
+                                        <span class="vh-pill-tag" style="color:#2563eb; font-weight:600;">
+                                            <span>📲 {{ __('Kuota Terbatas') }}</span>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="vh-ticket-actions">
+                                    <a href="{{ $banner['link'] }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-btn">
+                                        <span>{{ __($banner['buttonText'] ?: 'Daftar Sekarang') }}</span>
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                        </svg>
+                                    </a>
+                                    <a href="{{ $banner['contactLink'] ?? 'https://wa.me/6289507240145' }}" target="_blank" rel="noopener noreferrer" class="vh-ticket-contact">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                        <span>{{ __($banner['contactText'] ?? 'Info WA: 0895-0724-0145') }}</span>
+                                    </a>
+                                </div>
+                            </div>
+
+                            {{-- Part C: Flyer Visual Preview --}}
+                            <div class="vh-ticket-poster">
+                                <button type="button" 
+                                    @click="openFlyer('{{ $banner['image'] }}', @js(__($banner['title'])))"
+                                    class="vh-poster-thumb" 
+                                    title="{{ __('Lihat Flyer') }}">
+                                    <img src="{{ $banner['image'] }}" alt="{{ __($banner['title']) }}" loading="eager"
+                                        onerror="if (!this.dataset.tried) { this.dataset.tried = '1'; this.src='{{ url('/assets/images/flyers/calibration-care.jpg') }}'; }">
+                                    <div class="vh-poster-thumb-overlay">
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                                        </svg>
+                                        <span>{{ __('Lihat Flyer') }}</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                @if ($promoBanners->count() > 1)
+                    <div class="vh-ticket-dots">
+                        @foreach ($promoBanners as $index => $b)
+                            <button type="button" @click="goToBanner({{ $index }})"
+                                class="vh-ticket-dot"
+                                :class="currentBanner === {{ $index }} ? 'is-active' : ''"
+                                aria-label="Promo {{ $index + 1 }}"></button>
+                        @endforeach
+                    </div>
+                @endif
+
+                {{-- Flyer Lightbox Modal (Popup) --}}
+                <div x-show="modalOpen" 
+                     x-cloak
+                     x-transition:enter="transition ease-out duration-300"
+                     x-transition:enter-start="opacity-0"
+                     x-transition:enter-end="opacity-100"
+                     x-transition:leave="transition ease-in duration-200"
+                     x-transition:leave-start="opacity-100"
+                     x-transition:leave-end="opacity-0"
+                     @keydown.escape.window="closeFlyer()"
+                     class="fixed inset-0 z-[9999] flex items-center justify-center p-3 sm:p-5"
+                     style="display: none;">
+                    
+                    {{-- Backdrop --}}
+                    <div class="fixed inset-0 bg-slate-950/85 backdrop-blur-md transition-opacity" 
+                         @click="closeFlyer()"></div>
+
+                    {{-- Modal Card --}}
+                    <div x-show="modalOpen"
+                         x-transition:enter="transition ease-out duration-300 transform"
+                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-200 transform"
+                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+                         class="relative z-10 w-full max-w-lg sm:max-w-xl max-h-[92vh] flex flex-col bg-slate-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden"
+                         @click.stop>
+                        
+                        {{-- Modal Header --}}
+                        <div class="flex items-center justify-between px-4 py-3 bg-slate-900/95 border-b border-slate-800">
+                            <div class="flex items-center gap-2.5 min-w-0 pr-3">
+                                <span class="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-500/15 text-blue-400 text-sm">
+                                    📋
+                                </span>
+                                <div class="min-w-0">
+                                    <h4 class="text-sm font-semibold text-white truncate" x-text="modalTitle"></h4>
+                                    <p class="text-[11px] text-slate-400">{{ __('Preview Flyer Resmi') }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-1.5 shrink-0">
+                                <a :href="modalImage" target="_blank" rel="noopener noreferrer" 
+                                   class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition" 
+                                   title="{{ __('Buka di Tab Baru') }}">
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                    </svg>
+                                </a>
+                                <button type="button" @click="closeFlyer()" 
+                                        class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-red-500/20 hover:text-red-400 transition" 
+                                        title="{{ __('Tutup') }}">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+
+                        {{-- Modal Body: Full Image Display --}}
+                        <div class="flex-1 overflow-auto p-3 sm:p-4 flex items-center justify-center bg-slate-950/70">
+                            <img :src="modalImage" :alt="modalTitle" 
+                                 class="max-h-[72vh] w-auto h-auto max-w-full object-contain rounded-xl shadow-lg border border-slate-800/80">
+                        </div>
+
+                        {{-- Modal Footer --}}
+                        <div class="flex items-center justify-between px-4 py-2.5 bg-slate-900/95 border-t border-slate-800 text-xs text-slate-400">
+                            <span class="text-[11px] text-slate-400 flex items-center gap-1.5">
+                                <kbd class="px-1.5 py-0.5 text-[10px] bg-slate-800 text-slate-300 rounded border border-slate-700">ESC</kbd>
+                                {{ __('atau klik area luar untuk menutup') }}
+                            </span>
+                            <button type="button" @click="closeFlyer()" 
+                                    class="px-3.5 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-medium transition text-xs">
+                                {{ __('Tutup') }}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
 
     {{-- Introduction Section (redesigned, scoped styles prefix va-) --}}
     <style>

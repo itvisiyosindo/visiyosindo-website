@@ -345,8 +345,8 @@ Route::get('/', function () {
                 ];
             } elseif ($isWebinar) {
                 $stubMonth = 'Webinar';
-                $stubDay = '25 NOV';
-                $stubYear = '2026';
+                $stubDay = '25';
+                $stubYear = 'NOV 2026';
                 $stubLocation = 'ONLINE';
                 $badge = 'SKP / BAPETEN';
                 $highlights = [
@@ -475,8 +475,8 @@ Route::get('/', function () {
             ],
             [
                 'stub_month' => 'Webinar',
-                'stub_day' => '25 NOV',
-                'stub_year' => '2026',
+                'stub_day' => '25',
+                'stub_year' => 'NOV 2026',
                 'stub_location' => 'ONLINE',
                 'badge' => 'SKP / BAPETEN',
                 'label' => __('Webinar Visi Academy'),
