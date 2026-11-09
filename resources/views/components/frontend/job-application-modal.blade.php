@@ -827,7 +827,7 @@
                                this.formData.institution &&
                                this.formData.graduationYear;
                     case 3:
-                        return this.formData.cv && this.formData.transcript;
+                        return this.formData.cv && this.formData.transcript && !this.errors.cv && !this.errors.transcript;
                     case 4:
                         return this.formData.agreement;
                     default:
@@ -835,20 +835,117 @@
                 }
             },
 
-            handleFileChange(event, type) {
+            async compressImage(file, maxWidth = 1600, quality = 0.8) {
+                if (!file || !file.type || !file.type.startsWith('image/')) {
+                    return file;
+                }
+                return new Promise((resolve) => {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        const img = new Image();
+                        img.onload = () => {
+                            let width = img.width;
+                            let height = img.height;
+                            if (width > maxWidth) {
+                                height = Math.round((height * maxWidth) / width);
+                                width = maxWidth;
+                            }
+                            const canvas = document.createElement('canvas');
+                            canvas.width = width;
+                            canvas.height = height;
+                            const ctx = canvas.getContext('2d');
+                            ctx.drawImage(img, 0, 0, width, height);
+                            canvas.toBlob((blob) => {
+                                if (blob && blob.size < file.size) {
+                                    const compressed = new File([blob], file.name.replace(/\.[^.]+$/, '.jpg'), {
+                                        type: 'image/jpeg',
+                                        lastModified: Date.now()
+                                    });
+                                    resolve(compressed);
+                                } else {
+                                    resolve(file);
+                                }
+                            }, 'image/jpeg', quality);
+                        };
+                        img.onerror = () => resolve(file);
+                        img.src = e.target.result;
+                    };
+                    reader.onerror = () => resolve(file);
+                    reader.readAsDataURL(file);
+                });
+            },
+
+            async processFile(file, type) {
+                if (!file) return;
+
+                this.clearError(type);
+
+                // Aturan validasi file
+                const rules = {
+                    cv: {
+                        maxSize: 5 * 1024 * 1024,
+                        maxMb: 5,
+                        allowedExts: ['pdf', 'doc', 'docx'],
+                        label: 'CV / Resume',
+                        allowedMsg: 'CV harus berformat PDF, DOC, atau DOCX (tidak boleh berupa gambar).'
+                    },
+                    transcript: {
+                        maxSize: 3 * 1024 * 1024,
+                        maxMb: 3,
+                        allowedExts: ['pdf', 'jpg', 'jpeg', 'png'],
+                        label: 'Transkrip Nilai',
+                        allowedMsg: 'Transkrip harus berformat PDF, JPG, JPEG, atau PNG.'
+                    },
+                    ijazah: {
+                        maxSize: 3 * 1024 * 1024,
+                        maxMb: 3,
+                        allowedExts: ['pdf', 'jpg', 'jpeg', 'png'],
+                        label: 'Ijazah',
+                        allowedMsg: 'Ijazah harus berformat PDF, JPG, JPEG, atau PNG.'
+                    }
+                };
+
+                const rule = rules[type];
+                if (!rule) return;
+
+                const ext = file.name.split('.').pop().toLowerCase();
+                if (!rule.allowedExts.includes(ext)) {
+                    this.errors[type] = [rule.allowedMsg];
+                    this.formData[type] = null;
+                    window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'Format Tidak Sesuai', message: rule.allowedMsg } }));
+                    return;
+                }
+
+                // Jika file berupa gambar foto (dari kamera HP), kompres otomatis agar ukuran ringan
+                let processedFile = file;
+                if (file.type.startsWith('image/')) {
+                    processedFile = await this.compressImage(file);
+                }
+
+                // Cek ukuran setelah proses kompresi
+                if (processedFile.size > rule.maxSize) {
+                    const msg = `Ukuran ${rule.label} (${this.formatFileSize(processedFile.size)}) melebihi batas maksimal ${rule.maxMb}MB. Silakan kompres file Anda terlebih dahulu.`;
+                    this.errors[type] = [msg];
+                    this.formData[type] = null;
+                    window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'File Terlalu Besar', message: msg } }));
+                    return;
+                }
+
+                this.formData[type] = processedFile;
+            },
+
+            async handleFileChange(event, type) {
                 const file = event.target.files[0];
                 if (file) {
-                    this.formData[type] = file;
-                    this.clearError(type); // <-- Clear error saat upload ulang file
+                    await this.processFile(file, type);
                 }
             },
 
-            handleFileDrop(event, type) {
+            async handleFileDrop(event, type) {
                 this.dragOver = null;
                 const file = event.dataTransfer.files[0];
                 if (file) {
-                    this.formData[type] = file;
-                    this.clearError(type); // <-- Clear error saat upload ulang file
+                    await this.processFile(file, type);
                 }
             },
 
@@ -870,7 +967,7 @@
                     const selectedJob = window.currentCareerJob || null;
 
                     if (!selectedJob?.id) {
-                        this.globalErrorMessage = 'Posisi lowongan belum dipilih.'; // <-- Menggunakan global message
+                        this.globalErrorMessage = 'Posisi lowongan belum dipilih.';
                         window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'Gagal', message: this.globalErrorMessage } }));
                         this.isSubmitting = false;
                         return;
@@ -895,18 +992,47 @@
                     if (this.formData.ijazah) formData.append('ijazah', this.formData.ijazah);
                     formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
-                    const response = await fetch('{{ route("career.apply") }}', {
-                        method: 'POST',
-                        headers: {
-                            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                            'Accept': 'application/json',
-                            'X-Requested-With': 'XMLHttpRequest',
-                        },
-                        credentials: 'same-origin',
-                        body: formData
-                    });
+                    let response;
+                    try {
+                        response = await fetch('{{ route("career.apply") }}', {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                                'X-Requested-With': 'XMLHttpRequest',
+                            },
+                            credentials: 'same-origin',
+                            body: formData
+                        });
+                    } catch (netErr) {
+                        this.globalErrorMessage = 'Koneksi internet terputus atau tidak stabil saat mengunggah dokumen. Silakan periksa jaringan Anda atau coba kompres ukuran file agar lebih ringan.';
+                        window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'Gagal Mengirim', message: this.globalErrorMessage } }));
+                        return;
+                    }
 
-                    const data = await response.json();
+                    let data = null;
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.includes('application/json')) {
+                        try {
+                            data = await response.json();
+                        } catch (jsonErr) {
+                            data = null;
+                        }
+                    }
+
+                    if (!data) {
+                        if (response.status === 413) {
+                            this.globalErrorMessage = 'Ukuran file lamaran Anda terlalu besar untuk server. Silakan kompres file CV atau Transkrip Anda (maksimal 2-3MB per file) lalu coba kirim kembali.';
+                        } else if (response.status === 419) {
+                            this.globalErrorMessage = 'Sesi pengisian formulir telah kedaluwarsa. Silakan muat ulang (refresh) halaman lalu kirim kembali.';
+                        } else if (response.status >= 500) {
+                            this.globalErrorMessage = 'Server sedang mengalami gangguan sementara. Silakan coba beberapa saat lagi atau hubungi admin kami.';
+                        } else {
+                            this.globalErrorMessage = 'Terjadi kesalahan saat memproses lamaran. Pastikan koneksi stabil dan ukuran file tidak melebihi batas maksimal.';
+                        }
+                        window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'Gagal Mengirim', message: this.globalErrorMessage } }));
+                        return;
+                    }
 
                     if (response.ok && data.success) {
                         this.submitSuccess = true;
@@ -922,7 +1048,7 @@
                         // Show banner & toast with summary
                         const errorCount = Object.keys(data.errors).length;
                         const firstError = Object.values(data.errors)[0][0];
-                        this.globalErrorMessage = `${errorCount} kesalahan ditemukan. ${firstError}`; // <-- Diset untuk Alert UI
+                        this.globalErrorMessage = `${errorCount} kesalahan ditemukan: ${firstError}`;
                         
                         window.dispatchEvent(new CustomEvent('toast', { 
                             detail: { 
@@ -943,11 +1069,11 @@
                             this.currentStep = 3;
                         }
                     } else {
-                        this.globalErrorMessage = data.message || 'Terjadi kesalahan. Silakan coba lagi.'; // <-- Fallback server error
+                        this.globalErrorMessage = data.message || 'Terjadi kesalahan. Silakan coba lagi.';
                         window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'Gagal', message: this.globalErrorMessage } }));
                     }
                 } catch (error) {
-                    this.globalErrorMessage = 'Terjadi kesalahan jaringan. Silakan coba lagi.'; // <-- Network error state
+                    this.globalErrorMessage = 'Terjadi kesalahan jaringan atau waktu unggah habis. Silakan coba kompres file dan kirim kembali.';
                     window.dispatchEvent(new CustomEvent('toast', { detail: { type: 'error', title: 'Error', message: this.globalErrorMessage } }));
                 } finally {
                     this.isSubmitting = false;
