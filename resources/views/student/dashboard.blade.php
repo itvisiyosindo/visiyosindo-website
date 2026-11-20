@@ -22,9 +22,21 @@
         .font-display { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
 
         /* Visilab Core Brand Styles (Guaranteed Color Rendering) */
+        .vb-nav-btn {
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 12px 18px !important;
+            border-radius: 1rem !important;
+        }
         .vb-active-tab {
             background-color: #0c2a52 !important;
             color: #ffffff !important;
+            display: flex !important;
+            align-items: center !important;
+            gap: 12px !important;
+            padding: 12px 18px !important;
+            border-radius: 1rem !important;
         }
         .vb-banner {
             background: #0c2a52 !important;
@@ -186,43 +198,47 @@
             </div>
 
             <!-- Navigation Links -->
-            <div class="px-3 py-4 overflow-y-auto flex-1 space-y-1 scrollbar-thin">
-                <div class="px-3 pt-1 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <div class="px-3 py-4 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
+                <div class="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Menu Utama
                 </div>
 
                 <!-- 1. Overview -->
                 <button type="button" @click="setTab('overview')"
-                    class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'overview'
                         ? 'vb-active-tab font-black shadow-md scale-[1.01]'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'overview' ? 'background-color: #0c2a52 !important; color: #ffffff !important;' : ''">
-                    <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
+                    :style="currentTab === 'overview'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
                         :class="currentTab === 'overview' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg>
                     </span>
-                    <span class="truncate">Overview</span>
+                    <span class="truncate font-semibold">Overview</span>
                     <span x-show="currentTab === 'overview'" class="ml-auto w-2 h-2 rounded-full bg-amber-400 shadow-xs animate-pulse"></span>
                 </button>
 
                 <!-- 2. Kelas Saya -->
                 <button type="button" @click="setTab('classes')"
-                    class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'classes'
                         ? 'vb-active-tab font-black shadow-md scale-[1.01]'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'classes' ? 'background-color: #0c2a52 !important; color: #ffffff !important;' : ''">
-                    <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
+                    :style="currentTab === 'classes'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
                         :class="currentTab === 'classes' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                         </svg>
                     </span>
-                    <span class="truncate">Kelas Saya</span>
+                    <span class="truncate font-semibold">Kelas Saya</span>
                     <span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
                         :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
                         {{ $enrollments->count() }}
@@ -231,42 +247,46 @@
 
                 <!-- 3. Daftar Kelas -->
                 <button type="button" @click="setTab('browse')"
-                    class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'browse'
                         ? 'vb-active-tab font-black shadow-md scale-[1.01]'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'browse' ? 'background-color: #0c2a52 !important; color: #ffffff !important;' : ''">
-                    <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
+                    :style="currentTab === 'browse'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
                         :class="currentTab === 'browse' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </span>
-                    <span class="truncate">Daftar Kelas</span>
+                    <span class="truncate font-semibold">Daftar Kelas</span>
                     <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
                         :class="currentTab === 'browse' ? 'bg-amber-400 text-slate-950' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
                         OPEN
                     </span>
                 </button>
 
-                <div class="px-3 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div class="px-3 pt-3.5 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Keuangan & Program
                 </div>
 
                 <!-- 4. Afiliasi -->
                 <button type="button" @click="setTab('affiliate')"
-                    class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'affiliate'
                         ? 'vb-active-tab font-black shadow-md scale-[1.01]'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'affiliate' ? 'background-color: #0c2a52 !important; color: #ffffff !important;' : ''">
-                    <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
+                    :style="currentTab === 'affiliate'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
                         :class="currentTab === 'affiliate' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </span>
-                    <span class="truncate">Afiliasi</span>
+                    <span class="truncate font-semibold">Afiliasi</span>
                     <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
                         :class="currentTab === 'affiliate' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
                         20% Komisi
@@ -275,18 +295,20 @@
 
                 <!-- 5. Invoice -->
                 <button type="button" @click="setTab('invoices')"
-                    class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'invoices'
                         ? 'vb-active-tab font-black shadow-md scale-[1.01]'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'invoices' ? 'background-color: #0c2a52 !important; color: #ffffff !important;' : ''">
-                    <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
+                    :style="currentTab === 'invoices'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
                         :class="currentTab === 'invoices' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </span>
-                    <span class="truncate">Invoice</span>
+                    <span class="truncate font-semibold">Invoice</span>
                     @php
                         $unpaidCount = $invoices->where('is_paid', false)->count();
                     @endphp
@@ -298,24 +320,26 @@
                     @endif
                 </button>
 
-                <div class="px-3 pt-3 pb-1 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div class="px-3 pt-3.5 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Pengaturan
                 </div>
 
                 <!-- 6. Profil dan Akun -->
                 <button type="button" @click="setTab('profile')"
-                    class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'profile'
                         ? 'vb-active-tab font-black shadow-md scale-[1.01]'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'profile' ? 'background-color: #0c2a52 !important; color: #ffffff !important;' : ''">
-                    <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
+                    :style="currentTab === 'profile'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
                         :class="currentTab === 'profile' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </span>
-                    <span class="truncate">Profil & Akun</span>
+                    <span class="truncate font-semibold">Profil & Akun</span>
                 </button>
 
             </div>
