@@ -113,17 +113,20 @@
             :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <!-- Top Header & Brand -->
-            <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div class="px-5 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
                 <a href="/" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-0.5 shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform flex items-center justify-center">
-                        <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Logo Visilab" class="w-7 h-7 object-contain bg-white rounded-xl p-0.5">
+                    <div class="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 shadow-sm border border-slate-200/80 dark:border-slate-700/80 p-1.5 flex items-center justify-center group-hover:scale-105 group-hover:border-blue-500/40 transition-all">
+                        <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Logo Visilab" class="w-full h-full object-contain">
                     </div>
                     <div>
                         <div class="flex items-center gap-1.5">
-                            <span class="font-display font-extrabold text-slate-900 dark:text-white text-base tracking-tight leading-tight">Visilab</span>
-                            <span class="font-display font-bold text-blue-600 dark:text-blue-400 text-base leading-tight">Academy</span>
+                            <span class="font-display font-extrabold text-slate-900 dark:text-white text-base tracking-tight leading-none">Visilab</span>
+                            <span class="font-display font-bold text-blue-600 dark:text-blue-400 text-base leading-none">Academy</span>
                         </div>
-                        <span class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider block">Student Portal</span>
+                        <div class="flex items-center gap-1.5 mt-1.5">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            <span class="text-[10px] font-black tracking-widest text-slate-400 dark:text-slate-500 uppercase">Student Portal</span>
+                        </div>
                     </div>
                 </a>
 
@@ -136,175 +139,211 @@
             </div>
 
             <!-- Navigation Links -->
-            <div class="px-4 py-6 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
-                <div class="px-3 pb-2 text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
+            <div class="px-3.5 py-4 overflow-y-auto flex-1 space-y-1 scrollbar-thin">
+                <div class="px-3 pt-1 pb-1.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Menu Utama
                 </div>
 
                 <!-- 1. Overview -->
                 <button type="button" @click="setTab('overview')"
-                    class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                    class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer"
                     :class="currentTab === 'overview'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                            :class="currentTab === 'overview' ? 'bg-white/20 text-white' : 'bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400'">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0"
+                            :class="currentTab === 'overview'
+                                ? 'bg-white/20 text-white shadow-xs'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-300'">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                             </svg>
                         </div>
-                        <span>Overview</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">Overview</span>
                     </div>
-                    <span class="w-2 h-2 rounded-full" :class="currentTab === 'overview' ? 'bg-white animate-pulse' : 'bg-transparent'"></span>
                 </button>
 
                 <!-- 2. Kelas Saya -->
                 <button type="button" @click="setTab('classes')"
-                    class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                    class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer"
                     :class="currentTab === 'classes'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                            :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400'">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0"
+                            :class="currentTab === 'classes'
+                                ? 'bg-white/20 text-white shadow-xs'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-300'">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                             </svg>
                         </div>
-                        <span>Kelas Saya</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">Kelas Saya</span>
                     </div>
-                    <span class="px-2.5 py-0.5 rounded-full text-[11px] font-black"
-                        :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300'">
+                    <span class="min-w-5 h-5 px-1.5 rounded-full text-[10px] font-bold flex items-center justify-center transition-all"
+                        :class="currentTab === 'classes' ? 'bg-white/25 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'">
                         {{ $enrollments->count() }}
                     </span>
                 </button>
 
                 <!-- 3. Daftar Kelas -->
                 <button type="button" @click="setTab('browse')"
-                    class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                    class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer"
                     :class="currentTab === 'browse'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                            :class="currentTab === 'browse' ? 'bg-white/20 text-white' : 'bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400'">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0"
+                            :class="currentTab === 'browse'
+                                ? 'bg-white/20 text-white shadow-xs'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-300'">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                             </svg>
                         </div>
-                        <span>Daftar Kelas</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">Daftar Kelas</span>
                     </div>
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider"
-                        :class="currentTab === 'browse' ? 'bg-white/20 text-white' : 'bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-400'">
+                    <span class="h-5 px-2 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center justify-center transition-all"
+                        :class="currentTab === 'browse' ? 'bg-white/25 text-white' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/80 dark:text-emerald-300 border border-emerald-200/60 dark:border-emerald-800/60'">
                         Open
                     </span>
                 </button>
 
-                <div class="px-3 pt-5 pb-2 text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div class="px-3 pt-4 pb-1.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Keuangan & Program
                 </div>
 
                 <!-- 4. Afiliasi -->
                 <button type="button" @click="setTab('affiliate')"
-                    class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                    class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer"
                     :class="currentTab === 'affiliate'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                            :class="currentTab === 'affiliate' ? 'bg-white/20 text-white' : 'bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400'">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0"
+                            :class="currentTab === 'affiliate'
+                                ? 'bg-white/20 text-white shadow-xs'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-300'">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                             </svg>
                         </div>
-                        <span>Afiliasi</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">Afiliasi</span>
                     </div>
-                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider"
-                        :class="currentTab === 'affiliate' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300'">
+                    <span class="h-5 px-2 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center justify-center transition-all"
+                        :class="currentTab === 'affiliate' ? 'bg-white/25 text-white' : 'bg-amber-50 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/60'">
                         20% Komisi
                     </span>
                 </button>
 
                 <!-- 5. Invoice -->
                 <button type="button" @click="setTab('invoices')"
-                    class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                    class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer"
                     :class="currentTab === 'invoices'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                            :class="currentTab === 'invoices' ? 'bg-white/20 text-white' : 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400'">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0"
+                            :class="currentTab === 'invoices'
+                                ? 'bg-white/20 text-white shadow-xs'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-300'">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
-                        <span>Invoice</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">Invoice</span>
                     </div>
                     @php
                         $unpaidCount = $invoices->where('is_paid', false)->count();
                     @endphp
                     @if($unpaidCount > 0)
-                        <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider"
-                            :class="currentTab === 'invoices' ? 'bg-white/20 text-white' : 'bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300'">
+                        <span class="h-5 px-2 rounded-full text-[10px] font-black uppercase tracking-wider flex items-center justify-center transition-all"
+                            :class="currentTab === 'invoices' ? 'bg-white/25 text-white' : 'bg-rose-50 text-rose-700 dark:bg-rose-950/80 dark:text-rose-300 border border-rose-200/60 dark:border-rose-800/60'">
                             {{ $unpaidCount }} Belum Bayar
                         </span>
                     @endif
                 </button>
 
-                <div class="px-3 pt-5 pb-2 text-[11px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div class="px-3 pt-4 pb-1.5 text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Pengaturan
                 </div>
 
                 <!-- 6. Profil dan Akun -->
                 <button type="button" @click="setTab('profile')"
-                    class="w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs sm:text-sm font-bold transition-all group cursor-pointer"
+                    class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs sm:text-sm font-semibold transition-all group cursor-pointer"
                     :class="currentTab === 'profile'
-                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25'
-                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'">
-                    <div class="flex items-center gap-3">
-                        <div class="w-8 h-8 rounded-xl flex items-center justify-center transition-transform group-hover:scale-105"
-                            :class="currentTab === 'profile' ? 'bg-white/20 text-white' : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300'">
+                        ? 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-md shadow-blue-500/25 font-bold'
+                        : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800/80 hover:text-slate-900 dark:hover:text-white'">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 shrink-0"
+                            :class="currentTab === 'profile'
+                                ? 'bg-white/20 text-white shadow-xs'
+                                : 'bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-300'">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
                         </div>
-                        <span>Profil & Akun</span>
+                        <span class="group-hover:translate-x-0.5 transition-transform">Profil & Akun</span>
                     </div>
-                    <span class="w-2 h-2 rounded-full" :class="currentTab === 'profile' ? 'bg-white animate-pulse' : 'bg-transparent'"></span>
                 </button>
+
+                <!-- Student Status Widget (Balanced & Purposeful Space) -->
+                <div class="pt-5 pb-2">
+                    <div class="p-3.5 rounded-2xl bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 dark:from-slate-800/60 dark:to-slate-800/30 border border-slate-100 dark:border-slate-800/80 shadow-xs">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <span class="text-[10px] font-black uppercase tracking-wider text-slate-400 dark:text-slate-500">Status Belajar</span>
+                            <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                Aktif
+                            </span>
+                        </div>
+                        <div class="text-xs font-black text-slate-800 dark:text-white mb-1">
+                            {{ $enrollments->count() > 0 ? $enrollments->count() . ' Pelatihan Diikuti' : 'Belum Memilih Kelas' }}
+                        </div>
+                        <p class="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed mb-3">
+                            Akses materi, sertifikat resmi, dan klaim komisi afiliasi 20% langsung di portal Anda.
+                        </p>
+                        <button type="button" @click="setTab('browse')"
+                            class="w-full py-2 px-3 rounded-xl bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white text-[11px] font-black shadow-xs transition-all flex items-center justify-center gap-1.5 border border-slate-200/60 dark:border-slate-600 cursor-pointer">
+                            <span>Jelajahi Kelas Baru</span>
+                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
             </div>
 
             <!-- Bottom Section: Admin Help Card & User Profile / Logout -->
-            <div class="p-4 border-t border-slate-100 dark:border-slate-800 space-y-3">
+            <div class="p-3.5 border-t border-slate-100 dark:border-slate-800 space-y-2">
                 <!-- Help WhatsApp Pill -->
                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
                     target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-2.5 p-3 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 text-xs font-semibold hover:bg-emerald-100 dark:hover:bg-emerald-900/50 transition-colors shadow-xs">
-                    <div class="w-7 h-7 rounded-xl bg-emerald-500 text-white flex items-center justify-center flex-shrink-0 shadow-sm">
+                    class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-emerald-50/80 hover:bg-emerald-100/80 dark:bg-emerald-950/40 dark:hover:bg-emerald-950/60 text-emerald-900 dark:text-emerald-200 text-xs font-semibold transition-all border border-emerald-100/80 dark:border-emerald-900/40 group">
+                    <div class="w-7 h-7 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
                         </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <span class="block truncate">Bantuan Admin</span>
-                        <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-normal">Fast Response WA</span>
+                        <span class="block text-xs font-bold truncate">Bantuan Admin</span>
+                        <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium block">Fast Response WhatsApp</span>
                     </div>
-                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-3.5 h-3.5 text-emerald-600 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                 </a>
 
                 <!-- User Snapshot & Logout -->
-                <div class="flex items-center justify-between p-2 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
                     <div class="flex items-center gap-2.5 min-w-0">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-bold text-xs flex items-center justify-center flex-shrink-0 shadow-sm">
+                        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-blue-600 to-indigo-600 text-white font-black text-xs flex items-center justify-center shrink-0 shadow-xs">
                             {{ $user->initials }}
                         </div>
                         <div class="min-w-0 flex-1">
                             <span class="text-xs font-bold text-slate-900 dark:text-white truncate block">{{ $user->name }}</span>
-                            <span class="text-[11px] text-slate-500 dark:text-slate-400 truncate block">{{ $user->email }}</span>
+                            <span class="text-[10px] text-slate-400 dark:text-slate-500 truncate block">{{ $user->email }}</span>
                         </div>
                     </div>
 
@@ -312,7 +351,7 @@
                     <form action="{{ route('logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" title="Keluar dari akun"
-                            class="p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors">
+                            class="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors cursor-pointer">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
@@ -320,6 +359,7 @@
                     </form>
                 </div>
             </div>
+        </aside>
         </aside>
 
         <!-- ========================================================================= -->
