@@ -219,6 +219,10 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
     Route::get('/dashboard', [StudentPortalController::class, 'dashboard'])->name('dashboard');
     Route::post('/enroll/{id}', [StudentPortalController::class, 'enroll'])->name('enroll');
     Route::post('/profile', [StudentPortalController::class, 'updateProfile'])->name('profile.update');
+    Route::post('/password', [StudentPortalController::class, 'updatePassword'])->name('password.update');
+    Route::post('/affiliate', [StudentPortalController::class, 'createAffiliateCode'])->name('affiliate.create');
+    Route::delete('/affiliate/{id}', [StudentPortalController::class, 'deleteAffiliateCode'])->name('affiliate.delete');
+    Route::post('/affiliate/withdraw', [StudentPortalController::class, 'withdrawAffiliate'])->name('affiliate.withdraw');
     Route::get('/certificate/{id}', [StudentPortalController::class, 'viewCertificate'])->name('certificate.view');
 });
 

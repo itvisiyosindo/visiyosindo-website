@@ -289,6 +289,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Affiliate codes
+     */
+    public function affiliateCodes(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AffiliateCode::class);
+    }
+
+    /**
      * Get role display name
      */
     public function getRoleNameAttribute(): string
