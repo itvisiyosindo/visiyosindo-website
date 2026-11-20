@@ -171,11 +171,11 @@
         </div>
 
         <!-- Sidebar Container (Borderless & Soft) -->
-        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
+        <aside class="fixed inset-y-0 left-0 z-50 w-72 sm:w-80 lg:w-64 max-w-[85vw] bg-white dark:bg-slate-900 shadow-2xl lg:shadow-sm flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
             :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <!-- Top Header & Brand -->
-            <div class="h-16 px-5 flex items-center justify-between shrink-0">
+            <div class="h-16 px-4 sm:px-5 flex items-center justify-between shrink-0 border-b border-slate-100/80 dark:border-slate-800/60">
                 <a href="/" class="flex items-center gap-2.5 overflow-hidden group">
                     <div class="shrink-0 w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
                         <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Visilab" class="w-full h-full object-contain">
@@ -190,15 +190,17 @@
                 </a>
 
                 <!-- Close mobile drawer button -->
-                <button type="button" @click="mobileSidebarOpen = false" class="lg:hidden p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                <button type="button" @click="mobileSidebarOpen = false"
+                    aria-label="Tutup Menu"
+                    class="lg:hidden w-8 h-8 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white flex items-center justify-center transition-colors shrink-0 cursor-pointer shadow-2xs">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
 
             <!-- Navigation Links -->
-            <div class="px-3 py-4 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
+            <div class="px-3.5 py-4 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
                 <div class="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Menu Utama
                 </div>
@@ -218,8 +220,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg>
                     </span>
-                    <span class="truncate font-semibold">Overview</span>
-                    <span x-show="currentTab === 'overview'" class="ml-auto w-2 h-2 rounded-full bg-amber-400 shadow-xs animate-pulse"></span>
+                    <span class="flex-1 text-left truncate font-semibold">Overview</span>
+                    <span x-show="currentTab === 'overview'" class="shrink-0 w-2 h-2 rounded-full bg-amber-400 shadow-xs animate-pulse"></span>
                 </button>
 
                 <!-- 2. Kelas Saya -->
@@ -238,8 +240,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                         </svg>
                     </span>
-                    <span class="truncate font-semibold">Kelas Saya</span>
-                    <span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
+                    <span class="flex-1 text-left truncate font-semibold">Kelas Saya</span>
+                    <span class="shrink-0 inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
                         :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
                         {{ $enrollments->count() }}
                     </span>
@@ -260,8 +262,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </span>
-                    <span class="truncate font-semibold">Daftar Kelas</span>
-                    <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
+                    <span class="flex-1 text-left truncate font-semibold">Daftar Kelas</span>
+                    <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
                         :class="currentTab === 'browse' ? 'bg-amber-400 text-slate-950' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
                         OPEN
                     </span>
@@ -286,8 +288,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </span>
-                    <span class="truncate font-semibold">Afiliasi</span>
-                    <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
+                    <span class="flex-1 text-left truncate font-semibold">Afiliasi</span>
+                    <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
                         :class="currentTab === 'affiliate' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
                         20% Komisi
                     </span>
@@ -308,12 +310,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </span>
-                    <span class="truncate font-semibold">Invoice</span>
+                    <span class="flex-1 text-left truncate font-semibold">Invoice</span>
                     @php
                         $unpaidCount = $invoices->where('is_paid', false)->count();
                     @endphp
                     @if($unpaidCount > 0)
-                        <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all"
+                        <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all"
                             :class="currentTab === 'invoices' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
                             {{ $unpaidCount }} Belum Bayar
                         </span>
@@ -339,13 +341,13 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </span>
-                    <span class="truncate font-semibold">Profil & Akun</span>
+                    <span class="flex-1 text-left truncate font-semibold">Profil & Akun</span>
                 </button>
 
             </div>
 
             <!-- Bottom Section: Admin Help Card & User Profile / Logout -->
-            <div class="p-3.5 space-y-2.5">
+            <div class="p-3.5 pb-6 lg:pb-3.5 space-y-2.5 border-t border-slate-100 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xs">
                 <!-- Help WhatsApp Pill -->
                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
                     target="_blank" rel="noopener noreferrer"
@@ -359,13 +361,13 @@
                         <span class="block text-xs font-bold truncate">Bantuan Admin</span>
                         <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium block">Fast Response WA</span>
                     </div>
-                    <svg class="w-3.5 h-3.5 text-emerald-600 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg class="w-3.5 h-3.5 text-emerald-600 group-hover:translate-x-0.5 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
                 </a>
 
                 <!-- User Snapshot & Logout -->
-                <div class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800">
+                <div class="flex items-center justify-between p-2.5 px-3 rounded-2xl bg-slate-50 dark:bg-slate-800">
                     <div class="flex items-center gap-2.5 min-w-0">
                         <div class="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                             {{ $user->initials }}
@@ -380,7 +382,7 @@
                     <form action="{{ route('logout') }}" method="POST" class="inline">
                         @csrf
                         <button type="submit" title="Keluar dari akun"
-                            class="p-1.5 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg transition-colors cursor-pointer">
+                            class="p-2 text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-xl transition-colors cursor-pointer shrink-0">
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                             </svg>
