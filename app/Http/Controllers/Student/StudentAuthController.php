@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Student;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\View\View;
@@ -50,7 +52,7 @@ class StudentAuthController extends Controller
             'password.min' => 'Password minimal 8 karakter.',
         ]);
 
-        $user = User::create([
+        $userData = [
             'name' => $validated['name'],
             'email' => strtolower($validated['email']),
             'phone' => $validated['phone'],
@@ -59,10 +61,42 @@ class StudentAuthController extends Controller
             'password' => Hash::make($validated['password']),
             'role' => User::ROLE_STUDENT,
             'is_active' => true,
-        ]);
+        ];
 
-        $studentRole = \App\Models\Role::where('slug', 'student')->first();
-        if ($studentRole) {
+        // Ensure student role exists in RBAC table
+        try {
+            $studentRole = Role::firstOrCreate(
+                ['slug' => 'student'],
+                [
+                    'name' => 'Pelajar / Peserta Pelatihan',
+                    'description' => 'Akses portal peserta pelatihan, materi, dan sertifikat',
+                    'is_active' => true,
+                ]
+            );
+        } catch (\Throwable $e) {
+            $studentRole = null;
+        }
+
+        // Create user with auto-recovery if MySQL enum rejects 'student'
+        try {
+            $user = User::create($userData);
+        } catch (\Illuminate\Database\QueryException $e) {
+            if (str_contains($e->getMessage(), 'Data truncated') || str_contains($e->getMessage(), '1265')) {
+                // Try altering column on the fly
+                try {
+                    DB::statement("ALTER TABLE users MODIFY COLUMN role VARCHAR(50) NOT NULL DEFAULT 'student'");
+                    $user = User::create($userData);
+                } catch (\Throwable $alterErr) {
+                    // Fallback to legacy enum value 'content_creator', and assign 'student' via RBAC table
+                    $userData['role'] = 'content_creator';
+                    $user = User::create($userData);
+                }
+            } else {
+                throw $e;
+            }
+        }
+
+        if ($studentRole && !$user->roles()->where('id', $studentRole->id)->exists()) {
             $user->roles()->attach($studentRole);
         }
 

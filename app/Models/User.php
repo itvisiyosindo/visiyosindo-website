@@ -243,6 +243,10 @@ class User extends Authenticatable
      */
     public function isAdmin(): bool
     {
+        if ($this->isStudent()) {
+            return false;
+        }
+
         // Check RBAC system first
         if ($this->hasRole('admin')) {
             return true;
@@ -289,6 +293,9 @@ class User extends Authenticatable
      */
     public function getRoleNameAttribute(): string
     {
+        if ($this->isStudent()) {
+            return 'Pelajar / Peserta';
+        }
         return self::ROLES[$this->role] ?? $this->role;
     }
 
