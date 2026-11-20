@@ -951,10 +951,25 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{user}', [UserManagementController::class, 'destroy'])->name('destroy')->middleware('permission:delete-users');
     });
 
-    // Training Participants & Certificates Management
+    // Visilab Academy Management (Classes, Enrollments, Certificates, Affiliates)
     Route::prefix('dashboard/trainings')->name('dashboard.trainings.')->group(function () {
+        // Enrollments & Verification
         Route::get('/', [TrainingManagementController::class, 'index'])->name('index');
         Route::post('/{id}/approve', [TrainingManagementController::class, 'approve'])->name('approve');
+        Route::post('/{id}/reject', [TrainingManagementController::class, 'reject'])->name('reject');
         Route::post('/{id}/complete', [TrainingManagementController::class, 'complete'])->name('complete');
+
+        // Classes Management (CRUD)
+        Route::get('/classes', [TrainingManagementController::class, 'classesIndex'])->name('classes');
+        Route::post('/classes', [TrainingManagementController::class, 'classesStore'])->name('classes.store');
+        Route::put('/classes/{id}', [TrainingManagementController::class, 'classesUpdate'])->name('classes.update');
+        Route::delete('/classes/{id}', [TrainingManagementController::class, 'classesDestroy'])->name('classes.destroy');
+        Route::post('/classes/{id}/toggle', [TrainingManagementController::class, 'classesToggleActive'])->name('classes.toggle');
+
+        // Certificates List
+        Route::get('/certificates', [TrainingManagementController::class, 'certificatesIndex'])->name('certificates');
+
+        // Affiliates List
+        Route::get('/affiliates', [TrainingManagementController::class, 'affiliatesIndex'])->name('affiliates');
     });
 });

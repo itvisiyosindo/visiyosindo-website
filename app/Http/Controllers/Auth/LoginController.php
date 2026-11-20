@@ -141,7 +141,13 @@ class LoginController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
-        $redirectUrl = $user->isStudent() ? route('student.dashboard') : route('dashboard');
+        if ($user->isStudent()) {
+            $redirectUrl = route('student.dashboard');
+        } elseif ($user->isAcademyAdmin() && !$user->isAdmin()) {
+            $redirectUrl = route('dashboard.trainings.classes');
+        } else {
+            $redirectUrl = route('dashboard');
+        }
 
         return response()->json([
             'success' => true,

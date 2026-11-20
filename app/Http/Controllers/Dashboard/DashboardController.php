@@ -12,6 +12,8 @@ use App\Models\PageView;
 use App\Models\Partner;
 use App\Models\ProductContent;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -20,8 +22,14 @@ class DashboardController extends Controller
     /**
      * Display the main dashboard with real-time summary stats.
      */
-    public function index(): View
+    public function index(): View|RedirectResponse
     {
+        $user = Auth::user();
+
+        if ($user && $user->isAcademyAdmin() && !$user->isAdmin()) {
+            return redirect()->route('dashboard.trainings.classes');
+        }
+
         $now = now();
         $thirtyDaysAgo = $now->copy()->subDays(30);
         $sevenDaysAgo = $now->copy()->subDays(6)->startOfDay();

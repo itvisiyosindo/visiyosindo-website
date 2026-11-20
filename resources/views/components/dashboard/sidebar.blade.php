@@ -48,6 +48,12 @@
         class="flex-1 overflow-y-auto py-3 space-y-4 transition-[padding] duration-300"
         :class="$store.sidebar.open ? 'px-2.5' : 'lg:px-1.5 px-2.5'"
     >
+        @php
+            $isAcademyOnly = auth()->check() && auth()->user()->isAcademyAdmin() && !auth()->user()->isAdmin();
+            $pendingTrainingCount = \App\Models\TrainingEnrollment::where('status', \App\Models\TrainingEnrollment::STATUS_PENDING)->count();
+        @endphp
+
+        @if(!$isAcademyOnly)
         <!-- Dashboard -->
         <x-dashboard.nav-group title="Dashboard">
             <x-dashboard.nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
@@ -210,19 +216,51 @@
                 Lowongan Kerja
             </x-dashboard.nav-link>
         </x-dashboard.nav-group>
+        @endif
 
         <!-- Training & Certificates -->
         <x-dashboard.nav-group title="Visilab Academy">
-            <x-dashboard.nav-link href="{{ route('dashboard.trainings.index') }}" :active="request()->routeIs('dashboard.trainings.*')">
+            <x-dashboard.nav-link href="{{ route('dashboard.trainings.classes') }}" :active="request()->routeIs('dashboard.trainings.classes*')">
                 <x-slot:icon>
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                 </x-slot:icon>
-                Peserta & Sertifikat
+                Kelola Kelas & Batch
+            </x-dashboard.nav-link>
+
+            <x-dashboard.nav-link href="{{ route('dashboard.trainings.index') }}" :active="request()->routeIs('dashboard.trainings.index') || (request()->routeIs('dashboard.trainings.*') && !request()->routeIs('dashboard.trainings.classes*') && !request()->routeIs('dashboard.trainings.certificates*') && !request()->routeIs('dashboard.trainings.affiliates*'))">
+                <x-slot:icon>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </x-slot:icon>
+                Peserta & Verifikasi
+                @if($pendingTrainingCount > 0)
+                    <x-slot:badge>{{ $pendingTrainingCount }}</x-slot:badge>
+                @endif
+            </x-dashboard.nav-link>
+
+            <x-dashboard.nav-link href="{{ route('dashboard.trainings.certificates') }}" :active="request()->routeIs('dashboard.trainings.certificates*')">
+                <x-slot:icon>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                    </svg>
+                </x-slot:icon>
+                Sertifikat Kelulusan
+            </x-dashboard.nav-link>
+
+            <x-dashboard.nav-link href="{{ route('dashboard.trainings.affiliates') }}" :active="request()->routeIs('dashboard.trainings.affiliates*')">
+                <x-slot:icon>
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                </x-slot:icon>
+                Program Afiliasi
             </x-dashboard.nav-link>
         </x-dashboard.nav-group>
 
+        @if(!$isAcademyOnly)
         <!-- Contact & Communication -->
         <x-dashboard.nav-group title="Kontak & Komunikasi">
             <x-dashboard.nav-link href="{{ route('dashboard.contact-submissions.index') }}" :active="request()->routeIs('dashboard.contact-submissions.*')">
@@ -318,6 +356,7 @@
                 Informasi Perusahaan
             </x-dashboard.nav-link>
         </x-dashboard.nav-group>
+        @endif
 
         <!-- RBAC Management (Only Admin) -->
         @if(auth()->check() && auth()->user()->isAdmin())

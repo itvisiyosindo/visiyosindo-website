@@ -18,6 +18,7 @@ class User extends Authenticatable
     public const ROLE_HR = 'hr';
     public const ROLE_DIRECTOR = 'director';
     public const ROLE_STUDENT = 'student';
+    public const ROLE_ACADEMY_ADMIN = 'academy_admin';
 
     public const ROLES = [
         self::ROLE_ADMIN => 'Admin',
@@ -26,6 +27,7 @@ class User extends Authenticatable
         self::ROLE_HR => 'HR',
         self::ROLE_DIRECTOR => 'Director',
         self::ROLE_STUDENT => 'Pelajar / Peserta',
+        self::ROLE_ACADEMY_ADMIN => 'Admin Visilab Academy',
     ];
 
     /**
@@ -273,6 +275,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Check if user is academy admin (Visilab Academy manager)
+     */
+    public function isAcademyAdmin(): bool
+    {
+        return $this->role === self::ROLE_ACADEMY_ADMIN || $this->hasRole(self::ROLE_ACADEMY_ADMIN);
+    }
+
+    /**
      * Training enrollments
      */
     public function enrollments(): \Illuminate\Database\Eloquent\Relations\HasMany
@@ -303,6 +313,9 @@ class User extends Authenticatable
     {
         if ($this->isStudent()) {
             return 'Pelajar / Peserta';
+        }
+        if ($this->isAcademyAdmin()) {
+            return 'Admin Visilab Academy';
         }
         return self::ROLES[$this->role] ?? $this->role;
     }

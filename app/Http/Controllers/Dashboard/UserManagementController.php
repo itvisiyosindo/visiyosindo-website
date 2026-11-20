@@ -181,16 +181,19 @@ class UserManagementController extends Controller
         $legacyMap = [
             'admin' => User::ROLE_ADMIN,
             'director' => User::ROLE_DIRECTOR,
+            'academy-admin' => User::ROLE_ACADEMY_ADMIN,
+            'academy_admin' => User::ROLE_ACADEMY_ADMIN,
             'content-creator' => User::ROLE_CONTENT_CREATOR,
             'marketing-manager' => User::ROLE_DIGITAL_MARKETING,
             'hr-manager' => User::ROLE_HR,
+            'student' => User::ROLE_STUDENT,
         ];
 
         if (empty($selectedRoleIds)) {
             return;
         }
 
-        $priority = ['admin', 'director', 'hr-manager', 'marketing-manager', 'content-creator'];
+        $priority = ['admin', 'director', 'academy-admin', 'academy_admin', 'hr-manager', 'marketing-manager', 'content-creator', 'student'];
         $selectedSlugs = Role::whereIn('id', $selectedRoleIds)->pluck('slug')->all();
 
         $roleSlug = null;
