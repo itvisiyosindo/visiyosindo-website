@@ -45,8 +45,16 @@
     --sidebar-collapsed-width: 80px;
 }
 
-/* Scrollbar Styling */
+/* Scrollbar Styling & Border Color Defaults */
 @layer base {
+    *, ::before, ::after {
+        border-color: #e2e8f0;
+    }
+
+    .dark *, .dark ::before, .dark ::after {
+        border-color: #334155;
+    }
+
     * {
         scrollbar-width: thin;
         scrollbar-color: var(--color-surface-300) transparent;

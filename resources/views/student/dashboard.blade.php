@@ -83,7 +83,7 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-3"
-        class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-slate-900 text-white text-sm font-semibold rounded-2xl shadow-2xl border border-slate-700">
+        class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-slate-900/95 backdrop-blur-md text-white text-sm font-bold rounded-2xl shadow-2xl">
         <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
         </svg>
@@ -108,22 +108,22 @@
             x-transition:leave-end="opacity-0">
         </div>
 
-        <!-- Sidebar Container -->
-        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
+        <!-- Sidebar Container (Borderless & Soft) -->
+        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-slate-900 shadow-sm flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
             :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <!-- Top Header & Brand -->
-            <div class="px-4 py-4 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div class="h-16 px-5 flex items-center justify-between shrink-0">
                 <a href="/" class="flex items-center gap-2.5 overflow-hidden group">
-                    <div class="shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 shadow-md shadow-blue-500/25 flex items-center justify-center text-white group-hover:scale-105 transition-transform">
-                        <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                        </svg>
+                    <div class="shrink-0 w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
+                        <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Visilab" class="w-full h-full object-contain">
                     </div>
-                    <div class="flex items-center gap-1.5">
-                        <span class="text-base font-bold text-slate-900 dark:text-white">Visilab</span>
-                        <span class="text-xs px-1.5 py-0.5 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 font-extrabold uppercase">Academy</span>
+                    <div class="flex flex-col">
+                        <div class="flex items-center gap-1 leading-none">
+                            <span class="text-sm font-display font-black text-slate-900 dark:text-white tracking-tight">Visilab</span>
+                            <span class="text-[10px] font-black text-blue-600 dark:text-blue-400">Academy</span>
+                        </div>
+                        <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider mt-0.5">Student Portal</span>
                     </div>
                 </a>
 
@@ -265,11 +265,11 @@
             </div>
 
             <!-- Bottom Section: Admin Help Card & User Profile / Logout -->
-            <div class="p-3 border-t border-slate-100 dark:border-slate-800 space-y-2">
+            <div class="p-3.5 space-y-2.5">
                 <!-- Help WhatsApp Pill -->
                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
                     target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-2.5 px-3 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 text-xs font-semibold transition-all group">
+                    class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 text-xs font-bold transition-all group shadow-2xs">
                     <div class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
@@ -285,7 +285,7 @@
                 </a>
 
                 <!-- User Snapshot & Logout -->
-                <div class="flex items-center justify-between p-2 rounded-xl bg-slate-50 dark:bg-slate-800">
+                <div class="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800">
                     <div class="flex items-center gap-2.5 min-w-0">
                         <div class="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
                             {{ $user->initials }}
@@ -315,8 +315,8 @@
         <!-- ========================================================================= -->
         <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
-            <!-- Top Header (Clean Minimalist Breadcrumb & Actions) -->
-            <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+            <!-- Top Header (Soft, Clean & Borderless) -->
+            <header class="sticky top-0 z-30 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-xs px-4 sm:px-8 flex items-center justify-between shrink-0">
                 <div class="flex items-center gap-3">
                     <!-- Hamburger button for mobile -->
                     <button type="button" @click="mobileSidebarOpen = true"
@@ -375,7 +375,7 @@
                         <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="space-y-3 max-w-2xl">
                                 <!-- Energetic Pill Badge -->
-                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-xs font-bold text-white shadow-xs">
+                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold text-white shadow-xs">
                                     <span class="flex h-2 w-2 relative">
                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                                         <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-300"></span>
@@ -406,7 +406,7 @@
                                 </button>
 
                                 <button type="button" @click="setTab('affiliate')"
-                                    class="px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-display font-bold text-xs sm:text-sm backdrop-blur-md border border-white/25 transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
+                                    class="px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
                                     <span class="text-amber-300 text-base">💰</span>
                                     <span>Program Afiliasi 20%</span>
                                 </button>
@@ -414,11 +414,11 @@
                         </div>
                     </div>
 
-                    <!-- 4 High-Energy Punchy Metric Cards -->
+                    <!-- 4 High-Energy Punchy Metric Cards (Smooth & Borderless) -->
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         <!-- Stat 1: Kelas Saya -->
                         <div @click="setTab('classes')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-blue-100/80 dark:border-blue-950/60 cursor-pointer group flex flex-col justify-between">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Kelas Saya</span>
                                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
@@ -441,7 +441,7 @@
 
                         <!-- Stat 2: Sertifikat -->
                         <div @click="setTab('classes')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-violet-100/80 dark:border-violet-950/60 cursor-pointer group flex flex-col justify-between">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">E-Sertifikat</span>
                                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:scale-110 transition-transform">
@@ -463,7 +463,7 @@
 
                         <!-- Stat 3: Saldo Komisi -->
                         <div @click="setTab('affiliate')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-amber-100/80 dark:border-amber-950/60 cursor-pointer group flex flex-col justify-between">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Saldo Komisi</span>
                                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform">
@@ -485,7 +485,7 @@
 
                         <!-- Stat 4: Tagihan -->
                         <div @click="setTab('invoices')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border border-rose-100/80 dark:border-rose-950/60 cursor-pointer group flex flex-col justify-between">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Status Tagihan</span>
                                 <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-600 text-white flex items-center justify-center shadow-lg shadow-rose-500/25 group-hover:scale-110 transition-transform">
@@ -506,12 +506,12 @@
                         </div>
                     </div>
 
-                    <!-- Ongoing Active Class Highlight Card (High Motivation) -->
+                    <!-- Ongoing Active Class Highlight Card (High Motivation, Borderless) -->
                     @php
                         $activeClass = $enrollments->where('status', 'active')->first();
                     @endphp
                     @if($activeClass)
-                        <div class="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl shadow-slate-950/20 border border-indigo-900/50">
+                        <div class="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl shadow-slate-950/20">
                             <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
 
                             <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -544,7 +544,7 @@
 
                                     @if($activeClass->trainingClass->materials_link)
                                         <a href="{{ $activeClass->trainingClass->materials_link }}" target="_blank" rel="noopener noreferrer"
-                                            class="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm border border-white/15 transition-all flex items-center gap-2">
+                                            class="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-xs">
                                             <svg class="w-4 h-4 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                             </svg>
@@ -556,11 +556,11 @@
                         </div>
                     @endif
 
-                    <!-- 3 High-Energy Action Cards -->
+                    <!-- 3 High-Energy Action Cards (Smooth & Borderless) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
                         <!-- Card A: Katalog -->
                         <div @click="setTab('browse')"
-                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border border-slate-100 dark:border-slate-800 cursor-pointer group flex flex-col justify-between">
+                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div>
                                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform mb-5">
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -580,7 +580,7 @@
 
                         <!-- Card B: Afiliasi -->
                         <div @click="setTab('affiliate')"
-                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border border-slate-100 dark:border-slate-800 cursor-pointer group flex flex-col justify-between">
+                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div>
                                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform mb-5">
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -600,7 +600,7 @@
 
                         <!-- Card C: Sertifikat -->
                         <div @click="setTab('classes')"
-                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 border border-slate-100 dark:border-slate-800 cursor-pointer group flex flex-col justify-between">
+                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div>
                                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:scale-110 transition-transform mb-5">
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -617,7 +617,6 @@
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
                         </div>
-                    </div>
                     </div>
                 </div>
 
@@ -659,7 +658,7 @@
 
                     @if($enrollments->isEmpty())
                         <!-- Empty State -->
-                        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800 space-y-4">
+                        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl shadow-sm space-y-4">
                             <div class="w-16 h-16 rounded-3xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 mx-auto flex items-center justify-center">
                                 <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -765,7 +764,7 @@
                                     </div>
 
                                     <!-- Action Buttons -->
-                                    <div class="p-6 pt-0 border-t border-slate-100 dark:border-slate-800 mt-2 flex flex-wrap items-center gap-2.5">
+                                    <div class="p-6 pt-0 mt-2 flex flex-wrap items-center gap-2.5">
                                         @if($enrollment->status === 'pending')
                                             <!-- Pending: Need manual WA confirmation -->
                                             <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran untuk pendaftaran kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
@@ -828,14 +827,14 @@
                             <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 dark:text-white">Daftar Kelas Pelatihan</h2>
                             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Pilih kelas yang sedang membuka pendaftaran untuk bergabung.</p>
                         </div>
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-900">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold shadow-2xs">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>{{ $availableClasses->count() }} Pelatihan Aktif</span>
                         </div>
                     </div>
 
                     @if($availableClasses->isEmpty())
-                        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+                        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
                             <p class="text-slate-500 text-sm">Saat ini belum ada batch pelatihan baru yang dibuka. Silakan hubungi admin untuk informasi jadwal batch selanjutnya.</p>
                         </div>
                     @else
@@ -908,7 +907,7 @@
                                                 @endif
                                             </div>
 
-                                            <div class="space-y-2 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
+                                            <div class="space-y-2 pt-3 text-xs text-slate-600 dark:text-slate-400">
                                                 <div class="flex items-center gap-2">
                                                     <svg class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                                     <span>Jadwal: <strong class="text-slate-800 dark:text-slate-200">{{ $class->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
@@ -920,7 +919,7 @@
                                             </div>
 
                                             <!-- Price Area -->
-                                            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-baseline justify-between">
+                                            <div class="pt-3 flex items-baseline justify-between">
                                                 <div>
                                                     <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Investasi</span>
                                                     <div class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400">{{ $class->formatted_price }}</div>
@@ -1054,36 +1053,36 @@
                         </div>
 
                         <!-- Right: Stats Breakdown (Komisi Bulan Ini, Sudah Ditarik, Total Seluruh) -->
-                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col justify-between shadow-sm space-y-4">
+                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col justify-between shadow-sm space-y-3">
                             <!-- Row 1: Komisi Bulan Ini -->
-                            <div class="pb-3 border-b border-slate-100 dark:border-slate-800">
-                                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
+                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                                <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
                                     <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                                     <span>Komisi Bulan Ini</span>
                                 </div>
-                                <div class="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-white">
+                                <div class="text-xl sm:text-2xl font-display font-black text-slate-900 dark:text-white">
                                     Rp {{ number_format($affiliateStats['this_month'], 0, ',', '.') }}
                                 </div>
                             </div>
 
                             <!-- Row 2: Komisi Sudah Ditarik -->
-                            <div class="pb-3 border-b border-slate-100 dark:border-slate-800">
-                                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
-                                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                                <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                                     <span>Komisi sudah ditarik</span>
                                 </div>
-                                <div class="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-white">
+                                <div class="text-xl sm:text-2xl font-display font-black text-slate-900 dark:text-white">
                                     Rp {{ number_format($affiliateStats['withdrawn'], 0, ',', '.') }}
                                 </div>
                             </div>
 
                             <!-- Row 3: Total Seluruh Komisi -->
-                            <div>
-                                <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
-                                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
+                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                                <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
+                                    <span class="w-2 h-2 rounded-full bg-violet-600"></span>
                                     <span>Total Seluruh Komisi</span>
                                 </div>
-                                <div class="text-xl sm:text-2xl font-display font-bold text-slate-900 dark:text-white">
+                                <div class="text-xl sm:text-2xl font-display font-black text-slate-900 dark:text-white">
                                     Rp {{ number_format($affiliateStats['total'], 0, ',', '.') }}
                                 </div>
                             </div>
@@ -1183,7 +1182,7 @@
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-xs">
                                     <thead>
-                                        <tr class="border-b border-slate-100 dark:border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                                        <tr class="text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="pb-3 px-2">Kode Afiliasi</th>
                                             <th class="pb-3 px-2 text-center">Total Afiliasi</th>
                                             <th class="pb-3 px-2 text-center">Total Komisi</th>
@@ -1285,7 +1284,7 @@
                     </div>
 
                     @if($invoices->isEmpty())
-                        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl border border-dashed border-slate-200 dark:border-slate-800">
+                        <div class="p-12 text-center bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
                             <p class="text-slate-500 text-sm">Belum ada tagihan invoice saat ini. Anda dapat mendaftar kelas baru pada menu Daftar Kelas.</p>
                         </div>
                     @else
@@ -1294,7 +1293,7 @@
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-xs">
                                     <thead>
-                                        <tr class="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                                        <tr class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-4 px-6">No. Invoice</th>
                                             <th class="py-4 px-6">Pelatihan</th>
                                             <th class="py-4 px-6">Tanggal</th>
@@ -1379,7 +1378,7 @@
                                         Nama Lengkap (Tercetak di Sertifikat) <span class="text-rose-500">*</span>
                                     </label>
                                     <input type="text" name="name" value="{{ old('name', $user->name) }}" required
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <!-- Email (Disabled) -->
@@ -1388,7 +1387,7 @@
                                         Alamat Email (Login)
                                     </label>
                                     <input type="email" value="{{ $user->email }}" disabled
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-800/50 text-sm text-slate-500 cursor-not-allowed">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100/60 dark:bg-slate-800/40 text-sm text-slate-500 cursor-not-allowed">
                                 </div>
 
                                 <!-- WhatsApp Phone -->
@@ -1398,7 +1397,7 @@
                                     </label>
                                     <input type="text" name="phone" value="{{ old('phone', $user->phone) }}" required
                                         placeholder="08xxxxxxxxxx"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <!-- Instansi / Kampus -->
@@ -1408,7 +1407,7 @@
                                     </label>
                                     <input type="text" name="institution" value="{{ old('institution', $user->institution) }}"
                                         placeholder="Cth: Universitas Indonesia / RSUP Dr. Sardjito"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <!-- Profesi -->
@@ -1418,7 +1417,7 @@
                                     </label>
                                     <input type="text" name="profession" value="{{ old('profession', $user->profession) }}"
                                         placeholder="Cth: Radiografer / Mahasiswa / Elektromedis / Umum"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <!-- Alamat -->
@@ -1428,7 +1427,7 @@
                                     </label>
                                     <textarea name="address" rows="2"
                                         placeholder="Kota / Alamat pengiriman sertifikat fisik jika ada"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">{{ old('address', $user->address) }}</textarea>
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">{{ old('address', $user->address) }}</textarea>
                                 </div>
 
                                 <button type="submit"
@@ -1454,7 +1453,7 @@
                                         Password Saat Ini <span class="text-rose-500">*</span>
                                     </label>
                                     <input type="password" name="current_password" required
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <!-- New Password -->
@@ -1463,7 +1462,7 @@
                                         Password Baru (Min. 8 Karakter) <span class="text-rose-500">*</span>
                                     </label>
                                     <input type="password" name="password" required minlength="8"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <!-- Password Confirmation -->
@@ -1472,7 +1471,7 @@
                                         Konfirmasi Password Baru <span class="text-rose-500">*</span>
                                     </label>
                                     <input type="password" name="password_confirmation" required minlength="8"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 </div>
 
                                 <button type="submit"
@@ -1528,7 +1527,7 @@
                     </label>
                     <input type="text" name="code" required minlength="3" maxlength="20"
                         placeholder="Contoh: RADIOLOGI2026"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm uppercase font-mono font-bold tracking-wider text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm uppercase font-mono font-bold tracking-wider text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="flex items-center justify-end gap-2.5 pt-2">
@@ -1580,19 +1579,19 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Bank / E-Wallet</label>
                     <input type="text" name="bank_name" required placeholder="BCA / Mandiri / BNI / BRI / GoPay"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white">
+                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nomor Rekening</label>
                     <input type="text" name="account_number" required placeholder="1234567890"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-mono font-semibold text-slate-900 dark:text-white">
+                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm font-mono font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Pemilik Rekening</label>
                     <input type="text" name="account_holder" required value="{{ $user->name }}"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white">
+                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm font-semibold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                 </div>
 
                 <div class="flex items-center justify-end gap-2.5 pt-2">
@@ -1628,7 +1627,7 @@
             </p>
             <div class="space-y-3">
                 <a href="{{ asset('assets/logo/visiyosindo.png') }}" download="logo-visilab.png"
-                    class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 transition-colors">
+                    class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 transition-colors">
                     <div class="flex items-center gap-3">
                         <img src="{{ asset('assets/logo/visiyosindo.png') }}" class="w-8 h-8 object-contain">
                         <div>
@@ -1654,7 +1653,7 @@
                 </button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                <div class="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900">
+                <div class="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40">
                     <strong class="text-blue-800 dark:text-blue-300 block mb-1">Komisi 20% & Diskon 10%</strong>
                     Pendaftar yang menggunakan kode referralmu otomatis mendapat diskon 10% dari total biaya pelatihan, dan kamu berhak atas komisi 20% dari total yang dibayarkan.
                 </div>
@@ -1678,7 +1677,7 @@
         <div @click.away="showReceiptModal = false"
             class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl space-y-6">
             <!-- Header Kuitansi -->
-            <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+            <div class="flex items-center justify-between pb-4">
                 <div class="flex items-center gap-3">
                     <img src="{{ asset('assets/logo/visiyosindo.png') }}" class="w-10 h-10 object-contain">
                     <div>
@@ -1715,8 +1714,8 @@
                         <span class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400" x-text="selectedInvoice.formatted_amount"></span>
                     </div>
 
-                    <div class="p-3.5 rounded-2xl text-xs"
-                        :class="selectedInvoice.is_paid ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border border-amber-200'">
+                    <div class="p-3.5 rounded-2xl text-xs font-medium"
+                        :class="selectedInvoice.is_paid ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300'">
                         <div class="font-bold mb-1" x-text="selectedInvoice.is_paid ? 'STATUS: LUNAS / TERVERIFIKASI' : 'STATUS: MENUNGGU PEMBAYARAN'"></div>
                         <span x-text="selectedInvoice.is_paid ? 'Pembayaran telah divalidasi oleh finance PT Visi Yosindo Medikal.' : 'Silakan transfer ke Rekening Mandiri / BCA PT Visi Yosindo Medikal lalu konfirmasi via WhatsApp.'"></span>
                     </div>
@@ -1734,7 +1733,7 @@
                 </div>
             </template>
 
-            <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-end gap-3 pt-4">
                 <button type="button" @click="window.print()"
                     class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 transition-colors inline-flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
