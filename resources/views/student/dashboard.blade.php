@@ -145,26 +145,26 @@
                 <button type="button" @click="setTab('overview')"
                     class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
                     :class="currentTab === 'overview'
-                        ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-black shadow-lg shadow-blue-500/25 scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
+                        ? 'bg-[#0c2a52] text-white font-black shadow-md shadow-blue-950/20 scale-[1.01]'
+                        : 'text-slate-600 hover:text-[#0c2a52] hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
                     <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
-                        :class="currentTab === 'overview' ? 'text-white' : 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-slate-200'">
+                        :class="currentTab === 'overview' ? 'text-white' : 'text-slate-400 group-hover:text-[#0c2a52] dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
                         </svg>
                     </span>
                     <span class="truncate">Overview</span>
-                    <span x-show="currentTab === 'overview'" class="ml-auto w-2 h-2 rounded-full bg-white shadow-xs animate-pulse"></span>
+                    <span x-show="currentTab === 'overview'" class="ml-auto w-2 h-2 rounded-full bg-amber-400 shadow-xs animate-pulse"></span>
                 </button>
 
                 <!-- 2. Kelas Saya -->
                 <button type="button" @click="setTab('classes')"
                     class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
                     :class="currentTab === 'classes'
-                        ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-black shadow-lg shadow-blue-500/25 scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
+                        ? 'bg-[#0c2a52] text-white font-black shadow-md shadow-blue-950/20 scale-[1.01]'
+                        : 'text-slate-600 hover:text-[#0c2a52] hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
                     <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
-                        :class="currentTab === 'classes' ? 'text-white' : 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-slate-200'">
+                        :class="currentTab === 'classes' ? 'text-white' : 'text-slate-400 group-hover:text-[#0c2a52] dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z" />
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
@@ -172,7 +172,7 @@
                     </span>
                     <span class="truncate">Kelas Saya</span>
                     <span class="ml-auto inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
-                        :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-700 dark:bg-blue-950/80 dark:text-blue-300'">
+                        :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-blue-100 text-[#0c2a52] dark:bg-blue-950/80 dark:text-blue-300'">
                         {{ $enrollments->count() }}
                     </span>
                 </button>
@@ -181,17 +181,17 @@
                 <button type="button" @click="setTab('browse')"
                     class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
                     :class="currentTab === 'browse'
-                        ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-black shadow-lg shadow-blue-500/25 scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
+                        ? 'bg-[#0c2a52] text-white font-black shadow-md shadow-blue-950/20 scale-[1.01]'
+                        : 'text-slate-600 hover:text-[#0c2a52] hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
                     <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
-                        :class="currentTab === 'browse' ? 'text-white' : 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-slate-200'">
+                        :class="currentTab === 'browse' ? 'text-white' : 'text-slate-400 group-hover:text-[#0c2a52] dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </span>
                     <span class="truncate">Daftar Kelas</span>
                     <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
-                        :class="currentTab === 'browse' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'">
+                        :class="currentTab === 'browse' ? 'bg-amber-400 text-slate-950' : 'bg-blue-100 text-[#0c2a52] dark:bg-blue-950/80 dark:text-blue-300'">
                         OPEN
                     </span>
                 </button>
@@ -204,17 +204,17 @@
                 <button type="button" @click="setTab('affiliate')"
                     class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
                     :class="currentTab === 'affiliate'
-                        ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-black shadow-lg shadow-blue-500/25 scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
+                        ? 'bg-[#0c2a52] text-white font-black shadow-md shadow-blue-950/20 scale-[1.01]'
+                        : 'text-slate-600 hover:text-[#0c2a52] hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
                     <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
-                        :class="currentTab === 'affiliate' ? 'text-white' : 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-slate-200'">
+                        :class="currentTab === 'affiliate' ? 'text-white' : 'text-slate-400 group-hover:text-[#0c2a52] dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </span>
                     <span class="truncate">Afiliasi</span>
                     <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
-                        :class="currentTab === 'affiliate' ? 'bg-white/20 text-white' : 'bg-amber-100 text-amber-800 dark:bg-amber-950/80 dark:text-amber-300'">
+                        :class="currentTab === 'affiliate' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
                         20% Komisi
                     </span>
                 </button>
@@ -223,10 +223,10 @@
                 <button type="button" @click="setTab('invoices')"
                     class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
                     :class="currentTab === 'invoices'
-                        ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-black shadow-lg shadow-blue-500/25 scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
+                        ? 'bg-[#0c2a52] text-white font-black shadow-md shadow-blue-950/20 scale-[1.01]'
+                        : 'text-slate-600 hover:text-[#0c2a52] hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
                     <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
-                        :class="currentTab === 'invoices' ? 'text-white' : 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-slate-200'">
+                        :class="currentTab === 'invoices' ? 'text-white' : 'text-slate-400 group-hover:text-[#0c2a52] dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
@@ -237,7 +237,7 @@
                     @endphp
                     @if($unpaidCount > 0)
                         <span class="ml-auto inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all"
-                            :class="currentTab === 'invoices' ? 'bg-white/20 text-white' : 'bg-rose-100 text-rose-700 dark:bg-rose-950/80 dark:text-rose-300'">
+                            :class="currentTab === 'invoices' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
                             {{ $unpaidCount }} Belum Bayar
                         </span>
                     @endif
@@ -251,10 +251,10 @@
                 <button type="button" @click="setTab('profile')"
                     class="w-full group relative flex items-center rounded-2xl text-[13px] transition-all duration-200 px-3.5 py-3 cursor-pointer"
                     :class="currentTab === 'profile'
-                        ? 'bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 text-white font-black shadow-lg shadow-blue-500/25 scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-600 hover:bg-blue-50/70 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
+                        ? 'bg-[#0c2a52] text-white font-black shadow-md shadow-blue-950/20 scale-[1.01]'
+                        : 'text-slate-600 hover:text-[#0c2a52] hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'">
                     <span class="shrink-0 w-5 h-5 mr-3 flex items-center justify-center transition-colors"
-                        :class="currentTab === 'profile' ? 'text-white' : 'text-slate-400 group-hover:text-blue-600 dark:group-hover:text-slate-200'">
+                        :class="currentTab === 'profile' ? 'text-white' : 'text-slate-400 group-hover:text-[#0c2a52] dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
@@ -349,8 +349,8 @@
 
                     <!-- CTA Button -->
                     <button type="button" @click="setTab('browse')"
-                        class="inline-flex items-center gap-2 px-4 py-2 text-xs font-black text-white bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-600 hover:from-blue-700 hover:to-violet-700 rounded-xl shadow-md shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        class="inline-flex items-center gap-2 px-4 py-2 text-xs font-black text-white bg-[#0c2a52] hover:bg-[#153e75] rounded-xl shadow-md shadow-blue-950/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
+                        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                         </svg>
                         <span>Daftar Kelas Baru</span>
@@ -365,22 +365,21 @@
                 <!-- TAB 1: OVERVIEW (Energetic Motivational Learning Dashboard) -->
                 <!-- ============================================================= -->
                 <div x-cloak x-show="currentTab === 'overview'" class="space-y-8">
-                    <!-- High-Energy Motivational Welcome Banner -->
-                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-blue-600 via-indigo-600 to-violet-700 text-white p-6 sm:p-9 shadow-xl shadow-indigo-500/20">
-                        <!-- Ambient Energy Glows -->
-                        <div class="absolute -right-16 -top-16 w-72 h-72 rounded-full bg-white/10 blur-3xl pointer-events-none"></div>
-                        <div class="absolute right-1/4 -bottom-16 w-60 h-60 rounded-full bg-cyan-400/20 blur-3xl pointer-events-none"></div>
-                        <div class="absolute left-1/3 -top-12 w-48 h-48 rounded-full bg-violet-400/20 blur-2xl pointer-events-none"></div>
+                    <!-- High-Energy Motivational Welcome Banner (Visilab Navy & Royal Blue with Gold Accent) -->
+                    <div class="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#0c2a52] via-[#0f3868] to-[#1e40af] text-white p-6 sm:p-9 shadow-xl shadow-blue-950/20">
+                        <!-- Subtle Ambient Highlights -->
+                        <div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-blue-400/10 blur-3xl pointer-events-none"></div>
+                        <div class="absolute right-1/3 -bottom-20 w-60 h-60 rounded-full bg-amber-400/10 blur-3xl pointer-events-none"></div>
 
                         <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="space-y-3 max-w-2xl">
                                 <!-- Energetic Pill Badge -->
-                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold text-white shadow-xs">
+                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white shadow-xs">
                                     <span class="flex h-2 w-2 relative">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-300"></span>
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                                     </span>
-                                    <span>🔥 Semangat Belajar Hari Ini &bull; Visilab Academy</span>
+                                    <span>🔥 Semangat Belajar Hari Ini &bull; <span class="text-amber-300 font-bold">Visilab Academy</span></span>
                                 </div>
 
                                 <!-- Punchy Motivational Title -->
@@ -389,39 +388,37 @@
                                 </h2>
 
                                 <p class="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
-                                    Siap tingkatkan kompetensi praktis industri alat kesehatan & radiologi? Pantau materi pembelajaran, raih <strong class="text-white font-bold">e-Sertifikat resmi ber-QR Code</strong>, dan kembangkan passive income dari <strong class="text-amber-300 font-bold">komisi 20% afiliasi</strong>!
+                                    Tingkatkan keahlian praktis bersama instruktur industri alat kesehatan & radiologi. Raih <strong class="text-white font-bold">e-Sertifikat resmi ber-QR Code</strong> dan nikmati pasif income <strong class="text-amber-300 font-black">komisi 20% afiliasi</strong>!
                                 </p>
                             </div>
 
-                            <!-- Right Side: Fast Motivating Action Buttons -->
+                            <!-- Right Side: Fast Motivating Action Buttons (High Contrast & Gold Touch) -->
                             <div class="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
                                 <button type="button" @click="setTab('browse')"
-                                    class="px-5 py-3 rounded-2xl bg-white text-indigo-700 hover:bg-slate-50 font-display font-black text-xs sm:text-sm shadow-xl shadow-black/15 hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer group">
-                                    <div class="w-6 h-6 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:rotate-12 transition-transform">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                        </svg>
-                                    </div>
-                                    <span>Eksplorasi Katalog Kelas</span>
+                                    class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-black text-xs sm:text-sm shadow-xl shadow-blue-950/30 hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer group">
+                                    <svg class="w-4 h-4 text-slate-950 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                    <span class="text-slate-950 font-black">Eksplorasi Katalog Kelas</span>
                                 </button>
 
                                 <button type="button" @click="setTab('affiliate')"
-                                    class="px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
+                                    class="px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs">
                                     <span class="text-amber-300 text-base">💰</span>
-                                    <span>Program Afiliasi 20%</span>
+                                    <span class="text-white font-bold">Program Afiliasi 20%</span>
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- 4 High-Energy Punchy Metric Cards (Smooth & Borderless) -->
+                    <!-- 4 Metric Cards (Clean White with Logo Blue & Gold Accent) -->
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         <!-- Stat 1: Kelas Saya -->
                         <div @click="setTab('classes')"
                             class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Kelas Saya</span>
-                                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                                <div class="w-11 h-11 rounded-2xl bg-[#0c2a52] text-white flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z" />
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
@@ -429,11 +426,11 @@
                                 </div>
                             </div>
                             <div>
-                                <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors tracking-tight">
+                                <div class="text-3xl sm:text-4xl font-display font-black text-[#0c2a52] dark:text-white group-hover:text-blue-600 transition-colors tracking-tight">
                                     {{ $enrollments->count() }}
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 dark:bg-blue-950/70 dark:text-blue-300">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></span>
+                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-[#0c2a52] dark:bg-blue-950/70 dark:text-blue-300">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
                                     <span>{{ $enrollments->where('status', 'active')->count() }} kelas aktif berjalan</span>
                                 </span>
                             </div>
@@ -444,18 +441,18 @@
                             class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">E-Sertifikat</span>
-                                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:scale-110 transition-transform">
+                                <div class="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/25 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                     </svg>
                                 </div>
                             </div>
                             <div>
-                                <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white group-hover:text-violet-600 transition-colors tracking-tight">
+                                <div class="text-3xl sm:text-4xl font-display font-black text-[#0c2a52] dark:text-white group-hover:text-blue-600 transition-colors tracking-tight">
                                     {{ $certificates->count() }}
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-violet-50 text-violet-700 dark:bg-violet-950/70 dark:text-violet-300">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-violet-500"></span>
+                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-[#0c2a52] dark:bg-blue-950/70 dark:text-blue-300">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                                     <span>E-Sertifikat Terverifikasi</span>
                                 </span>
                             </div>
@@ -466,17 +463,17 @@
                             class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Saldo Komisi</span>
-                                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform">
+                                <div class="w-11 h-11 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/25 group-hover:scale-110 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
                             </div>
                             <div>
-                                <div class="text-2xl sm:text-3xl font-display font-black text-slate-900 dark:text-white group-hover:text-amber-600 transition-colors tracking-tight truncate">
+                                <div class="text-2xl sm:text-3xl font-display font-black text-[#0c2a52] dark:text-white group-hover:text-amber-600 transition-colors tracking-tight truncate">
                                     Rp {{ number_format($affiliateStats['balance'], 0, ',', '.') }}
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-800 dark:bg-amber-950/70 dark:text-amber-300">
+                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300">
                                     <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
                                     <span>Siap ditarik kapan saja</span>
                                 </span>
@@ -488,18 +485,18 @@
                             class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div class="flex items-center justify-between mb-4">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Status Tagihan</span>
-                                <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-rose-500 to-pink-600 text-white flex items-center justify-center shadow-lg shadow-rose-500/25 group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="w-11 h-11 rounded-2xl bg-[#0c2a52] text-white flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-110 transition-transform">
+                                    <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
                             </div>
                             <div>
-                                <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white group-hover:text-rose-600 transition-colors tracking-tight">
+                                <div class="text-3xl sm:text-4xl font-display font-black text-[#0c2a52] dark:text-white group-hover:text-amber-600 transition-colors tracking-tight">
                                     {{ $invoices->where('is_paid', false)->count() }}
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold {{ $invoices->where('is_paid', false)->count() > 0 ? 'bg-rose-50 text-rose-700 dark:bg-rose-950/70 dark:text-rose-300' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/70 dark:text-emerald-300' }}">
-                                    <span class="w-1.5 h-1.5 rounded-full {{ $invoices->where('is_paid', false)->count() > 0 ? 'bg-rose-500 animate-ping' : 'bg-emerald-500' }}"></span>
+                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold {{ $invoices->where('is_paid', false)->count() > 0 ? 'bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300' : 'bg-blue-50 text-[#0c2a52] dark:bg-blue-950/70 dark:text-blue-300' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $invoices->where('is_paid', false)->count() > 0 ? 'bg-amber-500 animate-pulse' : 'bg-blue-600' }}"></span>
                                     <span>{{ $invoices->where('is_paid', false)->count() > 0 ? 'Menunggu Pembayaran' : 'Semua Tagihan Lunas' }}</span>
                                 </span>
                             </div>
@@ -511,20 +508,20 @@
                         $activeClass = $enrollments->where('status', 'active')->first();
                     @endphp
                     @if($activeClass)
-                        <div class="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 text-white shadow-xl shadow-slate-950/20">
-                            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="relative overflow-hidden p-6 sm:p-7 rounded-3xl bg-gradient-to-r from-[#0c2a52] to-[#153e75] text-white shadow-xl shadow-blue-950/20">
+                            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl pointer-events-none"></div>
 
                             <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                                 <div class="space-y-2.5">
-                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-black uppercase tracking-wider">
+                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-black uppercase tracking-wider">
                                         <span class="relative flex h-2 w-2">
-                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                                            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                                         </span>
                                         <span>🎧 Kelas Sedang Berjalan &bull; Lanjutkan Progresmu</span>
                                     </div>
                                     <h3 class="text-xl sm:text-2xl font-display font-black text-white tracking-tight">{{ $activeClass->trainingClass->title }}</h3>
-                                    <div class="flex flex-wrap items-center gap-3 text-xs text-slate-300 font-medium">
+                                    <div class="flex flex-wrap items-center gap-3 text-xs text-blue-100 font-medium">
                                         <span class="px-2.5 py-0.5 rounded-lg bg-white/10 text-white font-bold">{{ $activeClass->trainingClass->batch_name }}</span>
                                         <span>&bull;</span>
                                         <span>📅 Jadwal: <strong class="text-white">{{ $activeClass->trainingClass->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
@@ -536,8 +533,8 @@
                                 <div class="flex flex-wrap items-center gap-3 shrink-0">
                                     @if($activeClass->trainingClass->whatsapp_group_link)
                                         <a href="{{ $activeClass->trainingClass->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
-                                            class="px-5 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-display font-extrabold text-xs sm:text-sm shadow-lg shadow-emerald-500/30 flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                                            class="px-5 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-black text-xs sm:text-sm shadow-lg shadow-blue-950/25 flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                            <svg class="w-4 h-4 text-slate-950" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                                             <span>Masuk WhatsApp Grup</span>
                                         </a>
                                     @endif
@@ -545,7 +542,7 @@
                                     @if($activeClass->trainingClass->materials_link)
                                         <a href="{{ $activeClass->trainingClass->materials_link }}" target="_blank" rel="noopener noreferrer"
                                             class="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-xs">
-                                            <svg class="w-4 h-4 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="w-4 h-4 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                             </svg>
                                             <span>Buka Materi</span>
@@ -556,23 +553,23 @@
                         </div>
                     @endif
 
-                    <!-- 3 High-Energy Action Cards (Smooth & Borderless) -->
+                    <!-- 3 Action Cards (Visilab Blue & Gold Accent on White) -->
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
                         <!-- Card A: Katalog -->
                         <div @click="setTab('browse')"
                             class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div>
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform mb-5">
+                                <div class="w-12 h-12 rounded-2xl bg-[#0c2a52] text-white flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-110 transition-transform mb-5">
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
-                                <h4 class="font-display font-black text-slate-900 dark:text-white text-lg mb-2 group-hover:text-blue-600 transition-colors">Daftar Kelas Pelatihan</h4>
+                                <h4 class="font-display font-black text-[#0c2a52] dark:text-white text-lg mb-2 group-hover:text-blue-600 transition-colors">Daftar Kelas Pelatihan</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                                     Telusuri katalog pelatihan terakreditasi, bootcamp kalibrasi alat elektromedis, dan sertifikasi proteksi radiasi (PPR).
                                 </p>
                             </div>
-                            <span class="inline-flex items-center gap-2 text-xs font-black text-blue-600 dark:text-blue-400 group-hover:gap-3 transition-all">
+                            <span class="inline-flex items-center gap-2 text-xs font-black text-[#0c2a52] dark:text-blue-400 group-hover:text-blue-600 group-hover:gap-3 transition-all">
                                 <span>Lihat Jadwal Terbuka</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
@@ -582,12 +579,12 @@
                         <div @click="setTab('affiliate')"
                             class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div>
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform mb-5">
+                                <div class="w-12 h-12 rounded-2xl bg-amber-500 text-white flex items-center justify-center shadow-md shadow-amber-500/25 group-hover:scale-110 transition-transform mb-5">
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <h4 class="font-display font-black text-slate-900 dark:text-white text-lg mb-2 group-hover:text-amber-600 transition-colors">Dapatkan Komisi 20%</h4>
+                                <h4 class="font-display font-black text-[#0c2a52] dark:text-white text-lg mb-2 group-hover:text-amber-600 transition-colors">Dapatkan Komisi 20%</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                                     Bagikan kode referral unik milikmu ke teman kuliah atau rumah sakit, raih penghasilan pasif reward jutaan rupiah tiap pendaftaran.
                                 </p>
@@ -602,17 +599,17 @@
                         <div @click="setTab('classes')"
                             class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
                             <div>
-                                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-violet-600 to-purple-600 text-white flex items-center justify-center shadow-lg shadow-violet-500/25 group-hover:scale-110 transition-transform mb-5">
+                                <div class="w-12 h-12 rounded-2xl bg-blue-600 text-white flex items-center justify-center shadow-md shadow-blue-600/25 group-hover:scale-110 transition-transform mb-5">
                                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                     </svg>
                                 </div>
-                                <h4 class="font-display font-black text-slate-900 dark:text-white text-lg mb-2 group-hover:text-violet-600 transition-colors">E-Sertifikat Resmi</h4>
+                                <h4 class="font-display font-black text-[#0c2a52] dark:text-white text-lg mb-2 group-hover:text-blue-600 transition-colors">E-Sertifikat Resmi</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                                     Unduh dan cetak sertifikat pelatihan resmi ber-QR Code yang dapat divalidasi keasliannya secara publik oleh instansi.
                                 </p>
                             </div>
-                            <span class="inline-flex items-center gap-2 text-xs font-black text-violet-600 dark:text-violet-400 group-hover:gap-3 transition-all">
+                            <span class="inline-flex items-center gap-2 text-xs font-black text-[#0c2a52] dark:text-blue-400 group-hover:text-blue-600 group-hover:gap-3 transition-all">
                                 <span>Cek Sertifikat Saya</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
@@ -669,9 +666,9 @@
                                 <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">Anda belum mendaftar di kelas pelatihan manapun. Buka menu Daftar Kelas untuk memilih pelatihan terbaik.</p>
                             </div>
                             <button type="button" @click="setTab('browse')"
-                                class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all inline-flex items-center gap-2">
+                                class="px-5 py-2.5 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-bold text-xs shadow-md shadow-blue-950/20 transition-all inline-flex items-center gap-2">
                                 <span>Lihat Daftar Kelas</span>
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </button>
                         </div>
                     @else
@@ -858,33 +855,29 @@
                                                     <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white shadow-md backdrop-blur-md">
                                                         {{ $class->category ?? 'Bootcamp' }}
                                                     </span>
-                                                    <span class="px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wide shadow-md">
+                                                    <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wide shadow-md">
                                                         {{ $class->batch_name }}
                                                     </span>
                                                 </div>
                                             </div>
                                         @else
                                             <!-- Poster / Category Header with Inline Fallback -->
-                                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px]
-                                                @if($isKal) bg-teal-600 @elseif($isPpr) bg-amber-600 @elseif($isElk) bg-purple-600 @else bg-blue-600 @endif"
-                                                style="@if($isKal) background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0f766e 100%);
-                                                       @elseif($isPpr) background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
-                                                       @elseif($isElk) background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #4f46e5 100%);
-                                                       @else background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%); @endif">
+                                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px]"
+                                                style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%);">
                                                 <div class="absolute -right-8 -top-8 w-36 h-36 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform"></div>
                                                 <div class="flex items-center justify-between z-10">
                                                     <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider">
                                                         {{ $class->category ?? 'Bootcamp' }}
                                                     </span>
-                                                    <span class="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wide">
+                                                    <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wide">
                                                         {{ $class->batch_name }}
                                                     </span>
                                                 </div>
                                                 <div class="z-10 mt-3 flex items-center gap-2">
-                                                    <svg class="w-5 h-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                                     </svg>
-                                                    <span class="text-xs font-bold text-white/90 tracking-wide">{{ $class->batch_name ?: 'Batch Pelatihan' }}</span>
+                                                    <span class="text-xs font-bold text-white tracking-wide">{{ $class->batch_name ?: 'Batch Pelatihan' }}</span>
                                                 </div>
                                             </div>
                                         @endif
@@ -893,11 +886,11 @@
                                         <div class="p-6 space-y-4">
                                             <div>
                                                 @if($class->batch_name && !$class->image)
-                                                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold block mb-1 uppercase tracking-wide">
+                                                    <span class="text-xs text-[#0c2a52] dark:text-blue-400 font-bold block mb-1 uppercase tracking-wide">
                                                         {{ $class->batch_name }}
                                                     </span>
                                                 @endif
-                                                <h3 class="font-display font-bold text-slate-900 dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
+                                                <h3 class="font-display font-bold text-[#0c2a52] dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
                                                     {{ $class->title }}
                                                 </h3>
                                                 @if($class->description)
@@ -909,11 +902,11 @@
 
                                             <div class="space-y-2 pt-3 text-xs text-slate-600 dark:text-slate-400">
                                                 <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                                    <svg class="w-4 h-4 text-[#0c2a52]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                                     <span>Jadwal: <strong class="text-slate-800 dark:text-slate-200">{{ $class->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
                                                 </div>
                                                 <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                                    <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                                     <span>Durasi: <strong class="text-slate-800 dark:text-slate-200">{{ $class->duration ?? '-' }}</strong></span>
                                                 </div>
                                             </div>
@@ -922,7 +915,7 @@
                                             <div class="pt-3 flex items-baseline justify-between">
                                                 <div>
                                                     <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Investasi</span>
-                                                    <div class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400">{{ $class->formatted_price }}</div>
+                                                    <div class="text-xl font-display font-black text-[#0c2a52] dark:text-blue-400">{{ $class->formatted_price }}</div>
                                                 </div>
                                                 <span class="text-[11px] text-slate-400 font-medium">{{ $class->price > 0 ? 'Resmi' : 'Gratis' }}</span>
                                             </div>
@@ -933,17 +926,17 @@
                                     <div class="p-6 pt-0">
                                         @if($isAlreadyEnrolled)
                                             <button type="button" @click="setTab('classes')"
-                                                class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5">
-                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                                class="w-full py-2.5 px-4 rounded-xl bg-blue-50 dark:bg-slate-800 text-[#0c2a52] dark:text-blue-300 font-black text-xs flex items-center justify-center gap-1.5">
+                                                <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 <span>Sudah Terdaftar (Buka Kelas)</span>
                                             </button>
                                         @else
                                             <form action="{{ route('student.enroll', $class->id) }}" method="POST">
                                                 @csrf
                                                 <button type="submit"
-                                                    class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer">
+                                                    class="w-full py-2.5 px-4 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-black text-xs shadow-md shadow-blue-950/20 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all cursor-pointer">
                                                     <span>Daftar Kelas Ini</span>
-                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                                    <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                                 </button>
                                             </form>
                                         @endif
@@ -1095,7 +1088,7 @@
                         <div @click="showInfoModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-[#0c2a52] dark:text-blue-300 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
@@ -1105,14 +1098,14 @@
                                     <span class="text-[11px] text-slate-400 block">Lihat histori pendapatan komisi</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-rose-500 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-[#0c2a52] group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
 
                         <!-- Card 2: Penarikan -->
                         <div @click="showWithdrawModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                                <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
@@ -1122,14 +1115,14 @@
                                     <span class="text-[11px] text-slate-400 block">Lihat histori penarikan</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-emerald-500 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
 
                         <!-- Card 3: Material -->
                         <div @click="showPromoModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
@@ -1139,14 +1132,14 @@
                                     <span class="text-[11px] text-slate-400 block">Download Material Promosi</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-purple-500 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
 
                         <!-- Card 4: Informasi -->
                         <div @click="showInfoModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
-                                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
+                                <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-[#0c2a52] dark:text-blue-300 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
@@ -1156,7 +1149,7 @@
                                     <span class="text-[11px] text-slate-400 block">Informasi lengkap tentang afiliasi</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 text-slate-400 group-hover:text-[#0c2a52] group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
                     </div>
 
@@ -1166,14 +1159,14 @@
                         <div class="lg:col-span-8 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <div>
-                                    <h3 class="text-lg font-display font-extrabold text-slate-900 dark:text-white">Daftar Kode Afiliasimu</h3>
+                                    <h3 class="text-lg font-display font-extrabold text-[#0c2a52] dark:text-white">Daftar Kode Afiliasimu</h3>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                        Pengguna baru yang menggunakan kode afiliasimu saat registrasi kelas, akan mendapatkan diskon <strong class="text-emerald-600 dark:text-emerald-400">10%</strong>.
+                                        Pengguna baru yang menggunakan kode afiliasimu saat registrasi kelas, akan mendapatkan diskon <strong class="text-amber-600 dark:text-amber-400">10%</strong>.
                                     </p>
                                 </div>
                                 <button type="button" @click="showNewCodeModal = true"
-                                    class="px-4 py-2.5 rounded-full bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 inline-flex items-center gap-1.5 transition-all self-start sm:self-auto">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+                                    class="px-4 py-2.5 rounded-full bg-[#0c2a52] hover:bg-[#153e75] text-white font-black text-xs shadow-md shadow-blue-950/20 inline-flex items-center gap-1.5 transition-all self-start sm:self-auto cursor-pointer">
+                                    <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                                     <span>Buat kode baru</span>
                                 </button>
                             </div>
@@ -1431,7 +1424,7 @@
                                 </div>
 
                                 <button type="submit"
-                                    class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 transition-all">
+                                    class="px-6 py-2.5 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-bold text-xs shadow-md shadow-blue-950/20 transition-all">
                                     Simpan Perubahan Data Diri
                                 </button>
                             </form>
@@ -1475,7 +1468,7 @@
                                 </div>
 
                                 <button type="submit"
-                                    class="px-6 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-white font-bold text-xs shadow-md transition-all">
+                                    class="px-6 py-2.5 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-bold text-xs shadow-md shadow-blue-950/20 transition-all">
                                     Perbarui Password
                                 </button>
                             </form>
@@ -1536,7 +1529,7 @@
                         Batal
                     </button>
                     <button type="submit"
-                        class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md transition-all">
+                        class="px-5 py-2.5 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-bold text-xs shadow-md transition-all">
                         Simpan Kode Baru
                     </button>
                 </div>
@@ -1664,7 +1657,7 @@
             </div>
             <div class="text-right pt-2">
                 <button type="button" @click="showInfoModal = false"
-                    class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs">
+                    class="px-5 py-2.5 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-bold text-xs">
                     Saya Mengerti
                 </button>
             </div>
@@ -1740,7 +1733,7 @@
                     <span>Cetak Kuitansi</span>
                 </button>
                 <button type="button" @click="showReceiptModal = false"
-                    class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs">
+                    class="px-5 py-2.5 rounded-xl bg-[#0c2a52] hover:bg-[#153e75] text-white font-bold text-xs">
                     Tutup
                 </button>
             </div>
