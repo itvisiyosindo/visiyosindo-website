@@ -6,14 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Visilab Academy - Portal Pelajar & Afiliasi</title>
+    <title>Visi Academy - Portal Pelajar & Afiliasi</title>
 
     <!-- Fonts - Inter & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800|plus-jakarta-sans:500,600,700,800&display=swap" rel="stylesheet" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo/visi-academy.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -176,17 +176,8 @@
 
             <!-- Top Header & Brand -->
             <div class="h-16 px-4 sm:px-5 flex items-center justify-between shrink-0 border-b border-slate-100/80 dark:border-slate-800/60">
-                <a href="/" class="flex items-center gap-2.5 overflow-hidden group">
-                    <div class="shrink-0 w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 p-1 flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform">
-                        <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Visilab" class="w-full h-full object-contain">
-                    </div>
-                    <div class="flex flex-col">
-                        <div class="flex items-center gap-1 leading-none">
-                            <span class="text-sm font-display font-black text-slate-900 dark:text-white tracking-tight">Visilab</span>
-                            <span class="text-[10px] font-black text-blue-600 dark:text-blue-400">Academy</span>
-                        </div>
-                        <span class="text-[9px] uppercase font-bold text-slate-400 tracking-wider mt-0.5">Student Portal</span>
-                    </div>
+                <a href="/" class="flex items-center overflow-hidden group" title="Visi Academy">
+                    <img src="{{ asset('assets/logo/visi-academy.png') }}" alt="Visi Academy" class="h-10 sm:h-11 w-auto max-w-[175px] object-contain transition-transform group-hover:scale-105">
                 </a>
 
                 <!-- Close mobile drawer button -->
@@ -463,7 +454,7 @@
                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                                         <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                                     </span>
-                                    <span>🔥 Semangat Belajar Hari Ini &bull; <span class="text-amber-300 font-bold">Visilab Academy</span></span>
+                                    <span>🔥 Semangat Belajar Hari Ini &bull; <span class="text-amber-300 font-bold">Visi Academy</span></span>
                                 </div>
 
                                 <!-- Punchy Motivational Title -->
