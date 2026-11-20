@@ -1,14 +1,14 @@
 <x-layouts.dashboard 
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
-        ['label' => 'Peserta Pelatihan']
+        ['label' => 'Visilab Academy']
     ]"
-    title="Manajemen Peserta Pelatihan"
+    title="Peserta Pelatihan - Visilab Academy"
 >
     <x-slot:pageHeader>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-                <h1 class="text-xl md:text-2xl font-bold text-surface-900 dark:text-white">Peserta Pelatihan & Sertifikat</h1>
+                <h1 class="text-xl md:text-2xl font-bold text-surface-900 dark:text-white">Peserta Visilab Academy & Sertifikat</h1>
                 <p class="mt-0.5 text-[13px] text-surface-500 dark:text-surface-400">Verifikasi konfirmasi pembayaran WA dan terbitkan sertifikat kelulusan peserta.</p>
             </div>
         </div>

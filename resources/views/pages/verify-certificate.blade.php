@@ -29,7 +29,7 @@
                                 Sertifikat Sah & Terverifikasi
                             </h3>
                             <p class="text-xs text-emerald-700 dark:text-emerald-400">
-                                Data ini tercatat resmi di pangkalan data Visilab Training Center.
+                                Data ini tercatat resmi di pangkalan data Visilab Academy.
                             </p>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
 
                         <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Penerbit</span>
-                            <span class="font-semibold text-slate-900 dark:text-white">PT Visi Yosindo Medikal &bull; Visilab</span>
+                            <span class="font-semibold text-slate-900 dark:text-white">PT Visi Yosindo Medikal &bull; Visilab Academy</span>
                         </div>
                     </div>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Katalog Pelatihan - {{ config('app.name', 'PT Visi Yosindo Medikal') }}</title>
+    <title>Visilab Academy - Katalog Pelatihan</title>
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,8 +31,8 @@
                     <a href="/" class="flex items-center gap-2.5">
                         <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Logo" class="w-9 h-9">
                         <div>
-                            <span class="text-base font-bold text-slate-900 dark:text-white leading-tight block">Katalog Pelatihan</span>
-                            <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Visilab Training Center</span>
+                            <span class="text-base font-bold text-slate-900 dark:text-white leading-tight block">Visilab Academy</span>
+                            <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Katalog Pelatihan & Sertifikasi</span>
                         </div>
                     </a>
                 </div>

@@ -212,7 +212,7 @@
         </x-dashboard.nav-group>
 
         <!-- Training & Certificates -->
-        <x-dashboard.nav-group title="Pelatihan Visilab">
+        <x-dashboard.nav-group title="Visilab Academy">
             <x-dashboard.nav-link href="{{ route('dashboard.trainings.index') }}" :active="request()->routeIs('dashboard.trainings.*')">
                 <x-slot:icon>
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">

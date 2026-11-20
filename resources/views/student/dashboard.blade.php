@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Portal Pelajar - {{ config('app.name', 'PT Visi Yosindo Medikal') }}</title>
+    <title>Visilab Academy - Portal Pelajar</title>
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -33,8 +33,8 @@
                     <a href="/" class="flex items-center gap-2.5">
                         <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Logo" class="w-9 h-9">
                         <div>
-                            <span class="text-base font-bold text-slate-900 dark:text-white leading-tight block">Portal Pelajar</span>
-                            <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Visilab Training Center</span>
+                            <span class="text-base font-bold text-slate-900 dark:text-white leading-tight block">Visilab Academy</span>
+                            <span class="text-xs text-blue-600 dark:text-blue-400 font-medium">Portal Pelajar & Bootcamp</span>
                         </div>
                     </a>
                 </div>
@@ -83,7 +83,7 @@
                     </span>
                     <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Halo, {{ $user->name }}!</h1>
                     <p class="text-blue-100 text-sm mt-1 max-w-xl">
-                        Selamat datang di area peserta pelatihan Visiyosindo / Visilab. Kelola status pelatihan, akses grup, dan unduh sertifikat resmi Anda di sini.
+                        Selamat datang di Visilab Academy. Kelola status pelatihan, akses grup, dan unduh sertifikat resmi Anda di sini.
                     </p>
                 </div>
 

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Login - {{ config('app.name', 'PT Visi Yosindo Medikal') }}</title>
+    <title>Visilab Academy - Masuk ke Akun</title>
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -100,8 +100,8 @@
                             class="w-12.5 h-12.5 bg-cover group-hover:rotate-45 group-hover:scale-150 duration-200 ease-linear">
                     </div>
                     <div>
-                        <span class="text-2xl font-bold text-white block">PT Visi Yosindo Medikal</span>
-                        <span class="text-sm text-blue-100/80 italic">Affordable Healthcare Solutions</span>
+                        <span class="text-2xl font-bold text-white block">Visilab Academy</span>
+                        <span class="text-xs text-blue-100/90 font-medium">PT Visi Yosindo Medikal</span>
                     </div>
                 </div>
 
@@ -109,12 +109,11 @@
                 <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4" data-aos="fade-right"
                     data-aos-delay="200">
                     Selamat Datang di<br>
-                    <span class="bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">Management
-                        Portal</span>
+                    <span class="bg-gradient-to-r from-blue-300 via-indigo-200 to-white bg-clip-text text-transparent">Visilab Academy</span>
                 </h1>
 
-                <p class="text-lg text-slate-200/90 mb-8 leading-relaxed" data-aos="fade-right" data-aos-delay="300">
-                    Management Portal PT. VISI YOSINDO MEDIKAL - {{ date('Y') }}
+                <p class="text-base text-slate-200/90 mb-8 leading-relaxed" data-aos="fade-right" data-aos-delay="300">
+                    Pusat Pelatihan & Sertifikasi Profesional Alat Kesehatan dan Proteksi Radiasi Indonesia
                 </p>
 
                 <!-- Features -->
@@ -122,50 +121,50 @@
                     <div class="flex items-center gap-4 text-white" data-aos="fade-right" data-aos-delay="400">
                         <div
                             class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-semibold block">Real-time Analytics</span>
-                            <span class="text-sm text-slate-200/75">Pantau performa bisnis secara langsung</span>
+                            <span class="font-semibold block">Pelatihan Berstandar Nasional</span>
+                            <span class="text-sm text-slate-200/75">Program PPR, Kalibrasi Elektromedis, & Uji Kesesuaian</span>
                         </div>
                     </div>
 
                     <div class="flex items-center gap-4 text-white" data-aos="fade-right" data-aos-delay="500">
                         <div
                             class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-5 h-5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-semibold block">Team Collaboration</span>
-                            <span class="text-sm text-slate-200/75">Kelola tim dengan mudah dan efektif</span>
+                            <span class="font-semibold block">E-Sertifikat Resmi & QR Verifikasi</span>
+                            <span class="text-sm text-slate-200/75">Nomor seri unik & validasi keaslian digital terpercaya</span>
                         </div>
                     </div>
 
                     <div class="flex items-center gap-4 text-white" data-aos="fade-right" data-aos-delay="600">
                         <div
                             class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg class="w-5 h-5 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-semibold block">Secure Access</span>
-                            <span class="text-sm text-slate-200/75">Data aman dengan enkripsi terbaik</span>
+                            <span class="font-semibold block">Portal Belajar Mandiri</span>
+                            <span class="text-sm text-slate-200/75">Akses materi, jadwal pelatihan, dan grup koordinasi</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Decorative Quote -->
                 <div class="mt-12 pt-6 border-t border-white/20">
-                    <blockquote class="text-blue-100/80 italic text-base">
-                        &rdquo;Perusahaan Terdepan dalam penyedia alat kesehatan readiologi di Indonesia&rdquo;
+                    <blockquote class="text-blue-100/90 italic text-sm">
+                        &rdquo;Mencetak tenaga medis dan fisikawan kesehatan yang kompeten, bersertifikasi, dan berdaya saing.&rdquo;
                     </blockquote>
                 </div>
             </div>
@@ -180,13 +179,17 @@
         <div class="flex-1 flex items-center justify-center p-6 sm:p-8 lg:p-12 bg-slate-50 dark:bg-slate-900">
             <div class="w-full max-w-md">
                 <!-- Mobile Logo -->
-                <div class="lg:hidden flex flex-col items-center mb-10">
-                    <span class="text-xl font-bold text-slate-900 dark:text-white">PT Visi Yosindo Medikal</span>
-                    <span class="text-sm text-slate-500 dark:text-slate-400">Management Portal</span>
+                <div class="lg:hidden flex flex-col items-center mb-8">
+                    <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mb-2 shadow-md">
+                        <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}" class="w-10 h-10">
+                    </div>
+                    <span class="text-xl font-bold text-slate-900 dark:text-white">Visilab Academy</span>
+                    <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">PT Visi Yosindo Medikal</span>
                 </div>
 
                 <!-- Theme Toggle - Top Right -->
-                <div class="flex justify-end mb-4">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Pilih Tipe Masuk</span>
                     <button @click="toggleDarkMode()"
                         class="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-slate-900"
                         :aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'">
@@ -222,19 +225,51 @@
                     </button>
                 </div>
 
+                <!-- Role Selector Tabs -->
+                <div class="grid grid-cols-2 p-1 mb-6 rounded-2xl bg-slate-200/80 dark:bg-slate-800 border border-slate-300/60 dark:border-slate-700 text-center">
+                    <button type="button" @click="role = 'student'"
+                        class="py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        :class="role === 'student' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                        <span>Portal Pelajar</span>
+                    </button>
+                    <button type="button" @click="role = 'admin'"
+                        class="py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                        :class="role === 'admin' ? 'bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-500 hover:text-slate-800 dark:hover:text-slate-200'">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                        <span>Staff / Admin</span>
+                    </button>
+                </div>
+
                 <!-- Login Card -->
                 <div class="w-full">
-                    <!-- Header -->
-                    <div class="text-center mb-8">
+                    <!-- Dynamic Header -->
+                    <div class="text-center mb-6">
                         <div
-                            class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/30 mb-4">
+                            class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/30 mb-3">
                             <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}"
-                                class="w-15 h-15 bg-cover group-hover:rotate-45">
+                                class="w-13 h-13 bg-cover">
                         </div>
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Selamat Datang!</h2>
-                        <p class="text-slate-500 dark:text-slate-400 capitalize">
-                            Masuk ke akun anda untuk melanjutkan.
-                        </p>
+                        <template x-if="role === 'student'">
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Visilab Academy</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                    Masuk ke akun belajar Anda untuk mengakses kelas & unduh sertifikat.
+                                </p>
+                            </div>
+                        </template>
+                        <template x-if="role === 'admin'">
+                            <div>
+                                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Management Portal</h2>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                                    Login khusus administrator, instruktur & manajemen Visiyosindo.
+                                </p>
+                            </div>
+                        </template>
                     </div>
 
                     <!-- General Error Alert -->
@@ -360,7 +395,7 @@
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                 </path>
                             </svg>
-                            <span x-text="loading ? 'Memproses...' : 'Masuk ke Dashboard'"></span>
+                            <span x-text="loading ? 'Memproses...' : (role === 'student' ? 'Masuk ke Portal Pelajar' : 'Masuk ke Dashboard Admin')"></span>
                             <svg x-show="!loading" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -369,23 +404,33 @@
                         </button>
                     </form>
 
-                    <!-- Student Registration CTA Box -->
-                    <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700">
+                    <!-- Student Registration CTA Box (When role is student) -->
+                    <div x-show="role === 'student'" class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700">
                         <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-center">
                             <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                                Pelajar / Peserta Pelatihan Baru?
+                                Belum Memiliki Akun Pelajar?
                             </p>
                             <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">
-                                Buat akun sendiri untuk memilih kelas dan mengunduh sertifikat resmi.
+                                Daftar mandiri sekarang untuk memilih kelas pelatihan dan akses sertifikat kelulusan.
                             </p>
                             <a href="{{ route('student.register') }}"
                                 class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm shadow-blue-500/20">
-                                <span>Daftar Akun Pelajar</span>
+                                <span>Daftar Akun Pelajar Sendiri</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
                             </a>
                         </div>
+                    </div>
+
+                    <!-- Admin Helper Notice (When role is admin) -->
+                    <div x-show="role === 'admin'" class="mt-6 pt-4 text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            Bukan staff atau admin?
+                            <button type="button" @click="role = 'student'" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                                Beralih ke Login Pelajar (Visilab Academy)
+                            </button>
+                        </p>
                     </div>
                 </div>
 
@@ -403,6 +448,7 @@
     <script>
         function loginForm() {
             return {
+                role: 'student',
                 form: {
                     email: '',
                     password: '',
