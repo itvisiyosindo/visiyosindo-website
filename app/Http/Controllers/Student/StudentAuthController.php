@@ -61,6 +61,11 @@ class StudentAuthController extends Controller
             'is_active' => true,
         ]);
 
+        $studentRole = \App\Models\Role::where('slug', 'student')->first();
+        if ($studentRole) {
+            $user->roles()->attach($studentRole);
+        }
+
         Auth::login($user);
 
         return redirect()->route('student.dashboard')->with('toast', [
