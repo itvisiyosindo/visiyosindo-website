@@ -177,7 +177,7 @@
             <!-- Top Header & Brand -->
             <div class="h-16 px-4 sm:px-5 flex items-center justify-between shrink-0 border-b border-slate-100/80 dark:border-slate-800/60">
                 <a href="/" class="flex items-center overflow-hidden group" title="Visi Academy">
-                    <img src="{{ asset('assets/logo/visi-academy.png') }}" alt="Visi Academy" class="h-10 sm:h-11 w-auto max-w-[175px] object-contain transition-transform group-hover:scale-105">
+                    @include('student.partials.logo')
                 </a>
 
                 <!-- Close mobile drawer button -->
