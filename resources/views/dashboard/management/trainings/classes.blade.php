@@ -50,11 +50,16 @@
             schedule: '',
             whatsapp_group_link: '',
             materials_link: '',
+            image: '',
+            image_url: '',
             description: '',
             is_active: true
         },
         openEdit(cls) {
-            this.editingClass = { ...cls };
+            this.editingClass = { 
+                ...cls, 
+                image_url: cls.image ? '{{ asset('storage') }}/' + cls.image : '' 
+            };
             this.showEditModal = true;
         }
     }"
@@ -225,7 +230,10 @@
                 <div class="bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/90 dark:border-surface-700/80 overflow-hidden shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group">
                     <div>
                         <!-- Cover Banner Header -->
-                        <div class="p-6 bg-gradient-to-tr {{ $headerGradient }} text-white relative overflow-hidden flex flex-col justify-between min-h-[160px]">
+                        <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[160px] rounded-t-3xl {{ $item->image ? 'bg-slate-900' : 'bg-gradient-to-tr ' . $headerGradient }}"
+                            @if($item->image)
+                                style="background-image: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.45) 100%), url('{{ asset('storage/' . $item->image) }}'); background-size: cover; background-position: center;"
+                            @endif>
                             <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform"></div>
 
                             <!-- Top Badges -->
@@ -236,9 +244,17 @@
                                     {{ $item->is_active ? '● Buka Pendaftaran' : '○ Pendaftaran Tutup' }}
                                 </span>
 
-                                <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white">
-                                    {{ $item->category }}
-                                </span>
+                                <div class="flex items-center gap-1.5">
+                                    @if($item->image)
+                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white inline-flex items-center gap-1">
+                                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                            Flyer
+                                        </span>
+                                    @endif
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white">
+                                        {{ $item->category }}
+                                    </span>
+                                </div>
                             </div>
 
                             <!-- Big Formatted Price -->
@@ -402,13 +418,23 @@
                     </div>
                 @endif
 
-                <form action="{{ route('dashboard.trainings.classes.store') }}" method="POST" class="space-y-4">
+                <form action="{{ route('dashboard.trainings.classes.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Judul Pelatihan <span class="text-rose-500">*</span></label>
                         <input type="text" name="title" value="{{ old('title') }}" required placeholder="Contoh: Pelatihan Uji Kesesuaian Pesawat Sinar-X Radiologi"
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Upload Flyer / Brosur Pelatihan -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Flyer / Brosur Pelatihan (Gambar)</label>
+                        <div class="mt-1">
+                            <input type="file" name="image" accept="image/*"
+                                class="block w-full text-xs text-surface-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-950/60 dark:file:text-blue-300 transition-all border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 cursor-pointer">
+                        </div>
+                        <span class="text-[11px] text-surface-400 mt-1 block">Format: JPG, PNG, atau WEBP (Maksimal 5 MB). Gambar akan tampil sebagai cover kartu pelatihan di katalog.</span>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -508,7 +534,7 @@
                     </button>
                 </div>
 
-                <form :action="'{{ url('dashboard/trainings/classes') }}/' + editingClass.id" method="POST" class="space-y-4">
+                <form :action="'{{ url('dashboard/trainings/classes') }}/' + editingClass.id" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
                     @method('PUT')
 
@@ -516,6 +542,26 @@
                         <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Judul Pelatihan</label>
                         <input type="text" name="title" required x-model="editingClass.title"
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <!-- Upload / Edit Flyer -->
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Flyer / Brosur Pelatihan (Gambar)</label>
+                        <template x-if="editingClass.image_url">
+                            <div class="mb-3 flex items-center gap-3 p-3 rounded-2xl bg-surface-50 dark:bg-surface-700/50 border border-surface-200 dark:border-surface-700">
+                                <img :src="editingClass.image_url" class="w-16 h-14 object-cover rounded-xl border border-surface-200/80 shadow-xs" alt="Flyer Preview">
+                                <div class="flex-1 text-xs">
+                                    <span class="font-bold text-surface-800 dark:text-surface-100 block">Flyer Saat Ini Terpasang</span>
+                                    <label class="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-700 cursor-pointer mt-1 font-semibold text-[11px]">
+                                        <input type="checkbox" name="remove_image" value="1" class="w-3.5 h-3.5 rounded text-rose-600 focus:ring-rose-500">
+                                        <span>Hapus flyer ini</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </template>
+                        <input type="file" name="image" accept="image/*"
+                            class="block w-full text-xs text-surface-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-950/60 dark:file:text-blue-300 transition-all border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 cursor-pointer">
+                        <span class="text-[11px] text-surface-400 mt-1 block">Pilih file baru untuk mengganti flyer (Maksimal 5 MB).</span>
                     </div>
 
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">

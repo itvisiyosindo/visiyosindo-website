@@ -84,17 +84,36 @@
                     $isEnrolled = in_array($item->id, $enrolledClassIds);
                 @endphp
                 <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-300">
-                    <div class="p-6">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400">
-                                {{ $item->category }}
-                            </span>
-                            @if ($item->batch_name)
-                                <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">
-                                    {{ $item->batch_name }}
-                                </span>
+                    <div>
+                        @if ($item->image)
+                            <div class="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-900 relative">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
+                                <div class="absolute top-3 right-3">
+                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white shadow-sm">
+                                        {{ $item->category }}
+                                    </span>
+                                </div>
+                            </div>
+                        @endif
+                        <div class="p-6">
+                            @if (!$item->image)
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400">
+                                        {{ $item->category }}
+                                    </span>
+                                    @if ($item->batch_name)
+                                        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                                            {{ $item->batch_name }}
+                                        </span>
+                                    @endif
+                                </div>
+                            @elseif ($item->batch_name)
+                                <div class="mb-2">
+                                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wide">
+                                        {{ $item->batch_name }}
+                                    </span>
+                                </div>
                             @endif
-                        </div>
 
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug">
                             {{ $item->title }}

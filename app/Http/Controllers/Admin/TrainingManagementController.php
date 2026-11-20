@@ -10,6 +10,7 @@ use App\Models\TrainingEnrollment;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 
@@ -212,6 +213,7 @@ class TrainingManagementController extends Controller
             'schedule' => ['nullable', 'string', 'max:150'],
             'whatsapp_group_link' => ['nullable', 'string', 'max:255'],
             'materials_link' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'description' => ['nullable', 'string'],
             'is_active' => ['nullable'],
         ], [
@@ -219,6 +221,8 @@ class TrainingManagementController extends Controller
             'category.required' => 'Kategori kelas wajib diisi.',
             'batch_name.required' => 'Nama batch wajib diisi.',
             'price.required' => 'Harga pelatihan wajib diisi (isi 0 jika gratis).',
+            'image.image' => 'File flyer harus berupa gambar (JPG, PNG, atau WEBP).',
+            'image.max' => 'Ukuran file flyer maksimal 5 MB.',
         ]);
 
         $baseSlug = Str::slug($validated['title'] . '-' . $validated['batch_name']);
@@ -234,6 +238,11 @@ class TrainingManagementController extends Controller
             $counter++;
         }
 
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('trainings/flyers', 'public');
+        }
+
         TrainingClass::create([
             'title' => $validated['title'],
             'slug' => $slug,
@@ -244,6 +253,7 @@ class TrainingManagementController extends Controller
             'schedule' => $validated['schedule'] ?? null,
             'whatsapp_group_link' => $validated['whatsapp_group_link'] ?? null,
             'materials_link' => $validated['materials_link'] ?? null,
+            'image' => $imagePath,
             'description' => $validated['description'] ?? null,
             'is_active' => $request->boolean('is_active', true),
         ]);
@@ -290,9 +300,26 @@ class TrainingManagementController extends Controller
             'schedule' => ['nullable', 'string', 'max:150'],
             'whatsapp_group_link' => ['nullable', 'string', 'max:255'],
             'materials_link' => ['nullable', 'string', 'max:255'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,webp', 'max:5120'],
             'description' => ['nullable', 'string'],
             'is_active' => ['nullable'],
+        ], [
+            'image.image' => 'File flyer harus berupa gambar (JPG, PNG, atau WEBP).',
+            'image.max' => 'Ukuran file flyer maksimal 5 MB.',
         ]);
+
+        $imagePath = $trainingClass->image;
+        if ($request->hasFile('image')) {
+            if ($trainingClass->image && Storage::disk('public')->exists($trainingClass->image)) {
+                Storage::disk('public')->delete($trainingClass->image);
+            }
+            $imagePath = $request->file('image')->store('trainings/flyers', 'public');
+        } elseif ($request->boolean('remove_image')) {
+            if ($trainingClass->image && Storage::disk('public')->exists($trainingClass->image)) {
+                Storage::disk('public')->delete($trainingClass->image);
+            }
+            $imagePath = null;
+        }
 
         $trainingClass->update([
             'title' => $validated['title'],
@@ -303,6 +330,7 @@ class TrainingManagementController extends Controller
             'schedule' => $validated['schedule'] ?? null,
             'whatsapp_group_link' => $validated['whatsapp_group_link'] ?? null,
             'materials_link' => $validated['materials_link'] ?? null,
+            'image' => $imagePath,
             'description' => $validated['description'] ?? null,
             'is_active' => $request->boolean('is_active'),
         ]);

@@ -48,4 +48,12 @@ class TrainingClass extends Model
         }
         return 'Rp ' . number_format($this->price, 0, ',', '.');
     }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (empty($this->image)) {
+            return null;
+        }
+        return asset('storage/' . $this->image);
+    }
 }
