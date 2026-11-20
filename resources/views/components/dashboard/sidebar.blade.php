@@ -14,21 +14,36 @@
         class="flex items-center h-14 border-b border-surface-200 dark:border-surface-700 transition-[padding] duration-300"
         :class="$store.sidebar.open ? 'justify-between px-3' : 'lg:justify-center lg:px-2 justify-between px-3'"
     >
+        @php
+            $isAcademyOnly = auth()->check() && auth()->user()->isAcademyAdmin() && !auth()->user()->isAdmin();
+            $pendingTrainingCount = \App\Models\TrainingEnrollment::where('status', \App\Models\TrainingEnrollment::STATUS_PENDING)->count();
+        @endphp
         <a 
-            href="{{ route('dashboard') }}" 
+            href="{{ $isAcademyOnly ? route('dashboard.trainings.classes') : route('dashboard') }}" 
             class="flex items-center gap-2.5 overflow-hidden"
             :class="!$store.sidebar.open && 'lg:justify-center'"
         >
-            <div class="shrink-0 w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-primary-600 flex items-center justify-center shadow-md shadow-primary-500/25">
-                <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            <div class="shrink-0 w-8 h-8 rounded-lg {{ $isAcademyOnly ? 'bg-gradient-to-br from-blue-600 to-indigo-600 shadow-blue-500/25' : 'bg-gradient-to-br from-primary-500 to-primary-600 shadow-primary-500/25' }} flex items-center justify-center shadow-md text-white">
+                @if($isAcademyOnly)
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    </svg>
+                @else
+                    <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                @endif
             </div>
             <span 
-                class="text-base font-bold text-surface-900 dark:text-white transition-all duration-200 whitespace-nowrap"
+                class="text-base font-bold text-surface-900 dark:text-white transition-all duration-200 whitespace-nowrap flex items-center gap-1.5"
                 :class="!$store.sidebar.open ? 'lg:hidden lg:opacity-0 lg:w-0' : 'lg:opacity-100'"
             >
-                Visiyosindo
+                @if($isAcademyOnly)
+                    <span>Visilab</span><span class="text-xs px-1.5 py-0.5 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-950/80 dark:text-blue-300 font-extrabold uppercase">Academy</span>
+                @else
+                    Visiyosindo
+                @endif
             </span>
         </a>
         

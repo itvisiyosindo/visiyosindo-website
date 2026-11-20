@@ -271,6 +271,10 @@ class User extends Authenticatable
      */
     public function isStudent(): bool
     {
+        if ($this->isAdmin() || $this->isAcademyAdmin()) {
+            return false;
+        }
+
         return $this->role === self::ROLE_STUDENT || $this->hasRole(self::ROLE_STUDENT);
     }
 
@@ -314,11 +318,14 @@ class User extends Authenticatable
      */
     public function getRoleNameAttribute(): string
     {
-        if ($this->isStudent()) {
-            return 'Pelajar / Peserta';
-        }
         if ($this->isAcademyAdmin()) {
             return 'Admin Visilab Academy';
+        }
+        if ($this->isAdmin()) {
+            return 'Administrator';
+        }
+        if ($this->isStudent()) {
+            return 'Pelajar / Peserta';
         }
         return self::ROLES[$this->role] ?? $this->role;
     }
