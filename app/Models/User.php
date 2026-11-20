@@ -17,6 +17,7 @@ class User extends Authenticatable
     public const ROLE_DIGITAL_MARKETING = 'digital_marketing';
     public const ROLE_HR = 'hr';
     public const ROLE_DIRECTOR = 'director';
+    public const ROLE_STUDENT = 'student';
 
     public const ROLES = [
         self::ROLE_ADMIN => 'Admin',
@@ -24,6 +25,7 @@ class User extends Authenticatable
         self::ROLE_DIGITAL_MARKETING => 'Digital Marketing',
         self::ROLE_HR => 'HR',
         self::ROLE_DIRECTOR => 'Director',
+        self::ROLE_STUDENT => 'Pelajar / Peserta',
     ];
 
     /**
@@ -39,6 +41,10 @@ class User extends Authenticatable
         'is_active',
         'avatar',
         'preferences',
+        'phone',
+        'institution',
+        'profession',
+        'address',
     ];
 
     /**
@@ -252,6 +258,30 @@ class User extends Authenticatable
     public function isDirector(): bool
     {
         return $this->role === self::ROLE_DIRECTOR;
+    }
+
+    /**
+     * Check if user is student / training participant
+     */
+    public function isStudent(): bool
+    {
+        return $this->role === self::ROLE_STUDENT || $this->hasRole(self::ROLE_STUDENT);
+    }
+
+    /**
+     * Training enrollments
+     */
+    public function enrollments(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(TrainingEnrollment::class);
+    }
+
+    /**
+     * Student certificates
+     */
+    public function studentCertificates(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(StudentCertificate::class);
     }
 
     /**

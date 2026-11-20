@@ -368,6 +368,16 @@
                             </svg>
                         </button>
                     </form>
+
+                    <!-- Student Registration Link -->
+                    <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700 text-center">
+                        <p class="text-xs text-slate-500 dark:text-slate-400">
+                            Peserta pelatihan baru?
+                            <a href="{{ route('student.register') }}" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                                Daftar Akun Pelajar di sini &rarr;
+                            </a>
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Footer -->

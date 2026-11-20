@@ -323,5 +323,16 @@ class RbacSeeder extends Seeder
             ->toArray();
         $viewerRole->permissions()->sync($viewerPermissionIds);
         $this->command->line("  ✓ Created Viewer role with " . count($viewerPermissionIds) . " permissions");
+
+        // Student Role - Access to student portal only
+        Role::firstOrCreate(
+            ['slug' => 'student'],
+            [
+                'name' => 'Pelajar / Peserta Pelatihan',
+                'description' => 'Akses khusus portal peserta pelatihan, materi, dan sertifikat',
+                'is_active' => true,
+            ]
+        );
+        $this->command->line("  ✓ Created Student role");
     }
 }

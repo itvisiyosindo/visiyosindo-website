@@ -21,6 +21,9 @@ class LoginController extends Controller
     public function showLoginForm(): View|RedirectResponse
     {
         if (Auth::check()) {
+            if (Auth::user()->isStudent()) {
+                return redirect()->route('student.dashboard');
+            }
             return redirect()->route('dashboard');
         }
         
@@ -138,10 +141,12 @@ class LoginController extends Controller
             'user_agent' => $request->userAgent(),
         ]);
 
+        $redirectUrl = $user->isStudent() ? route('student.dashboard') : route('dashboard');
+
         return response()->json([
             'success' => true,
             'message' => "Welcome back, {$user->name}!",
-            'redirect' => route('dashboard'),
+            'redirect' => $redirectUrl,
             'user' => [
                 'name' => $user->name,
                 'role' => $user->role_name,

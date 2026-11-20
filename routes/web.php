@@ -33,6 +33,10 @@ use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\PermissionController;
 use App\Http\Controllers\Dashboard\UserRoleController;
 use App\Http\Controllers\Dashboard\UserManagementController;
+use App\Http\Controllers\Student\StudentAuthController;
+use App\Http\Controllers\Student\StudentPortalController;
+use App\Http\Controllers\PublicCertificateController;
+use App\Http\Controllers\Admin\TrainingManagementController;
 use App\Http\Controllers\Frontend\CareerController as FrontendCareerController;
 use App\Http\Controllers\Frontend\NewsController;
 use App\Http\Controllers\Frontend\ProductController;
@@ -191,9 +195,32 @@ Route::get('/images/deals/{filename}', function (string $filename) {
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
+
+    // Student Registration
+    Route::get('/pelajar/daftar', [StudentAuthController::class, 'showRegisterForm'])->name('student.register');
+    Route::post('/pelajar/daftar', [StudentAuthController::class, 'register'])->name('student.register.submit');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
+
+/*
+|--------------------------------------------------------------------------
+| Student Portal & Training Routes
+|--------------------------------------------------------------------------
+*/
+// Public Training Catalogue
+Route::get('/pelatihan', [StudentPortalController::class, 'classes'])->name('student.classes');
+
+// Public Certificate Verification
+Route::get('/verify-certificate/{code}', [PublicCertificateController::class, 'verify'])->name('certificate.verify');
+
+// Authenticated Student Portal
+Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+    Route::get('/dashboard', [StudentPortalController::class, 'dashboard'])->name('dashboard');
+    Route::post('/enroll/{id}', [StudentPortalController::class, 'enroll'])->name('enroll');
+    Route::post('/profile', [StudentPortalController::class, 'updateProfile'])->name('profile.update');
+    Route::get('/certificate/{id}', [StudentPortalController::class, 'viewCertificate'])->name('certificate.view');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -918,5 +945,12 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/{user}', [UserManagementController::class, 'update'])->name('update')->middleware('permission:edit-users');
         Route::put('/{user}/password', [UserManagementController::class, 'updatePassword'])->name('password')->middleware('permission:edit-users');
         Route::delete('/{user}', [UserManagementController::class, 'destroy'])->name('destroy')->middleware('permission:delete-users');
+    });
+
+    // Training Participants & Certificates Management
+    Route::prefix('dashboard/trainings')->name('dashboard.trainings.')->group(function () {
+        Route::get('/', [TrainingManagementController::class, 'index'])->name('index');
+        Route::post('/{id}/approve', [TrainingManagementController::class, 'approve'])->name('approve');
+        Route::post('/{id}/complete', [TrainingManagementController::class, 'complete'])->name('complete');
     });
 });
