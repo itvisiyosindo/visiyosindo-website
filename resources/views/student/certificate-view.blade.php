@@ -118,7 +118,7 @@
                     Diberikan Kepada:
                 </p>
 
-                <div class="font-serif-title text-2xl sm:text-4xl font-bold text-blue-900 tracking-wide border-b-2 border-amber-500/80 inline-block px-8 pb-2 mb-3">
+                <div class="font-serif-title text-2xl sm:text-4xl font-bold text-blue-900 tracking-wide border-b-2 border-amber-500 inline-block px-8 pb-2 mb-3">
                     {{ $certificate->user->name }}
                 </div>
 

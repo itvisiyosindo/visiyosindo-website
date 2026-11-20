@@ -8,23 +8,26 @@
 >
     <!-- Page Header (Global Slot) -->
     <x-slot:pageHeader>
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
-                <div class="flex items-center gap-2 mb-1">
-                    <span class="px-2.5 py-0.5 rounded-full text-xs font-bold uppercase tracking-wider bg-blue-100 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300">
+                <div class="flex items-center gap-2 mb-1.5">
+                    <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25 inline-flex items-center gap-1.5">
+                        <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
                         Visilab Academy
                     </span>
-                    <span class="text-xs text-surface-400">&bull;</span>
-                    <span class="text-xs text-surface-500 font-medium">Validasi Peserta & Sertifikasi</span>
+                    <span class="text-xs text-slate-300 dark:text-slate-600">&bull;</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wide">Validasi Peserta & Sertifikasi</span>
                 </div>
-                <h1 class="text-2xl md:text-3xl font-extrabold text-surface-900 dark:text-white tracking-tight">Peserta & Verifikasi Pembayaran</h1>
-                <p class="mt-1 text-sm text-surface-500 dark:text-surface-400">Verifikasi bukti transfer WhatsApp, konfirmasi status pendaftaran siswa, dan terbitkan e-sertifikat kelulusan.</p>
+                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Peserta & Verifikasi Pembayaran</h1>
+                <p class="mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed">
+                    Verifikasi bukti transfer WhatsApp, konfirmasi status pendaftaran siswa, dan terbitkan e-sertifikat kelulusan resmi.
+                </p>
             </div>
-            <div>
+            <div class="flex items-center gap-2.5">
                 <a href="{{ route('dashboard.trainings.classes') }}"
-                    class="px-4 py-2.5 rounded-xl text-xs font-bold text-surface-700 dark:text-surface-200 bg-white dark:bg-surface-800 hover:bg-surface-50 dark:hover:bg-surface-700 border border-slate-200 dark:border-surface-700 shadow-xs transition-all inline-flex items-center gap-2">
+                    class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 shadow-sm transition-all inline-flex items-center gap-2">
                     <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
                     <span>Katalog Kelas</span>
                 </a>
@@ -33,36 +36,36 @@
     </x-slot:pageHeader>
 
     <div class="space-y-6">
-        <!-- Modern Sleek Segmented Navigation Tabs (No Harsh Border) -->
-        <div class="p-1.5 bg-slate-100 dark:bg-surface-800 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-xs">
+        <!-- Modern Sleek Segmented Navigation Tabs (Smooth & Pill-based) -->
+        <div class="p-1.5 bg-slate-200/60 dark:bg-slate-800/80 rounded-2xl inline-flex flex-wrap items-center gap-1.5 backdrop-blur-md">
             <a href="{{ route('dashboard.trainings.classes') }}"
-                class="px-4 py-2 rounded-xl text-xs font-semibold transition-all inline-flex items-center gap-2 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-surface-700/50">
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
                 <span>Kelola Kelas & Batch</span>
             </a>
             <a href="{{ route('dashboard.trainings.index') }}"
-                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 bg-white dark:bg-surface-900 text-blue-600 dark:text-blue-400 shadow-sm">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                class="px-4 py-2 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm">
+                <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
                 <span>Peserta & Verifikasi</span>
                 @if($stats['pending'] > 0)
-                    <span class="px-1.5 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500 text-white animate-pulse">
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-white animate-pulse">
                         {{ $stats['pending'] }}
                     </span>
                 @endif
             </a>
             <a href="{{ route('dashboard.trainings.certificates') }}"
-                class="px-4 py-2 rounded-xl text-xs font-semibold transition-all inline-flex items-center gap-2 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-surface-700/50">
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                 </svg>
                 <span>Sertifikat Kelulusan</span>
             </a>
             <a href="{{ route('dashboard.trainings.affiliates') }}"
-                class="px-4 py-2 rounded-xl text-xs font-semibold transition-all inline-flex items-center gap-2 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-surface-700/50">
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
@@ -70,75 +73,90 @@
             </a>
         </div>
 
-        <!-- Modern Energetic Metrics Cards (Smooth, No Harsh Borders) -->
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <!-- High-Impact Energetic Metrics Cards -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             <!-- Card 1: Total -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Pendaftar</span>
-                    <div class="w-10 h-10 rounded-2xl bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300 flex items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Total Pendaftar</span>
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl font-extrabold text-surface-900 dark:text-white tracking-tight">{{ $stats['total'] }}</div>
-                    <span class="text-xs text-surface-500 font-semibold mt-0.5 block">Semua Status Siswa</span>
+                    <div class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{{ $stats['total'] }}</div>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-bold mt-1 inline-flex items-center gap-1">
+                        <span>●</span>
+                        <span>Semua Status Siswa</span>
+                    </span>
                 </div>
             </div>
 
             <!-- Card 2: Menunggu Verifikasi -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between {{ $stats['pending'] > 0 ? 'ring-2 ring-amber-500/20 bg-amber-50/10' : '' }}">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Perlu Verifikasi</span>
-                    <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group {{ $stats['pending'] > 0 ? 'ring-2 ring-amber-500/30 bg-amber-50/10' : '' }}">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-black text-amber-600 dark:text-amber-400 uppercase tracking-wider">Perlu Verifikasi</span>
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 text-white flex items-center justify-center shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl font-extrabold text-amber-600 dark:text-amber-400 tracking-tight">{{ $stats['pending'] }}</div>
-                    <span class="text-xs text-amber-600/80 font-semibold mt-0.5 block">Menunggu Konfirmasi Bayar</span>
+                    <div class="text-3xl sm:text-4xl font-black text-amber-600 dark:text-amber-400 tracking-tight">{{ $stats['pending'] }}</div>
+                    <span class="text-xs text-amber-600 dark:text-amber-400 font-bold mt-1 inline-flex items-center gap-1.5">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"></span>
+                        </span>
+                        <span>Menunggu Konfirmasi Bayar</span>
+                    </span>
                 </div>
             </div>
 
             <!-- Card 3: Aktif -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Siswa Aktif</span>
-                    <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Siswa Aktif</span>
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-500 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl font-extrabold text-blue-600 dark:text-blue-400 tracking-tight">{{ $stats['active'] }}</div>
-                    <span class="text-xs text-blue-600/80 font-semibold mt-0.5 block">Sedang Mengikuti Pelatihan</span>
+                    <div class="text-3xl sm:text-4xl font-black text-blue-600 dark:text-blue-400 tracking-tight">{{ $stats['active'] }}</div>
+                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold mt-1 inline-flex items-center gap-1">
+                        <span>●</span>
+                        <span>Sedang Mengikuti Kelas</span>
+                    </span>
                 </div>
             </div>
 
             <!-- Card 4: Lulus -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
-                <div class="flex items-center justify-between mb-3">
-                    <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Lulus & Tersertifikasi</span>
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Tersertifikasi</span>
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-600 text-white flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl font-extrabold text-emerald-600 dark:text-emerald-400 tracking-tight">{{ $stats['completed'] }}</div>
-                    <span class="text-xs text-emerald-600/80 font-semibold mt-0.5 block">e-Sertifikat Diterbitkan</span>
+                    <div class="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight">{{ $stats['completed'] }}</div>
+                    <span class="text-xs text-emerald-600 dark:text-emerald-400 font-bold mt-1 inline-flex items-center gap-1">
+                        <span>🏆</span>
+                        <span>e-Sertifikat Diterbitkan</span>
+                    </span>
                 </div>
             </div>
         </div>
 
         <!-- Filter & Search Section (Smooth) -->
-        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm">
+        <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
                 <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
@@ -197,41 +215,41 @@
             </form>
         </div>
 
-        <!-- Participants Table Section (Smooth, Zero Harsh Borders) -->
-        <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm overflow-hidden">
+        <!-- Participants Table Section (Smooth, High-Energy) -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-100 dark:border-surface-700/60 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
-                            <th class="py-3.5 px-6">Informasi Peserta</th>
-                            <th class="py-3.5 px-6">Program Kelas</th>
-                            <th class="py-3.5 px-6">Status Pendaftaran</th>
-                            <th class="py-3.5 px-6">e-Sertifikat</th>
-                            <th class="py-3.5 px-6 text-right">Tindakan</th>
+                        <tr class="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                            <th class="py-4 px-6">Informasi Peserta</th>
+                            <th class="py-4 px-6">Program Kelas</th>
+                            <th class="py-4 px-6">Status Pendaftaran</th>
+                            <th class="py-4 px-6">e-Sertifikat</th>
+                            <th class="py-4 px-6 text-right">Tindakan</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-surface-100 dark:divide-surface-700/60 text-xs">
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
                         @forelse($enrollments as $item)
-                            <tr class="hover:bg-surface-50/60 dark:hover:bg-surface-700/30 transition-colors">
+                            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
                                 <!-- Peserta Info -->
                                 <td class="py-4 px-6">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-extrabold flex items-center justify-center text-sm shadow-xs flex-shrink-0">
+                                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 text-white font-black flex items-center justify-center text-sm shadow-sm flex-shrink-0">
                                             {{ strtoupper(substr($item->user->name ?? 'P', 0, 1)) }}
                                         </div>
                                         <div>
-                                            <div class="font-extrabold text-surface-900 dark:text-white text-[13px]">
+                                            <div class="font-extrabold text-slate-900 dark:text-white text-sm">
                                                 {{ $item->user->name }}
                                             </div>
-                                            <div class="text-[11px] text-surface-500 font-mono mt-0.5 flex items-center gap-2">
+                                            <div class="text-xs text-slate-400 font-mono mt-0.5 flex items-center gap-2">
                                                 <span>{{ $item->user->email }}</span>
                                                 @if($item->user->phone)
-                                                    <span>&bull;</span>
+                                                    <span class="text-slate-300 dark:text-slate-600">&bull;</span>
                                                     <span>{{ $item->user->phone }}</span>
                                                 @endif
                                             </div>
                                             @if($item->user->institution)
-                                                <div class="text-[11px] text-blue-600 dark:text-blue-400 font-semibold mt-0.5">
+                                                <div class="text-[11px] text-blue-600 dark:text-blue-400 font-bold mt-0.5">
                                                     {{ $item->user->institution }}
                                                 </div>
                                             @endif
@@ -241,18 +259,18 @@
 
                                 <!-- Kelas Info -->
                                 <td class="py-4 px-6">
-                                    <div class="font-bold text-surface-900 dark:text-white text-[13px] line-clamp-1">
+                                    <div class="font-bold text-slate-900 dark:text-white text-sm line-clamp-1">
                                         {{ $item->trainingClass->title }}
                                     </div>
-                                    <div class="text-[11px] text-surface-500 mt-0.5 flex items-center gap-2">
-                                        <span class="px-2 py-0.5 rounded-md bg-surface-100 dark:bg-surface-700 font-semibold text-surface-700 dark:text-surface-300">
+                                    <div class="text-xs text-slate-500 mt-0.5 flex items-center gap-2">
+                                        <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-extrabold text-[10px] text-slate-700 dark:text-slate-300 uppercase">
                                             {{ $item->trainingClass->batch_name ?? $item->trainingClass->category }}
                                         </span>
-                                        <span class="font-semibold text-emerald-600 dark:text-emerald-400">
+                                        <span class="font-extrabold text-emerald-600 dark:text-emerald-400">
                                             {{ $item->trainingClass->formatted_price }}
                                         </span>
                                     </div>
-                                    <div class="text-[10px] text-surface-400 mt-1">
+                                    <div class="text-[10px] text-slate-400 mt-1">
                                         Daftar: {{ $item->created_at->format('d M Y, H:i') }}
                                     </div>
                                 </td>
@@ -260,22 +278,22 @@
                                 <!-- Status -->
                                 <td class="py-4 px-6">
                                     @if($item->status === 'pending')
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-200/80 dark:border-amber-800/80">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300">
+                                            <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
                                             Menunggu Verifikasi
                                         </span>
                                     @elseif($item->status === 'active')
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200/80 dark:border-blue-800/80">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                                             Siswa Aktif
                                         </span>
                                     @elseif($item->status === 'completed')
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-200/80 dark:border-emerald-800/80">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300">
+                                            <span>🏆</span>
                                             Lulus & Terbit
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
                                             Dibatalkan
                                         </span>
                                     @endif
@@ -284,17 +302,17 @@
                                 <!-- e-Sertifikat -->
                                 <td class="py-4 px-6">
                                     @if($item->certificate)
-                                        <div class="font-mono font-bold text-emerald-600 dark:text-emerald-400 text-xs">
+                                        <div class="font-mono font-black text-emerald-600 dark:text-emerald-400 text-xs">
                                             {{ $item->certificate->certificate_number }}
                                         </div>
-                                        <a href="{{ route('certificate.verify', $item->certificate->verification_code) }}" target="_blank" class="text-[11px] text-blue-500 hover:text-blue-600 font-mono hover:underline inline-flex items-center gap-1 mt-0.5">
+                                        <a href="{{ route('certificate.verify', $item->certificate->verification_code) }}" target="_blank" class="text-xs text-blue-500 hover:text-blue-600 font-mono hover:underline inline-flex items-center gap-1 mt-0.5">
                                             <span>{{ $item->certificate->verification_code }}</span>
                                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                                             </svg>
                                         </a>
                                     @else
-                                        <span class="text-[11px] text-surface-400 italic">Belum Diterbitkan</span>
+                                        <span class="text-xs text-slate-400 italic">Belum Diterbitkan</span>
                                     @endif
                                 </td>
 
@@ -320,7 +338,7 @@
                                             <!-- Approve -->
                                             <form action="{{ route('dashboard.trainings.approve', $item->id) }}" method="POST" onsubmit="return confirm('Konfirmasi bahwa peserta ini telah menyelesaikan pembayaran?')">
                                                 @csrf
-                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-bold shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer">
+                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-black shadow-md shadow-emerald-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
                                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                                     </svg>
@@ -341,7 +359,7 @@
                                             <!-- Complete & Issue Certificate -->
                                             <form action="{{ route('dashboard.trainings.complete', $item->id) }}" method="POST" onsubmit="return confirm('Luluskan peserta ini dan terbitkan sertifikat resmi?')">
                                                 @csrf
-                                                <button type="submit" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-bold shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer">
+                                                <button type="submit" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
                                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                                     </svg>
@@ -350,7 +368,7 @@
                                             </form>
                                         @elseif($item->certificate)
                                             <a href="{{ route('student.certificate.view', $item->certificate->id) }}" target="_blank"
-                                                class="px-3 py-1.5 rounded-xl bg-surface-100 hover:bg-surface-200 dark:bg-surface-700 dark:hover:bg-surface-600 text-surface-700 dark:text-surface-200 text-xs font-bold transition-all inline-flex items-center gap-1.5">
+                                                class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5">
                                                 <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -365,13 +383,13 @@
                             <tr>
                                 <td colspan="5" class="py-16 text-center">
                                     <div class="max-w-xs mx-auto text-center">
-                                        <div class="w-12 h-12 rounded-2xl bg-surface-100 dark:bg-surface-800 text-surface-400 flex items-center justify-center mx-auto mb-3">
-                                            <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <div class="w-14 h-14 rounded-3xl bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 flex items-center justify-center mx-auto mb-3 shadow-inner">
+                                            <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                                             </svg>
                                         </div>
-                                        <div class="font-bold text-surface-800 dark:text-surface-200 text-sm">Tidak ada pendaftar ditemukan</div>
-                                        <p class="text-xs text-surface-400 mt-1">Coba sesuaikan kata kunci pencarian atau ganti filter status pendaftaran.</p>
+                                        <div class="font-black text-slate-900 dark:text-white text-base">Tidak Ada Pendaftar Ditemukan</div>
+                                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Coba sesuaikan kata kunci pencarian atau ganti filter status pendaftaran.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -381,7 +399,7 @@
             </div>
 
             @if($enrollments->hasPages())
-                <div class="p-4 border-t border-slate-100 dark:border-surface-700">
+                <div class="p-5 border-t border-slate-100 dark:border-slate-800">
                     {{ $enrollments->links() }}
                 </div>
             @endif

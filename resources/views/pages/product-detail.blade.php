@@ -441,7 +441,7 @@
                 <div class="grid md:grid-cols-3 gap-8">
                     <template x-for="(sample, sIndex) in product.sampleImages" :key="sIndex">
                         <div 
-                            class="group rounded-3xl bg-slate-800/80 border border-slate-700/80 hover:border-blue-500/60 overflow-hidden shadow-2xl transition-all duration-300 flex flex-col"
+                            class="group rounded-3xl bg-slate-800/80 border border-slate-700 hover:border-blue-500 overflow-hidden shadow-2xl transition-all duration-300 flex flex-col"
                         >
                             <!-- Image Container -->
                             <div 

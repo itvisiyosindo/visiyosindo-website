@@ -442,7 +442,7 @@
 
                 <!-- Kategori Lainnya (Quick-Access Bar when in 3-Row View) -->
                 <div x-show="remainingCategories.length > 0 && activeCategory === 'all' && searchQuery.trim() === ''"
-                    class="p-5 sm:p-6 rounded-3xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/60 backdrop-blur-xs transition-all">
+                    class="p-5 sm:p-6 rounded-3xl bg-slate-50/80 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 backdrop-blur-xs transition-all">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                         <div class="flex items-center gap-2">
                             <span class="w-2 h-2 rounded-full bg-slate-400"></span>
@@ -466,7 +466,7 @@
                         <template x-for="cat in remainingCategories" :key="cat.id">
                             <button @click="activeCategory = cat.categoryId; filterProducts()"
                                 type="button"
-                                class="px-3 py-1.5 text-xs font-medium rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white border border-slate-200/80 dark:border-slate-600 transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs">
+                                class="px-3 py-1.5 text-xs font-medium rounded-xl bg-white dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-blue-600 hover:text-white dark:hover:bg-blue-600 dark:hover:text-white border border-slate-200 dark:border-slate-600 transition-all cursor-pointer flex items-center gap-1.5 shadow-2xs">
                                 <span x-text="cat.title"></span>
                                 <span class="px-1.5 py-0.2 rounded-full text-[10px] bg-slate-100 dark:bg-slate-600 text-slate-500 dark:text-slate-300 font-bold"
                                     x-text="cat.items.length"></span>

@@ -406,7 +406,7 @@
 
                     <!-- Student Registration CTA Box (When role is student) -->
                     <div x-show="role === 'student'" class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700">
-                        <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-center">
+                        <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-center">
                             <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
                                 Belum Memiliki Akun Pelajar?
                             </p>
