@@ -183,15 +183,35 @@ class TrainingManagementController extends Controller
     {
         $this->authorizeManager();
 
+        // Sanitize price (allow e.g. "150.000", "Rp 150.000", or "150000")
+        if ($request->has('price')) {
+            $rawPrice = preg_replace('/[^0-9]/', '', (string) $request->input('price', 0));
+            $request->merge(['price' => $rawPrice === '' ? 0 : (int) $rawPrice]);
+        }
+
+        // Sanitize URLs (auto prepend https:// if missing)
+        if ($request->filled('whatsapp_group_link')) {
+            $wa = trim($request->input('whatsapp_group_link'));
+            if (!preg_match('~^(?:f|ht)tps?://~i', $wa)) {
+                $request->merge(['whatsapp_group_link' => 'https://' . $wa]);
+            }
+        }
+        if ($request->filled('materials_link')) {
+            $mat = trim($request->input('materials_link'));
+            if (!preg_match('~^(?:f|ht)tps?://~i', $mat)) {
+                $request->merge(['materials_link' => 'https://' . $mat]);
+            }
+        }
+
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:100'],
             'batch_name' => ['required', 'string', 'max:100'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0'],
             'duration' => ['nullable', 'string', 'max:100'],
             'schedule' => ['nullable', 'string', 'max:150'],
-            'whatsapp_group_link' => ['nullable', 'url', 'max:255'],
-            'materials_link' => ['nullable', 'url', 'max:255'],
+            'whatsapp_group_link' => ['nullable', 'string', 'max:255'],
+            'materials_link' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'is_active' => ['nullable'],
         ], [
@@ -202,6 +222,10 @@ class TrainingManagementController extends Controller
         ]);
 
         $baseSlug = Str::slug($validated['title'] . '-' . $validated['batch_name']);
+        if (empty($baseSlug)) {
+            $baseSlug = 'kelas-' . time();
+        }
+
         $slug = $baseSlug;
         $counter = 1;
 
@@ -239,15 +263,33 @@ class TrainingManagementController extends Controller
 
         $trainingClass = TrainingClass::findOrFail($id);
 
+        if ($request->has('price')) {
+            $rawPrice = preg_replace('/[^0-9]/', '', (string) $request->input('price', 0));
+            $request->merge(['price' => $rawPrice === '' ? 0 : (int) $rawPrice]);
+        }
+
+        if ($request->filled('whatsapp_group_link')) {
+            $wa = trim($request->input('whatsapp_group_link'));
+            if (!preg_match('~^(?:f|ht)tps?://~i', $wa)) {
+                $request->merge(['whatsapp_group_link' => 'https://' . $wa]);
+            }
+        }
+        if ($request->filled('materials_link')) {
+            $mat = trim($request->input('materials_link'));
+            if (!preg_match('~^(?:f|ht)tps?://~i', $mat)) {
+                $request->merge(['materials_link' => 'https://' . $mat]);
+            }
+        }
+
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:100'],
             'batch_name' => ['required', 'string', 'max:100'],
-            'price' => ['required', 'integer', 'min:0'],
+            'price' => ['required', 'numeric', 'min:0'],
             'duration' => ['nullable', 'string', 'max:100'],
             'schedule' => ['nullable', 'string', 'max:150'],
-            'whatsapp_group_link' => ['nullable', 'url', 'max:255'],
-            'materials_link' => ['nullable', 'url', 'max:255'],
+            'whatsapp_group_link' => ['nullable', 'string', 'max:255'],
+            'materials_link' => ['nullable', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
             'is_active' => ['nullable'],
         ]);

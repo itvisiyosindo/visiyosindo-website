@@ -279,7 +279,10 @@ class User extends Authenticatable
      */
     public function isAcademyAdmin(): bool
     {
-        return $this->role === self::ROLE_ACADEMY_ADMIN || $this->hasRole(self::ROLE_ACADEMY_ADMIN);
+        return $this->role === self::ROLE_ACADEMY_ADMIN 
+            || $this->hasRole(self::ROLE_ACADEMY_ADMIN)
+            || $this->hasRole('academy_admin')
+            || $this->hasRole('academy-admin');
     }
 
     /**
