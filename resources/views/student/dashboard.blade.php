@@ -109,7 +109,7 @@
         </div>
 
         <!-- Sidebar Container -->
-        <aside class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-slate-900 border-r border-slate-200/80 dark:border-slate-800 flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
+        <aside class="fixed inset-y-0 left-0 z-50 w-72 bg-white dark:bg-slate-900 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
             :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <!-- Top Header & Brand -->
@@ -328,7 +328,7 @@
         <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
             <!-- Top Header (Breadcrumb, Mobile Hamburger, Dark Mode Toggle) -->
-            <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
+            <header class="sticky top-0 z-30 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 px-4 sm:px-8 py-3.5 flex items-center justify-between">
                 <div class="flex items-center gap-3">
                     <!-- Hamburger button for mobile -->
                     <button type="button" @click="mobileSidebarOpen = true"
@@ -418,11 +418,11 @@
                         </div>
                     </div>
 
-                    <!-- 4 Quick Stats Cards -->
+                    <!-- 4 Quick Stats Cards (Smooth & Modern) -->
                     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         <!-- Stat 1: Kelas Diikuti -->
                         <div @click="setTab('classes')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-blue-500 hover:shadow-md transition-all cursor-pointer group">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Kelas Saya</span>
                                 <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -442,7 +442,7 @@
 
                         <!-- Stat 2: Sertifikat Resmi -->
                         <div @click="setTab('classes')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-indigo-500 hover:shadow-md transition-all cursor-pointer group">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Sertifikat</span>
                                 <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -461,7 +461,7 @@
 
                         <!-- Stat 3: Komisi Afiliasi -->
                         <div @click="setTab('affiliate')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-amber-500 hover:shadow-md transition-all cursor-pointer group">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Saldo Komisi</span>
                                 <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -480,7 +480,7 @@
 
                         <!-- Stat 4: Tagihan Invoice -->
                         <div @click="setTab('invoices')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm hover:border-rose-500 hover:shadow-md transition-all cursor-pointer group">
+                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center justify-between mb-3">
                                 <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Status Tagihan</span>
                                 <div class="w-10 h-10 rounded-2xl bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center group-hover:scale-110 transition-transform">
@@ -660,7 +660,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             @foreach($enrollments as $enrollment)
                                 <div x-show="classFilter === 'all' || classFilter === '{{ $enrollment->status }}'"
-                                    class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 p-6 flex flex-col justify-between shadow-sm hover:shadow-md transition-all">
+                                    class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-md transition-all p-6 flex flex-col justify-between">
                                     <div class="space-y-4">
                                         <!-- Top Status Badge -->
                                         <div class="flex items-center justify-between gap-3">
@@ -775,68 +775,111 @@
                             @foreach($availableClasses as $class)
                                 @php
                                     $isAlreadyEnrolled = in_array($class->id, $enrolledClassIds, true);
+                                    $cCat = strtolower($class->category ?? '');
+                                    $isKal = str_contains($cCat, 'kalibrasi');
+                                    $isPpr = str_contains($cCat, 'ppr');
+                                    $isElk = str_contains($cCat, 'elektro');
                                 @endphp
-                                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                                    <!-- Poster / Category Header -->
-                                    <div class="h-44 bg-gradient-to-tr from-blue-700 via-indigo-700 to-blue-900 relative p-6 flex flex-col justify-between text-white overflow-hidden">
-                                        <div class="absolute -right-8 -top-8 w-36 h-36 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform"></div>
-                                        <div class="flex items-center justify-between z-10">
-                                            <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider">
-                                                {{ $class->category ?? 'Bootcamp' }}
-                                            </span>
-                                            <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-extrabold uppercase tracking-wide">
-                                                {{ $class->batch_name }}
-                                            </span>
-                                        </div>
-                                        <div class="z-10">
-                                            <span class="text-2xl font-display font-extrabold">{{ $class->formatted_price }}</span>
-                                            <span class="text-xs text-blue-200 block">{{ $class->price > 0 ? 'Biaya Pelatihan Resmi' : 'Pelatihan Bebas Biaya' }}</span>
+                                <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
+                                    <div>
+                                        @if($class->image)
+                                            <!-- Clean Flyer Banner Header -->
+                                            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
+                                                <img src="{{ asset('storage/' . $class->image) }}" alt="{{ $class->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-black/20 pointer-events-none"></div>
+                                                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
+                                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white shadow-md backdrop-blur-md">
+                                                        {{ $class->category ?? 'Bootcamp' }}
+                                                    </span>
+                                                    <span class="px-2.5 py-0.5 rounded-full bg-blue-600 text-white text-[10px] font-extrabold uppercase tracking-wide shadow-md">
+                                                        {{ $class->batch_name }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        @else
+                                            <!-- Poster / Category Header with Inline Fallback -->
+                                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px]
+                                                @if($isKal) bg-teal-600 @elseif($isPpr) bg-amber-600 @elseif($isElk) bg-purple-600 @else bg-blue-600 @endif"
+                                                style="@if($isKal) background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0f766e 100%);
+                                                       @elseif($isPpr) background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
+                                                       @elseif($isElk) background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #4f46e5 100%);
+                                                       @else background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%); @endif">
+                                                <div class="absolute -right-8 -top-8 w-36 h-36 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform"></div>
+                                                <div class="flex items-center justify-between z-10">
+                                                    <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider">
+                                                        {{ $class->category ?? 'Bootcamp' }}
+                                                    </span>
+                                                    <span class="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white text-[10px] font-extrabold uppercase tracking-wide">
+                                                        {{ $class->batch_name }}
+                                                    </span>
+                                                </div>
+                                                <div class="z-10 mt-3 flex items-center gap-2">
+                                                    <svg class="w-5 h-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                                    </svg>
+                                                    <span class="text-xs font-bold text-white/90 tracking-wide">{{ $class->batch_name ?: 'Batch Pelatihan' }}</span>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                        <!-- Content -->
+                                        <div class="p-6 space-y-4">
+                                            <div>
+                                                @if($class->batch_name && !$class->image)
+                                                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold block mb-1 uppercase tracking-wide">
+                                                        {{ $class->batch_name }}
+                                                    </span>
+                                                @endif
+                                                <h3 class="font-display font-bold text-slate-900 dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
+                                                    {{ $class->title }}
+                                                </h3>
+                                                @if($class->description)
+                                                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
+                                                        {{ $class->description }}
+                                                    </p>
+                                                @endif
+                                            </div>
+
+                                            <div class="space-y-2 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
+                                                <div class="flex items-center gap-2">
+                                                    <svg class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                                    <span>Jadwal: <strong class="text-slate-800 dark:text-slate-200">{{ $class->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
+                                                </div>
+                                                <div class="flex items-center gap-2">
+                                                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                                    <span>Durasi: <strong class="text-slate-800 dark:text-slate-200">{{ $class->duration ?? '-' }}</strong></span>
+                                                </div>
+                                            </div>
+
+                                            <!-- Price Area -->
+                                            <div class="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-baseline justify-between">
+                                                <div>
+                                                    <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Investasi</span>
+                                                    <div class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400">{{ $class->formatted_price }}</div>
+                                                </div>
+                                                <span class="text-[11px] text-slate-400 font-medium">{{ $class->price > 0 ? 'Resmi' : 'Gratis' }}</span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    <!-- Content -->
-                                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                        <div>
-                                            <h3 class="font-display font-bold text-slate-900 dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
-                                                {{ $class->title }}
-                                            </h3>
-                                            @if($class->description)
-                                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
-                                                    {{ $class->description }}
-                                                </p>
-                                            @endif
-                                        </div>
-
-                                        <div class="space-y-2 pt-3 border-t border-slate-100 dark:border-slate-800 text-xs text-slate-600 dark:text-slate-400">
-                                            <div class="flex items-center gap-2">
-                                                <svg class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                                <span>Jadwal: <strong class="text-slate-800 dark:text-slate-200">{{ $class->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
-                                            </div>
-                                            <div class="flex items-center gap-2">
-                                                <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                                <span>Durasi: <strong class="text-slate-800 dark:text-slate-200">{{ $class->duration ?? '-' }}</strong></span>
-                                            </div>
-                                        </div>
-
-                                        <!-- Enrollment Action Button -->
-                                        <div class="pt-2">
-                                            @if($isAlreadyEnrolled)
-                                                <button type="button" @click="setTab('classes')"
-                                                    class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5">
-                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                                    <span>Sudah Terdaftar (Buka Kelas)</span>
+                                    <!-- Enrollment Action Button -->
+                                    <div class="p-6 pt-0">
+                                        @if($isAlreadyEnrolled)
+                                            <button type="button" @click="setTab('classes')"
+                                                class="w-full py-2.5 px-4 rounded-xl bg-slate-100 dark:bg-slate-800 text-emerald-600 dark:text-emerald-400 font-bold text-xs flex items-center justify-center gap-1.5">
+                                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                                <span>Sudah Terdaftar (Buka Kelas)</span>
+                                            </button>
+                                        @else
+                                            <form action="{{ route('student.enroll', $class->id) }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all cursor-pointer">
+                                                    <span>Daftar Kelas Ini</span>
+                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                                 </button>
-                                            @else
-                                                <form action="{{ route('student.enroll', $class->id) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit"
-                                                        class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 transition-all">
-                                                        <span>Daftar Kelas Ini</span>
-                                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                                                    </button>
-                                                </form>
-                                            @endif
-                                        </div>
+                                            </form>
+                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -943,7 +986,7 @@
                         </div>
 
                         <!-- Right: Stats Breakdown (Komisi Bulan Ini, Sudah Ditarik, Total Seluruh) -->
-                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-800 flex flex-col justify-between shadow-sm space-y-4">
+                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col justify-between shadow-sm space-y-4">
                             <!-- Row 1: Komisi Bulan Ini -->
                             <div class="pb-3 border-b border-slate-100 dark:border-slate-800">
                                 <div class="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">
@@ -983,7 +1026,7 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         <!-- Card 1: Pendapatan -->
                         <div @click="showInfoModal = true"
-                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
+                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
                                 <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/60 text-rose-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1000,7 +1043,7 @@
 
                         <!-- Card 2: Penarikan -->
                         <div @click="showWithdrawModal = true"
-                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
+                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
                                 <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1017,7 +1060,7 @@
 
                         <!-- Card 3: Material -->
                         <div @click="showPromoModal = true"
-                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
+                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
                                 <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1034,7 +1077,7 @@
 
                         <!-- Card 4: Informasi -->
                         <div @click="showInfoModal = true"
-                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
+                            class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
                             <div class="flex items-center gap-3.5">
                                 <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-500 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1053,7 +1096,7 @@
                     <!-- Bottom Section: Daftar Kode Afiliasimu (Left) & Afiliasi Terakhir (Right) -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                         <!-- Left: Daftar Kode Afiliasimu -->
-                        <div class="lg:col-span-8 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
+                        <div class="lg:col-span-8 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <div>
                                     <h3 class="text-lg font-display font-extrabold text-slate-900 dark:text-white">Daftar Kode Afiliasimu</h3>
@@ -1138,7 +1181,7 @@
                         </div>
 
                         <!-- Right: Afiliasi Terakhir -->
-                        <div class="lg:col-span-4 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+                        <div class="lg:col-span-4 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between">
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Afiliasi Terakhir</h3>
@@ -1179,11 +1222,11 @@
                         </div>
                     @else
                         <!-- Invoices List Card -->
-                        <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">
+                        <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
                             <div class="overflow-x-auto">
                                 <table class="w-full text-left text-xs">
                                     <thead>
-                                        <tr class="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-200/80 dark:border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
+                                        <tr class="bg-slate-50 dark:bg-slate-800/60 border-b border-slate-100 dark:border-slate-800 text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-4 px-6">No. Invoice</th>
                                             <th class="py-4 px-6">Pelatihan</th>
                                             <th class="py-4 px-6">Tanggal</th>
@@ -1253,7 +1296,7 @@
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
                         <!-- Left Form: Data Diri Pelajar -->
-                        <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
+                        <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div>
                                 <h3 class="text-base font-display font-bold text-slate-900 dark:text-white">Data Diri Peserta Pelatihan</h3>
                                 <p class="text-xs text-slate-500 dark:text-slate-400">Pastikan nama lengkap sesuai kartu identitas karena digunakan pada cetak sertifikat resmi.</p>
@@ -1328,7 +1371,7 @@
                         </div>
 
                         <!-- Right Form: Ganti Kata Sandi -->
-                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-6">
+                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div>
                                 <h3 class="text-base font-display font-bold text-slate-900 dark:text-white">Keamanan Akun</h3>
                                 <p class="text-xs text-slate-500 dark:text-slate-400">Perbarui kata sandi akun untuk menjaga keamanan data Anda.</p>
@@ -1517,7 +1560,7 @@
             </p>
             <div class="space-y-3">
                 <a href="{{ asset('assets/logo/visiyosindo.png') }}" download="logo-visilab.png"
-                    class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 hover:bg-slate-100 transition-colors">
+                    class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 transition-colors">
                     <div class="flex items-center gap-3">
                         <img src="{{ asset('assets/logo/visiyosindo.png') }}" class="w-8 h-8 object-contain">
                         <div>

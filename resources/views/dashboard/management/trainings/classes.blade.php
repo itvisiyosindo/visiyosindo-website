@@ -66,7 +66,7 @@
     @open-create-class.window="showCreateModal = true"
     class="space-y-6">
 
-        <!-- Modern Sleek Segmented Navigation Tabs (No Harsh Borders) -->
+        <!-- Modern Sleek Segmented Navigation Tabs (Smooth & Pill-based) -->
         <div class="p-1.5 bg-slate-100 dark:bg-surface-800 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-xs">
             <a href="{{ route('dashboard.trainings.classes') }}"
                 class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 bg-white dark:bg-surface-900 text-blue-600 dark:text-blue-400 shadow-xs">
@@ -106,13 +106,13 @@
             </a>
         </div>
 
-        <!-- Modern Energetic Metrics Cards (Smooth, No Harsh Borders) -->
+        <!-- Modern Energetic Metrics Cards (Smooth, Zero Harsh Borders) -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             <!-- Card 1 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Program</span>
-                    <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                         </svg>
@@ -125,10 +125,10 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Pendaftaran Aktif</span>
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
@@ -141,10 +141,10 @@
             </div>
 
             <!-- Card 3 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Pendaftaran Tutup</span>
-                    <div class="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -157,10 +157,10 @@
             </div>
 
             <!-- Card 4 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Peserta</span>
-                    <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
@@ -173,8 +173,8 @@
             </div>
         </div>
 
-        <!-- Filter Bar (Smooth, No Harsh Border) -->
-        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700">
+        <!-- Filter Bar (Smooth & Modern) -->
+        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm">
             <form action="{{ route('dashboard.trainings.classes') }}" method="GET" class="flex flex-col sm:flex-row gap-3">
                 <div class="flex-1 relative">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
@@ -187,20 +187,20 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari judul kelas pelatihan, nama batch, atau kategori..." 
-                        class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-700/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/70 dark:bg-surface-700/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     >
                 </div>
                 <div class="w-full sm:w-48">
                     <select 
                         name="is_active" 
-                        class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-700/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer"
+                        class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/70 dark:bg-surface-700/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer"
                     >
                         <option value="">Semua Status Pendaftaran</option>
                         <option value="1" {{ request('is_active') === '1' ? 'selected' : '' }}>Aktif (Buka)</option>
                         <option value="0" {{ request('is_active') === '0' ? 'selected' : '' }}>Pendaftaran Tutup</option>
                     </select>
                 </div>
-                <button type="submit" class="px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-xs cursor-pointer">
+                <button type="submit" class="px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-sm cursor-pointer">
                     Terapkan Filter
                 </button>
                 @if(request()->hasAny(['search', 'is_active']))
@@ -211,7 +211,7 @@
             </form>
         </div>
 
-        <!-- High-End Course Cards Grid (Smooth, No Harsh Borders) -->
+        <!-- High-End Course Cards Grid (Smooth, Zero Harsh Borders, Clean Flyer Layout) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($classes as $item)
                 @php
@@ -220,51 +220,36 @@
                     $isPPR = str_contains($cat, 'ppr');
                     $isElektro = str_contains($cat, 'elektromedis');
                 @endphp
-                <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between border border-slate-100 dark:border-surface-700 group">
+                <div class="bg-white dark:bg-surface-800 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
                     <div>
                         @if($item->image)
-                            <!-- Clean Photo Banner Header (Flyer) -->
-                            <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                            <!-- Clean Photo Banner Header (Flyer Unobscured) -->
+                            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
                                 <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20"></div>
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-black/20 pointer-events-none"></div>
 
                                 <!-- Floating Badges over Flyer -->
                                 <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold shadow-sm backdrop-blur-md {{ $item->is_active ? 'bg-emerald-500 text-white' : 'bg-slate-800/80 text-slate-200' }}">
+                                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold shadow-md backdrop-blur-md {{ $item->is_active ? 'bg-emerald-500 text-white' : 'bg-slate-900/80 text-slate-200' }}">
                                         {{ $item->is_active ? '● Buka Pendaftaran' : '○ Pendaftaran Tutup' }}
                                     </span>
-                                    <div class="flex items-center gap-1.5">
-                                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white inline-flex items-center gap-1">
-                                            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                            Flyer
-                                        </span>
-                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 dark:bg-surface-900/90 text-surface-800 dark:text-white shadow-sm backdrop-blur-md">
-                                            {{ $item->category }}
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <!-- Price & Batch Over Bottom of Flyer -->
-                                <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between z-10 text-white">
-                                    <div>
-                                        <span class="text-[11px] text-slate-300 block font-medium">Biaya Pelatihan</span>
-                                        <div class="text-2xl font-extrabold tracking-tight">{{ $item->formatted_price }}</div>
-                                    </div>
-                                    @if($item->batch_name)
-                                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white/20 backdrop-blur-md text-white">
-                                            {{ $item->batch_name }}
-                                        </span>
-                                    @endif
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 dark:bg-surface-900/90 text-surface-800 dark:text-white shadow-md backdrop-blur-md">
+                                        {{ $item->category }}
+                                    </span>
                                 </div>
                             </div>
                         @else
-                            <!-- Vibrant Solid Gradient Header (Explicit Static Tailwind Classes) -->
-                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[160px]
-                                @if($isKalibrasi) bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-800
-                                @elseif($isPPR) bg-gradient-to-br from-amber-500 via-orange-600 to-red-600
-                                @elseif($isElektro) bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-800
-                                @else bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-800
-                                @endif">
+                            <!-- Vibrant Solid Header with Inline Fallback (Never White) -->
+                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px]
+                                @if($isKalibrasi) bg-teal-600
+                                @elseif($isPPR) bg-amber-600
+                                @elseif($isElektro) bg-purple-600
+                                @else bg-blue-600
+                                @endif"
+                                style="@if($isKalibrasi) background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0f766e 100%);
+                                       @elseif($isPPR) background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
+                                       @elseif($isElektro) background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #4f46e5 100%);
+                                       @else background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%); @endif">
                                 <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform"></div>
 
                                 <!-- Top Badges -->
@@ -280,12 +265,11 @@
                                     </span>
                                 </div>
 
-                                <!-- Big Formatted Price -->
-                                <div class="z-10 mt-4">
-                                    <div class="text-2xl sm:text-3xl font-extrabold tracking-tight">{{ $item->formatted_price }}</div>
-                                    <span class="text-xs text-blue-100 font-medium block opacity-90">
-                                        {{ $item->price > 0 ? 'Biaya Pelatihan Resmi' : 'Pelatihan Bebas Biaya (Gratis)' }}
-                                    </span>
+                                <div class="z-10 mt-3 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                    <span class="text-xs font-bold text-white/90 tracking-wide">{{ $item->batch_name ?: 'Batch Pelatihan' }}</span>
                                 </div>
                             </div>
                         @endif
@@ -293,9 +277,13 @@
                         <!-- Card Body Details -->
                         <div class="p-6 space-y-4">
                             <div>
-                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wide block mb-1">
-                                    {{ $item->batch_name }}
-                                </span>
+                                <div class="flex items-center gap-2 mb-1">
+                                    <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wide">
+                                        {{ $item->batch_name }}
+                                    </span>
+                                    <span class="text-xs text-surface-300">&bull;</span>
+                                    <span class="text-xs text-surface-500 font-medium">{{ $item->category }}</span>
+                                </div>
                                 <h3 class="text-lg font-bold text-surface-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
                                     {{ $item->title }}
                                 </h3>
@@ -307,7 +295,7 @@
                             </div>
 
                             <!-- Metadata Chips Grid -->
-                            <div class="grid grid-cols-2 gap-2 text-xs pt-3 border-t border-slate-100 dark:border-surface-700">
+                            <div class="grid grid-cols-2 gap-2 text-xs pt-3 border-t border-slate-100 dark:border-surface-700/60">
                                 <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-surface-700/50">
                                     <span class="text-[10px] text-surface-400 uppercase font-bold block">Jadwal</span>
                                     <span class="font-semibold text-surface-800 dark:text-surface-200 truncate block">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
@@ -318,64 +306,65 @@
                                 </div>
                             </div>
 
-                            <div class="flex items-center justify-between text-xs px-1">
-                                <span class="text-surface-400">Total Pendaftar:</span>
-                                <span class="font-extrabold text-blue-600 dark:text-blue-400">{{ $item->enrollments_count }} Pelajar</span>
+                            <!-- Price & Student Stats -->
+                            <div class="flex items-baseline justify-between pt-3 border-t border-slate-100 dark:border-surface-700/60">
+                                <div>
+                                    <span class="text-[10px] uppercase font-bold text-surface-400 block tracking-wider">Investasi Pelatihan</span>
+                                    <div class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tight">{{ $item->formatted_price }}</div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="text-[10px] uppercase font-bold text-surface-400 block tracking-wider">Terdaftar</span>
+                                    <span class="text-sm font-bold text-surface-700 dark:text-surface-200">{{ $item->enrollments_count ?? $item->enrollments()->count() }} Pelajar</span>
+                                </div>
                             </div>
 
-                            <!-- Integration Status Pills -->
-                            <div class="flex flex-wrap items-center gap-2 pt-1 text-xs">
+                            <!-- Integration Status Indicators -->
+                            <div class="flex items-center gap-2 pt-1 text-[11px]">
                                 @if($item->whatsapp_group_link)
-                                    <a href="{{ $item->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
-                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 font-semibold text-[11px] hover:bg-emerald-100 transition-colors">
-                                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                                        <span>Grup WA Terhubung</span>
-                                    </a>
+                                    <span class="inline-flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        WA Grup Ready
+                                    </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-400 font-semibold text-[11px]">
-                                        <span>⚠️</span>
-                                        <span>WA Grup Kosong</span>
+                                    <span class="inline-flex items-center gap-1 text-amber-500 font-medium">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                                        Belum set WA Grup
                                     </span>
                                 @endif
 
                                 @if($item->materials_link)
-                                    <a href="{{ $item->materials_link }}" target="_blank" rel="noopener noreferrer"
-                                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 font-semibold text-[11px] hover:bg-blue-100 transition-colors">
-                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                                        <span>Modul Cloud Siap</span>
-                                    </a>
+                                    <span class="text-surface-300">&bull;</span>
+                                    <span class="inline-flex items-center gap-1 text-blue-600 dark:text-blue-400 font-semibold">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                                        Modul Ready
+                                    </span>
                                 @endif
                             </div>
                         </div>
                     </div>
 
-                    <!-- Card Actions Footer (Smooth, No Harsh Border) -->
-                    <div class="p-4 bg-slate-50/70 dark:bg-surface-700/30 border-t border-slate-100 dark:border-surface-700 flex items-center justify-between gap-2">
-                        <!-- Toggle Status Button -->
+                    <!-- Card Actions Footer -->
+                    <div class="p-4 bg-slate-50/70 dark:bg-surface-700/30 border-t border-slate-100 dark:border-surface-700/60 flex items-center justify-between gap-2">
                         <form action="{{ route('dashboard.trainings.classes.toggle', $item->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" 
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-1.5
-                                    {{ $item->is_active ? 'bg-amber-100 text-amber-800 hover:bg-amber-200 dark:bg-amber-950/60 dark:text-amber-300' : 'bg-emerald-100 text-emerald-800 hover:bg-emerald-200 dark:bg-emerald-950/60 dark:text-emerald-300' }}"
-                                title="{{ $item->is_active ? 'Tutup Pendaftaran Kelas' : 'Buka Pendaftaran Kelas' }}">
-                                <span>{{ $item->is_active ? '⏸️ Tutup Pendaftaran' : '▶️ Buka Pendaftaran' }}</span>
+                                class="px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer {{ $item->is_active ? 'bg-amber-100 hover:bg-amber-200 text-amber-800 dark:bg-amber-950/60 dark:text-amber-300' : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-300' }}">
+                                {{ $item->is_active ? 'Tutup Pendaftaran' : 'Buka Pendaftaran' }}
                             </button>
                         </form>
 
-                        <div class="flex items-center gap-2">
-                            <!-- Edit Button -->
-                            <button type="button" @click="openEdit({{ json_encode($item) }})"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-surface-800 border border-slate-200 dark:border-surface-600 text-surface-700 dark:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors cursor-pointer shadow-2xs">
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" 
+                                @click="openEdit({{ json_encode($item) }})"
+                                class="px-3 py-1.5 rounded-xl text-xs font-semibold text-surface-700 dark:text-surface-200 bg-white dark:bg-surface-800 hover:bg-surface-100 shadow-xs transition-all cursor-pointer">
                                 Edit
                             </button>
-
-                            <!-- Delete Button -->
-                            <form action="{{ route('dashboard.trainings.classes.destroy', $item->id) }}" method="POST"
-                                onsubmit="return confirm('Apakah Anda yakin ingin menghapus kelas pelatihan {{ $item->title }}?');" class="inline">
+                            <form action="{{ route('dashboard.trainings.classes.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini tidak dapat dibatalkan.');">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit"
-                                    class="p-2 rounded-xl text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/40 transition-colors cursor-pointer" title="Hapus Kelas">
+                                <button type="submit" 
+                                    class="p-1.5 rounded-xl text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/50 transition-all cursor-pointer"
+                                    title="Hapus Kelas">
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>

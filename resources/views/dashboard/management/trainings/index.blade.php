@@ -70,13 +70,13 @@
             </a>
         </div>
 
-        <!-- Modern Energetic Metrics Cards (Smooth) -->
+        <!-- Modern Energetic Metrics Cards (Smooth, No Harsh Borders) -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             <!-- Card 1: Total -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Pendaftar</span>
-                    <div class="w-10 h-10 rounded-2xl bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
                         </svg>
@@ -89,10 +89,10 @@
             </div>
 
             <!-- Card 2: Menunggu Verifikasi -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700 {{ $stats['pending'] > 0 ? 'ring-2 ring-amber-500/20 bg-amber-50/10' : '' }}">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between {{ $stats['pending'] > 0 ? 'ring-2 ring-amber-500/20 bg-amber-50/10' : '' }}">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Perlu Verifikasi</span>
-                    <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -105,10 +105,10 @@
             </div>
 
             <!-- Card 3: Aktif -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Siswa Aktif</span>
-                    <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
@@ -121,10 +121,10 @@
             </div>
 
             <!-- Card 4: Lulus -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-all flex flex-col justify-between">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Lulus & Tersertifikasi</span>
-                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
+                    <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -138,7 +138,7 @@
         </div>
 
         <!-- Filter & Search Section (Smooth) -->
-        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700">
+        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm">
             <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
                 <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
@@ -197,12 +197,12 @@
             </form>
         </div>
 
-        <!-- Participants Table Section (Smooth, No Harsh Border) -->
-        <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700 overflow-hidden">
+        <!-- Participants Table Section (Smooth, Zero Harsh Borders) -->
+        <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-slate-100 dark:border-surface-700 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
+                        <tr class="border-b border-slate-100 dark:border-surface-700/60 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
                             <th class="py-3.5 px-6">Informasi Peserta</th>
                             <th class="py-3.5 px-6">Program Kelas</th>
                             <th class="py-3.5 px-6">Status Pendaftaran</th>

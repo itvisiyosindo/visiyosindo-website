@@ -83,31 +83,49 @@
                 @php
                     $isEnrolled = in_array($item->id, $enrolledClassIds);
                 @endphp
-                <div class="bg-white dark:bg-slate-800 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm overflow-hidden flex flex-col justify-between hover:shadow-lg transition-all duration-300">
+                <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
                     <div>
                         @if ($item->image)
-                            <div class="h-44 w-full overflow-hidden bg-slate-100 dark:bg-slate-900 relative">
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500">
-                                <div class="absolute top-3 right-3">
-                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-slate-900/80 backdrop-blur-md text-white shadow-sm">
-                                        {{ $item->category }}
-                                    </span>
-                                </div>
-                            </div>
-                        @endif
-                        <div class="p-6">
-                            @if (!$item->image)
-                                <div class="flex items-center justify-between mb-3">
-                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400">
+                            <!-- Clean Flyer Banner Header -->
+                            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-black/20 pointer-events-none"></div>
+                                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
+                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white shadow-md backdrop-blur-md">
                                         {{ $item->category }}
                                     </span>
                                     @if ($item->batch_name)
-                                        <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-blue-600 text-white shadow-md">
                                             {{ $item->batch_name }}
                                         </span>
                                     @endif
                                 </div>
-                            @elseif ($item->batch_name)
+                            </div>
+                        @else
+                            <!-- Vibrant Solid Gradient Header with Inline Fallback -->
+                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px] bg-blue-600"
+                                style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%);">
+                                <div class="flex items-center justify-between z-10">
+                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white">
+                                        {{ $item->category }}
+                                    </span>
+                                    @if ($item->batch_name)
+                                        <span class="text-xs font-bold px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-white">
+                                            {{ $item->batch_name }}
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="z-10 mt-3 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                                    </svg>
+                                    <span class="text-xs font-bold text-white/90 tracking-wide">{{ $item->batch_name ?: 'Batch Pelatihan' }}</span>
+                                </div>
+                            </div>
+                        @endif
+
+                        <div class="p-6">
+                            @if ($item->batch_name && !$item->image)
                                 <div class="mb-2">
                                     <span class="text-xs text-blue-600 dark:text-blue-400 font-bold uppercase tracking-wide">
                                         {{ $item->batch_name }}
@@ -115,40 +133,43 @@
                                 </div>
                             @endif
 
-                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug">
-                            {{ $item->title }}
-                        </h3>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 leading-snug group-hover:text-blue-600 transition-colors">
+                                {{ $item->title }}
+                            </h3>
 
-                        <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 mb-4 leading-relaxed">
-                            {{ $item->description }}
-                        </p>
-
-                        <div class="space-y-2 pt-3 border-t border-slate-100 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-400">
-                            @if ($item->duration)
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>Durasi: <strong>{{ $item->duration }}</strong></span>
-                                </div>
+                            @if($item->description)
+                                <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 mb-4 leading-relaxed">
+                                    {{ $item->description }}
+                                </p>
                             @endif
 
-                            @if ($item->schedule)
-                                <div class="flex items-center gap-2">
-                                    <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                    </svg>
-                                    <span>Jadwal: {{ $item->schedule }}</span>
-                                </div>
-                            @endif
+                            <div class="space-y-2 pt-3 border-t border-slate-100 dark:border-slate-700/60 text-xs text-slate-600 dark:text-slate-400">
+                                @if ($item->duration)
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Durasi: <strong>{{ $item->duration }}</strong></span>
+                                    </div>
+                                @endif
+
+                                @if ($item->schedule)
+                                    <div class="flex items-center gap-2">
+                                        <svg class="w-4 h-4 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span>Jadwal: {{ $item->schedule }}</span>
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
 
                     <div class="p-6 pt-0 bg-slate-50/50 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-700/60 mt-4">
                         <div class="flex items-center justify-between py-4">
                             <div>
-                                <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-medium">Investasi</span>
-                                <span class="text-lg font-extrabold text-slate-900 dark:text-white">
+                                <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-bold">Investasi Pelatihan</span>
+                                <span class="text-xl font-black text-blue-600 dark:text-blue-400">
                                     {{ $item->formatted_price }}
                                 </span>
                             </div>
@@ -187,7 +208,7 @@
                     </div>
                 </div>
             @empty
-                <div class="col-span-3 text-center py-16 bg-white dark:bg-slate-800 rounded-3xl border border-slate-200">
+                <div class="col-span-3 text-center py-16 bg-white dark:bg-slate-800 rounded-3xl shadow-sm">
                     <p class="text-sm text-slate-500">Belum ada kelas yang dibuka saat ini.</p>
                 </div>
             @endforelse
