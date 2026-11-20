@@ -369,14 +369,23 @@
                         </button>
                     </form>
 
-                    <!-- Student Registration Link -->
-                    <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700 text-center">
-                        <p class="text-xs text-slate-500 dark:text-slate-400">
-                            Peserta pelatihan baru?
-                            <a href="{{ route('student.register') }}" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">
-                                Daftar Akun Pelajar di sini &rarr;
+                    <!-- Student Registration CTA Box -->
+                    <div class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700">
+                        <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200/80 dark:border-blue-900/60 text-center">
+                            <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                                Pelajar / Peserta Pelatihan Baru?
+                            </p>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">
+                                Buat akun sendiri untuk memilih kelas dan mengunduh sertifikat resmi.
+                            </p>
+                            <a href="{{ route('student.register') }}"
+                                class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm shadow-blue-500/20">
+                                <span>Daftar Akun Pelajar</span>
+                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
 

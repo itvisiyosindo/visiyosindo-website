@@ -173,15 +173,6 @@
                             </svg>
                             {{ __('PPR') }}
                         </a>
-                        <a href="{{ route('student.classes') }}"
-                            class="flex items-center gap-3 px-4 py-3 text-sm text-blue-600 dark:text-blue-400 font-semibold bg-blue-50/50 dark:bg-blue-950/30 hover:bg-blue-100/70 dark:hover:bg-blue-900/40 transition-colors">
-                            <svg class="w-4 h-4 text-blue-600 dark:text-blue-400" fill="none" viewBox="0 0 24 24"
-                                stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                            </svg>
-                            {{ __('Portal Pelatihan') }}
-                        </a>
                     </div>
                 </div>
 
@@ -255,17 +246,30 @@
                     </svg>
                 </button>
 
-                <!-- Student Portal Button -->
-                <a href="{{ route('student.classes') }}"
-                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-300"
-                    :class="(scrolled || solidPage) ?
-                        'bg-blue-600 hover:bg-blue-700 text-white shadow-xs' :
-                        'bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/20'">
-                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                    </svg>
-                    <span>Portal Pelatihan</span>
-                </a>
+                <!-- Login / Portal Button -->
+                @auth
+                    <a href="{{ Auth::user()->isStudent() ? route('student.dashboard') : route('dashboard') }}"
+                        class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300"
+                        :class="(scrolled || solidPage) ?
+                            'bg-blue-600 hover:bg-blue-700 text-white shadow-xs' :
+                            'bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/20'">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <span>{{ Auth::user()->isStudent() ? 'Portal Pelajar' : 'Dashboard' }}</span>
+                    </a>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300"
+                        :class="(scrolled || solidPage) ?
+                            'bg-blue-600 hover:bg-blue-700 text-white shadow-xs' :
+                            'bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/20'">
+                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                        </svg>
+                        <span>Masuk</span>
+                    </a>
+                @endauth
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileOpen = !mobileOpen"
@@ -403,11 +407,19 @@
                     {{ __('Careers') }}
                 </a>
 
-                <a href="{{ route('student.classes') }}" @click="mobileOpen = false"
-                    class="px-4 py-3 text-sm font-bold rounded-xl bg-blue-600/15 text-blue-600 dark:text-blue-400 flex items-center justify-between">
-                    <span>{{ __('Portal Pelatihan & Sertifikat') }}</span>
-                    <span>&rarr;</span>
-                </a>
+                @auth
+                    <a href="{{ Auth::user()->isStudent() ? route('student.dashboard') : route('dashboard') }}" @click="mobileOpen = false"
+                        class="px-4 py-3 text-sm font-bold rounded-xl bg-blue-600 text-white flex items-center justify-between shadow-xs">
+                        <span>{{ Auth::user()->isStudent() ? 'Portal Pelajar Saya' : 'Dashboard' }}</span>
+                        <span>&rarr;</span>
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" @click="mobileOpen = false"
+                        class="px-4 py-3 text-sm font-bold rounded-xl bg-blue-600 text-white flex items-center justify-between shadow-xs">
+                        <span>Masuk ke Akun</span>
+                        <span>&rarr;</span>
+                    </a>
+                @endauth
 
                 <!-- Mobile Language Selector -->
                 <div class="pt-3 mt-2 border-t border-slate-200/50 dark:border-slate-700/50 flex items-center justify-between px-2">
