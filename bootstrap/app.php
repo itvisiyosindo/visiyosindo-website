@@ -1,5 +1,10 @@
 <?php
 
+// Ensure adequate memory limit on shared hosting / cPanel environments
+if (function_exists('ini_set')) {
+    @ini_set('memory_limit', '256M');
+}
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;

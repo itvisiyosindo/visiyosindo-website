@@ -245,10 +245,6 @@ class User extends Authenticatable
      */
     public function isAdmin(): bool
     {
-        if ($this->isStudent()) {
-            return false;
-        }
-
         // Check RBAC system first
         if ($this->hasRole('admin')) {
             return true;
