@@ -66,10 +66,10 @@
     @open-create-class.window="showCreateModal = true"
     class="space-y-6">
 
-        <!-- Modern Sleek Segmented Navigation Tabs -->
-        <div class="p-1.5 bg-surface-100 dark:bg-surface-800/80 rounded-2xl border border-surface-200/80 dark:border-surface-700/80 inline-flex flex-wrap items-center gap-1.5 shadow-xs">
+        <!-- Modern Sleek Segmented Navigation Tabs (No Harsh Borders) -->
+        <div class="p-1.5 bg-slate-100 dark:bg-surface-800 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-xs">
             <a href="{{ route('dashboard.trainings.classes') }}"
-                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 bg-white dark:bg-surface-900 text-blue-600 dark:text-blue-400 shadow-sm">
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 bg-white dark:bg-surface-900 text-blue-600 dark:text-blue-400 shadow-xs">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
@@ -106,10 +106,10 @@
             </a>
         </div>
 
-        <!-- Modern Energetic Metrics Cards -->
+        <!-- Modern Energetic Metrics Cards (Smooth, No Harsh Borders) -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             <!-- Card 1 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Program</span>
                     <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
@@ -125,7 +125,7 @@
             </div>
 
             <!-- Card 2 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Pendaftaran Aktif</span>
                     <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
@@ -141,7 +141,7 @@
             </div>
 
             <!-- Card 3 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Pendaftaran Tutup</span>
                     <div class="w-10 h-10 rounded-2xl bg-slate-100 dark:bg-slate-800 text-slate-500 flex items-center justify-center shadow-xs">
@@ -157,7 +157,7 @@
             </div>
 
             <!-- Card 4 -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Peserta</span>
                     <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-xs">
@@ -173,8 +173,8 @@
             </div>
         </div>
 
-        <!-- Filter Bar -->
-        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs">
+        <!-- Filter Bar (Smooth, No Harsh Border) -->
+        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700">
             <form action="{{ route('dashboard.trainings.classes') }}" method="GET" class="flex flex-col sm:flex-row gap-3">
                 <div class="flex-1 relative">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
@@ -187,13 +187,13 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari judul kelas pelatihan, nama batch, atau kategori..." 
-                        class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-surface-50/50 dark:bg-surface-700/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        class="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-700/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                     >
                 </div>
                 <div class="w-full sm:w-48">
                     <select 
                         name="is_active" 
-                        class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-surface-50/50 dark:bg-surface-700/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500"
+                        class="w-full px-3.5 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-700/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer"
                     >
                         <option value="">Semua Status Pendaftaran</option>
                         <option value="1" {{ request('is_active') === '1' ? 'selected' : '' }}>Aktif (Buka)</option>
@@ -211,60 +211,84 @@
             </form>
         </div>
 
-        <!-- High-End Course Cards Grid -->
+        <!-- High-End Course Cards Grid (Smooth, No Harsh Borders) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($classes as $item)
                 @php
                     $cat = strtolower($item->category);
-                    $headerGradient = 'from-blue-600 via-indigo-600 to-blue-800';
-                    if (str_contains($cat, 'kalibrasi')) {
-                        $headerGradient = 'from-emerald-600 via-teal-600 to-cyan-800';
-                    } elseif (str_contains($cat, 'radiologi') || str_contains($cat, 'uji kesesuaian')) {
-                        $headerGradient = 'from-blue-700 via-indigo-700 to-slate-900';
-                    } elseif (str_contains($cat, 'ppr')) {
-                        $headerGradient = 'from-amber-600 via-orange-600 to-yellow-800';
-                    } elseif (str_contains($cat, 'elektromedis')) {
-                        $headerGradient = 'from-violet-600 via-purple-600 to-indigo-900';
-                    }
+                    $isKalibrasi = str_contains($cat, 'kalibrasi');
+                    $isPPR = str_contains($cat, 'ppr');
+                    $isElektro = str_contains($cat, 'elektromedis');
                 @endphp
-                <div class="bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/90 dark:border-surface-700/80 overflow-hidden shadow-xs hover:shadow-xl transition-all flex flex-col justify-between group">
+                <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between border border-slate-100 dark:border-surface-700 group">
                     <div>
-                        <!-- Cover Banner Header -->
-                        <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[160px] rounded-t-3xl {{ $item->image ? 'bg-slate-900' : 'bg-gradient-to-tr ' . $headerGradient }}"
-                            @if($item->image)
-                                style="background-image: linear-gradient(to top, rgba(15, 23, 42, 0.92) 0%, rgba(15, 23, 42, 0.45) 100%), url('{{ asset('storage/' . $item->image) }}'); background-size: cover; background-position: center;"
-                            @endif>
-                            <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform"></div>
+                        @if($item->image)
+                            <!-- Clean Photo Banner Header (Flyer) -->
+                            <div class="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-900">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/20 to-black/20"></div>
 
-                            <!-- Top Badges -->
-                            <div class="flex items-center justify-between z-10 gap-2">
-                                <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider
-                                    @if($item->is_active) bg-emerald-400 text-slate-950 shadow-sm
-                                    @else bg-white/20 text-white backdrop-blur-md @endif">
-                                    {{ $item->is_active ? '● Buka Pendaftaran' : '○ Pendaftaran Tutup' }}
-                                </span>
-
-                                <div class="flex items-center gap-1.5">
-                                    @if($item->image)
+                                <!-- Floating Badges over Flyer -->
+                                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
+                                    <span class="px-2.5 py-1 rounded-full text-[11px] font-bold shadow-sm backdrop-blur-md {{ $item->is_active ? 'bg-emerald-500 text-white' : 'bg-slate-800/80 text-slate-200' }}">
+                                        {{ $item->is_active ? '● Buka Pendaftaran' : '○ Pendaftaran Tutup' }}
+                                    </span>
+                                    <div class="flex items-center gap-1.5">
                                         <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-white/20 backdrop-blur-md text-white inline-flex items-center gap-1">
                                             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
                                             Flyer
                                         </span>
+                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/90 dark:bg-surface-900/90 text-surface-800 dark:text-white shadow-sm backdrop-blur-md">
+                                            {{ $item->category }}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Price & Batch Over Bottom of Flyer -->
+                                <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between z-10 text-white">
+                                    <div>
+                                        <span class="text-[11px] text-slate-300 block font-medium">Biaya Pelatihan</span>
+                                        <div class="text-2xl font-extrabold tracking-tight">{{ $item->formatted_price }}</div>
+                                    </div>
+                                    @if($item->batch_name)
+                                        <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-white/20 backdrop-blur-md text-white">
+                                            {{ $item->batch_name }}
+                                        </span>
                                     @endif
+                                </div>
+                            </div>
+                        @else
+                            <!-- Vibrant Solid Gradient Header (Explicit Static Tailwind Classes) -->
+                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[160px]
+                                @if($isKalibrasi) bg-gradient-to-br from-emerald-600 via-teal-600 to-cyan-800
+                                @elseif($isPPR) bg-gradient-to-br from-amber-500 via-orange-600 to-red-600
+                                @elseif($isElektro) bg-gradient-to-br from-violet-600 via-purple-600 to-indigo-800
+                                @else bg-gradient-to-br from-blue-600 via-indigo-600 to-blue-800
+                                @endif">
+                                <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform"></div>
+
+                                <!-- Top Badges -->
+                                <div class="flex items-center justify-between z-10 gap-2">
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider
+                                        @if($item->is_active) bg-emerald-400 text-slate-950 shadow-sm
+                                        @else bg-white/20 text-white backdrop-blur-md @endif">
+                                        {{ $item->is_active ? '● Buka Pendaftaran' : '○ Pendaftaran Tutup' }}
+                                    </span>
+
                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-white/20 backdrop-blur-md text-white">
                                         {{ $item->category }}
                                     </span>
                                 </div>
-                            </div>
 
-                            <!-- Big Formatted Price -->
-                            <div class="z-10 mt-4">
-                                <div class="text-2xl sm:text-3xl font-extrabold tracking-tight">{{ $item->formatted_price }}</div>
-                                <span class="text-xs text-blue-100 font-medium block opacity-90">
-                                    {{ $item->price > 0 ? 'Biaya Pelatihan Resmi' : 'Pelatihan Bebas Biaya (Gratis)' }}
-                                </span>
+                                <!-- Big Formatted Price -->
+                                <div class="z-10 mt-4">
+                                    <div class="text-2xl sm:text-3xl font-extrabold tracking-tight">{{ $item->formatted_price }}</div>
+                                    <span class="text-xs text-blue-100 font-medium block opacity-90">
+                                        {{ $item->price > 0 ? 'Biaya Pelatihan Resmi' : 'Pelatihan Bebas Biaya (Gratis)' }}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
+                        @endif
 
                         <!-- Card Body Details -->
                         <div class="p-6 space-y-4">
@@ -283,12 +307,12 @@
                             </div>
 
                             <!-- Metadata Chips Grid -->
-                            <div class="grid grid-cols-2 gap-2 text-xs pt-3 border-t border-surface-100 dark:border-surface-700/60">
-                                <div class="p-2.5 rounded-xl bg-surface-50 dark:bg-surface-700/50">
+                            <div class="grid grid-cols-2 gap-2 text-xs pt-3 border-t border-slate-100 dark:border-surface-700">
+                                <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-surface-700/50">
                                     <span class="text-[10px] text-surface-400 uppercase font-bold block">Jadwal</span>
                                     <span class="font-semibold text-surface-800 dark:text-surface-200 truncate block">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
                                 </div>
-                                <div class="p-2.5 rounded-xl bg-surface-50 dark:bg-surface-700/50">
+                                <div class="p-2.5 rounded-xl bg-slate-50 dark:bg-surface-700/50">
                                     <span class="text-[10px] text-surface-400 uppercase font-bold block">Durasi</span>
                                     <span class="font-semibold text-surface-800 dark:text-surface-200 truncate block">{{ $item->duration ?? '-' }}</span>
                                 </div>
@@ -325,8 +349,8 @@
                         </div>
                     </div>
 
-                    <!-- Card Actions Footer -->
-                    <div class="p-4 bg-surface-50 dark:bg-surface-700/40 border-t border-surface-200/80 dark:border-surface-700/80 flex items-center justify-between gap-2">
+                    <!-- Card Actions Footer (Smooth, No Harsh Border) -->
+                    <div class="p-4 bg-slate-50/70 dark:bg-surface-700/30 border-t border-slate-100 dark:border-surface-700 flex items-center justify-between gap-2">
                         <!-- Toggle Status Button -->
                         <form action="{{ route('dashboard.trainings.classes.toggle', $item->id) }}" method="POST" class="inline">
                             @csrf
@@ -341,7 +365,7 @@
                         <div class="flex items-center gap-2">
                             <!-- Edit Button -->
                             <button type="button" @click="openEdit({{ json_encode($item) }})"
-                                class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-surface-800 border border-surface-300 dark:border-surface-600 text-surface-700 dark:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors cursor-pointer shadow-2xs">
+                                class="px-3 py-1.5 rounded-xl text-xs font-bold bg-white dark:bg-surface-800 border border-slate-200 dark:border-surface-600 text-surface-700 dark:text-surface-200 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors cursor-pointer shadow-2xs">
                                 Edit
                             </button>
 
@@ -549,7 +573,7 @@
                         <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Flyer / Brosur Pelatihan (Gambar)</label>
                         <template x-if="editingClass.image_url">
                             <div class="mb-3 flex items-center gap-3 p-3 rounded-2xl bg-surface-50 dark:bg-surface-700/50 border border-surface-200 dark:border-surface-700">
-                                <img :src="editingClass.image_url" class="w-16 h-14 object-cover rounded-xl border border-surface-200/80 shadow-xs" alt="Flyer Preview">
+                                <img :src="editingClass.image_url" class="w-16 h-14 object-cover rounded-xl border border-slate-200 dark:border-surface-700 shadow-xs" alt="Flyer Preview">
                                 <div class="flex-1 text-xs">
                                     <span class="font-bold text-surface-800 dark:text-surface-100 block">Flyer Saat Ini Terpasang</span>
                                     <label class="inline-flex items-center gap-1.5 text-rose-600 hover:text-rose-700 cursor-pointer mt-1 font-semibold text-[11px]">

@@ -22,7 +22,7 @@
             </div>
             <div>
                 <a href="{{ route('dashboard.trainings.index') }}"
-                    class="px-4 py-2.5 rounded-xl text-xs font-bold text-surface-700 dark:text-surface-200 bg-white dark:bg-surface-800 hover:bg-surface-50 dark:hover:bg-surface-700 border border-surface-200/80 dark:border-surface-700/80 shadow-xs transition-all inline-flex items-center gap-2">
+                    class="px-4 py-2.5 rounded-xl text-xs font-bold text-surface-700 dark:text-surface-200 bg-white dark:bg-surface-800 hover:bg-surface-50 dark:hover:bg-surface-700 border border-slate-200 dark:border-surface-700 shadow-xs transition-all inline-flex items-center gap-2">
                     <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                     </svg>
@@ -33,8 +33,8 @@
     </x-slot:pageHeader>
 
     <div class="space-y-6">
-        <!-- Modern Sleek Segmented Navigation Tabs -->
-        <div class="p-1.5 bg-surface-100 dark:bg-surface-800/80 rounded-2xl border border-surface-200/80 dark:border-surface-700/80 inline-flex flex-wrap items-center gap-1.5 shadow-xs">
+        <!-- Modern Sleek Segmented Navigation Tabs (No Harsh Border) -->
+        <div class="p-1.5 bg-slate-100 dark:bg-surface-800 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-xs">
             <a href="{{ route('dashboard.trainings.classes') }}"
                 class="px-4 py-2 rounded-xl text-xs font-semibold transition-all inline-flex items-center gap-2 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-surface-700/50">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -73,10 +73,10 @@
             </a>
         </div>
 
-        <!-- Energetic Metrics Cards -->
+        <!-- Energetic Metrics Cards (Smooth) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
             <!-- Card 1: Total Codes -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Kode Afiliasi</span>
                     <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
@@ -92,7 +92,7 @@
             </div>
 
             <!-- Card 2: Total Usage -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Pendaftar via Referral</span>
                     <div class="w-10 h-10 rounded-2xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 flex items-center justify-center shadow-xs">
@@ -108,7 +108,7 @@
             </div>
 
             <!-- Card 3: Total Commission -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Total Akumulasi Komisi</span>
                     <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-xs">
@@ -124,8 +124,8 @@
             </div>
         </div>
 
-        <!-- Filter & Search Section -->
-        <div class="p-4 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs">
+        <!-- Filter & Search Section (Smooth) -->
+        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700">
             <form action="{{ route('dashboard.trainings.affiliates') }}" method="GET" class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
@@ -138,11 +138,11 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari kode referral, nama siswa pemilik kode, atau email..." 
-                        class="w-full pl-10 pr-4 py-2.5 text-xs font-medium border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                        class="w-full pl-10 pr-4 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
                     >
                 </div>
                 <div class="flex items-center gap-2">
-                    <button type="submit" class="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition-all cursor-pointer">
+                    <button type="submit" class="w-full sm:w-auto px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all cursor-pointer">
                         Cari Kode
                     </button>
                     @if(request('search'))
@@ -154,12 +154,12 @@
             </form>
         </div>
 
-        <!-- Affiliates Table Section -->
-        <div class="bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs overflow-hidden">
+        <!-- Affiliates Table Section (Smooth) -->
+        <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700 overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-surface-200/80 dark:border-surface-700/80 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
+                        <tr class="border-b border-slate-100 dark:border-surface-700 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
                             <th class="py-3.5 px-6">Kode Kupon Afiliasi</th>
                             <th class="py-3.5 px-6">Pemilik Kode (Siswa)</th>
                             <th class="py-3.5 px-6 text-center">Frekuensi Penggunaan</th>
@@ -239,7 +239,7 @@
             </div>
 
             @if($affiliates->hasPages())
-                <div class="p-4 border-t border-surface-200/80 dark:border-surface-700/80">
+                <div class="p-4 border-t border-slate-100 dark:border-surface-700">
                     {{ $affiliates->links() }}
                 </div>
             @endif

@@ -22,7 +22,7 @@
             </div>
             <div>
                 <a href="{{ route('dashboard.trainings.classes') }}"
-                    class="px-4 py-2.5 rounded-xl text-xs font-bold text-surface-700 dark:text-surface-200 bg-white dark:bg-surface-800 hover:bg-surface-50 dark:hover:bg-surface-700 border border-surface-200/80 dark:border-surface-700/80 shadow-xs transition-all inline-flex items-center gap-2">
+                    class="px-4 py-2.5 rounded-xl text-xs font-bold text-surface-700 dark:text-surface-200 bg-white dark:bg-surface-800 hover:bg-surface-50 dark:hover:bg-surface-700 border border-slate-200 dark:border-surface-700 shadow-xs transition-all inline-flex items-center gap-2">
                     <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
@@ -33,8 +33,8 @@
     </x-slot:pageHeader>
 
     <div class="space-y-6">
-        <!-- Modern Sleek Segmented Navigation Tabs -->
-        <div class="p-1.5 bg-surface-100 dark:bg-surface-800/80 rounded-2xl border border-surface-200/80 dark:border-surface-700/80 inline-flex flex-wrap items-center gap-1.5 shadow-xs">
+        <!-- Modern Sleek Segmented Navigation Tabs (No Harsh Border) -->
+        <div class="p-1.5 bg-slate-100 dark:bg-surface-800 rounded-2xl inline-flex flex-wrap items-center gap-1.5 shadow-xs">
             <a href="{{ route('dashboard.trainings.classes') }}"
                 class="px-4 py-2 rounded-xl text-xs font-semibold transition-all inline-flex items-center gap-2 text-surface-600 dark:text-surface-300 hover:text-surface-900 dark:hover:text-white hover:bg-white/50 dark:hover:bg-surface-700/50">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -70,10 +70,10 @@
             </a>
         </div>
 
-        <!-- Modern Energetic Metrics Cards -->
+        <!-- Modern Energetic Metrics Cards (Smooth) -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
             <!-- Card 1: Total -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-surface-400 uppercase tracking-wider">Total Pendaftar</span>
                     <div class="w-10 h-10 rounded-2xl bg-surface-100 dark:bg-surface-700 text-surface-600 dark:text-surface-300 flex items-center justify-center shadow-xs">
@@ -89,7 +89,7 @@
             </div>
 
             <!-- Card 2: Menunggu Verifikasi -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between {{ $stats['pending'] > 0 ? 'ring-2 ring-amber-500/20 bg-amber-50/10' : '' }}">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700 {{ $stats['pending'] > 0 ? 'ring-2 ring-amber-500/20 bg-amber-50/10' : '' }}">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-amber-600 dark:text-amber-400 uppercase tracking-wider">Perlu Verifikasi</span>
                     <div class="w-10 h-10 rounded-2xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shadow-xs">
@@ -105,7 +105,7 @@
             </div>
 
             <!-- Card 3: Aktif -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Siswa Aktif</span>
                     <div class="w-10 h-10 rounded-2xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shadow-xs">
@@ -121,7 +121,7 @@
             </div>
 
             <!-- Card 4: Lulus -->
-            <div class="p-5 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs flex flex-col justify-between">
+            <div class="p-5 bg-white dark:bg-surface-800 rounded-2xl shadow-sm hover:shadow-md transition-shadow flex flex-col justify-between border border-slate-100 dark:border-surface-700">
                 <div class="flex items-center justify-between mb-3">
                     <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Lulus & Tersertifikasi</span>
                     <div class="w-10 h-10 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shadow-xs">
@@ -137,8 +137,8 @@
             </div>
         </div>
 
-        <!-- Filter & Search Section -->
-        <div class="p-4 bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs">
+        <!-- Filter & Search Section (Smooth) -->
+        <div class="p-4 bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700">
             <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
                 <div class="relative flex-1">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
@@ -151,14 +151,14 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari nama peserta, email, nomor HP/WA, atau institusi..." 
-                        class="w-full pl-10 pr-4 py-2.5 text-xs font-medium border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                        class="w-full pl-10 pr-4 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
                     >
                 </div>
                 
                 <div class="w-full md:w-48">
                     <select 
                         name="status" 
-                        class="w-full px-3.5 py-2.5 text-xs font-medium border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
+                        class="w-full px-3.5 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
                     >
                         <option value="">Semua Status</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>⏳ Menunggu Bayar</option>
@@ -172,7 +172,7 @@
                     <div class="w-full md:w-56">
                         <select 
                             name="training_class_id" 
-                            class="w-full px-3.5 py-2.5 text-xs font-medium border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
+                            class="w-full px-3.5 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
                         >
                             <option value="">Semua Program Kelas</option>
                             @foreach($classesList as $cl)
@@ -185,7 +185,7 @@
                 @endif
 
                 <div class="flex items-center gap-2">
-                    <button type="submit" class="w-full md:w-auto px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-sm transition-all cursor-pointer">
+                    <button type="submit" class="w-full md:w-auto px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all cursor-pointer">
                         Filter Data
                     </button>
                     @if(request()->hasAny(['search', 'status', 'training_class_id']))
@@ -197,12 +197,12 @@
             </form>
         </div>
 
-        <!-- Participants Table Section -->
-        <div class="bg-white dark:bg-surface-800 rounded-3xl border border-surface-200/80 dark:border-surface-700/80 shadow-xs overflow-hidden">
+        <!-- Participants Table Section (Smooth, No Harsh Border) -->
+        <div class="bg-white dark:bg-surface-800 rounded-2xl shadow-sm border border-slate-100 dark:border-surface-700 overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="border-b border-surface-200/80 dark:border-surface-700/80 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
+                        <tr class="border-b border-slate-100 dark:border-surface-700 bg-surface-50/75 dark:bg-surface-900/40 text-[11px] font-bold text-surface-400 uppercase tracking-wider">
                             <th class="py-3.5 px-6">Informasi Peserta</th>
                             <th class="py-3.5 px-6">Program Kelas</th>
                             <th class="py-3.5 px-6">Status Pendaftaran</th>
@@ -381,7 +381,7 @@
             </div>
 
             @if($enrollments->hasPages())
-                <div class="p-4 border-t border-surface-200/80 dark:border-surface-700/80">
+                <div class="p-4 border-t border-slate-100 dark:border-surface-700">
                     {{ $enrollments->links() }}
                 </div>
             @endif
