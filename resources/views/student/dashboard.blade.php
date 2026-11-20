@@ -840,7 +840,7 @@
                             <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 dark:text-white">Daftar Kelas Pelatihan</h2>
                             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Pilih kelas yang sedang membuka pendaftaran untuk bergabung.</p>
                         </div>
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-800/40">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold border border-blue-200 dark:border-blue-900">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>{{ $availableClasses->count() }} Pelatihan Aktif</span>
                         </div>
