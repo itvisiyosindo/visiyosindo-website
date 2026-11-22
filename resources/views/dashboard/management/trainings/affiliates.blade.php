@@ -322,14 +322,18 @@
                                             <form action="{{ route('dashboard.trainings.withdrawals.approve', $wd->id) }}" method="POST"
                                                 onsubmit="return confirm('Tandai penarikan sebesar Rp {{ number_format($wd->amount, 0, ',', '.') }} ini sebagai Sudah Ditransfer?')">
                                                 @csrf
-                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer whitespace-nowrap">
+                                                <button type="submit"
+                                                    style="background-color: #059669; color: #ffffff;"
+                                                    class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer whitespace-nowrap">
                                                     Tandai Transfer
                                                 </button>
                                             </form>
                                             <form action="{{ route('dashboard.trainings.withdrawals.reject', $wd->id) }}" method="POST"
                                                 onsubmit="return confirm('Tolak pengajuan penarikan ini dan kembalikan saldo ke pelajar?')">
                                                 @csrf
-                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs cursor-pointer whitespace-nowrap">
+                                                <button type="submit"
+                                                    style="background-color: #fff1f2; color: #e11d48;"
+                                                    class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs cursor-pointer whitespace-nowrap">
                                                     Tolak
                                                 </button>
                                             </form>
