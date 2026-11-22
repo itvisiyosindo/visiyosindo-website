@@ -10,6 +10,7 @@ use App\Models\StudentCertificate;
 use App\Models\TrainingClass;
 use App\Models\TrainingEnrollment;
 use App\Models\TrainingMaterial;
+use App\Support\AcademySchemaEnsurer;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,6 +33,8 @@ class TrainingManagementController extends Controller
         if ($user && $user->isStudent() && !$user->isAdmin() && !$user->isAcademyAdmin()) {
             abort(403, 'Akses terbatas untuk Administrator Visilab Academy.');
         }
+
+        AcademySchemaEnsurer::ensure();
     }
 
     /**
@@ -285,7 +288,12 @@ class TrainingManagementController extends Controller
     {
         $this->authorizeManager();
 
-        $query = TrainingClass::withCount(['enrollments', 'materials'])->latest();
+        $withCounts = ['enrollments'];
+        if (Schema::hasTable('training_materials')) {
+            $withCounts[] = 'materials';
+        }
+
+        $query = TrainingClass::withCount($withCounts)->latest();
 
         if ($search = $request->get('search')) {
             $query->where(function ($q) use ($search) {

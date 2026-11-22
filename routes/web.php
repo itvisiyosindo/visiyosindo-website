@@ -221,6 +221,7 @@ Route::get('/pelatihan/{slug}', [StudentPortalController::class, 'classDetail'])
 
 // Public Certificate Verification
 Route::get('/verify-certificate/{code}', [PublicCertificateController::class, 'verify'])->name('certificate.verify');
+Route::get('/verify-certificate/{code}/file', [PublicCertificateController::class, 'file'])->name('certificate.verify.file');
 
 // Authenticated Student Portal
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {

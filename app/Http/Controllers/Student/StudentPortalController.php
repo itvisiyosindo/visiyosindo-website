@@ -10,6 +10,7 @@ use App\Models\StudentCertificate;
 use App\Models\TrainingClass;
 use App\Models\TrainingEnrollment;
 use App\Models\TrainingMaterial;
+use App\Support\AcademySchemaEnsurer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -29,6 +30,8 @@ class StudentPortalController extends Controller
      */
     public function dashboard(): View
     {
+        AcademySchemaEnsurer::ensure();
+
         $user = Auth::user();
         $academySettings = AcademySetting::allSettings();
         $adminWhatsApp = $academySettings['admin_whatsapp'];
@@ -37,8 +40,16 @@ class StudentPortalController extends Controller
         $minWithdrawal = (int) ($academySettings['affiliate_min_withdrawal'] ?? 50000);
 
         // Enrollments with class, materials, certificate & affiliate
+        $withRelations = ['trainingClass', 'certificate'];
+        if (Schema::hasTable('training_materials')) {
+            $withRelations[] = 'trainingClass.materials';
+        }
+        if (Schema::hasColumn('training_enrollments', 'affiliate_code_id')) {
+            $withRelations[] = 'affiliateCode';
+        }
+
         $enrollments = $user->enrollments()
-            ->with(['trainingClass.materials', 'certificate', 'affiliateCode'])
+            ->with($withRelations)
             ->latest()
             ->get();
 
@@ -209,6 +220,7 @@ class StudentPortalController extends Controller
      */
     public function classes(Request $request): View
     {
+        AcademySchemaEnsurer::ensure();
         $this->captureReferral($request);
 
         $classes = TrainingClass::where('is_active', true)->latest()->get();
@@ -227,12 +239,17 @@ class StudentPortalController extends Controller
      */
     public function classDetail(Request $request, string $slug): View
     {
+        AcademySchemaEnsurer::ensure();
         $this->captureReferral($request);
 
-        $trainingClass = TrainingClass::withCount('materials')
-            ->where('slug', $slug)
-            ->where('is_active', true)
-            ->firstOrFail();
+        $query = TrainingClass::where('slug', $slug)
+            ->where('is_active', true);
+
+        if (Schema::hasTable('training_materials')) {
+            $query->withCount('materials');
+        }
+
+        $trainingClass = $query->firstOrFail();
 
         $existingEnrollment = Auth::check()
             ? Auth::user()->enrollments()
@@ -250,6 +267,7 @@ class StudentPortalController extends Controller
      */
     public function checkout(Request $request, int $id): View|RedirectResponse
     {
+        AcademySchemaEnsurer::ensure();
         $this->captureReferral($request);
 
         $trainingClass = TrainingClass::where('is_active', true)->findOrFail($id);
@@ -363,6 +381,8 @@ class StudentPortalController extends Controller
      */
     public function enroll(Request $request, int $id): RedirectResponse
     {
+        AcademySchemaEnsurer::ensure();
+
         $trainingClass = TrainingClass::where('is_active', true)->findOrFail($id);
         $user = Auth::user();
 
@@ -476,6 +496,8 @@ class StudentPortalController extends Controller
      */
     public function uploadPaymentProof(Request $request, int $id): RedirectResponse
     {
+        AcademySchemaEnsurer::ensure();
+
         $user = Auth::user();
         $enrollment = TrainingEnrollment::where('id', $id)
             ->where('user_id', $user->id)
@@ -535,7 +557,14 @@ class StudentPortalController extends Controller
      */
     public function classroom(int $id): View
     {
-        $enrollment = TrainingEnrollment::with(['trainingClass.materials', 'certificate'])
+        AcademySchemaEnsurer::ensure();
+
+        $relations = ['trainingClass', 'certificate'];
+        if (Schema::hasTable('training_materials')) {
+            $relations[] = 'trainingClass.materials';
+        }
+
+        $enrollment = TrainingEnrollment::with($relations)
             ->where('id', $id)
             ->where('user_id', Auth::id())
             ->firstOrFail();
@@ -586,6 +615,8 @@ class StudentPortalController extends Controller
      */
     public function createAffiliateCode(Request $request): RedirectResponse
     {
+        AcademySchemaEnsurer::ensure();
+
         $user = Auth::user();
 
         $validated = $request->validate([
@@ -659,6 +690,8 @@ class StudentPortalController extends Controller
      */
     public function withdrawAffiliate(Request $request): RedirectResponse
     {
+        AcademySchemaEnsurer::ensure();
+
         $user = Auth::user();
         $minWithdrawal = (int) AcademySetting::getValue('affiliate_min_withdrawal', '50000');
 
