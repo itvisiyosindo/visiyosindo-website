@@ -373,7 +373,7 @@
                             </p>
                         </div>
 
-                        <!-- Remember Me -->
+                        <!-- Remember Me & Forgot Password -->
                         <div class="flex items-center justify-between">
                             <label class="flex items-center gap-3 cursor-pointer group">
                                 <input type="checkbox" x-model="form.remember" class="custom-checkbox">
@@ -381,6 +381,9 @@
                                     class="text-sm text-slate-600 dark:text-slate-400 group-hover:text-slate-900 dark:group-hover:text-slate-200 transition-colors">Ingat
                                     saya</span>
                             </label>
+                            <a href="{{ route('password.request') }}" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                                Lupa password?
+                            </a>
                         </div>
 
                         <!-- Submit Button -->

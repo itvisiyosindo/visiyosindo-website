@@ -152,9 +152,33 @@
 
                         <div class="p-6 space-y-4">
                             <div>
-                                <h3 class="text-xl font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
-                                    {{ $item->title }}
-                                </h3>
+                                <div class="flex flex-wrap items-center gap-1.5 mb-2">
+                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
+                                        {{ $item->delivery_mode_label }}
+                                    </span>
+                                    @if($item->remaining_quota !== null)
+                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_full ? 'bg-rose-100 text-rose-700' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300' }}">
+                                            {{ $item->is_full ? 'Kuota Penuh' : 'Sisa ' . $item->remaining_quota . ' Kursi' }}
+                                        </span>
+                                    @endif
+                                    @if($item->registration_deadline)
+                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $item->is_deadline_passed ? 'bg-rose-100 text-rose-700' : 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-300' }}">
+                                            Tutup: {{ $item->registration_deadline->format('d M Y') }}
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <a href="{{ route('student.classes.show', $item->slug) }}" class="block">
+                                    <h3 class="text-xl font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
+                                        {{ $item->title }}
+                                    </h3>
+                                </a>
+
+                                @if($item->instructor)
+                                    <p class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                                        Narasumber: {{ $item->instructor }}
+                                    </p>
+                                @endif
 
                                 @if($item->description)
                                     <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
@@ -191,7 +215,7 @@
                         </div>
                     </div>
 
-                    <div class="p-6 pt-0 mt-2">
+                    <div class="p-6 pt-0 mt-2 space-y-2.5">
                         <div class="flex items-baseline justify-between py-4 border-t border-slate-100 dark:border-slate-800">
                             <div>
                                 <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-black">Investasi Pelatihan</span>
@@ -199,33 +223,38 @@
                                     {{ $item->formatted_price }}
                                 </span>
                             </div>
+                            <a href="{{ route('student.classes.show', $item->slug) }}" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                                Lihat Silabus &rarr;
+                            </a>
                         </div>
 
                         @auth
                             @if ($isEnrolled)
-                                <a href="{{ route('student.dashboard') }}"
+                                <a href="{{ route('student.dashboard', ['#classes']) }}"
                                     class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-black text-xs transition-all">
                                     <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                     </svg>
                                     <span>Sudah Terdaftar (Buka Portal)</span>
                                 </a>
+                            @elseif(!$item->is_registration_open)
+                                <a href="{{ route('student.classes.show', $item->slug) }}"
+                                    class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs">
+                                    <span>{{ $item->is_full ? 'Kuota Penuh' : 'Pendaftaran Ditutup' }}</span>
+                                </a>
                             @else
-                                <form action="{{ route('student.enroll', $item->id) }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                        class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
-                                        <span>Daftar Kelas Ini Sekarang</span>
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                        </svg>
-                                    </button>
-                                </form>
+                                <a href="{{ route('student.checkout', $item->id) }}"
+                                    class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                    <span>Daftar & Checkout Kelas</span>
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </a>
                             @endif
                         @else
-                            <a href="{{ route('student.register') }}"
+                            <a href="{{ route('student.classes.show', $item->slug) }}"
                                 class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                <span>Daftar Akun & Gabung Kelas</span>
+                                <span>Lihat Detail & Daftar</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -248,10 +277,10 @@
                 &copy; {{ date('Y') }} PT Visi Yosindo Medikal. Seluruh hak cipta dilindungi.
             </div>
             <div class="flex items-center gap-6">
-                <a href="/" class="hover:text-blue-600 transition-colors">Beranda</a>
-                <a href="/tentang" class="hover:text-blue-600 transition-colors">Tentang Kami</a>
-                <a href="/layanan" class="hover:text-blue-600 transition-colors">Layanan</a>
-                <a href="/kontak" class="hover:text-blue-600 transition-colors">Kontak</a>
+                <a href="{{ route('home') }}" class="hover:text-blue-600 transition-colors">Beranda</a>
+                <a href="{{ route('products') }}" class="hover:text-blue-600 transition-colors">Produk</a>
+                <a href="{{ route('student.classes') }}" class="hover:text-blue-600 transition-colors">Katalog Pelatihan</a>
+                <a href="{{ route('contact') }}" class="hover:text-blue-600 transition-colors">Kontak</a>
             </div>
         </div>
     </footer>

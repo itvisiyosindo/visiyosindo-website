@@ -48,19 +48,31 @@
             title: '',
             category: 'Radiologi',
             batch_name: '',
+            instructor: '',
             price: 0,
+            quota: '',
+            registration_deadline: '',
             duration: '',
             schedule: '',
+            location: '',
+            delivery_mode: 'online',
             whatsapp_group_link: '',
             materials_link: '',
             image: '',
             image_url: '',
             description: '',
+            syllabus: '',
             is_active: true
         },
         openEdit(cls) {
             this.editingClass = { 
-                ...cls, 
+                ...cls,
+                instructor: cls.instructor || '',
+                quota: cls.quota || '',
+                registration_deadline: cls.registration_deadline ? String(cls.registration_deadline).substring(0, 10) : '',
+                location: cls.location || '',
+                delivery_mode: cls.delivery_mode || 'online',
+                syllabus: cls.syllabus || '',
                 image_url: cls.image ? '{{ asset('storage') }}/' + cls.image : '' 
             };
             this.showEditModal = true;
@@ -106,6 +118,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Program Afiliasi</span>
+            </a>
+            <a href="{{ route('dashboard.trainings.settings') }}"
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Pengaturan</span>
             </a>
         </div>
 
@@ -390,6 +410,16 @@
                                         <span>Modul Cloud Ready</span>
                                     </span>
                                 @endif
+
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold">
+                                    <span>{{ $item->materials_count ?? 0 }} Materi Portal</span>
+                                </span>
+
+                                @if($item->quota)
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold">
+                                        <span>Kuota: {{ $item->quota }}</span>
+                                    </span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -405,10 +435,14 @@
                             </button>
                         </form>
 
-                        <div class="flex items-center gap-2">
+                        <div class="flex items-center gap-1.5">
+                            <a href="{{ route('dashboard.trainings.materials', $item->id) }}"
+                                class="px-3 py-2 rounded-xl text-xs font-black text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 transition-all">
+                                Materi
+                            </a>
                             <button type="button" 
                                 @click="openEdit({{ json_encode($item) }})"
-                                class="px-4 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 shadow-sm transition-all cursor-pointer">
+                                class="px-3.5 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 shadow-sm transition-all cursor-pointer">
                                 Edit
                             </button>
                             <form action="{{ route('dashboard.trainings.classes.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini tidak dapat dibatalkan.');">
@@ -534,6 +568,40 @@
                         </div>
                     </div>
 
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Narasumber / Instruktur</label>
+                            <input type="text" name="instructor" value="{{ old('instructor') }}" placeholder="Cth: Tim Ahli BAPETEN / Visilab"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Mode Kelas</label>
+                            <select name="delivery_mode" class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                <option value="online" {{ old('delivery_mode') === 'online' ? 'selected' : '' }}>Online (Daring)</option>
+                                <option value="offline" {{ old('delivery_mode') === 'offline' ? 'selected' : '' }}>Offline (Tatap Muka)</option>
+                                <option value="hybrid" {{ old('delivery_mode') === 'hybrid' ? 'selected' : '' }}>Hybrid</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Lokasi / Platform</label>
+                            <input type="text" name="location" value="{{ old('location') }}" placeholder="Cth: Zoom / VISILAB Pekanbaru"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Kuota Maksimal Peserta</label>
+                            <input type="number" name="quota" min="1" value="{{ old('quota') }}" placeholder="Kosongkan jika tidak terbatas"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Batas Akhir Pendaftaran</label>
+                            <input type="date" name="registration_deadline" value="{{ old('registration_deadline') }}"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Link WhatsApp Group Peserta</label>
                         <input type="text" name="whatsapp_group_link" value="{{ old('whatsapp_group_link') }}" placeholder="https://chat.whatsapp.com/..."
@@ -542,15 +610,21 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Link Modul / Materi (Google Drive / Cloud)</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Link Modul / Materi Tambahan (Opsional)</label>
                         <input type="text" name="materials_link" value="{{ old('materials_link') }}" placeholder="https://drive.google.com/..."
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Deskripsi & Silabus Ringkas</label>
-                        <textarea name="description" rows="3" placeholder="Uraian materi pelatihan, kualifikasi narasumber, dan benefit peserta..."
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Deskripsi Program</label>
+                        <textarea name="description" rows="2" placeholder="Uraian singkat program pelatihan dan benefit peserta..."
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">{{ old('description') }}</textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Silabus / Kurikulum (1 Poin per Baris)</label>
+                        <textarea name="syllabus" rows="3" placeholder="Dasar Proteksi Radiasi&#10;Regulasi BAPETEN Terkini&#10;Praktik Pengukuran Paparan"
+                            class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">{{ old('syllabus') }}</textarea>
                     </div>
 
                     <div class="flex items-center gap-2 p-3 bg-surface-50 dark:bg-surface-700/50 rounded-xl">
@@ -660,6 +734,40 @@
                         </div>
                     </div>
 
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Narasumber</label>
+                            <input type="text" name="instructor" x-model="editingClass.instructor"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Mode Kelas</label>
+                            <select name="delivery_mode" x-model="editingClass.delivery_mode" class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                <option value="online">Online (Daring)</option>
+                                <option value="offline">Offline (Tatap Muka)</option>
+                                <option value="hybrid">Hybrid</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Lokasi / Platform</label>
+                            <input type="text" name="location" x-model="editingClass.location"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Kuota Maksimal</label>
+                            <input type="number" name="quota" min="1" x-model="editingClass.quota"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Batas Pendaftaran</label>
+                            <input type="date" name="registration_deadline" x-model="editingClass.registration_deadline"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Link WhatsApp Group</label>
                         <input type="text" name="whatsapp_group_link" x-model="editingClass.whatsapp_group_link"
@@ -667,14 +775,20 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Link Modul / Materi</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Link Modul / Materi Tambahan</label>
                         <input type="text" name="materials_link" x-model="editingClass.materials_link"
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Deskripsi</label>
-                        <textarea name="description" rows="3" x-model="editingClass.description"
+                        <textarea name="description" rows="2" x-model="editingClass.description"
+                            class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Silabus (1 Poin per Baris)</label>
+                        <textarea name="syllabus" rows="3" x-model="editingClass.syllabus"
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500"></textarea>
                     </div>
 

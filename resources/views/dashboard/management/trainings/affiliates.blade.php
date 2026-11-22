@@ -74,6 +74,14 @@
                 </svg>
                 <span>Program Afiliasi</span>
             </a>
+            <a href="{{ route('dashboard.trainings.settings') }}"
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Pengaturan</span>
+            </a>
         </div>
 
         <!-- High-Impact Energetic Metrics Cards -->
@@ -257,6 +265,92 @@
                     {{ $affiliates->links() }}
                 </div>
             @endif
+        </div>
+
+        <!-- Withdrawal Requests Section -->
+        <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-5">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <div>
+                    <h2 class="text-lg font-black text-slate-900 dark:text-white">Pengajuan Penarikan Komisi Pelajar</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">
+                        Skema aktif: Komisi {{ $academySettings['affiliate_commission_percent'] }}% &bull; Diskon Teman {{ $academySettings['affiliate_discount_percent'] }}% &bull;
+                        Menunggu Proses: <strong>{{ $withdrawalStats['pending_count'] }} ajuan (Rp {{ number_format($withdrawalStats['pending_amount'], 0, ',', '.') }})</strong> &bull;
+                        Total Sudah Ditransfer: <strong class="text-emerald-600">Rp {{ number_format($withdrawalStats['paid_amount'], 0, ',', '.') }}</strong>
+                    </p>
+                </div>
+            </div>
+
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse text-xs">
+                    <thead>
+                        <tr class="border-b border-slate-100 dark:border-slate-800 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                            <th class="py-3 px-4">Pelajar</th>
+                            <th class="py-3 px-4">Nominal</th>
+                            <th class="py-3 px-4">Rekening Tujuan</th>
+                            <th class="py-3 px-4">Status</th>
+                            <th class="py-3 px-4 text-right">Aksi Admin</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                        @forelse($withdrawals as $wd)
+                            <tr>
+                                <td class="py-3.5 px-4">
+                                    <div class="font-bold text-slate-900 dark:text-white">{{ $wd->user->name ?? 'Pelajar' }}</div>
+                                    <div class="text-[11px] text-slate-400">{{ $wd->created_at?->format('d M Y, H:i') }}</div>
+                                </td>
+                                <td class="py-3.5 px-4 font-black text-slate-900 dark:text-white">
+                                    Rp {{ number_format($wd->amount, 0, ',', '.') }}
+                                </td>
+                                <td class="py-3.5 px-4">
+                                    <div class="font-bold text-slate-800 dark:text-slate-200">{{ $wd->bank_name }}</div>
+                                    <div class="font-mono text-[11px] text-slate-500">{{ $wd->account_number }} a.n {{ $wd->account_holder }}</div>
+                                </td>
+                                <td class="py-3.5 px-4">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase
+                                        @if($wd->status === 'paid') bg-emerald-100 text-emerald-700
+                                        @elseif($wd->status === 'rejected') bg-rose-100 text-rose-700
+                                        @else bg-amber-100 text-amber-700 @endif">
+                                        {{ $wd->status_label }}
+                                    </span>
+                                    @if($wd->admin_notes)
+                                        <span class="block text-[11px] text-slate-400 mt-1">{{ $wd->admin_notes }}</span>
+                                    @endif
+                                </td>
+                                <td class="py-3.5 px-4 text-right">
+                                    @if($wd->status === 'pending')
+                                        <div class="flex items-center justify-end gap-2">
+                                            <form action="{{ route('dashboard.trainings.withdrawals.approve', $wd->id) }}" method="POST"
+                                                onsubmit="return confirm('Tandai penarikan sebesar Rp {{ number_format($wd->amount, 0, ',', '.') }} ini sebagai Sudah Ditransfer?')">
+                                                @csrf
+                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer">
+                                                    Tandai Transfer
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('dashboard.trainings.withdrawals.reject', $wd->id) }}" method="POST"
+                                                onsubmit="return confirm('Tolak pengajuan penarikan ini dan kembalikan saldo ke pelajar?')">
+                                                @csrf
+                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs cursor-pointer">
+                                                    Tolak
+                                                </button>
+                                            </form>
+                                        </div>
+                                    @else
+                                        <span class="text-[11px] text-slate-400">
+                                            Diproses {{ $wd->processed_at?->format('d M Y') }}
+                                        </span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="5" class="py-8 text-center text-slate-400">
+                                    Belum ada pengajuan penarikan komisi dari pelajar.
+                                </td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </x-layouts.dashboard>

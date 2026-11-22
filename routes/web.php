@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\GalleryCategoryController;
 use App\Http\Controllers\Admin\GalleryController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\Dashboard\AccountController;
 use App\Http\Controllers\Dashboard\AnalyticsController;
@@ -196,6 +197,12 @@ Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
 
+    // Forgot & Reset Password
+    Route::get('/forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+    Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
+
     // Student Registration
     Route::get('/pelajar/daftar', [StudentAuthController::class, 'showRegisterForm'])->name('student.register');
     Route::post('/pelajar/daftar', [StudentAuthController::class, 'register'])->name('student.register.submit');
@@ -208,8 +215,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->midd
 | Student Portal & Training Routes
 |--------------------------------------------------------------------------
 */
-// Public Training Catalogue
+// Public Training Catalogue & Class Detail
 Route::get('/pelatihan', [StudentPortalController::class, 'classes'])->name('student.classes');
+Route::get('/pelatihan/{slug}', [StudentPortalController::class, 'classDetail'])->name('student.classes.show');
 
 // Public Certificate Verification
 Route::get('/verify-certificate/{code}', [PublicCertificateController::class, 'verify'])->name('certificate.verify');
@@ -217,7 +225,13 @@ Route::get('/verify-certificate/{code}', [PublicCertificateController::class, 'v
 // Authenticated Student Portal
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
     Route::get('/dashboard', [StudentPortalController::class, 'dashboard'])->name('dashboard');
+    Route::get('/checkout/{id}', [StudentPortalController::class, 'checkout'])->name('checkout');
+    Route::post('/affiliate/validate-code', [StudentPortalController::class, 'validateAffiliateCode'])->name('affiliate.validate');
     Route::post('/enroll/{id}', [StudentPortalController::class, 'enroll'])->name('enroll');
+    Route::post('/enrollments/{id}/payment-proof', [StudentPortalController::class, 'uploadPaymentProof'])->name('enrollment.payment-proof');
+    Route::get('/enrollments/{id}/payment-proof', [StudentPortalController::class, 'viewPaymentProof'])->name('enrollment.payment-proof.view');
+    Route::get('/classroom/{id}', [StudentPortalController::class, 'classroom'])->name('classroom');
+    Route::get('/classroom/{enrollmentId}/materials/{materialId}', [StudentPortalController::class, 'downloadMaterial'])->name('classroom.material');
     Route::post('/profile', [StudentPortalController::class, 'updateProfile'])->name('profile.update');
     Route::post('/password', [StudentPortalController::class, 'updatePassword'])->name('password.update');
     Route::post('/affiliate', [StudentPortalController::class, 'createAffiliateCode'])->name('affiliate.create');
@@ -951,10 +965,12 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{user}', [UserManagementController::class, 'destroy'])->name('destroy')->middleware('permission:delete-users');
     });
 
-    // Visilab Academy Management (Classes, Enrollments, Certificates, Affiliates)
+    // Visilab Academy Management (Classes, Materials, Enrollments, Certificates, Affiliates, Settings)
     Route::prefix('dashboard/trainings')->name('dashboard.trainings.')->group(function () {
         // Enrollments & Verification
         Route::get('/', [TrainingManagementController::class, 'index'])->name('index');
+        Route::get('/export', [TrainingManagementController::class, 'exportEnrollments'])->name('export');
+        Route::get('/{id}/payment-proof', [TrainingManagementController::class, 'viewPaymentProof'])->name('payment-proof');
         Route::post('/{id}/approve', [TrainingManagementController::class, 'approve'])->name('approve');
         Route::post('/{id}/reject', [TrainingManagementController::class, 'reject'])->name('reject');
         Route::post('/{id}/complete', [TrainingManagementController::class, 'complete'])->name('complete');
@@ -966,10 +982,23 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/classes/{id}', [TrainingManagementController::class, 'classesDestroy'])->name('classes.destroy');
         Route::post('/classes/{id}/toggle', [TrainingManagementController::class, 'classesToggleActive'])->name('classes.toggle');
 
-        // Certificates List
-        Route::get('/certificates', [TrainingManagementController::class, 'certificatesIndex'])->name('certificates');
+        // Class Materials (PDF / Video / Links)
+        Route::get('/classes/{classId}/materials', [TrainingManagementController::class, 'materialsIndex'])->name('materials');
+        Route::post('/classes/{classId}/materials', [TrainingManagementController::class, 'materialsStore'])->name('materials.store');
+        Route::delete('/classes/{classId}/materials/{materialId}', [TrainingManagementController::class, 'materialsDestroy'])->name('materials.destroy');
 
-        // Affiliates List
+        // Certificates List & PDF Upload
+        Route::get('/certificates', [TrainingManagementController::class, 'certificatesIndex'])->name('certificates');
+        Route::post('/certificates/{id}/upload-pdf', [TrainingManagementController::class, 'uploadCertificatePdf'])->name('certificates.upload-pdf');
+        Route::get('/certificates/{id}/download', [TrainingManagementController::class, 'downloadCertificate'])->name('certificates.download');
+
+        // Affiliates & Withdrawals
         Route::get('/affiliates', [TrainingManagementController::class, 'affiliatesIndex'])->name('affiliates');
+        Route::post('/affiliates/withdrawals/{id}/approve', [TrainingManagementController::class, 'approveWithdrawal'])->name('withdrawals.approve');
+        Route::post('/affiliates/withdrawals/{id}/reject', [TrainingManagementController::class, 'rejectWithdrawal'])->name('withdrawals.reject');
+
+        // Academy Settings
+        Route::get('/settings', [TrainingManagementController::class, 'settingsIndex'])->name('settings');
+        Route::post('/settings', [TrainingManagementController::class, 'settingsUpdate'])->name('settings.update');
     });
 });

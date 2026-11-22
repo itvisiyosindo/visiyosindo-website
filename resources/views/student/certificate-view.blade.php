@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sertifikat - {{ $certificate->user->name }} - {{ $certificate->trainingClass->title }}</title>
+    <title>Sertifikat - {{ $certificate->display_recipient_name }} - {{ $certificate->trainingClass->title }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=cinzel:700|inter:400,600,700|playfair-display:700,900&display=swap" rel="stylesheet" />
@@ -119,12 +119,12 @@
                 </p>
 
                 <div class="font-serif-title text-2xl sm:text-4xl font-bold text-blue-900 tracking-wide border-b-2 border-amber-500 inline-block px-8 pb-2 mb-3">
-                    {{ $certificate->user->name }}
+                    {{ $certificate->display_recipient_name }}
                 </div>
 
-                @if ($certificate->user->institution)
+                @if ($certificate->display_recipient_institution)
                     <p class="text-xs text-slate-600 font-medium mb-3">
-                        {{ $certificate->user->institution }}
+                        {{ $certificate->display_recipient_institution }}
                     </p>
                 @endif
 

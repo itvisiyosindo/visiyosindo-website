@@ -16,6 +16,10 @@ class StudentCertificate extends Model
         'training_enrollment_id',
         'certificate_number',
         'verification_code',
+        'recipient_name',
+        'recipient_institution',
+        'pdf_path',
+        'original_filename',
         'issued_date',
         'notes',
     ];
@@ -42,5 +46,20 @@ class StudentCertificate extends Model
     public function getVerificationUrlAttribute(): string
     {
         return route('certificate.verify', $this->verification_code);
+    }
+
+    public function getDisplayRecipientNameAttribute(): string
+    {
+        return $this->recipient_name ?: ($this->user->name ?? 'Peserta');
+    }
+
+    public function getDisplayRecipientInstitutionAttribute(): ?string
+    {
+        return $this->recipient_institution ?: ($this->user->institution ?? null);
+    }
+
+    public function hasPdf(): bool
+    {
+        return !empty($this->pdf_path);
     }
 }

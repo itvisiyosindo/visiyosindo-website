@@ -35,7 +35,14 @@
         </div>
     </x-slot:pageHeader>
 
-    <div class="space-y-6">
+    <div class="space-y-6" x-data="{
+        showUploadModal: false,
+        uploadTarget: null,
+        openUpload(cert) {
+            this.uploadTarget = cert;
+            this.showUploadModal = true;
+        }
+    }">
         <!-- Modern Sleek Segmented Navigation Tabs (Smooth & Pill-based) -->
         <div class="p-1.5 bg-slate-200/60 dark:bg-slate-800/80 rounded-2xl inline-flex flex-wrap items-center gap-1.5 backdrop-blur-md">
             <a href="{{ route('dashboard.trainings.classes') }}"
@@ -73,6 +80,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Program Afiliasi</span>
+            </a>
+            <a href="{{ route('dashboard.trainings.settings') }}"
+                class="px-4 py-2 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-slate-800">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <span>Pengaturan</span>
             </a>
         </div>
 
@@ -188,10 +203,13 @@
                                     <div class="font-mono font-black text-blue-600 dark:text-blue-400 text-xs">
                                         {{ $cert->certificate_number }}
                                     </div>
-                                    <div class="text-[11px] font-mono text-slate-400 mt-1 flex items-center gap-1.5">
+                                    <div class="text-[11px] font-mono text-slate-400 mt-1 flex flex-wrap items-center gap-1.5">
                                         <span>Kode:</span>
                                         <span class="px-2 py-0.5 rounded-lg bg-slate-100 dark:bg-slate-800 font-extrabold text-slate-800 dark:text-slate-200">
                                             {{ $cert->verification_code }}
+                                        </span>
+                                        <span class="px-2 py-0.5 rounded-lg font-sans font-bold text-[10px] {{ $cert->hasPdf() ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700' }}">
+                                            {{ $cert->hasPdf() ? 'PDF Terunggah' : 'Belum Ada PDF' }}
                                         </span>
                                     </div>
                                 </td>
@@ -200,14 +218,14 @@
                                 <td class="py-4 px-6">
                                     <div class="flex items-center gap-3">
                                         <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-500 text-white font-black flex items-center justify-center text-xs shadow-sm flex-shrink-0">
-                                            {{ strtoupper(substr($cert->user->name ?? 'P', 0, 1)) }}
+                                            {{ strtoupper(substr($cert->display_recipient_name ?? 'P', 0, 1)) }}
                                         </div>
                                         <div>
                                             <div class="font-extrabold text-slate-900 dark:text-white text-sm">
-                                                {{ $cert->user->name }}
+                                                {{ $cert->display_recipient_name }}
                                             </div>
                                             <div class="text-xs text-slate-400 font-mono mt-0.5">
-                                                {{ $cert->user->email }}
+                                                {{ $cert->user->email ?? '-' }}
                                             </div>
                                         </div>
                                     </div>
@@ -242,19 +260,21 @@
                                 <!-- Actions -->
                                 <td class="py-4 px-6 text-right">
                                     <div class="flex items-center justify-end gap-2">
-                                        <a href="{{ route('student.certificate.view', $cert->id) }}" target="_blank"
+                                        <button type="button"
+                                            @click="openUpload({ id: {{ $cert->id }}, name: @js($cert->display_recipient_name), cert_number: @js($cert->certificate_number), issued_date: @js($cert->issued_date?->format('Y-m-d') ?? date('Y-m-d')), notes: @js($cert->notes ?? '') })"
+                                            class="px-3.5 py-2 rounded-xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all cursor-pointer">
+                                            {{ $cert->hasPdf() ? 'Ganti PDF' : 'Upload PDF' }}
+                                        </button>
+                                        <a href="{{ route('dashboard.trainings.certificates.download', $cert->id) }}" target="_blank"
                                             class="px-3.5 py-2 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5">
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
-                                            <span>Lihat Sertifikat</span>
+                                            <span>{{ $cert->hasPdf() ? 'Unduh PDF' : 'Lihat' }}</span>
                                         </a>
                                         <a href="{{ route('certificate.verify', $cert->verification_code) }}" target="_blank"
                                             class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all inline-flex items-center gap-1.5">
-                                            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                            </svg>
                                             <span>Verifikasi QR</span>
                                         </a>
                                     </div>
@@ -284,6 +304,59 @@
                     {{ $certificates->links() }}
                 </div>
             @endif
+        </div>
+
+        <!-- Modal: Upload / Ganti File Sertifikat PDF -->
+        <div x-cloak x-show="showUploadModal"
+            class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            <div @click.away="showUploadModal = false"
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h3 class="text-base font-black text-slate-900 dark:text-white">Upload File Sertifikat PDF</h3>
+                        <p class="text-xs text-slate-500" x-show="uploadTarget" x-text="uploadTarget ? uploadTarget.name : ''"></p>
+                    </div>
+                    <button type="button" @click="showUploadModal = false" class="text-slate-400 hover:text-slate-600">&times;</button>
+                </div>
+
+                <form :action="'{{ url('/dashboard/trainings/certificates') }}/' + (uploadTarget ? uploadTarget.id : '') + '/upload-pdf'"
+                    method="POST" enctype="multipart/form-data" class="space-y-4">
+                    @csrf
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">File PDF Sertifikat (Maks. 10 MB) <span class="text-rose-500">*</span></label>
+                        <input type="file" name="certificate_pdf" required accept=".pdf"
+                            class="w-full px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-200">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Nomor Sertifikat</label>
+                            <input type="text" name="certificate_number" :value="uploadTarget ? uploadTarget.cert_number : ''"
+                                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Tanggal Terbit</label>
+                            <input type="date" name="issued_date" :value="uploadTarget ? uploadTarget.issued_date : ''"
+                                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Catatan (Opsional)</label>
+                        <input type="text" name="notes" :value="uploadTarget ? uploadTarget.notes : ''"
+                            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
+                    </div>
+
+                    <div class="flex items-center justify-end gap-2 pt-2">
+                        <button type="button" @click="showUploadModal = false" class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold">
+                            Batal
+                        </button>
+                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black cursor-pointer">
+                            Upload & Simpan
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </x-layouts.dashboard>

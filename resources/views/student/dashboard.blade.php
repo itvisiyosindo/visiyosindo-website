@@ -94,9 +94,11 @@
         showPromoModal: false,
         showInfoModal: false,
         showReceiptModal: false,
+        showUploadProofModal: false,
         showEnrollModal: false,
         selectedEnrollClass: null,
         selectedInvoice: null,
+        selectedUploadInvoice: null,
         classFilter: 'all',
         copyNotice: false,
         copiedText: '',
@@ -117,6 +119,10 @@
             this.selectedInvoice = inv;
             this.showReceiptModal = true;
         },
+        openUploadProof(inv) {
+            this.selectedUploadInvoice = inv;
+            this.showUploadProofModal = true;
+        },
         openEnroll(cls) {
             this.selectedEnrollClass = cls;
             this.showEnrollModal = true;
@@ -125,11 +131,11 @@
     x-init="
         window.addEventListener('hashchange', () => {
             const h = window.location.hash.substring(1);
-            if (['overview', 'classes', 'browse', 'affiliate', 'invoices', 'profile'].includes(h)) {
+            if (['overview', 'classes', 'browse', 'history', 'affiliate', 'invoices', 'profile'].includes(h)) {
                 currentTab = h;
             }
         });
-        if (!['overview', 'classes', 'browse', 'affiliate', 'invoices', 'profile'].includes(currentTab)) {
+        if (!['overview', 'classes', 'browse', 'history', 'affiliate', 'invoices', 'profile'].includes(currentTab)) {
             currentTab = 'overview';
         }
     ">
@@ -260,6 +266,30 @@
                     </span>
                 </button>
 
+                <!-- 3b. Riwayat Belajar & Sertifikat -->
+                <button type="button" @click="setTab('history')"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
+                    :class="currentTab === 'history'
+                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                        : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
+                    :style="currentTab === 'history'
+                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
+                        :class="currentTab === 'history' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </span>
+                    <span class="flex-1 text-left truncate font-semibold">Riwayat Belajar</span>
+                    @if($certificates->count() > 0)
+                        <span class="shrink-0 inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
+                            :class="currentTab === 'history' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'">
+                            {{ $certificates->count() }}
+                        </span>
+                    @endif
+                </button>
+
                 <div class="px-3 pt-3.5 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Keuangan & Program
                 </div>
@@ -282,7 +312,7 @@
                     <span class="flex-1 text-left truncate font-semibold">Afiliasi</span>
                     <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
                         :class="currentTab === 'affiliate' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
-                        20% Komisi
+                        {{ $academySettings['affiliate_commission_percent'] }}% Komisi
                     </span>
                 </button>
 
@@ -303,7 +333,7 @@
                     </span>
                     <span class="flex-1 text-left truncate font-semibold">Invoice</span>
                     @php
-                        $unpaidCount = $invoices->where('is_paid', false)->count();
+                        $unpaidCount = $invoices->where('is_paid', false)->where('is_cancelled', false)->count();
                     @endphp
                     @if($unpaidCount > 0)
                         <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all"
@@ -403,7 +433,7 @@
                         <span class="hover:text-slate-700 cursor-pointer transition-colors" @click="setTab('overview')">Student Portal</span>
                         <span class="text-slate-300 dark:text-slate-600">/</span>
                         <span class="text-slate-900 dark:text-white font-bold capitalize"
-                            x-text="currentTab === 'overview' ? 'Overview' : (currentTab === 'classes' ? 'Kelas Saya' : (currentTab === 'browse' ? 'Daftar Kelas' : (currentTab === 'affiliate' ? 'Program Afiliasi' : (currentTab === 'invoices' ? 'Riwayat Invoice' : 'Profil & Akun'))))">
+                            x-text="currentTab === 'overview' ? 'Overview' : (currentTab === 'classes' ? 'Kelas Saya' : (currentTab === 'browse' ? 'Daftar Kelas' : (currentTab === 'history' ? 'Riwayat Belajar' : (currentTab === 'affiliate' ? 'Program Afiliasi' : (currentTab === 'invoices' ? 'Riwayat Invoice' : 'Profil & Akun')))))">
                             Overview
                         </span>
                     </div>
@@ -463,7 +493,7 @@
                                 </h2>
 
                                 <p class="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
-                                    Tingkatkan keahlian praktis bersama instruktur industri alat kesehatan & radiologi. Raih <strong class="text-white font-bold">e-Sertifikat resmi ber-QR Code</strong> dan nikmati pasif income <strong class="text-amber-300 font-black">komisi 20% afiliasi</strong>!
+                                    Tingkatkan keahlian praktis bersama instruktur industri alat kesehatan & radiologi. Raih <strong class="text-white font-bold">e-Sertifikat resmi</strong> dan nikmati pasif income <strong class="text-amber-300 font-black">komisi {{ $academySettings['affiliate_commission_percent'] }}% afiliasi</strong>!
                                 </p>
                             </div>
 
@@ -482,7 +512,7 @@
                                     style="background: rgba(255, 255, 255, 0.15) !important; color: #ffffff !important;"
                                     class="px-5 py-3 rounded-2xl hover:bg-white/20 font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs">
                                     <span class="text-amber-300 text-base">💰</span>
-                                    <span style="color: #ffffff !important;" class="font-bold">Program Afiliasi 20%</span>
+                                    <span style="color: #ffffff !important;" class="font-bold">Program Afiliasi {{ $academySettings['affiliate_commission_percent'] }}%</span>
                                 </button>
                             </div>
                         </div>
@@ -570,11 +600,11 @@
                             </div>
                             <div>
                                 <div style="color: #0c2a52 !important;" class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight">
-                                    {{ $invoices->where('is_paid', false)->count() }}
+                                    {{ $unpaidCount }}
                                 </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold {{ $invoices->where('is_paid', false)->count() > 0 ? 'bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300' : 'bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300' }}">
-                                    <span class="w-1.5 h-1.5 rounded-full {{ $invoices->where('is_paid', false)->count() > 0 ? 'bg-amber-500 animate-pulse' : 'bg-blue-600' }}"></span>
-                                    <span>{{ $invoices->where('is_paid', false)->count() > 0 ? 'Menunggu Pembayaran' : 'Semua Tagihan Lunas' }}</span>
+                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold {{ $unpaidCount > 0 ? 'bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300' : 'bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300' }}">
+                                    <span class="w-1.5 h-1.5 rounded-full {{ $unpaidCount > 0 ? 'bg-amber-500 animate-pulse' : 'bg-blue-600' }}"></span>
+                                    <span>{{ $unpaidCount > 0 ? 'Menunggu Pembayaran' : 'Semua Tagihan Lunas' }}</span>
                                 </span>
                             </div>
                         </div>
@@ -609,22 +639,17 @@
                                 </div>
 
                                 <div class="flex flex-wrap items-center gap-3 shrink-0">
+                                    <a href="{{ route('student.classroom', $activeClass->id) }}"
+                                        style="background-color: #fbbf24 !important; color: #0f172a !important;"
+                                        class="vb-gold-btn px-5 py-2.5 rounded-2xl font-display font-black text-xs sm:text-sm shadow-lg shadow-blue-950/25 flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                        <span>Masuk Ruang Kelas</span>
+                                        <svg class="w-4 h-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    </a>
+
                                     @if($activeClass->trainingClass->whatsapp_group_link)
                                         <a href="{{ $activeClass->trainingClass->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
-                                            style="background-color: #fbbf24 !important; color: #0f172a !important;"
-                                            class="vb-gold-btn px-5 py-2.5 rounded-2xl font-display font-black text-xs sm:text-sm shadow-lg shadow-blue-950/25 flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                                            <svg class="w-4 h-4 text-slate-950" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                                            <span>Masuk WhatsApp Grup</span>
-                                        </a>
-                                    @endif
-
-                                    @if($activeClass->trainingClass->materials_link)
-                                        <a href="{{ $activeClass->trainingClass->materials_link }}" target="_blank" rel="noopener noreferrer"
                                             class="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-xs">
-                                            <svg class="w-4 h-4 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                            </svg>
-                                            <span>Buka Materi</span>
+                                            <span>WhatsApp Grup</span>
                                         </a>
                                     @endif
                                 </div>
@@ -663,9 +688,9 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <h4 style="color: #0c2a52 !important;" class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-amber-600 transition-colors">Dapatkan Komisi 20%</h4>
+                                <h4 style="color: #0c2a52 !important;" class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-amber-600 transition-colors">Dapatkan Komisi {{ $academySettings['affiliate_commission_percent'] }}%</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
-                                    Bagikan kode referral unik milikmu ke teman kuliah atau rumah sakit, raih penghasilan pasif reward jutaan rupiah tiap pendaftaran.
+                                    Bagikan kode referral unik milikmu ke teman kuliah atau rumah sakit, teman dapat diskon {{ $academySettings['affiliate_discount_percent'] }}% dan kamu dapat komisi {{ $academySettings['affiliate_commission_percent'] }}% tiap pendaftaran lunas.
                                 </p>
                             </div>
                             <span style="color: #d97706 !important;" class="inline-flex items-center gap-2 text-xs font-black group-hover:gap-3 transition-all">
@@ -841,52 +866,68 @@
                                     </div>
 
                                     <!-- Action Buttons -->
-                                    <div class="p-6 pt-0 mt-2 flex flex-wrap items-center gap-2.5">
+                                    <div class="p-6 pt-0 mt-2 space-y-2.5">
                                         @if($enrollment->status === 'pending')
-                                            <!-- Pending: Need manual WA confirmation -->
-                                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran untuk pendaftaran kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
-                                                target="_blank" rel="noopener noreferrer"
-                                                class="flex-1 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl shadow-md shadow-emerald-500/20 text-center inline-flex items-center justify-center gap-2 transition-all">
-                                                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                                                <span>Konfirmasi Bayar WA</span>
-                                            </a>
-                                            <button type="button" @click="setTab('invoices')"
-                                                class="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 transition-all">
-                                                Lihat Invoice
-                                            </button>
+                                            @if($enrollment->hasPaymentProof())
+                                                <div class="px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center justify-between">
+                                                    <span>Bukti bayar diunggah — Menunggu verifikasi admin</span>
+                                                    <a href="{{ route('student.enrollment.payment-proof.view', $enrollment->id) }}" target="_blank" class="underline">Lihat</a>
+                                                </div>
+                                            @endif
+                                            <div class="flex flex-wrap items-center gap-2">
+                                                <button type="button"
+                                                    @click="openUploadProof({ id: {{ $enrollment->id }}, invoice_no: @js($enrollment->effective_invoice_no), class_title: @js($cls->title ?? 'Pelatihan'), formatted_amount: @js($enrollment->effective_final_price > 0 ? 'Rp ' . number_format($enrollment->effective_final_price, 0, ',', '.') : 'Gratis') })"
+                                                    class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 text-center transition-all cursor-pointer">
+                                                    {{ $enrollment->hasPaymentProof() ? 'Ganti Bukti Bayar' : 'Upload Bukti Bayar' }}
+                                                </button>
+                                                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran Invoice ' . $enrollment->effective_invoice_no . ' untuk kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
+                                                    target="_blank" rel="noopener noreferrer"
+                                                    class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl transition-all">
+                                                    WA Admin
+                                                </a>
+                                            </div>
                                         @elseif($enrollment->status === 'active')
-                                            <!-- Active Class Actions -->
-                                            @if($cls->whatsapp_group_link)
-                                                <a href="{{ $cls->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
-                                                    class="flex-1 px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl shadow-md shadow-emerald-500/20 text-center inline-flex items-center justify-center gap-1.5 transition-all">
-                                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                                                    <span>Grup WhatsApp</span>
+                                            <div class="flex flex-wrap items-center gap-2">
+                                                <a href="{{ route('student.classroom', $enrollment->id) }}"
+                                                    class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 text-center transition-all">
+                                                    Masuk Ruang Kelas
                                                 </a>
-                                            @endif
-                                            @if($cls->materials_link)
-                                                <a href="{{ $cls->materials_link }}" target="_blank" rel="noopener noreferrer"
-                                                    class="px-4 py-2.5 bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 hover:bg-blue-100 font-black text-xs rounded-2xl inline-flex items-center gap-1.5 transition-all">
-                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
-                                                    <span>Materi</span>
-                                                </a>
-                                            @endif
+                                                @if($cls->whatsapp_group_link)
+                                                    <a href="{{ $cls->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
+                                                        class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl transition-all">
+                                                        Grup WA
+                                                    </a>
+                                                @endif
+                                            </div>
                                         @elseif($enrollment->status === 'completed')
-                                            <!-- Completed: Certificate download -->
-                                            @if($enrollment->certificate)
-                                                <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}" target="_blank"
-                                                    class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs rounded-2xl text-center inline-flex items-center justify-center gap-1.5 shadow-md shadow-blue-500/20 transition-all">
-                                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                                    </svg>
-                                                    <span>Unduh E-Sertifikat</span>
-                                                </a>
-                                                <a href="{{ route('certificate.verify', $enrollment->certificate->verification_code) }}" target="_blank"
+                                            <div class="flex flex-wrap items-center gap-2">
+                                                <a href="{{ route('student.classroom', $enrollment->id) }}"
                                                     class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 transition-all">
-                                                    Verifikasi
+                                                    Ruang Kelas
                                                 </a>
-                                            @else
-                                                <span class="text-xs text-slate-400 italic">Sertifikat sedang dalam proses penerbitan</span>
+                                                @if($enrollment->certificate)
+                                                    <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}" target="_blank"
+                                                        class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs rounded-2xl text-center shadow-md shadow-blue-500/20 transition-all">
+                                                        {{ $enrollment->certificate->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
+                                                    </a>
+                                                    <a href="{{ route('certificate.verify', $enrollment->certificate->verification_code) }}" target="_blank"
+                                                        class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 transition-all">
+                                                        Verifikasi
+                                                    </a>
+                                                @else
+                                                    <span class="text-xs text-slate-400 italic">Sertifikat sedang dalam proses penerbitan</span>
+                                                @endif
+                                            </div>
+                                        @elseif($enrollment->status === 'cancelled')
+                                            @if($enrollment->rejection_reason)
+                                                <p class="text-[11px] text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-3 py-2 rounded-xl">
+                                                    Alasan: {{ $enrollment->rejection_reason }}
+                                                </p>
                                             @endif
+                                            <a href="{{ route('student.checkout', $cls->id) }}"
+                                                class="w-full py-2.5 px-4 rounded-2xl bg-slate-900 dark:bg-blue-600 text-white font-black text-xs text-center block transition-all">
+                                                Daftar Ulang Kelas Ini
+                                            </a>
                                         @endif
                                     </div>
                                 </div>
@@ -965,14 +1006,26 @@
                                         <!-- Content -->
                                         <div class="p-6 space-y-4">
                                             <div>
-                                                @if($class->batch_name && !$class->image)
-                                                    <span class="text-xs text-blue-950 vb-text-navy dark:text-blue-400 font-bold block mb-1 uppercase tracking-wide">
-                                                        {{ $class->batch_name }}
+                                                <div class="flex flex-wrap items-center gap-1.5 mb-2">
+                                                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
+                                                        {{ $class->delivery_mode_label }}
                                                     </span>
+                                                    @if($class->remaining_quota !== null)
+                                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold {{ $class->is_full ? 'bg-rose-100 text-rose-700' : 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300' }}">
+                                                            {{ $class->is_full ? 'Kuota Penuh' : 'Sisa ' . $class->remaining_quota . ' Kursi' }}
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                                <a href="{{ route('student.classes.show', $class->slug) }}" class="block">
+                                                    <h3 class="font-display font-bold text-blue-950 vb-text-navy dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
+                                                        {{ $class->title }}
+                                                    </h3>
+                                                </a>
+                                                @if($class->instructor)
+                                                    <p class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                                                        Narasumber: {{ $class->instructor }}
+                                                    </p>
                                                 @endif
-                                                <h3 class="font-display font-bold text-blue-950 vb-text-navy dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
-                                                    {{ $class->title }}
-                                                </h3>
                                                 @if($class->description)
                                                     <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
                                                         {{ $class->description }}
@@ -997,7 +1050,9 @@
                                                     <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Investasi</span>
                                                     <div class="text-xl font-display font-black text-blue-950 vb-text-navy dark:text-blue-400">{{ $class->formatted_price }}</div>
                                                 </div>
-                                                <span class="text-[11px] text-slate-400 font-medium">{{ $class->price > 0 ? 'Resmi' : 'Gratis' }}</span>
+                                                <a href="{{ route('student.classes.show', $class->slug) }}" class="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                                                    Detail & Silabus &rarr;
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
@@ -1006,20 +1061,22 @@
                                     <div class="p-6 pt-0">
                                         @if($isAlreadyEnrolled)
                                             <button type="button" @click="setTab('classes')"
-                                                class="w-full py-2.5 px-4 rounded-xl bg-blue-50 dark:bg-slate-800 text-blue-950 vb-text-navy dark:text-blue-300 font-black text-xs flex items-center justify-center gap-1.5">
+                                                class="w-full py-2.5 px-4 rounded-xl bg-blue-50 dark:bg-slate-800 text-blue-950 vb-text-navy dark:text-blue-300 font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer">
                                                 <svg class="w-4 h-4 text-emerald-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                                                 <span>Sudah Terdaftar (Buka Kelas)</span>
                                             </button>
+                                        @elseif(!$class->is_registration_open)
+                                            <a href="{{ route('student.classes.show', $class->slug) }}"
+                                                class="w-full py-2.5 px-4 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs text-center block">
+                                                {{ $class->is_full ? 'Kuota Penuh' : 'Pendaftaran Ditutup' }}
+                                            </a>
                                         @else
-                                            <form action="{{ route('student.enroll', $class->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit"
-                                                    style="background-color: #0c2a52 !important; color: #ffffff !important;"
-                                                    class="vb-navy-btn w-full py-2.5 px-4 rounded-xl text-white font-black text-xs shadow-md shadow-blue-950/20 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all cursor-pointer">
-                                                    <span>Daftar Kelas Ini</span>
-                                                    <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                                                </button>
-                                            </form>
+                                            <a href="{{ route('student.checkout', $class->id) }}"
+                                                style="background-color: #0c2a52 !important; color: #ffffff !important;"
+                                                class="vb-navy-btn w-full py-2.5 px-4 rounded-xl text-white font-black text-xs shadow-md shadow-blue-950/20 flex items-center justify-center gap-2 hover:scale-[1.01] transition-all">
+                                                <span>Daftar & Checkout</span>
+                                                <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                            </a>
                                         @endif
                                     </div>
                                 </div>
@@ -1029,15 +1086,152 @@
                 </div>
 
                 <!-- ============================================================= -->
-                <!-- TAB 4: AFILIASI (Sesuai Referensi Gambar yang Diunggah Pengguna) -->
+                <!-- TAB 3B: RIWAYAT BELAJAR & ARSIP SERTIFIKAT -->
+                <!-- ============================================================= -->
+                <div x-cloak x-show="currentTab === 'history'" class="space-y-8">
+                    <div>
+                        <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 dark:text-white">Riwayat Belajar & Sertifikat</h2>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Catatan lengkap seluruh pelatihan yang pernah diikuti dan arsip sertifikat PDF resmi Anda.</p>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
+                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Total Kelas Diikuti</span>
+                            <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">{{ $learningStats['total_classes'] }}</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
+                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Sedang Berjalan</span>
+                            <div class="text-2xl sm:text-3xl font-black text-blue-600 dark:text-blue-400 mt-1">{{ $learningStats['active_classes'] }}</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
+                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Kelas Selesai / Lulus</span>
+                            <div class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{{ $learningStats['completed_classes'] }}</div>
+                        </div>
+                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
+                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Sertifikat Dimiliki</span>
+                            <div class="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 mt-1">{{ $learningStats['total_certificates'] }}</div>
+                        </div>
+                    </div>
+
+                    <!-- Certificates Archive -->
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Arsip Sertifikat Resmi</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Unduh salinan sertifikat PDF resmi yang diterbitkan Visilab Academy.</p>
+                            </div>
+                        </div>
+
+                        @if($certificates->isEmpty())
+                            <div class="p-8 text-center rounded-2xl bg-slate-50 dark:bg-slate-800/50 text-xs text-slate-400">
+                                Belum ada sertifikat yang diterbitkan. Selesaikan kelas pelatihan untuk mendapatkan sertifikat resmi.
+                            </div>
+                        @else
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                @foreach($certificates as $cert)
+                                    <div class="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800 flex flex-col justify-between gap-4">
+                                        <div>
+                                            <div class="flex items-center justify-between gap-2 mb-2">
+                                                <span class="font-mono text-[11px] font-bold text-blue-600 dark:text-blue-400">{{ $cert->certificate_number }}</span>
+                                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black {{ $cert->hasPdf() ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700' }}">
+                                                    {{ $cert->hasPdf() ? 'PDF Resmi' : 'e-Sertifikat' }}
+                                                </span>
+                                            </div>
+                                            <h4 class="text-sm font-black text-slate-900 dark:text-white">{{ $cert->trainingClass->title ?? 'Pelatihan' }}</h4>
+                                            <p class="text-[11px] text-slate-500 mt-1">
+                                                Penerima: <strong class="text-slate-700 dark:text-slate-300">{{ $cert->display_recipient_name }}</strong> &bull;
+                                                Terbit: {{ $cert->issued_date?->translatedFormat('d M Y') ?? '-' }}
+                                            </p>
+                                        </div>
+                                        <div class="flex items-center gap-2">
+                                            <a href="{{ route('student.certificate.view', $cert->id) }}" target="_blank"
+                                                class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black text-center transition-colors">
+                                                {{ $cert->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
+                                            </a>
+                                            <a href="{{ route('certificate.verify', $cert->verification_code) }}" target="_blank"
+                                                class="py-2 px-3 rounded-xl bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                                                Verifikasi QR
+                                            </a>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Chronological Learning Timeline -->
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+                        <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Jejak Kelas yang Pernah Diikuti</h3>
+
+                        @php
+                            $historyEnrollments = $enrollments->where('status', '!=', 'cancelled');
+                        @endphp
+
+                        @if($historyEnrollments->isEmpty())
+                            <div class="p-8 text-center rounded-2xl bg-slate-50 dark:bg-slate-800/50 text-xs text-slate-400">
+                                Belum ada riwayat kelas. Mulai dengan mendaftar pada menu Daftar Kelas.
+                            </div>
+                        @else
+                            <div class="space-y-4">
+                                @foreach($historyEnrollments as $hist)
+                                    <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                        <div class="space-y-1">
+                                            <div class="flex flex-wrap items-center gap-2">
+                                                <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase
+                                                    @if($hist->status === 'completed') bg-emerald-100 text-emerald-700
+                                                    @elseif($hist->status === 'active') bg-blue-100 text-blue-700
+                                                    @else bg-amber-100 text-amber-700 @endif">
+                                                    {{ $hist->status_label }}
+                                                </span>
+                                                <span class="text-[11px] text-slate-400 font-mono">
+                                                    Daftar: {{ $hist->created_at?->translatedFormat('d M Y') }}
+                                                </span>
+                                                @if($hist->completed_at)
+                                                    <span class="text-[11px] text-emerald-600 font-semibold">
+                                                        &bull; Lulus: {{ $hist->completed_at->translatedFormat('d M Y') }}
+                                                    </span>
+                                                @endif
+                                            </div>
+                                            <h4 class="text-sm font-black text-slate-900 dark:text-white">{{ $hist->trainingClass->title ?? 'Pelatihan' }}</h4>
+                                            <p class="text-xs text-slate-500">
+                                                {{ $hist->trainingClass->batch_name ?? '-' }}
+                                                @if($hist->trainingClass->instructor)
+                                                    &bull; Narasumber: {{ $hist->trainingClass->instructor }}
+                                                @endif
+                                            </p>
+                                        </div>
+
+                                        <div class="flex items-center gap-2 shrink-0">
+                                            @if($hist->isPaid())
+                                                <a href="{{ route('student.classroom', $hist->id) }}"
+                                                    class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors">
+                                                    Ruang Kelas
+                                                </a>
+                                            @endif
+                                            @if($hist->certificate)
+                                                <a href="{{ route('student.certificate.view', $hist->certificate->id) }}" target="_blank"
+                                                    class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors">
+                                                    Sertifikat
+                                                </a>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <!-- ============================================================= -->
+                <!-- TAB 4: AFILIASI -->
                 <!-- ============================================================= -->
                 <div x-cloak x-show="currentTab === 'affiliate'" class="space-y-8">
-                    <!-- Header Section Sesuai Screenshot -->
                     <div class="space-y-2">
                         <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Program Afiliasi</span>
                         <h2 class="text-3xl font-display font-extrabold text-slate-900 dark:text-white">Afiliasi</h2>
                         <p class="text-sm text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-                            Dapatkan komisi <strong class="text-blue-600 dark:text-blue-400">20%</strong> dari harga yang dibayarkan oleh peserta baru yang bergabung ke sebuah kelas menggunakan kode afiliasi milikmu yang bisa kamu buat sendiri.
+                            Dapatkan komisi <strong class="text-blue-600 dark:text-blue-400">{{ $affiliateStats['commission_percent'] }}%</strong> dari total pembayaran peserta baru yang mendaftar menggunakan kode afiliasimu (teman juga mendapat diskon <strong class="text-amber-600 dark:text-amber-400">{{ $affiliateStats['discount_percent'] }}%</strong>).
                             <button type="button" @click="showInfoModal = true" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Baca informasi lebih lanjut</button>.
                             Ikuti grup afiliasi untuk informasi terupdate
                             <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bergabung ke grup komunitas afiliasi Visilab Academy.') }}"
@@ -1063,9 +1257,16 @@
                                 </div>
 
                                 <!-- Big Amount -->
-                                <div class="text-3xl sm:text-5xl font-display font-black tracking-tight text-white mb-6">
+                                <div class="text-3xl sm:text-5xl font-display font-black tracking-tight text-white mb-2">
                                     Rp {{ number_format($affiliateStats['balance'], 0, ',', '.') }}
                                 </div>
+                                @if($affiliateStats['pending_withdrawal'] > 0)
+                                    <p class="text-xs text-amber-300 font-semibold mb-4">
+                                        Sedang diproses: Rp {{ number_format($affiliateStats['pending_withdrawal'], 0, ',', '.') }}
+                                    </p>
+                                @else
+                                    <div class="mb-4"></div>
+                                @endif
 
                                 <!-- Tarik Komisi Button -->
                                 <button type="button" @click="showWithdrawModal = true"
@@ -1243,7 +1444,7 @@
                                 <div>
                                     <h3 class="text-lg font-display font-extrabold text-blue-950 vb-text-navy dark:text-white">Daftar Kode Afiliasimu</h3>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                                        Pengguna baru yang menggunakan kode afiliasimu saat registrasi kelas, akan mendapatkan diskon <strong class="text-amber-600 dark:text-amber-400">10%</strong>.
+                                        Pengguna baru yang menggunakan kode afiliasimu saat checkout kelas akan mendapatkan diskon <strong class="text-amber-600 dark:text-amber-400">{{ $affiliateStats['discount_percent'] }}%</strong> dan kamu memperoleh komisi <strong class="text-blue-600 dark:text-blue-400">{{ $affiliateStats['commission_percent'] }}%</strong>.
                                     </p>
                                 </div>
                                 <button type="button" @click="showNewCodeModal = true"
@@ -1328,24 +1529,94 @@
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Afiliasi Terakhir</h3>
-                                    <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                    <span class="text-[11px] font-bold text-slate-400">{{ $recentReferrals->count() }} Terbaru</span>
                                 </div>
 
-                                <div class="p-6 bg-slate-50 dark:bg-slate-800/40 rounded-2xl text-center space-y-2">
-                                    <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 mx-auto flex items-center justify-center text-slate-400">
-                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                @if($recentReferrals->isEmpty())
+                                    <div class="p-6 bg-slate-50 dark:bg-slate-800/40 rounded-2xl text-center space-y-2">
+                                        <div class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-700 mx-auto flex items-center justify-center text-slate-400">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                        </div>
+                                        <p class="text-xs text-slate-500 font-medium">Belum ada riwayat pendaftaran baru dari kode afiliasimu.</p>
+                                        <p class="text-[11px] text-slate-400">Bagikan kode referral Anda ke media sosial atau grup alumni kampus!</p>
                                     </div>
-                                    <p class="text-xs text-slate-500 font-medium">Belum ada riwayat pendaftaran baru dari kode afiliasimu.</p>
-                                    <p class="text-[11px] text-slate-400">Bagikan kode referral Anda ke media sosial atau grup alumni kampus!</p>
-                                </div>
+                                @else
+                                    <div class="space-y-2.5 max-h-72 overflow-y-auto pr-1">
+                                        @foreach($recentReferrals as $ref)
+                                            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/50 flex items-center justify-between gap-2">
+                                                <div class="min-w-0">
+                                                    <p class="text-xs font-bold text-slate-900 dark:text-white truncate">{{ $ref->user->name ?? 'Peserta' }}</p>
+                                                    <p class="text-[11px] text-slate-500 truncate">{{ $ref->trainingClass->title ?? 'Pelatihan' }}</p>
+                                                    <span class="text-[10px] text-slate-400 font-mono">
+                                                        Kode: {{ $ref->affiliateCode->code ?? '-' }} &bull; {{ $ref->commission_awarded_at?->format('d M Y') }}
+                                                    </span>
+                                                </div>
+                                                <span class="text-xs font-black text-emerald-600 dark:text-emerald-400 shrink-0">
+                                                    +Rp {{ number_format($ref->affiliate_commission ?? 0, 0, ',', '.') }}
+                                                </span>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                @endif
                             </div>
 
                             <button type="button" @click="showInfoModal = true"
                                 style="background-color: #0c2a52 !important; color: #ffffff !important;"
                                 class="vb-navy-btn mt-6 w-full py-3 rounded-2xl text-white font-bold text-xs text-center transition-all cursor-pointer">
-                                Lihat Seluruh Histori
+                                Info Aturan Afiliasi
                             </button>
                         </div>
+                    </div>
+
+                    <!-- Riwayat Penarikan Komisi -->
+                    <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <div>
+                                <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Riwayat Penarikan Komisi</h3>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Pantau status pengajuan pencairan komisi afiliasi Anda.</p>
+                            </div>
+                        </div>
+
+                        @if($withdrawals->isEmpty())
+                            <div class="p-6 text-center rounded-2xl bg-slate-50 dark:bg-slate-800/40 text-xs text-slate-400">
+                                Belum ada riwayat pengajuan penarikan komisi.
+                            </div>
+                        @else
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead>
+                                        <tr class="text-slate-400 font-bold uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
+                                            <th class="py-3 px-2">Tanggal Ajuan</th>
+                                            <th class="py-3 px-2">Nominal</th>
+                                            <th class="py-3 px-2">Rekening Tujuan</th>
+                                            <th class="py-3 px-2">Status</th>
+                                            <th class="py-3 px-2">Catatan Admin</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                        @foreach($withdrawals as $wd)
+                                            <tr>
+                                                <td class="py-3 px-2 text-slate-500">{{ $wd->created_at?->translatedFormat('d M Y, H:i') }}</td>
+                                                <td class="py-3 px-2 font-black text-slate-900 dark:text-white">Rp {{ number_format($wd->amount, 0, ',', '.') }}</td>
+                                                <td class="py-3 px-2">
+                                                    <span class="font-bold text-slate-800 dark:text-slate-200">{{ $wd->bank_name }}</span>
+                                                    <span class="block text-[11px] font-mono text-slate-500">{{ $wd->account_number }} a.n {{ $wd->account_holder }}</span>
+                                                </td>
+                                                <td class="py-3 px-2">
+                                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase
+                                                        @if($wd->status === 'paid') bg-emerald-100 text-emerald-700
+                                                        @elseif($wd->status === 'rejected') bg-rose-100 text-rose-700
+                                                        @else bg-amber-100 text-amber-700 @endif">
+                                                        {{ $wd->status_label }}
+                                                    </span>
+                                                </td>
+                                                <td class="py-3 px-2 text-slate-500">{{ $wd->admin_notes ?? '-' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -1384,36 +1655,66 @@
                                             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                                                 <td class="py-4 px-6 font-mono font-bold text-blue-600 dark:text-blue-400">
                                                     {{ $inv->invoice_no }}
+                                                    @if($inv->affiliate_code)
+                                                        <span class="block text-[10px] font-sans font-bold text-emerald-600 mt-0.5">
+                                                            Kode: {{ $inv->affiliate_code }}
+                                                        </span>
+                                                    @endif
                                                 </td>
                                                 <td class="py-4 px-6">
                                                     <span class="font-bold text-slate-900 dark:text-white block">{{ $inv->class_title }}</span>
                                                     <span class="text-[11px] text-slate-400">{{ $inv->batch_name }}</span>
+                                                    @if($inv->rejection_reason)
+                                                        <span class="block text-[11px] text-rose-500 mt-0.5">Alasan: {{ $inv->rejection_reason }}</span>
+                                                    @endif
                                                 </td>
                                                 <td class="py-4 px-6 text-slate-500 dark:text-slate-400">
                                                     {{ $inv->date }}
                                                 </td>
                                                 <td class="py-4 px-6 font-display font-extrabold text-slate-900 dark:text-white">
                                                     {{ $inv->formatted_amount }}
+                                                    @if($inv->discount_amount > 0)
+                                                        <span class="block text-[10px] font-normal text-slate-400 line-through">{{ $inv->formatted_base_amount }}</span>
+                                                        <span class="block text-[10px] font-bold text-emerald-600">Hemat {{ $inv->formatted_discount }}</span>
+                                                    @endif
                                                 </td>
-                                                <td class="py-4 px-6">
+                                                <td class="py-4 px-6 space-y-1">
                                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider inline-flex items-center gap-1
                                                         @if($inv->is_paid) bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-400
+                                                        @elseif($inv->is_cancelled) bg-rose-100 text-rose-800 dark:bg-rose-950/60 dark:text-rose-400
                                                         @else bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-400 @endif">
                                                         <span>●</span>
                                                         <span>{{ $inv->status_label }}</span>
                                                     </span>
+                                                    @if(!$inv->is_paid && !$inv->is_cancelled && $inv->has_payment_proof)
+                                                        <div class="text-[10px] font-bold text-blue-600 dark:text-blue-400">
+                                                            Bukti diunggah ({{ $inv->payment_proof_uploaded_at }})
+                                                            <a href="{{ $inv->payment_proof_url }}" target="_blank" class="underline ml-1">Lihat</a>
+                                                        </div>
+                                                    @endif
                                                 </td>
                                                 <td class="py-4 px-6 text-right">
-                                                    <div class="flex items-center justify-end gap-2">
-                                                        @if(!$inv->is_paid)
+                                                    <div class="flex flex-wrap items-center justify-end gap-2">
+                                                        @if(!$inv->is_paid && !$inv->is_cancelled)
+                                                            <button type="button"
+                                                                @click="openUploadProof({ id: {{ $inv->id }}, invoice_no: @js($inv->invoice_no), class_title: @js($inv->class_title), formatted_amount: @js($inv->formatted_amount) })"
+                                                                class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm cursor-pointer">
+                                                                {{ $inv->has_payment_proof ? 'Ganti Bukti' : 'Upload Bukti Bayar' }}
+                                                            </button>
                                                             <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran Invoice ' . $inv->invoice_no . ' untuk kelas: ' . $inv->class_title . ' sebesar ' . $inv->formatted_amount . ' atas nama ' . $user->name . '.') }}"
                                                                 target="_blank" rel="noopener noreferrer"
                                                                 class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1 shadow-sm">
-                                                                <span>Bayar via WA</span>
+                                                                <span>WA Admin</span>
+                                                            </a>
+                                                        @elseif($inv->is_cancelled)
+                                                            <a href="{{ route('student.checkout', $inv->training_class_id) }}"
+                                                                class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white font-bold text-xs">
+                                                                Daftar Ulang
                                                             </a>
                                                         @endif
-                                                        <button type="button" @click="openReceipt({{ json_encode($inv) }})"
-                                                            class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-colors">
+                                                        <button type="button"
+                                                            @click="openReceipt({ invoice_no: @js($inv->invoice_no), class_title: @js($inv->class_title), date: @js($inv->date), formatted_base_amount: @js($inv->formatted_base_amount), formatted_discount: @js($inv->formatted_discount), discount_amount: {{ $inv->discount_amount }}, affiliate_code: @js($inv->affiliate_code), formatted_amount: @js($inv->formatted_amount), is_paid: {{ $inv->is_paid ? 'true' : 'false' }}, is_cancelled: {{ $inv->is_cancelled ? 'true' : 'false' }} })"
+                                                            class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-colors cursor-pointer">
                                                             Detail Kuitansi
                                                         </button>
                                                     </div>
@@ -1595,7 +1896,7 @@
             </div>
 
             <p class="text-xs text-slate-500 leading-relaxed">
-                Buat kode kustom yang mudah diingat (contoh: <code class="text-blue-600 font-bold">VISI-RAD10</code>, <code class="text-blue-600 font-bold">ALUMNIUMY</code>). Setiap pendaftar menggunakan kodemu akan mendapat potongan 10%, dan kamu mendapatkan komisi 20%!
+                Buat kode kustom yang mudah diingat (contoh: <code class="text-blue-600 font-bold">VISI-RAD10</code>, <code class="text-blue-600 font-bold">ALUMNIUMY</code>). Setiap pendaftar menggunakan kodemu akan mendapat potongan {{ $affiliateStats['discount_percent'] }}%, dan kamu mendapatkan komisi {{ $affiliateStats['commission_percent'] }}%!
             </p>
 
             <form action="{{ route('student.affiliate.create') }}" method="POST" class="space-y-4">
@@ -1651,11 +1952,20 @@
             <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy p-4 rounded-2xl text-white">
                 <span class="text-[11px] text-blue-200 uppercase font-bold block">Saldo Komisi Tersedia</span>
                 <span class="text-2xl font-display font-black text-amber-400">Rp {{ number_format($affiliateStats['balance'], 0, ',', '.') }}</span>
-                <span class="text-[10px] text-blue-200 block mt-1">Minimal penarikan: Rp 50.000</span>
+                <span class="text-[10px] text-blue-200 block mt-1">Minimal penarikan: Rp {{ number_format($affiliateStats['min_withdrawal'], 0, ',', '.') }}</span>
             </div>
 
             <form action="{{ route('student.affiliate.withdraw') }}" method="POST" class="space-y-4">
                 @csrf
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nominal Penarikan (Rp)</label>
+                    <input type="number" name="amount" required
+                        min="{{ $affiliateStats['min_withdrawal'] }}"
+                        max="{{ max($affiliateStats['min_withdrawal'], $affiliateStats['balance']) }}"
+                        value="{{ $affiliateStats['balance'] >= $affiliateStats['min_withdrawal'] ? $affiliateStats['balance'] : $affiliateStats['min_withdrawal'] }}"
+                        class="w-full px-4 py-2.5 rounded-xl border-0 bg-slate-100 dark:bg-slate-800 text-sm font-mono font-bold text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                </div>
+
                 <div>
                     <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1">Nama Bank / E-Wallet</label>
                     <input type="text" name="bank_name" required placeholder="BCA / Mandiri / BNI / BRI / GoPay"
@@ -1734,12 +2044,12 @@
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                 <div class="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40">
-                    <strong class="text-blue-800 dark:text-blue-300 block mb-1">Komisi 20% & Diskon 10%</strong>
-                    Pendaftar yang menggunakan kode referralmu otomatis mendapat diskon 10% dari total biaya pelatihan, dan kamu berhak atas komisi 20% dari total yang dibayarkan.
+                    <strong class="text-blue-800 dark:text-blue-300 block mb-1">Komisi {{ $affiliateStats['commission_percent'] }}% & Diskon {{ $affiliateStats['discount_percent'] }}%</strong>
+                    Pendaftar yang menggunakan kode referralmu otomatis mendapat diskon {{ $affiliateStats['discount_percent'] }}% dari biaya pelatihan, dan kamu berhak atas komisi {{ $affiliateStats['commission_percent'] }}% dari total yang dibayarkan setelah pembayaran teman diverifikasi admin.
                 </div>
                 <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800">
                     <strong class="text-slate-900 dark:text-white block mb-1">Pencairan Dana Fleksibel</strong>
-                    Penarikan saldo komisi dapat diproses kapan saja ke rekening bank lokal (BCA, Mandiri, BRI, BNI) atau E-Wallet dengan minimal saldo Rp 50.000.
+                    Penarikan saldo komisi dapat diajukan langsung dari portal ke rekening bank lokal (BCA, Mandiri, BRI, BNI) atau E-Wallet dengan minimal saldo Rp {{ number_format($affiliateStats['min_withdrawal'], 0, ',', '.') }}.
                 </div>
             </div>
             <div class="text-right pt-2">
@@ -1790,24 +2100,37 @@
                         <span class="text-slate-700 dark:text-slate-300" x-text="selectedInvoice.date"></span>
                     </div>
 
+                    <template x-if="selectedInvoice.discount_amount > 0">
+                        <div class="space-y-2 text-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400">Biaya Normal:</span>
+                                <span class="text-slate-600 dark:text-slate-300" x-text="selectedInvoice.formatted_base_amount"></span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-emerald-600">Diskon Referral (<span x-text="selectedInvoice.affiliate_code"></span>):</span>
+                                <span class="text-emerald-600 font-bold">- <span x-text="selectedInvoice.formatted_discount"></span></span>
+                            </div>
+                        </div>
+                    </template>
+
                     <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
                         <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Total Pembayaran:</span>
                         <span class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400" x-text="selectedInvoice.formatted_amount"></span>
                     </div>
 
                     <div class="p-3.5 rounded-2xl text-xs font-medium"
-                        :class="selectedInvoice.is_paid ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300'">
-                        <div class="font-bold mb-1" x-text="selectedInvoice.is_paid ? 'STATUS: LUNAS / TERVERIFIKASI' : 'STATUS: MENUNGGU PEMBAYARAN'"></div>
-                        <span x-text="selectedInvoice.is_paid ? 'Pembayaran telah divalidasi oleh finance PT Visi Yosindo Medikal.' : 'Silakan transfer ke Rekening Mandiri / BCA PT Visi Yosindo Medikal lalu konfirmasi via WhatsApp.'"></span>
+                        :class="selectedInvoice.is_paid ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300' : (selectedInvoice.is_cancelled ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300')">
+                        <div class="font-bold mb-1" x-text="selectedInvoice.is_paid ? 'STATUS: LUNAS / TERVERIFIKASI' : (selectedInvoice.is_cancelled ? 'STATUS: DIBATALKAN' : 'STATUS: MENUNGGU PEMBAYARAN')"></div>
+                        <span x-text="selectedInvoice.is_paid ? 'Pembayaran telah divalidasi oleh admin Visilab Academy.' : (selectedInvoice.is_cancelled ? 'Pendaftaran dibatalkan. Anda dapat melakukan pendaftaran ulang di halaman checkout.' : 'Silakan transfer ke rekening resmi di bawah ini lalu unggah bukti pembayaran di portal.')"></span>
                     </div>
 
                     <!-- Payment Info if Unpaid -->
-                    <template x-if="!selectedInvoice.is_paid">
+                    <template x-if="!selectedInvoice.is_paid && !selectedInvoice.is_cancelled">
                         <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 space-y-2 text-xs">
                             <span class="font-bold text-slate-800 dark:text-slate-200 block">Rekening Pembayaran Resmi:</span>
                             <div class="flex justify-between font-mono">
-                                <span>Bank Mandiri:</span>
-                                <strong>137-00-1888-2929 (PT Visi Yosindo Medikal)</strong>
+                                <span>{{ $academySettings['bank_name'] }}:</span>
+                                <strong>{{ $academySettings['bank_account_number'] }} ({{ $academySettings['bank_account_holder'] }})</strong>
                             </div>
                         </div>
                     </template>
@@ -1826,6 +2149,58 @@
                     Tutup
                 </button>
             </div>
+        </div>
+    </div>
+
+    <!-- Modal 6: Upload Bukti Pembayaran -->
+    <div x-cloak x-show="showUploadProofModal"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div @click.away="showUploadProofModal = false"
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
+            <div class="flex items-center justify-between">
+                <h3 class="font-display font-extrabold text-slate-900 dark:text-white text-base">Upload Bukti Pembayaran</h3>
+                <button type="button" @click="showUploadProofModal = false" class="text-slate-400 hover:text-slate-600">
+                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                </button>
+            </div>
+
+            <template x-if="selectedUploadInvoice">
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 space-y-1 text-xs">
+                    <div class="font-mono font-bold text-blue-600" x-text="selectedUploadInvoice.invoice_no"></div>
+                    <div class="font-bold text-slate-900 dark:text-white" x-text="selectedUploadInvoice.class_title"></div>
+                    <div class="text-slate-500">Total Transfer: <strong class="text-slate-900 dark:text-white" x-text="selectedUploadInvoice.formatted_amount"></strong></div>
+                </div>
+            </template>
+
+            <div class="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-xs space-y-1 text-blue-900 dark:text-blue-200">
+                <span class="font-bold block">Transfer ke Rekening Resmi:</span>
+                <div class="font-mono">{{ $academySettings['bank_name'] }}: <strong>{{ $academySettings['bank_account_number'] }}</strong></div>
+                <div class="font-mono">a.n {{ $academySettings['bank_account_holder'] }}</div>
+            </div>
+
+            <form :action="'{{ url('/student/enrollments') }}/' + (selectedUploadInvoice ? selectedUploadInvoice.id : '') + '/payment-proof'"
+                method="POST" enctype="multipart/form-data" class="space-y-4">
+                @csrf
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider mb-1.5">
+                        File Bukti Transfer (JPG / PNG / PDF, Maks. 5 MB)
+                    </label>
+                    <input type="file" name="payment_proof" required accept=".jpg,.jpeg,.png,.webp,.pdf"
+                        class="w-full px-3 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-200">
+                </div>
+
+                <div class="flex items-center justify-end gap-2.5 pt-2">
+                    <button type="button" @click="showUploadProofModal = false"
+                        class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs">
+                        Batal
+                    </button>
+                    <button type="submit"
+                        style="background-color: #0c2a52 !important; color: #ffffff !important;"
+                        class="vb-navy-btn px-5 py-2.5 rounded-xl text-white font-bold text-xs shadow-md cursor-pointer">
+                        Unggah Bukti Pembayaran
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 

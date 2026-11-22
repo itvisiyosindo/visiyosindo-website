@@ -48,13 +48,13 @@
 
                         <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Nama Peserta</span>
-                            <span class="font-bold text-base text-slate-900 dark:text-white">{{ $certificate->user->name }}</span>
+                            <span class="font-bold text-base text-slate-900 dark:text-white">{{ $certificate->display_recipient_name }}</span>
                         </div>
 
-                        @if ($certificate->user->institution)
+                        @if ($certificate->display_recipient_institution)
                             <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
                                 <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Asal Instansi</span>
-                                <span class="font-medium text-slate-700 dark:text-slate-300">{{ $certificate->user->institution }}</span>
+                                <span class="font-medium text-slate-700 dark:text-slate-300">{{ $certificate->display_recipient_institution }}</span>
                             </div>
                         @endif
 

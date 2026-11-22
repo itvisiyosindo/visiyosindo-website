@@ -310,6 +310,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Affiliate commission withdrawal requests
+     */
+    public function affiliateWithdrawals(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(AffiliateWithdrawal::class);
+    }
+
+    /**
      * Get role display name
      */
     public function getRoleNameAttribute(): string
