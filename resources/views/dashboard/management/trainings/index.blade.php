@@ -317,31 +317,31 @@
                                 </td>
 
                                 <!-- Status -->
-                                <td class="py-4 px-6">
+                                <td class="py-4 px-6 align-middle whitespace-nowrap">
                                     @if($item->status === 'pending')
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 whitespace-nowrap">
                                             <span class="w-2 h-2 rounded-full bg-amber-500 animate-ping"></span>
                                             Menunggu Verifikasi
                                         </span>
                                     @elseif($item->status === 'active')
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 whitespace-nowrap">
                                             <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                                             Siswa Aktif
                                         </span>
                                     @elseif($item->status === 'completed')
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 whitespace-nowrap">
                                             <span>🏆</span>
                                             Lulus & Terbit
                                         </span>
                                     @else
-                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 whitespace-nowrap">
                                             Dibatalkan
                                         </span>
                                     @endif
                                 </td>
 
                                 <!-- e-Sertifikat -->
-                                <td class="py-4 px-6">
+                                <td class="py-4 px-6 align-middle">
                                     @if($item->certificate)
                                         <div class="font-mono font-black text-emerald-600 dark:text-emerald-400 text-xs">
                                             {{ $item->certificate->certificate_number }}
@@ -358,8 +358,8 @@
                                 </td>
 
                                 <!-- Actions -->
-                                <td class="py-4 px-6 text-right">
-                                    <div class="flex items-center justify-end gap-1.5">
+                                <td class="py-4 px-6 text-right align-middle">
+                                    <div class="flex flex-wrap items-center justify-end gap-1.5">
                                         <!-- WhatsApp Chat Direct Button -->
                                         @if($item->user->phone)
                                             @php
@@ -399,7 +399,7 @@
                                             <!-- Complete & Upload Certificate PDF -->
                                             <button type="button"
                                                 @click="openComplete({ id: {{ $item->id }}, name: @js($item->user->name), class_title: @js($item->trainingClass->title) })"
-                                                class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
+                                                class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap">
                                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                                 </svg>
@@ -407,7 +407,7 @@
                                             </button>
                                         @elseif($item->certificate)
                                             <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}" target="_blank"
-                                                class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5">
+                                                class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
                                                 <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -446,15 +446,18 @@
 
         <!-- Modal: Luluskan & Upload Sertifikat PDF -->
         <div x-cloak x-show="showCompleteModal"
-            class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm">
             <div @click.away="showCompleteModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5">
-                <div class="flex items-center justify-between">
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between gap-3">
                     <div>
                         <h3 class="text-base font-black text-slate-900 dark:text-white">Luluskan Peserta & Upload Sertifikat PDF</h3>
-                        <p class="text-xs text-slate-500" x-show="completeTarget" x-text="completeTarget ? (completeTarget.name + ' — ' + completeTarget.class_title) : ''"></p>
+                        <p class="text-xs text-slate-500 mt-0.5" x-show="completeTarget" x-text="completeTarget ? (completeTarget.name + ' — ' + completeTarget.class_title) : ''"></p>
                     </div>
-                    <button type="button" @click="showCompleteModal = false" class="text-slate-400 hover:text-slate-600">&times;</button>
+                    <button type="button" @click="showCompleteModal = false"
+                        class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
                 </div>
 
                 <form :action="'{{ url('/dashboard/trainings') }}/' + (completeTarget ? completeTarget.id : '') + '/complete'"
@@ -500,15 +503,18 @@
 
         <!-- Modal: Tolak / Batalkan Pendaftaran -->
         <div x-cloak x-show="showRejectModal"
-            class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm">
             <div @click.away="showRejectModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
-                <div class="flex items-center justify-between">
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between gap-3">
                     <div>
                         <h3 class="text-base font-black text-slate-900 dark:text-white">Batalkan Pendaftaran</h3>
-                        <p class="text-xs text-slate-500" x-show="rejectTarget" x-text="rejectTarget ? rejectTarget.name : ''"></p>
+                        <p class="text-xs text-slate-500 mt-0.5" x-show="rejectTarget" x-text="rejectTarget ? rejectTarget.name : ''"></p>
                     </div>
-                    <button type="button" @click="showRejectModal = false" class="text-slate-400 hover:text-slate-600">&times;</button>
+                    <button type="button" @click="showRejectModal = false"
+                        class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
                 </div>
 
                 <form :action="'{{ url('/dashboard/trainings') }}/' + (rejectTarget ? rejectTarget.id : '') + '/reject'"

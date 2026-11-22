@@ -19,36 +19,32 @@
     <x-toast />
 
     <!-- Header -->
-    <header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <a href="{{ route('student.classes') }}" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-600 dark:text-slate-300 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                    </svg>
-                </div>
-                <div>
-                    <span class="text-sm font-black text-slate-900 dark:text-white block">Katalog Pelatihan</span>
-                    <span class="text-[11px] font-bold text-blue-600 dark:text-blue-400">Visilab Academy</span>
-                </div>
-            </a>
+    <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
+            <div class="flex items-center gap-4 min-w-0">
+                <a href="/" class="shrink-0">@include('student.partials.logo')</a>
+                <a href="{{ route('student.classes') }}"
+                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors whitespace-nowrap">
+                    <span>&larr; Katalog Kelas</span>
+                </a>
+            </div>
 
-            <div class="flex items-center gap-3">
+            <div class="flex items-center gap-2.5 shrink-0">
                 @auth
                     @if(Auth::user()->isStudent())
-                        <a href="{{ route('student.dashboard') }}" class="px-4 py-2 rounded-xl text-xs font-black text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                        <a href="{{ route('student.dashboard') }}" style="background-color: #0c2a52; color: #ffffff;" class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
                             Portal Pelajar
                         </a>
                     @else
-                        <a href="{{ route('dashboard.trainings.classes') }}" class="px-4 py-2 rounded-xl text-xs font-black text-white bg-slate-900 hover:bg-slate-800 transition-colors">
+                        <a href="{{ route('dashboard.trainings.classes') }}" style="background-color: #0c2a52; color: #ffffff;" class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
                             Admin Dashboard
                         </a>
                     @endif
                 @else
-                    <a href="{{ route('login') }}" class="px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600">
+                    <a href="{{ route('login') }}" class="px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
                         Masuk
                     </a>
-                    <a href="{{ route('student.register') }}" class="px-4 py-2 rounded-xl text-xs font-black text-white bg-blue-600 hover:bg-blue-700 transition-colors">
+                    <a href="{{ route('student.register') }}" style="background-color: #0c2a52; color: #ffffff;" class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
                         Daftar Akun
                     </a>
                 @endauth
@@ -179,12 +175,14 @@
                         @if($existingEnrollment && !$existingEnrollment->isCancelled())
                             @if($existingEnrollment->isPaid())
                                 <a href="{{ route('student.classroom', $existingEnrollment->id) }}"
-                                    class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all">
+                                    style="background-color: #059669; color: #ffffff;"
+                                    class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all whitespace-nowrap">
                                     Masuk ke Ruang Kelas
                                 </a>
                             @else
                                 <a href="{{ route('student.dashboard', ['#invoices']) }}"
-                                    class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all">
+                                    style="background-color: #f59e0b; color: #ffffff;"
+                                    class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all whitespace-nowrap">
                                     Menunggu Pembayaran — Upload Bukti Bayar
                                 </a>
                             @endif
@@ -195,7 +193,8 @@
                             </button>
                         @else
                             <a href="{{ route('student.checkout', $trainingClass->id) }}"
-                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all">
+                                style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
+                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all whitespace-nowrap">
                                 Lanjut ke Checkout Pendaftaran &rarr;
                             </a>
                         @endif
@@ -207,7 +206,8 @@
                             </button>
                         @else
                             <a href="{{ route('student.register') }}"
-                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all">
+                                style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
+                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all whitespace-nowrap">
                                 Daftar Akun & Gabung Kelas
                             </a>
                             <p class="text-center text-xs text-slate-500 dark:text-slate-400">

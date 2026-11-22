@@ -869,32 +869,36 @@
                                     <div class="p-6 pt-0 mt-2 space-y-2.5">
                                         @if($enrollment->status === 'pending')
                                             @if($enrollment->hasPaymentProof())
-                                                <div class="px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center justify-between">
-                                                    <span>Bukti bayar diunggah — Menunggu verifikasi admin</span>
-                                                    <a href="{{ route('student.enrollment.payment-proof.view', $enrollment->id) }}" target="_blank" class="underline">Lihat</a>
+                                                <div class="px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center justify-between gap-2">
+                                                    <span class="truncate">Bukti bayar diunggah — Menunggu verifikasi admin</span>
+                                                    <a href="{{ route('student.enrollment.payment-proof.view', $enrollment->id) }}" target="_blank" class="underline shrink-0">Lihat</a>
                                                 </div>
                                             @endif
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <button type="button"
                                                     @click="openUploadProof({ id: {{ $enrollment->id }}, invoice_no: @js($enrollment->effective_invoice_no), class_title: @js($cls->title ?? 'Pelatihan'), formatted_amount: @js($enrollment->effective_final_price > 0 ? 'Rp ' . number_format($enrollment->effective_final_price, 0, ',', '.') : 'Gratis') })"
-                                                    class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 text-center transition-all cursor-pointer">
+                                                    style="background-color: #2563eb; color: #ffffff;"
+                                                    class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 inline-flex items-center justify-center whitespace-nowrap transition-all cursor-pointer">
                                                     {{ $enrollment->hasPaymentProof() ? 'Ganti Bukti Bayar' : 'Upload Bukti Bayar' }}
                                                 </button>
                                                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran Invoice ' . $enrollment->effective_invoice_no . ' untuk kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
                                                     target="_blank" rel="noopener noreferrer"
-                                                    class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl transition-all">
+                                                    style="background-color: #059669; color: #ffffff;"
+                                                    class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                     WA Admin
                                                 </a>
                                             </div>
                                         @elseif($enrollment->status === 'active')
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <a href="{{ route('student.classroom', $enrollment->id) }}"
-                                                    class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 text-center transition-all">
+                                                    style="background-color: #0c2a52; color: #ffffff;"
+                                                    class="vb-navy-btn flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                     Masuk Ruang Kelas
                                                 </a>
                                                 @if($cls->whatsapp_group_link)
                                                     <a href="{{ $cls->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
-                                                        class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl transition-all">
+                                                        style="background-color: #059669; color: #ffffff;"
+                                                        class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                         Grup WA
                                                     </a>
                                                 @endif
@@ -902,16 +906,17 @@
                                         @elseif($enrollment->status === 'completed')
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <a href="{{ route('student.classroom', $enrollment->id) }}"
-                                                    class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 transition-all">
+                                                    class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                     Ruang Kelas
                                                 </a>
                                                 @if($enrollment->certificate)
                                                     <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}" target="_blank"
-                                                        class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs rounded-2xl text-center shadow-md shadow-blue-500/20 transition-all">
+                                                        style="background-color: #2563eb; color: #ffffff;"
+                                                        class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap shadow-md shadow-blue-500/20 transition-all">
                                                         {{ $enrollment->certificate->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
                                                     </a>
                                                     <a href="{{ route('certificate.verify', $enrollment->certificate->verification_code) }}" target="_blank"
-                                                        class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 transition-all">
+                                                        class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                         Verifikasi
                                                     </a>
                                                 @else
@@ -925,7 +930,8 @@
                                                 </p>
                                             @endif
                                             <a href="{{ route('student.checkout', $cls->id) }}"
-                                                class="w-full py-2.5 px-4 rounded-2xl bg-slate-900 dark:bg-blue-600 text-white font-black text-xs text-center block transition-all">
+                                                style="background-color: #0c2a52; color: #ffffff;"
+                                                class="vb-navy-btn w-full py-2.5 px-4 rounded-2xl text-white font-black text-xs inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                 Daftar Ulang Kelas Ini
                                             </a>
                                         @endif
@@ -1095,22 +1101,45 @@
                     </div>
 
                     <!-- Summary Cards -->
-                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
-                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Total Kelas Diikuti</span>
-                            <div class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">{{ $learningStats['total_classes'] }}</div>
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Total Kelas</span>
+                                <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+                                </div>
+                            </div>
+                            <div style="color: #0c2a52 !important;" class="vb-text-navy text-3xl font-display font-black">{{ $learningStats['total_classes'] }}</div>
                         </div>
-                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
-                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Sedang Berjalan</span>
-                            <div class="text-2xl sm:text-3xl font-black text-blue-600 dark:text-blue-400 mt-1">{{ $learningStats['active_classes'] }}</div>
+
+                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Sedang Aktif</span>
+                                <div style="background-color: #2563eb !important; color: #ffffff !important;" class="vb-bg-royal w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                                </div>
+                            </div>
+                            <div class="text-3xl font-display font-black text-blue-600 dark:text-blue-400">{{ $learningStats['active_classes'] }}</div>
                         </div>
-                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
-                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Kelas Selesai / Lulus</span>
-                            <div class="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-1">{{ $learningStats['completed_classes'] }}</div>
+
+                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Selesai / Lulus</span>
+                                <div style="background-color: #059669 !important; color: #ffffff !important;" class="w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                </div>
+                            </div>
+                            <div class="text-3xl font-display font-black text-emerald-600 dark:text-emerald-400">{{ $learningStats['completed_classes'] }}</div>
                         </div>
-                        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 shadow-sm">
-                            <span class="text-[11px] font-bold uppercase text-slate-400 block">Sertifikat Dimiliki</span>
-                            <div class="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 mt-1">{{ $learningStats['total_certificates'] }}</div>
+
+                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Sertifikat</span>
+                                <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="vb-bg-amber w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                                </div>
+                            </div>
+                            <div class="text-3xl font-display font-black text-amber-600 dark:text-amber-400">{{ $learningStats['total_certificates'] }}</div>
                         </div>
                     </div>
 
@@ -1146,11 +1175,12 @@
                                         </div>
                                         <div class="flex items-center gap-2">
                                             <a href="{{ route('student.certificate.view', $cert->id) }}" target="_blank"
-                                                class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black text-center transition-colors">
+                                                style="background-color: #2563eb; color: #ffffff;"
+                                                class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black inline-flex items-center justify-center whitespace-nowrap transition-colors">
                                                 {{ $cert->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
                                             </a>
                                             <a href="{{ route('certificate.verify', $cert->verification_code) }}" target="_blank"
-                                                class="py-2 px-3 rounded-xl bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-xs font-bold">
+                                                class="py-2 px-3 rounded-xl bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 text-xs font-bold inline-flex items-center justify-center whitespace-nowrap">
                                                 Verifikasi QR
                                             </a>
                                         </div>
@@ -1693,28 +1723,31 @@
                                                         </div>
                                                     @endif
                                                 </td>
-                                                <td class="py-4 px-6 text-right">
+                                                <td class="py-4 px-6 text-right align-middle">
                                                     <div class="flex flex-wrap items-center justify-end gap-2">
                                                         @if(!$inv->is_paid && !$inv->is_cancelled)
                                                             <button type="button"
                                                                 @click="openUploadProof({ id: {{ $inv->id }}, invoice_no: @js($inv->invoice_no), class_title: @js($inv->class_title), formatted_amount: @js($inv->formatted_amount) })"
-                                                                class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm cursor-pointer">
+                                                                style="background-color: #2563eb; color: #ffffff;"
+                                                                class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm cursor-pointer inline-flex items-center whitespace-nowrap">
                                                                 {{ $inv->has_payment_proof ? 'Ganti Bukti' : 'Upload Bukti Bayar' }}
                                                             </button>
                                                             <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran Invoice ' . $inv->invoice_no . ' untuk kelas: ' . $inv->class_title . ' sebesar ' . $inv->formatted_amount . ' atas nama ' . $user->name . '.') }}"
                                                                 target="_blank" rel="noopener noreferrer"
-                                                                class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1 shadow-sm">
+                                                                style="background-color: #059669; color: #ffffff;"
+                                                                class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1 shadow-sm whitespace-nowrap">
                                                                 <span>WA Admin</span>
                                                             </a>
                                                         @elseif($inv->is_cancelled)
                                                             <a href="{{ route('student.checkout', $inv->training_class_id) }}"
-                                                                class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white font-bold text-xs">
+                                                                style="background-color: #0c2a52; color: #ffffff;"
+                                                                class="px-3 py-1.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white font-bold text-xs inline-flex items-center whitespace-nowrap">
                                                                 Daftar Ulang
                                                             </a>
                                                         @endif
                                                         <button type="button"
                                                             @click="openReceipt({ invoice_no: @js($inv->invoice_no), class_title: @js($inv->class_title), date: @js($inv->date), formatted_base_amount: @js($inv->formatted_base_amount), formatted_discount: @js($inv->formatted_discount), discount_amount: {{ $inv->discount_amount }}, affiliate_code: @js($inv->affiliate_code), formatted_amount: @js($inv->formatted_amount), is_paid: {{ $inv->is_paid ? 'true' : 'false' }}, is_cancelled: {{ $inv->is_cancelled ? 'true' : 'false' }} })"
-                                                            class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-colors cursor-pointer">
+                                                            class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-bold text-xs transition-colors cursor-pointer inline-flex items-center whitespace-nowrap">
                                                             Detail Kuitansi
                                                         </button>
                                                     </div>
@@ -2154,13 +2187,14 @@
 
     <!-- Modal 6: Upload Bukti Pembayaran -->
     <div x-cloak x-show="showUploadProofModal"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm">
         <div @click.away="showUploadProofModal = false"
-            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
-            <div class="flex items-center justify-between">
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between gap-3">
                 <h3 class="font-display font-extrabold text-slate-900 dark:text-white text-base">Upload Bukti Pembayaran</h3>
-                <button type="button" @click="showUploadProofModal = false" class="text-slate-400 hover:text-slate-600">
-                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                <button type="button" @click="showUploadProofModal = false"
+                    class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                 </button>
             </div>
 

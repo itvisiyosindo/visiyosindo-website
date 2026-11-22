@@ -283,30 +283,30 @@
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse text-xs">
                     <thead>
-                        <tr class="border-b border-slate-100 dark:border-slate-800 text-[11px] font-black text-slate-400 uppercase tracking-wider">
-                            <th class="py-3 px-4">Pelajar</th>
-                            <th class="py-3 px-4">Nominal</th>
-                            <th class="py-3 px-4">Rekening Tujuan</th>
-                            <th class="py-3 px-4">Status</th>
-                            <th class="py-3 px-4 text-right">Aksi Admin</th>
+                        <tr class="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                            <th class="py-3.5 px-4">Pelajar</th>
+                            <th class="py-3.5 px-4">Nominal</th>
+                            <th class="py-3.5 px-4">Rekening Tujuan</th>
+                            <th class="py-3.5 px-4">Status</th>
+                            <th class="py-3.5 px-4 text-right">Aksi Admin</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
                         @forelse($withdrawals as $wd)
-                            <tr>
-                                <td class="py-3.5 px-4">
+                            <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
+                                <td class="py-3.5 px-4 align-middle">
                                     <div class="font-bold text-slate-900 dark:text-white">{{ $wd->user->name ?? 'Pelajar' }}</div>
                                     <div class="text-[11px] text-slate-400">{{ $wd->created_at?->format('d M Y, H:i') }}</div>
                                 </td>
-                                <td class="py-3.5 px-4 font-black text-slate-900 dark:text-white">
+                                <td class="py-3.5 px-4 align-middle font-black text-slate-900 dark:text-white whitespace-nowrap">
                                     Rp {{ number_format($wd->amount, 0, ',', '.') }}
                                 </td>
-                                <td class="py-3.5 px-4">
+                                <td class="py-3.5 px-4 align-middle">
                                     <div class="font-bold text-slate-800 dark:text-slate-200">{{ $wd->bank_name }}</div>
                                     <div class="font-mono text-[11px] text-slate-500">{{ $wd->account_number }} a.n {{ $wd->account_holder }}</div>
                                 </td>
-                                <td class="py-3.5 px-4">
-                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase
+                                <td class="py-3.5 px-4 align-middle">
+                                    <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase whitespace-nowrap inline-block
                                         @if($wd->status === 'paid') bg-emerald-100 text-emerald-700
                                         @elseif($wd->status === 'rejected') bg-rose-100 text-rose-700
                                         @else bg-amber-100 text-amber-700 @endif">
@@ -316,26 +316,26 @@
                                         <span class="block text-[11px] text-slate-400 mt-1">{{ $wd->admin_notes }}</span>
                                     @endif
                                 </td>
-                                <td class="py-3.5 px-4 text-right">
+                                <td class="py-3.5 px-4 text-right align-middle">
                                     @if($wd->status === 'pending')
-                                        <div class="flex items-center justify-end gap-2">
+                                        <div class="flex flex-wrap items-center justify-end gap-2">
                                             <form action="{{ route('dashboard.trainings.withdrawals.approve', $wd->id) }}" method="POST"
                                                 onsubmit="return confirm('Tandai penarikan sebesar Rp {{ number_format($wd->amount, 0, ',', '.') }} ini sebagai Sudah Ditransfer?')">
                                                 @csrf
-                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer">
+                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer whitespace-nowrap">
                                                     Tandai Transfer
                                                 </button>
                                             </form>
                                             <form action="{{ route('dashboard.trainings.withdrawals.reject', $wd->id) }}" method="POST"
                                                 onsubmit="return confirm('Tolak pengajuan penarikan ini dan kembalikan saldo ke pelajar?')">
                                                 @csrf
-                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs cursor-pointer">
+                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs cursor-pointer whitespace-nowrap">
                                                     Tolak
                                                 </button>
                                             </form>
                                         </div>
                                     @else
-                                        <span class="text-[11px] text-slate-400">
+                                        <span class="text-[11px] text-slate-400 whitespace-nowrap">
                                             Diproses {{ $wd->processed_at?->format('d M Y') }}
                                         </span>
                                     @endif

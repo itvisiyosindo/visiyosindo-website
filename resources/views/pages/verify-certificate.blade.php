@@ -89,14 +89,16 @@
                                     <h3 class="text-sm font-bold text-slate-900 dark:text-white">Pratinjau Sertifikat Resmi (PDF)</h3>
                                     <p class="text-xs text-slate-500 dark:text-slate-400">Dokumen digital resmi yang diterbitkan oleh Visilab Academy.</p>
                                 </div>
-                                <div class="flex items-center gap-2 shrink-0">
+                                <div class="flex flex-wrap items-center gap-2 shrink-0">
                                     <a href="{{ route('certificate.verify.file', $certificate->verification_code) }}" target="_blank"
-                                        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white text-xs font-bold transition-colors inline-flex items-center gap-1.5">
+                                        style="background-color: #f1f5f9; color: #1e293b;"
+                                        class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white text-xs font-bold transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                                         <span>Buka Layar Penuh</span>
                                     </a>
                                     <a href="{{ route('certificate.verify.file', ['code' => $certificate->verification_code, 'download' => 1]) }}"
-                                        class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors inline-flex items-center gap-1.5">
+                                        style="background-color: #2563eb; color: #ffffff;"
+                                        class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
                                         <span>Unduh PDF</span>
                                     </a>
@@ -107,6 +109,7 @@
                                 <iframe
                                     src="{{ route('certificate.verify.file', $certificate->verification_code) }}#toolbar=1&view=FitH"
                                     title="Sertifikat {{ $certificate->display_recipient_name }}"
+                                    style="width: 100%; height: 600px; border: 0; display: block;"
                                     class="w-full h-[520px] sm:h-[660px] border-0">
                                 </iframe>
                             </div>

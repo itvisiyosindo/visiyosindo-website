@@ -258,15 +258,15 @@
                                 </td>
 
                                 <!-- Actions -->
-                                <td class="py-4 px-6 text-right">
-                                    <div class="flex items-center justify-end gap-2">
+                                <td class="py-4 px-6 text-right align-middle">
+                                    <div class="flex flex-wrap items-center justify-end gap-2">
                                         <button type="button"
                                             @click="openUpload({ id: {{ $cert->id }}, name: @js($cert->display_recipient_name), cert_number: @js($cert->certificate_number), issued_date: @js($cert->issued_date?->format('Y-m-d') ?? date('Y-m-d')), notes: @js($cert->notes ?? '') })"
-                                            class="px-3.5 py-2 rounded-xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all cursor-pointer">
+                                            class="px-3.5 py-2 rounded-xl text-xs font-black bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm transition-all cursor-pointer whitespace-nowrap inline-flex items-center">
                                             {{ $cert->hasPdf() ? 'Ganti PDF' : 'Upload PDF' }}
                                         </button>
                                         <a href="{{ route('dashboard.trainings.certificates.download', $cert->id) }}" target="_blank"
-                                            class="px-3.5 py-2 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5">
+                                            class="px-3.5 py-2 rounded-xl text-xs font-black bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -274,7 +274,7 @@
                                             <span>{{ $cert->hasPdf() ? 'Unduh PDF' : 'Lihat' }}</span>
                                         </a>
                                         <a href="{{ route('certificate.verify', $cert->verification_code) }}" target="_blank"
-                                            class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all inline-flex items-center gap-1.5">
+                                            class="px-3.5 py-2 rounded-xl text-xs font-bold bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
                                             <span>Verifikasi QR</span>
                                         </a>
                                     </div>
@@ -308,15 +308,18 @@
 
         <!-- Modal: Upload / Ganti File Sertifikat PDF -->
         <div x-cloak x-show="showUploadModal"
-            class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+            class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm">
             <div @click.away="showUploadModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5">
-                <div class="flex items-center justify-between">
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between gap-3">
                     <div>
                         <h3 class="text-base font-black text-slate-900 dark:text-white">Upload File Sertifikat PDF</h3>
-                        <p class="text-xs text-slate-500" x-show="uploadTarget" x-text="uploadTarget ? uploadTarget.name : ''"></p>
+                        <p class="text-xs text-slate-500 mt-0.5" x-show="uploadTarget" x-text="uploadTarget ? uploadTarget.name : ''"></p>
                     </div>
-                    <button type="button" @click="showUploadModal = false" class="text-slate-400 hover:text-slate-600">&times;</button>
+                    <button type="button" @click="showUploadModal = false"
+                        class="w-8 h-8 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-400 hover:text-slate-700 dark:hover:text-white flex items-center justify-center shrink-0 cursor-pointer">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                    </button>
                 </div>
 
                 <form :action="'{{ url('/dashboard/trainings/certificates') }}/' + (uploadTarget ? uploadTarget.id : '') + '/upload-pdf'"

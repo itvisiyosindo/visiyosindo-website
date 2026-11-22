@@ -425,24 +425,24 @@
                     </div>
 
                     <!-- Card Actions Footer -->
-                    <div class="p-4 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
+                    <div class="p-4 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2">
                         <form action="{{ route('dashboard.trainings.classes.toggle', $item->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" 
-                                class="px-4 py-2 rounded-xl text-xs font-black transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-sm
+                                class="px-3.5 py-2 rounded-xl text-xs font-black transition-all cursor-pointer inline-flex items-center gap-1.5 shadow-sm whitespace-nowrap
                                     {{ $item->is_active ? 'bg-amber-100 hover:bg-amber-200 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300' : 'bg-emerald-100 hover:bg-emerald-200 text-emerald-900 dark:bg-emerald-950/80 dark:text-emerald-300' }}">
                                 <span>{{ $item->is_active ? '⏸️ Tutup Batch' : '▶️ Buka Batch' }}</span>
                             </button>
                         </form>
 
-                        <div class="flex items-center gap-1.5">
+                        <div class="flex items-center gap-1.5 shrink-0">
                             <a href="{{ route('dashboard.trainings.materials', $item->id) }}"
-                                class="px-3 py-2 rounded-xl text-xs font-black text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 transition-all">
+                                class="px-3 py-2 rounded-xl text-xs font-black text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 hover:bg-blue-100 transition-all inline-flex items-center whitespace-nowrap">
                                 Materi
                             </a>
                             <button type="button" 
                                 @click="openEdit({{ json_encode($item) }})"
-                                class="px-3.5 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 shadow-sm transition-all cursor-pointer">
+                                class="px-3.5 py-2 rounded-xl text-xs font-black text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 shadow-sm transition-all cursor-pointer inline-flex items-center whitespace-nowrap">
                                 Edit
                             </button>
                             <form action="{{ route('dashboard.trainings.classes.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini tidak dapat dibatalkan.');">
@@ -485,10 +485,10 @@
         <!-- MODAL 1: TAMBAH KELAS BARU (High-End Clean Pop-Up) -->
         <!-- ================================================================= -->
         <div x-cloak x-show="showCreateModal" 
-            class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+            class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
             @keydown.escape.window="showCreateModal = false">
             <div @click.away="showCreateModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 my-8">
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
                 
                 <div class="flex items-center justify-between pb-4 border-b border-surface-100 dark:border-surface-700">
                     <div class="flex items-center gap-3">
@@ -653,10 +653,10 @@
         <!-- MODAL 2: EDIT KELAS (High-End Clean Pop-Up) -->
         <!-- ================================================================= -->
         <div x-cloak x-show="showEditModal" 
-            class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+            class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
             @keydown.escape.window="showEditModal = false">
             <div @click.away="showEditModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 my-8">
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
                 
                 <div class="flex items-center justify-between pb-4 border-b border-surface-100 dark:border-surface-700">
                     <div class="flex items-center gap-3">
