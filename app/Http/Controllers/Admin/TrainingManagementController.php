@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 use Illuminate\View\View;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -30,7 +31,7 @@ class TrainingManagementController extends Controller
     private function authorizeManager(): void
     {
         $user = Auth::user();
-        if ($user && $user->isStudent() && !$user->isAdmin() && !$user->isAcademyAdmin()) {
+        if (!$user || (!$user->isAdmin() && !$user->isAcademyAdmin() && !$user->isDirector())) {
             abort(403, 'Akses terbatas untuk Administrator Visilab Academy.');
         }
 
@@ -96,22 +97,22 @@ class TrainingManagementController extends Controller
 
             foreach ($enrollments as $row) {
                 fputcsv($handle, [
-                    $row->effective_invoice_no,
+                    $this->escapeCsvCell($row->effective_invoice_no),
                     $row->created_at?->format('Y-m-d H:i') ?? '',
-                    $row->user->name ?? '',
-                    $row->user->email ?? '',
-                    $row->user->phone ?? '',
-                    $row->user->institution ?? '',
-                    $row->user->profession ?? '',
-                    $row->trainingClass->title ?? '',
-                    $row->trainingClass->batch_name ?? '',
+                    $this->escapeCsvCell($row->user->name ?? ''),
+                    $this->escapeCsvCell($row->user->email ?? ''),
+                    $this->escapeCsvCell($row->user->phone ?? ''),
+                    $this->escapeCsvCell($row->user->institution ?? ''),
+                    $this->escapeCsvCell($row->user->profession ?? ''),
+                    $this->escapeCsvCell($row->trainingClass->title ?? ''),
+                    $this->escapeCsvCell($row->trainingClass->batch_name ?? ''),
                     $row->effective_base_price,
                     $row->discount_amount ?? 0,
                     $row->effective_final_price,
-                    $row->affiliateCode->code ?? '',
+                    $this->escapeCsvCell($row->affiliateCode->code ?? ''),
                     $row->affiliate_commission ?? 0,
-                    $row->status_label,
-                    $row->certificate->certificate_number ?? '',
+                    $this->escapeCsvCell($row->status_label),
+                    $this->escapeCsvCell($row->certificate->certificate_number ?? ''),
                 ]);
             }
 
@@ -134,7 +135,10 @@ class TrainingManagementController extends Controller
             abort(404, 'Bukti pembayaran tidak ditemukan.');
         }
 
-        return response()->file(Storage::disk('local')->path($enrollment->payment_proof_path));
+        return response()->file(
+            Storage::disk('local')->path($enrollment->payment_proof_path),
+            ['X-Content-Type-Options' => 'nosniff']
+        );
     }
 
     /**
@@ -144,8 +148,12 @@ class TrainingManagementController extends Controller
     {
         $this->authorizeManager();
 
-        DB::transaction(function () use ($id) {
+        $approved = DB::transaction(function () use ($id) {
             $enrollment = TrainingEnrollment::lockForUpdate()->findOrFail($id);
+
+            if ($enrollment->status !== TrainingEnrollment::STATUS_PENDING) {
+                return false;
+            }
 
             $updateData = [
                 'status' => TrainingEnrollment::STATUS_ACTIVE,
@@ -173,7 +181,15 @@ class TrainingManagementController extends Controller
             }
 
             $enrollment->update($updateData);
+            return true;
         });
+
+        if (!$approved) {
+            return redirect()->back()->with('toast', [
+                'type' => 'warning',
+                'message' => 'Hanya pendaftaran berstatus Menunggu Verifikasi yang dapat disetujui.',
+            ]);
+        }
 
         return redirect()->back()->with('toast', [
             'type' => 'success',
@@ -193,6 +209,14 @@ class TrainingManagementController extends Controller
         ]);
 
         $enrollment = TrainingEnrollment::findOrFail($id);
+
+        if ($enrollment->status !== TrainingEnrollment::STATUS_PENDING) {
+            return redirect()->back()->with('toast', [
+                'type' => 'warning',
+                'message' => 'Hanya pendaftaran berstatus Menunggu Verifikasi yang dapat dibatalkan.',
+            ]);
+        }
+
         $enrollment->update([
             'status' => TrainingEnrollment::STATUS_CANCELLED,
             'rejection_reason' => $validated['rejection_reason'] ?? null,
@@ -211,17 +235,31 @@ class TrainingManagementController extends Controller
     {
         $this->authorizeManager();
 
+        $enrollment = TrainingEnrollment::with(['user', 'trainingClass', 'certificate'])->findOrFail($id);
+
+        if (!in_array($enrollment->status, [TrainingEnrollment::STATUS_ACTIVE, TrainingEnrollment::STATUS_COMPLETED], true)) {
+            return redirect()->back()->with('toast', [
+                'type' => 'warning',
+                'message' => 'Peserta hanya dapat diluluskan setelah status pendaftaran Aktif (lunas).',
+            ]);
+        }
+
         $validated = $request->validate([
             'certificate_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
-            'certificate_number' => ['nullable', 'string', 'max:100'],
+            'certificate_number' => [
+                'nullable',
+                'string',
+                'max:100',
+                Rule::unique('student_certificates', 'certificate_number')->ignore($enrollment->certificate?->id),
+            ],
             'issued_date' => ['nullable', 'date'],
             'notes' => ['nullable', 'string', 'max:255'],
         ], [
             'certificate_pdf.mimes' => 'File sertifikat harus berformat PDF.',
             'certificate_pdf.max' => 'Ukuran file PDF sertifikat maksimal 10 MB.',
+            'certificate_number.unique' => 'Nomor sertifikat tersebut sudah terdaftar pada peserta lain.',
         ]);
 
-        $enrollment = TrainingEnrollment::with(['user', 'trainingClass', 'certificate'])->findOrFail($id);
         $enrollment->update([
             'status' => TrainingEnrollment::STATUS_COMPLETED,
             'completed_at' => $enrollment->completed_at ?? now(),
@@ -258,12 +296,16 @@ class TrainingManagementController extends Controller
                 'notes' => $validated['notes'] ?? $enrollment->certificate->notes,
             ]);
         } else {
+            do {
+                $verificationCode = 'VSI-' . strtoupper(Str::random(8));
+            } while (StudentCertificate::where('verification_code', $verificationCode)->exists());
+
             StudentCertificate::create([
                 'training_enrollment_id' => $enrollment->id,
                 'user_id' => $enrollment->user_id,
                 'training_class_id' => $enrollment->training_class_id,
                 'certificate_number' => $certNumber,
-                'verification_code' => 'VSI-' . strtoupper(Str::random(8)),
+                'verification_code' => $verificationCode,
                 'recipient_name' => $enrollment->user->name ?? 'Peserta',
                 'recipient_institution' => $enrollment->user->institution ?? null,
                 'pdf_path' => $pdfPath,
@@ -540,7 +582,7 @@ class TrainingManagementController extends Controller
             'title' => ['required', 'string', 'max:255'],
             'type' => ['required', 'in:pdf,video,link'],
             'file' => ['required_if:type,pdf', 'nullable', 'file', 'mimes:pdf', 'max:20480'],
-            'external_url' => ['required_unless:type,pdf', 'nullable', 'string', 'max:500'],
+            'external_url' => ['required_unless:type,pdf', 'nullable', 'url:http,https', 'max:500'],
             'description' => ['nullable', 'string', 'max:1000'],
             'sort_order' => ['nullable', 'integer', 'min:0'],
         ], [
@@ -549,6 +591,7 @@ class TrainingManagementController extends Controller
             'file.mimes' => 'File materi harus berformat PDF.',
             'file.max' => 'Ukuran file PDF maksimal 20 MB.',
             'external_url.required_unless' => 'Link URL wajib diisi untuk materi bertipe Video atau Tautan.',
+            'external_url.url' => 'URL materi harus valid (http:// atau https://).',
         ]);
 
         $filePath = null;
@@ -638,13 +681,19 @@ class TrainingManagementController extends Controller
 
         $validated = $request->validate([
             'certificate_pdf' => ['required', 'file', 'mimes:pdf', 'max:10240'],
-            'certificate_number' => ['nullable', 'string', 'max:100'],
+            'certificate_number' => [
+                'nullable',
+                'string',
+                'max:100',
+                Rule::unique('student_certificates', 'certificate_number')->ignore($certificate->id),
+            ],
             'issued_date' => ['nullable', 'date'],
             'notes' => ['nullable', 'string', 'max:255'],
         ], [
             'certificate_pdf.required' => 'File PDF sertifikat wajib dipilih.',
             'certificate_pdf.mimes' => 'File sertifikat harus berformat PDF.',
             'certificate_pdf.max' => 'Ukuran file PDF sertifikat maksimal 10 MB.',
+            'certificate_number.unique' => 'Nomor sertifikat tersebut sudah terdaftar pada peserta lain.',
         ]);
 
         if ($certificate->pdf_path && Storage::disk('local')->exists($certificate->pdf_path)) {
@@ -770,13 +819,28 @@ class TrainingManagementController extends Controller
             'admin_notes' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $withdrawal = AffiliateWithdrawal::findOrFail($id);
-        $withdrawal->update([
-            'status' => AffiliateWithdrawal::STATUS_PAID,
-            'admin_notes' => $validated['admin_notes'] ?? 'Komisi telah ditransfer ke rekening tujuan.',
-            'processed_by' => Auth::id(),
-            'processed_at' => now(),
-        ]);
+        $processed = DB::transaction(function () use ($id, $validated) {
+            $withdrawal = AffiliateWithdrawal::lockForUpdate()->findOrFail($id);
+            if ($withdrawal->status !== AffiliateWithdrawal::STATUS_PENDING) {
+                return false;
+            }
+
+            $withdrawal->update([
+                'status' => AffiliateWithdrawal::STATUS_PAID,
+                'admin_notes' => $validated['admin_notes'] ?? 'Komisi telah ditransfer ke rekening tujuan.',
+                'processed_by' => Auth::id(),
+                'processed_at' => now(),
+            ]);
+
+            return true;
+        });
+
+        if (!$processed) {
+            return redirect()->back()->with('toast', [
+                'type' => 'warning',
+                'message' => 'Pengajuan penarikan ini sudah diproses sebelumnya.',
+            ]);
+        }
 
         return redirect()->back()->with('toast', [
             'type' => 'success',
@@ -795,13 +859,28 @@ class TrainingManagementController extends Controller
             'admin_notes' => ['nullable', 'string', 'max:500'],
         ]);
 
-        $withdrawal = AffiliateWithdrawal::findOrFail($id);
-        $withdrawal->update([
-            'status' => AffiliateWithdrawal::STATUS_REJECTED,
-            'admin_notes' => $validated['admin_notes'] ?? 'Pengajuan penarikan ditolak oleh admin.',
-            'processed_by' => Auth::id(),
-            'processed_at' => now(),
-        ]);
+        $processed = DB::transaction(function () use ($id, $validated) {
+            $withdrawal = AffiliateWithdrawal::lockForUpdate()->findOrFail($id);
+            if ($withdrawal->status !== AffiliateWithdrawal::STATUS_PENDING) {
+                return false;
+            }
+
+            $withdrawal->update([
+                'status' => AffiliateWithdrawal::STATUS_REJECTED,
+                'admin_notes' => $validated['admin_notes'] ?? 'Pengajuan penarikan ditolak oleh admin.',
+                'processed_by' => Auth::id(),
+                'processed_at' => now(),
+            ]);
+
+            return true;
+        });
+
+        if (!$processed) {
+            return redirect()->back()->with('toast', [
+                'type' => 'warning',
+                'message' => 'Pengajuan penarikan ini sudah diproses sebelumnya dan tidak bisa diubah statusnya.',
+            ]);
+        }
 
         return redirect()->back()->with('toast', [
             'type' => 'warning',
@@ -924,5 +1003,18 @@ class TrainingManagementController extends Controller
                 $request->merge(['materials_link' => 'https://' . $mat]);
             }
         }
+    }
+
+    /**
+     * Neutralize spreadsheet formula injection characters in CSV exports.
+     */
+    private function escapeCsvCell(mixed $value): string
+    {
+        $str = (string) ($value ?? '');
+        if ($str !== '' && preg_match('/^[=+\-@\t\r]/', $str) === 1) {
+            return "'" . $str;
+        }
+
+        return $str;
     }
 }

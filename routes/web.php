@@ -199,13 +199,13 @@ Route::middleware('guest')->group(function () {
 
     // Forgot & Reset Password
     Route::get('/forgot-password', [PasswordResetController::class, 'showForgotForm'])->name('password.request');
-    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLink'])->name('password.email')->middleware('throttle:5,1');
     Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
 
     // Student Registration
     Route::get('/pelajar/daftar', [StudentAuthController::class, 'showRegisterForm'])->name('student.register');
-    Route::post('/pelajar/daftar', [StudentAuthController::class, 'register'])->name('student.register.submit');
+    Route::post('/pelajar/daftar', [StudentAuthController::class, 'register'])->name('student.register.submit')->middleware('throttle:10,1');
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
@@ -227,7 +227,7 @@ Route::get('/verify-certificate/{code}/file', [PublicCertificateController::clas
 Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
     Route::get('/dashboard', [StudentPortalController::class, 'dashboard'])->name('dashboard');
     Route::get('/checkout/{id}', [StudentPortalController::class, 'checkout'])->name('checkout');
-    Route::post('/affiliate/validate-code', [StudentPortalController::class, 'validateAffiliateCode'])->name('affiliate.validate');
+    Route::post('/affiliate/validate-code', [StudentPortalController::class, 'validateAffiliateCode'])->name('affiliate.validate')->middleware('throttle:20,1');
     Route::post('/enroll/{id}', [StudentPortalController::class, 'enroll'])->name('enroll');
     Route::post('/enrollments/{id}/payment-proof', [StudentPortalController::class, 'uploadPaymentProof'])->name('enrollment.payment-proof');
     Route::get('/enrollments/{id}/payment-proof', [StudentPortalController::class, 'viewPaymentProof'])->name('enrollment.payment-proof.view');
@@ -237,7 +237,7 @@ Route::middleware(['auth'])->prefix('student')->name('student.')->group(function
     Route::post('/password', [StudentPortalController::class, 'updatePassword'])->name('password.update');
     Route::post('/affiliate', [StudentPortalController::class, 'createAffiliateCode'])->name('affiliate.create');
     Route::delete('/affiliate/{id}', [StudentPortalController::class, 'deleteAffiliateCode'])->name('affiliate.delete');
-    Route::post('/affiliate/withdraw', [StudentPortalController::class, 'withdrawAffiliate'])->name('affiliate.withdraw');
+    Route::post('/affiliate/withdraw', [StudentPortalController::class, 'withdrawAffiliate'])->name('affiliate.withdraw')->middleware('throttle:5,1');
     Route::get('/certificate/{id}', [StudentPortalController::class, 'viewCertificate'])->name('certificate.view');
 });
 

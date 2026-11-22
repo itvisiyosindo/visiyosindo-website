@@ -154,7 +154,7 @@
                 <form action="{{ route('student.enroll', $trainingClass->id) }}" method="POST"
                     class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl space-y-5 border border-slate-100 dark:border-slate-800">
                     @csrf
-                    <input type="hidden" name="affiliate_code" :value="appliedCode">
+                    <input type="hidden" name="affiliate_code" :value="appliedCode || code.trim().toUpperCase()">
 
                     <h3 class="text-base font-black text-slate-900 dark:text-white">Ringkasan Pembayaran</h3>
 

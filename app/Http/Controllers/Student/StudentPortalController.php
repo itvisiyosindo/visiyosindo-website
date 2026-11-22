@@ -10,11 +10,13 @@ use App\Models\StudentCertificate;
 use App\Models\TrainingClass;
 use App\Models\TrainingEnrollment;
 use App\Models\TrainingMaterial;
+use App\Models\User;
 use App\Support\AcademySchemaEnsurer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
@@ -341,7 +343,8 @@ class StudentPortalController extends Controller
         $trainingClass = TrainingClass::where('is_active', true)->findOrFail($request->integer('class_id'));
         $codeUpper = strtoupper(trim($request->input('code')));
 
-        $affiliate = AffiliateCode::where('code', $codeUpper)
+        $affiliate = AffiliateCode::with('user')
+            ->where('code', $codeUpper)
             ->where('is_active', true)
             ->first();
 
@@ -352,10 +355,12 @@ class StudentPortalController extends Controller
             ], 422);
         }
 
-        if ($affiliate->user_id === $user->id) {
+        $affiliatePhone = $this->normalizePhone($affiliate->user?->phone);
+        $userPhone = $this->normalizePhone($user->phone);
+        if ($affiliate->user_id === $user->id || ($affiliatePhone !== '' && $userPhone !== '' && $affiliatePhone === $userPhone)) {
             return response()->json([
                 'valid' => false,
-                'message' => 'Anda tidak dapat menggunakan kode afiliasi milik sendiri.',
+                'message' => 'Anda tidak dapat menggunakan kode afiliasi milik sendiri atau nomor WhatsApp yang sama.',
             ], 422);
         }
 
@@ -377,118 +382,130 @@ class StudentPortalController extends Controller
     }
 
     /**
-     * Enroll in a training class (with price snapshot and optional referral code).
+     * Enroll in a training class (with atomic quota lock, price snapshot, and referral validation).
      */
     public function enroll(Request $request, int $id): RedirectResponse
     {
         AcademySchemaEnsurer::ensure();
 
-        $trainingClass = TrainingClass::where('is_active', true)->findOrFail($id);
-        $user = Auth::user();
-
-        $existing = TrainingEnrollment::where('user_id', $user->id)
-            ->where('training_class_id', $trainingClass->id)
-            ->first();
-
-        if ($existing && !$existing->isCancelled()) {
-            return redirect()->route('student.dashboard', ['#classes'])->with('toast', [
-                'type' => 'info',
-                'message' => 'Anda sudah terdaftar di kelas ' . $trainingClass->title . '.',
-            ]);
-        }
-
-        if (!$trainingClass->is_registration_open) {
-            return redirect()->route('student.classes.show', $trainingClass->slug)->with('toast', [
-                'type' => 'error',
-                'message' => $trainingClass->is_full
-                    ? 'Pendaftaran gagal karena kuota kelas sudah penuh.'
-                    : 'Pendaftaran gagal karena batas pendaftaran telah berakhir.',
-            ]);
-        }
-
         $validated = $request->validate([
             'affiliate_code' => ['nullable', 'string', 'max:32'],
         ]);
 
+        $user = Auth::user();
         $academySettings = AcademySetting::allSettings();
         $discountPercent = (int) ($academySettings['affiliate_discount_percent'] ?? 5);
         $commissionPercent = (int) ($academySettings['affiliate_commission_percent'] ?? 2);
 
-        $basePrice = (int) $trainingClass->price;
-        $affiliate = null;
-
-        if (!empty($validated['affiliate_code']) && $basePrice > 0) {
-            $codeUpper = strtoupper(trim($validated['affiliate_code']));
-            $affiliate = AffiliateCode::where('code', $codeUpper)
+        return DB::transaction(function () use ($id, $user, $validated, $discountPercent, $commissionPercent) {
+            $trainingClass = TrainingClass::where('id', $id)
                 ->where('is_active', true)
+                ->lockForUpdate()
+                ->firstOrFail();
+
+            $existing = TrainingEnrollment::where('user_id', $user->id)
+                ->where('training_class_id', $trainingClass->id)
+                ->lockForUpdate()
                 ->first();
 
-            if (!$affiliate) {
-                return back()->withInput()->with('toast', [
-                    'type' => 'error',
-                    'message' => "Kode afiliasi \"{$codeUpper}\" tidak valid atau sudah nonaktif.",
+            if ($existing && !$existing->isCancelled()) {
+                return redirect()->route('student.dashboard', ['#classes'])->with('toast', [
+                    'type' => 'info',
+                    'message' => 'Anda sudah terdaftar di kelas ' . $trainingClass->title . '.',
                 ]);
             }
 
-            if ($affiliate->user_id === $user->id) {
-                return back()->withInput()->with('toast', [
+            if (!$trainingClass->is_registration_open) {
+                return redirect()->route('student.classes.show', $trainingClass->slug)->with('toast', [
                     'type' => 'error',
-                    'message' => 'Anda tidak dapat menggunakan kode afiliasi milik sendiri.',
+                    'message' => $trainingClass->is_full
+                        ? 'Pendaftaran gagal karena kuota kelas sudah penuh.'
+                        : 'Pendaftaran gagal karena batas pendaftaran telah berakhir.',
                 ]);
             }
-        }
 
-        $discountAmount = ($affiliate && $basePrice > 0)
-            ? (int) round($basePrice * ($discountPercent / 100))
-            : 0;
-        $finalPrice = max(0, $basePrice - $discountAmount);
-        $affiliateCommission = ($affiliate && $finalPrice > 0)
-            ? (int) round($finalPrice * ($commissionPercent / 100))
-            : 0;
+            $basePrice = (int) $trainingClass->price;
+            $affiliate = null;
 
-        $invoiceNo = 'INV-VYM-' . now()->format('Ym') . '-' . strtoupper(Str::random(6));
-        $isFree = $basePrice === 0 || $finalPrice === 0;
+            if (!empty($validated['affiliate_code']) && $basePrice > 0) {
+                $codeUpper = strtoupper(trim($validated['affiliate_code']));
+                $affiliate = AffiliateCode::with('user')
+                    ->where('code', $codeUpper)
+                    ->where('is_active', true)
+                    ->first();
 
-        $payload = [
-            'invoice_number' => $invoiceNo,
-            'status' => $isFree ? TrainingEnrollment::STATUS_ACTIVE : TrainingEnrollment::STATUS_PENDING,
-            'payment_method' => $isFree ? 'free' : 'bank_transfer',
-            'base_price' => $basePrice,
-            'discount_amount' => $discountAmount,
-            'final_price' => $finalPrice,
-            'affiliate_code_id' => $affiliate?->id,
-            'affiliate_commission' => $affiliateCommission,
-            'commission_awarded_at' => null,
-            'payment_proof_path' => null,
-            'payment_proof_uploaded_at' => null,
-            'approved_at' => $isFree ? now() : null,
-            'completed_at' => null,
-            'rejection_reason' => null,
-        ];
+                if (!$affiliate) {
+                    return back()->withInput()->with('toast', [
+                        'type' => 'error',
+                        'message' => "Kode afiliasi \"{$codeUpper}\" tidak valid atau sudah nonaktif.",
+                    ]);
+                }
 
-        if ($existing && $existing->isCancelled()) {
-            $existing->update($payload);
-            $enrollment = $existing;
-        } else {
-            $enrollment = TrainingEnrollment::create(array_merge($payload, [
-                'user_id' => $user->id,
-                'training_class_id' => $trainingClass->id,
-            ]));
-        }
+                $affiliatePhone = $this->normalizePhone($affiliate->user?->phone);
+                $userPhone = $this->normalizePhone($user->phone);
+                if ($affiliate->user_id === $user->id || ($affiliatePhone !== '' && $userPhone !== '' && $affiliatePhone === $userPhone)) {
+                    return back()->withInput()->with('toast', [
+                        'type' => 'error',
+                        'message' => 'Anda tidak dapat menggunakan kode afiliasi milik sendiri atau nomor WhatsApp yang sama.',
+                    ]);
+                }
+            }
 
-        session()->forget('affiliate_ref');
+            $discountAmount = ($affiliate && $basePrice > 0)
+                ? (int) round($basePrice * ($discountPercent / 100))
+                : 0;
+            $finalPrice = max(0, $basePrice - $discountAmount);
+            $affiliateCommission = ($affiliate && $finalPrice > 0)
+                ? (int) round($finalPrice * ($commissionPercent / 100))
+                : 0;
 
-        if ($isFree) {
-            return redirect()->route('student.classroom', $enrollment->id)->with('toast', [
+            do {
+                $invoiceNo = 'INV-VYM-' . now()->format('Ym') . '-' . strtoupper(Str::random(6));
+            } while (TrainingEnrollment::where('invoice_number', $invoiceNo)->exists());
+
+            $isFree = $basePrice === 0 || $finalPrice === 0;
+
+            $payload = [
+                'invoice_number' => $invoiceNo,
+                'status' => $isFree ? TrainingEnrollment::STATUS_ACTIVE : TrainingEnrollment::STATUS_PENDING,
+                'payment_method' => $isFree ? 'free' : 'bank_transfer',
+                'base_price' => $basePrice,
+                'discount_amount' => $discountAmount,
+                'final_price' => $finalPrice,
+                'affiliate_code_id' => $affiliate?->id,
+                'affiliate_commission' => $affiliateCommission,
+                'commission_awarded_at' => null,
+                'payment_proof_path' => null,
+                'payment_proof_uploaded_at' => null,
+                'approved_at' => $isFree ? now() : null,
+                'completed_at' => null,
+                'rejection_reason' => null,
+            ];
+
+            if ($existing && $existing->isCancelled()) {
+                $existing->update($payload);
+                $enrollment = $existing;
+            } else {
+                $enrollment = TrainingEnrollment::create(array_merge($payload, [
+                    'user_id' => $user->id,
+                    'training_class_id' => $trainingClass->id,
+                ]));
+            }
+
+            session()->forget('affiliate_ref');
+
+            if ($isFree) {
+                return redirect()->route('student.classroom', $enrollment->id)->with('toast', [
+                    'type' => 'success',
+                    'message' => 'Pendaftaran kelas gratis berhasil! Anda langsung dapat mengakses ruang kelas.',
+                ]);
+            }
+
+            return redirect()->route('student.dashboard', ['#invoices'])->with('toast', [
                 'type' => 'success',
-                'message' => 'Pendaftaran kelas gratis berhasil! Anda langsung dapat mengakses ruang kelas.',
+                'message' => 'Pendaftaran berhasil! Silakan transfer sesuai invoice dan unggah bukti pembayaran.',
             ]);
-        }
-
-        return redirect()->route('student.dashboard', ['#invoices'])->with('toast', [
-            'type' => 'success',
-            'message' => 'Pendaftaran berhasil! Silakan transfer sesuai invoice dan unggah bukti pembayaran.',
-        ]);
+        });
     }
 
     /**
@@ -503,10 +520,12 @@ class StudentPortalController extends Controller
             ->where('user_id', $user->id)
             ->firstOrFail();
 
-        if ($enrollment->isPaid()) {
+        if ($enrollment->status !== TrainingEnrollment::STATUS_PENDING) {
             return redirect()->route('student.dashboard', ['#invoices'])->with('toast', [
-                'type' => 'info',
-                'message' => 'Pembayaran untuk kelas ini sudah diverifikasi lunas.',
+                'type' => 'warning',
+                'message' => $enrollment->isPaid()
+                    ? 'Pembayaran untuk kelas ini sudah diverifikasi lunas.'
+                    : 'Pendaftaran ini sudah dibatalkan. Silakan lakukan pendaftaran ulang terlebih dahulu.',
             ]);
         }
 
@@ -549,7 +568,10 @@ class StudentPortalController extends Controller
             abort(404, 'Bukti pembayaran tidak ditemukan.');
         }
 
-        return response()->file(Storage::disk('local')->path($enrollment->payment_proof_path));
+        return response()->file(
+            Storage::disk('local')->path($enrollment->payment_proof_path),
+            ['X-Content-Type-Options' => 'nosniff']
+        );
     }
 
     /**
@@ -632,6 +654,13 @@ class StudentPortalController extends Controller
 
         $this->ensureAffiliateTableExists();
 
+        if (AffiliateCode::where('user_id', $user->id)->count() >= 5) {
+            return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
+                'type' => 'warning',
+                'message' => 'Maksimal 5 kode afiliasi per akun pelajar.',
+            ]);
+        }
+
         if (AffiliateCode::where('code', $codeUpper)->exists()) {
             return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
                 'type' => 'error',
@@ -677,6 +706,13 @@ class StudentPortalController extends Controller
             ]);
         }
 
+        if ($affiliate->usage_count > 0 || $affiliate->total_commission > 0 || $affiliate->enrollments()->exists()) {
+            return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
+                'type' => 'warning',
+                'message' => 'Kode afiliasi yang sudah pernah digunakan tidak dapat dihapus demi menjaga riwayat transaksi.',
+            ]);
+        }
+
         $affiliate->delete();
 
         return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
@@ -695,50 +731,63 @@ class StudentPortalController extends Controller
         $user = Auth::user();
         $minWithdrawal = (int) AcademySetting::getValue('affiliate_min_withdrawal', '50000');
 
-        $totalCommission = (int) AffiliateCode::where('user_id', $user->id)->sum('total_commission');
-        $withdrawn = (int) AffiliateWithdrawal::where('user_id', $user->id)
-            ->where('status', AffiliateWithdrawal::STATUS_PAID)
-            ->sum('amount');
-        $pending = (int) AffiliateWithdrawal::where('user_id', $user->id)
-            ->where('status', AffiliateWithdrawal::STATUS_PENDING)
-            ->sum('amount');
-
-        $availableBalance = max(0, $totalCommission - $withdrawn - $pending);
-
         $validated = $request->validate([
-            'amount' => ['required', 'integer', 'min:' . $minWithdrawal, 'max:' . max($minWithdrawal, $availableBalance)],
+            'amount' => ['required', 'integer', 'min:' . max(1, $minWithdrawal)],
             'bank_name' => ['required', 'string', 'max:100'],
             'account_number' => ['required', 'string', 'max:50'],
             'account_holder' => ['required', 'string', 'max:100'],
         ], [
             'amount.required' => 'Nominal penarikan wajib diisi.',
+            'amount.integer' => 'Nominal penarikan harus berupa angka bulat.',
             'amount.min' => 'Minimal penarikan komisi adalah Rp ' . number_format($minWithdrawal, 0, ',', '.') . '.',
-            'amount.max' => 'Nominal penarikan melebihi saldo tersedia Anda (Rp ' . number_format($availableBalance, 0, ',', '.') . ').',
             'bank_name.required' => 'Nama Bank / E-Wallet wajib diisi.',
             'account_number.required' => 'Nomor Rekening wajib diisi.',
             'account_holder.required' => 'Nama Pemilik Rekening wajib diisi.',
         ]);
 
-        if ($availableBalance < $minWithdrawal) {
-            return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
-                'type' => 'warning',
-                'message' => 'Saldo tersedia Anda (Rp ' . number_format($availableBalance, 0, ',', '.') . ') belum mencapai batas minimal Rp ' . number_format($minWithdrawal, 0, ',', '.') . '.',
+        return DB::transaction(function () use ($user, $minWithdrawal, $validated) {
+            // Lock user row to prevent concurrent double-withdrawals
+            User::where('id', $user->id)->lockForUpdate()->first();
+
+            $totalCommission = (int) AffiliateCode::where('user_id', $user->id)->sum('total_commission');
+            $withdrawn = (int) AffiliateWithdrawal::where('user_id', $user->id)
+                ->where('status', AffiliateWithdrawal::STATUS_PAID)
+                ->sum('amount');
+            $pending = (int) AffiliateWithdrawal::where('user_id', $user->id)
+                ->where('status', AffiliateWithdrawal::STATUS_PENDING)
+                ->sum('amount');
+
+            $availableBalance = max(0, $totalCommission - $withdrawn - $pending);
+
+            if ($availableBalance < $minWithdrawal) {
+                return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
+                    'type' => 'warning',
+                    'message' => 'Saldo tersedia Anda (Rp ' . number_format($availableBalance, 0, ',', '.') . ') belum mencapai batas minimal Rp ' . number_format($minWithdrawal, 0, ',', '.') . '.',
+                ]);
+            }
+
+            $requestedAmount = (int) $validated['amount'];
+            if ($requestedAmount > $availableBalance) {
+                return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
+                    'type' => 'error',
+                    'message' => 'Nominal penarikan melebihi saldo tersedia Anda (Rp ' . number_format($availableBalance, 0, ',', '.') . ').',
+                ]);
+            }
+
+            AffiliateWithdrawal::create([
+                'user_id' => $user->id,
+                'amount' => $requestedAmount,
+                'bank_name' => $validated['bank_name'],
+                'account_number' => $validated['account_number'],
+                'account_holder' => $validated['account_holder'],
+                'status' => AffiliateWithdrawal::STATUS_PENDING,
             ]);
-        }
 
-        AffiliateWithdrawal::create([
-            'user_id' => $user->id,
-            'amount' => (int) $validated['amount'],
-            'bank_name' => $validated['bank_name'],
-            'account_number' => $validated['account_number'],
-            'account_holder' => $validated['account_holder'],
-            'status' => AffiliateWithdrawal::STATUS_PENDING,
-        ]);
-
-        return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
-            'type' => 'success',
-            'message' => 'Pengajuan penarikan Rp ' . number_format((int) $validated['amount'], 0, ',', '.') . ' berhasil dikirim dan sedang diproses admin.',
-        ]);
+            return redirect()->route('student.dashboard', ['#affiliate'])->with('toast', [
+                'type' => 'success',
+                'message' => 'Pengajuan penarikan Rp ' . number_format($requestedAmount, 0, ',', '.') . ' berhasil dikirim dan sedang diproses admin.',
+            ]);
+        });
     }
 
     /**
@@ -852,6 +901,23 @@ class StudentPortalController extends Controller
         if ($clean !== '') {
             session(['affiliate_ref' => substr($clean, 0, 32)]);
         }
+    }
+
+    /**
+     * Normalize Indonesian phone/WhatsApp digits for anti-self-referral check.
+     */
+    private function normalizePhone(?string $phone): string
+    {
+        $digits = preg_replace('/[^0-9]/', '', (string) $phone);
+        if ($digits === '') {
+            return '';
+        }
+
+        if (str_starts_with($digits, '0')) {
+            $digits = '62' . substr($digits, 1);
+        }
+
+        return $digits;
     }
 
     /**
