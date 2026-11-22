@@ -36,31 +36,31 @@
 
                     <!-- Details Table -->
                     <div class="space-y-4 text-sm divide-y divide-slate-100 dark:divide-slate-700/60">
-                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Nomor Sertifikat</span>
-                            <span class="font-mono font-bold text-slate-900 dark:text-white">{{ $certificate->certificate_number }}</span>
+                            <span class="font-mono font-bold text-slate-900 dark:text-white break-all sm:break-normal">{{ $certificate->certificate_number }}</span>
                         </div>
 
-                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Kode Validasi</span>
-                            <span class="font-mono font-bold text-blue-600 dark:text-blue-400">{{ $certificate->verification_code }}</span>
+                            <span class="font-mono font-bold text-blue-600 dark:text-blue-400 break-all sm:break-normal">{{ $certificate->verification_code }}</span>
                         </div>
 
-                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Nama Peserta</span>
                             <span class="font-bold text-base text-slate-900 dark:text-white">{{ $certificate->display_recipient_name }}</span>
                         </div>
 
                         @if ($certificate->display_recipient_institution)
-                            <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                            <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                                 <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Asal Instansi</span>
                                 <span class="font-medium text-slate-700 dark:text-slate-300">{{ $certificate->display_recipient_institution }}</span>
                             </div>
                         @endif
 
-                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Program Pelatihan</span>
-                            <span class="font-semibold text-slate-900 dark:text-white text-right max-w-sm">
+                            <span class="font-semibold text-slate-900 dark:text-white sm:text-right sm:max-w-sm">
                                 {{ $certificate->trainingClass->title }}
                                 @if ($certificate->trainingClass->batch_name)
                                     <span class="block text-xs text-blue-600 dark:text-blue-400">
@@ -70,12 +70,12 @@
                             </span>
                         </div>
 
-                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Tanggal Diterbitkan</span>
                             <span class="font-medium text-slate-700 dark:text-slate-300">{{ $certificate->issued_date->format('d F Y') }}</span>
                         </div>
 
-                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between">
+                        <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Penerbit</span>
                             <span class="font-semibold text-slate-900 dark:text-white">PT Visi Yosindo Medikal &bull; Visilab Academy</span>
                         </div>
@@ -109,8 +109,8 @@
                                 <iframe
                                     src="{{ route('certificate.verify.file', $certificate->verification_code) }}#toolbar=1&view=FitH"
                                     title="Sertifikat {{ $certificate->display_recipient_name }}"
-                                    style="width: 100%; height: 600px; border: 0; display: block;"
-                                    class="w-full h-[520px] sm:h-[660px] border-0">
+                                    style="width: 100%; height: clamp(380px, 65vh, 660px); border: 0; display: block;"
+                                    class="w-full h-[380px] sm:h-[660px] border-0">
                                 </iframe>
                             </div>
                         @else

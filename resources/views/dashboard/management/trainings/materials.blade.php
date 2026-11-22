@@ -100,7 +100,7 @@
                 </div>
 
                 @forelse($trainingClass->materials as $mat)
-                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between gap-4">
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                         <div class="min-w-0 space-y-1">
                             <div class="flex items-center gap-2">
                                 <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase {{ $mat->type === 'pdf' ? 'bg-blue-100 text-blue-700' : 'bg-amber-100 text-amber-700' }}">
@@ -108,7 +108,7 @@
                                 </span>
                                 <span class="text-[11px] text-slate-400">Urutan #{{ $mat->sort_order }}</span>
                             </div>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white truncate">{{ $mat->title }}</h3>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white sm:truncate break-words">{{ $mat->title }}</h3>
                             @if($mat->description)
                                 <p class="text-xs text-slate-500 line-clamp-2">{{ $mat->description }}</p>
                             @endif
@@ -120,10 +120,11 @@
                         </div>
 
                         <form action="{{ route('dashboard.trainings.materials.destroy', [$trainingClass->id, $mat->id]) }}" method="POST"
+                            class="w-full sm:w-auto shrink-0"
                             onsubmit="return confirm('Hapus materi ini dari kelas?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold cursor-pointer">
+                            <button type="submit" class="w-full sm:w-auto px-3 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs font-bold cursor-pointer">
                                 Hapus
                             </button>
                         </form>

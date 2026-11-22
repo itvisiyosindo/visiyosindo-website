@@ -151,7 +151,7 @@
         x-transition:leave="transition ease-in duration-200"
         x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-3"
-        class="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-slate-900/95 backdrop-blur-md text-white text-sm font-bold rounded-2xl shadow-2xl">
+        class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-50 flex items-center gap-2.5 px-4 py-3 bg-slate-900/95 backdrop-blur-md text-white text-sm font-bold rounded-2xl shadow-2xl">
         <svg class="w-5 h-5 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
         </svg>
@@ -419,20 +419,20 @@
         <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
             <!-- Top Header (Soft, Clean & Borderless) -->
-            <header class="sticky top-0 z-30 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-xs px-4 sm:px-8 flex items-center justify-between shrink-0">
-                <div class="flex items-center gap-3">
+            <header class="sticky top-0 z-30 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-xs px-4 sm:px-8 flex items-center justify-between gap-2 shrink-0">
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0">
                     <!-- Hamburger button for mobile -->
                     <button type="button" @click="mobileSidebarOpen = true"
-                        class="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800">
+                        class="lg:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 shrink-0">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </button>
 
-                    <div class="flex items-center gap-2 text-xs font-medium text-slate-400">
-                        <span class="hover:text-slate-700 cursor-pointer transition-colors" @click="setTab('overview')">Student Portal</span>
-                        <span class="text-slate-300 dark:text-slate-600">/</span>
-                        <span class="text-slate-900 dark:text-white font-bold capitalize"
+                    <div class="flex items-center gap-2 text-xs font-medium text-slate-400 min-w-0">
+                        <span class="hidden sm:inline hover:text-slate-700 cursor-pointer transition-colors" @click="setTab('overview')">Student Portal</span>
+                        <span class="hidden sm:inline text-slate-300 dark:text-slate-600">/</span>
+                        <span class="text-slate-900 dark:text-white font-bold capitalize truncate"
                             x-text="currentTab === 'overview' ? 'Overview' : (currentTab === 'classes' ? 'Kelas Saya' : (currentTab === 'browse' ? 'Daftar Kelas' : (currentTab === 'history' ? 'Riwayat Belajar' : (currentTab === 'affiliate' ? 'Program Afiliasi' : (currentTab === 'invoices' ? 'Riwayat Invoice' : 'Profil & Akun')))))">
                             Overview
                         </span>
@@ -440,24 +440,25 @@
                 </div>
 
                 <!-- Right Quick Header Actions -->
-                <div class="flex items-center gap-2 sm:gap-3">
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                     <!-- Link to public site -->
-                    <a href="/" target="_blank"
-                        class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
-                        <svg class="w-3.5 h-3.5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <a href="/" target="_blank" title="Website Utama"
+                        class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
-                        <span>Website Utama</span>
+                        <span class="hidden sm:inline">Website Utama</span>
                     </a>
 
                     <!-- CTA Button -->
                     <button type="button" @click="setTab('browse')"
                         style="background-color: #0c2a52 !important; color: #ffffff !important;"
-                        class="vb-navy-btn inline-flex items-center gap-2 px-4 py-2 text-xs font-black text-white rounded-xl shadow-md shadow-blue-950/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer">
-                        <svg class="w-3.5 h-3.5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        class="vb-navy-btn inline-flex items-center gap-2 px-3 sm:px-4 py-2 text-xs font-black text-white rounded-xl shadow-md shadow-blue-950/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap">
+                        <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
                         </svg>
-                        <span>Daftar Kelas Baru</span>
+                        <span class="hidden sm:inline">Daftar Kelas Baru</span>
+                        <span class="sm:hidden">Daftar</span>
                     </button>
                 </div>
             </header>
@@ -519,7 +520,7 @@
                     </div>
 
                     <!-- 4 Metric Cards (Clean White with Logo Blue & Gold Accent) -->
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
                         <!-- Stat 1: Kelas Saya -->
                         <div @click="setTab('classes')"
                             class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
@@ -733,24 +734,24 @@
                         </div>
 
                         <!-- Filter Pills -->
-                        <div class="inline-flex p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl">
+                        <div class="flex flex-wrap sm:inline-flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl w-full sm:w-auto">
                             <button type="button" @click="classFilter = 'all'"
-                                class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
                                 :class="classFilter === 'all' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Semua ({{ $enrollments->count() }})
                             </button>
                             <button type="button" @click="classFilter = 'active'"
-                                class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
                                 :class="classFilter === 'active' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Aktif ({{ $enrollments->where('status', 'active')->count() }})
                             </button>
                             <button type="button" @click="classFilter = 'completed'"
-                                class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
                                 :class="classFilter === 'completed' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Selesai ({{ $enrollments->where('status', 'completed')->count() }})
                             </button>
                             <button type="button" @click="classFilter = 'pending'"
-                                class="px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
                                 :class="classFilter === 'pending' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Menunggu ({{ $enrollments->where('status', 'pending')->count() }})
                             </button>
@@ -1101,45 +1102,45 @@
                     </div>
 
                     <!-- Summary Cards -->
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-3">
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                        <div class="p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between gap-2 mb-3">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Total Kelas</span>
-                                <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-2xl flex items-center justify-center shadow-sm">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                                 </div>
                             </div>
-                            <div style="color: #0c2a52 !important;" class="vb-text-navy text-3xl font-display font-black">{{ $learningStats['total_classes'] }}</div>
+                            <div style="color: #0c2a52 !important;" class="vb-text-navy text-2xl sm:text-3xl font-display font-black">{{ $learningStats['total_classes'] }}</div>
                         </div>
 
-                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-3">
+                        <div class="p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between gap-2 mb-3">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Sedang Aktif</span>
-                                <div style="background-color: #2563eb !important; color: #ffffff !important;" class="vb-bg-royal w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                <div style="background-color: #2563eb !important; color: #ffffff !important;" class="vb-bg-royal w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-2xl flex items-center justify-center shadow-sm">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                                 </div>
                             </div>
-                            <div class="text-3xl font-display font-black text-blue-600 dark:text-blue-400">{{ $learningStats['active_classes'] }}</div>
+                            <div class="text-2xl sm:text-3xl font-display font-black text-blue-600 dark:text-blue-400">{{ $learningStats['active_classes'] }}</div>
                         </div>
 
-                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-3">
+                        <div class="p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between gap-2 mb-3">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Selesai / Lulus</span>
-                                <div style="background-color: #059669 !important; color: #ffffff !important;" class="w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                <div style="background-color: #059669 !important; color: #ffffff !important;" class="w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-2xl flex items-center justify-center shadow-sm">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                 </div>
                             </div>
-                            <div class="text-3xl font-display font-black text-emerald-600 dark:text-emerald-400">{{ $learningStats['completed_classes'] }}</div>
+                            <div class="text-2xl sm:text-3xl font-display font-black text-emerald-600 dark:text-emerald-400">{{ $learningStats['completed_classes'] }}</div>
                         </div>
 
-                        <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-3">
+                        <div class="p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
+                            <div class="flex items-center justify-between gap-2 mb-3">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Sertifikat</span>
-                                <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="vb-bg-amber w-10 h-10 rounded-2xl flex items-center justify-center shadow-sm">
+                                <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="vb-bg-amber w-9 h-9 sm:w-10 sm:h-10 shrink-0 rounded-2xl flex items-center justify-center shadow-sm">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
                                 </div>
                             </div>
-                            <div class="text-3xl font-display font-black text-amber-600 dark:text-amber-400">{{ $learningStats['total_certificates'] }}</div>
+                            <div class="text-2xl sm:text-3xl font-display font-black text-amber-600 dark:text-amber-400">{{ $learningStats['total_certificates'] }}</div>
                         </div>
                     </div>
 
@@ -1173,7 +1174,7 @@
                                                 Terbit: {{ $cert->issued_date?->translatedFormat('d M Y') ?? '-' }}
                                             </p>
                                         </div>
-                                        <div class="flex items-center gap-2">
+                                        <div class="flex flex-wrap items-center gap-2">
                                             <a href="{{ route('student.certificate.view', $cert->id) }}" target="_blank"
                                                 style="background-color: #2563eb; color: #ffffff;"
                                                 class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black inline-flex items-center justify-center whitespace-nowrap transition-colors">
@@ -1232,7 +1233,7 @@
                                             </p>
                                         </div>
 
-                                        <div class="flex items-center gap-2 shrink-0">
+                                        <div class="flex flex-wrap items-center gap-2 shrink-0">
                                             @if($hist->isPaid())
                                                 <a href="{{ route('student.classroom', $hist->id) }}"
                                                     class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors">
@@ -1287,7 +1288,7 @@
                                 </div>
 
                                 <!-- Big Amount -->
-                                <div class="text-3xl sm:text-5xl font-display font-black tracking-tight text-white mb-2">
+                                <div class="text-2xl sm:text-5xl font-display font-black tracking-tight text-white mb-2 break-words">
                                     Rp {{ number_format($affiliateStats['balance'], 0, ',', '.') }}
                                 </div>
                                 @if($affiliateStats['pending_withdrawal'] > 0)
@@ -1306,8 +1307,8 @@
                             </div>
 
                             <!-- 3D Gold Coin Stack Graphic on the Right -->
-                            <div class="absolute right-4 bottom-2 sm:right-8 sm:bottom-4 pointer-events-none z-10">
-                                <svg class="w-32 h-32 sm:w-40 sm:h-40" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <div class="absolute right-3 bottom-2 sm:right-8 sm:bottom-4 pointer-events-none z-0 opacity-20 sm:opacity-100">
+                                <svg class="w-24 h-24 sm:w-40 sm:h-40" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <!-- Base Shadow -->
                                     <ellipse cx="80" cy="142" rx="45" ry="12" fill="#051428" fill-opacity="0.6"/>
                                     <!-- Bottom Coin 3 -->
@@ -1487,7 +1488,7 @@
 
                             <!-- Table Codes -->
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs">
+                                <table class="w-full min-w-[520px] text-left text-xs">
                                     <thead>
                                         <tr class="text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="pb-3 px-2">Kode Afiliasi</th>
@@ -1613,7 +1614,7 @@
                             </div>
                         @else
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs">
+                                <table class="w-full min-w-[600px] text-left text-xs">
                                     <thead>
                                         <tr class="text-slate-400 font-bold uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
                                             <th class="py-3 px-2">Tanggal Ajuan</th>
@@ -1669,7 +1670,7 @@
                         <!-- Invoices List Card -->
                         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
                             <div class="overflow-x-auto">
-                                <table class="w-full text-left text-xs">
+                                <table class="w-full min-w-[720px] text-left text-xs">
                                     <thead>
                                         <tr class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-4 px-6">No. Invoice</th>
@@ -1906,7 +1907,7 @@
 
     <!-- Modal 1: Buat Kode Afiliasi Baru -->
     <div x-cloak x-show="showNewCodeModal"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -1915,7 +1916,7 @@
         x-transition:leave-end="opacity-0">
 
         <div @click.away="showNewCodeModal = false"
-            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center">
@@ -1960,7 +1961,7 @@
 
     <!-- Modal 2: Tarik Komisi Afiliasi -->
     <div x-cloak x-show="showWithdrawModal"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -1969,7 +1970,7 @@
         x-transition:leave-end="opacity-0">
 
         <div @click.away="showWithdrawModal = false"
-            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5">
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl space-y-5 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
                     <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center">
@@ -2033,12 +2034,12 @@
 
     <!-- Modal 3: Material Promosi -->
     <div x-cloak x-show="showPromoModal"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm"
+        class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
         x-transition:enter="ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100">
         <div @click.away="showPromoModal = false"
-            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-4">
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between">
                 <h3 class="font-display font-extrabold text-slate-900 dark:text-white text-base">Material Promosi & Brosur</h3>
                 <button type="button" @click="showPromoModal = false" class="text-slate-400 hover:text-slate-600">
@@ -2066,9 +2067,9 @@
 
     <!-- Modal 4: Informasi Lengkap Afiliasi -->
     <div x-cloak x-show="showInfoModal"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm">
         <div @click.away="showInfoModal = false"
-            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-4">
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div class="flex items-center justify-between">
                 <h3 class="font-display font-extrabold text-slate-900 dark:text-white text-base">Aturan & Panduan Afiliasi</h3>
                 <button type="button" @click="showInfoModal = false" class="text-slate-400 hover:text-slate-600">
@@ -2097,9 +2098,9 @@
 
     <!-- Modal 5: Detail Invoice / Kuitansi Resmi -->
     <div x-cloak x-show="showReceiptModal"
-        class="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        class="fixed inset-0 z-50 overflow-y-auto flex items-start sm:items-center justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm">
         <div @click.away="showReceiptModal = false"
-            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl space-y-6">
+            class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-xl w-full shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
             <!-- Header Kuitansi -->
             <div class="flex items-center justify-between pb-4">
                 <div class="flex items-center gap-3">
@@ -2116,39 +2117,39 @@
 
             <template x-if="selectedInvoice">
                 <div class="space-y-4">
-                    <div class="flex items-center justify-between text-xs">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 text-xs">
                         <span class="text-slate-400">Nomor Tagihan:</span>
-                        <span class="font-mono font-bold text-slate-900 dark:text-white" x-text="selectedInvoice.invoice_no"></span>
+                        <span class="font-mono font-bold text-slate-900 dark:text-white sm:text-right break-words" x-text="selectedInvoice.invoice_no"></span>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 text-xs">
                         <span class="text-slate-400">Nama Peserta:</span>
-                        <span class="font-bold text-slate-900 dark:text-white">{{ $user->name }}</span>
+                        <span class="font-bold text-slate-900 dark:text-white sm:text-right break-words">{{ $user->name }}</span>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 text-xs">
                         <span class="text-slate-400">Pelatihan:</span>
-                        <span class="font-bold text-slate-900 dark:text-white" x-text="selectedInvoice.class_title"></span>
+                        <span class="font-bold text-slate-900 dark:text-white sm:text-right break-words" x-text="selectedInvoice.class_title"></span>
                     </div>
-                    <div class="flex items-center justify-between text-xs">
+                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 text-xs">
                         <span class="text-slate-400">Tanggal Transaksi:</span>
-                        <span class="text-slate-700 dark:text-slate-300" x-text="selectedInvoice.date"></span>
+                        <span class="text-slate-700 dark:text-slate-300 sm:text-right break-words" x-text="selectedInvoice.date"></span>
                     </div>
 
                     <template x-if="selectedInvoice.discount_amount > 0">
                         <div class="space-y-2 text-xs">
-                            <div class="flex items-center justify-between">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
                                 <span class="text-slate-400">Biaya Normal:</span>
-                                <span class="text-slate-600 dark:text-slate-300" x-text="selectedInvoice.formatted_base_amount"></span>
+                                <span class="text-slate-600 dark:text-slate-300 sm:text-right break-words" x-text="selectedInvoice.formatted_base_amount"></span>
                             </div>
-                            <div class="flex items-center justify-between">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
                                 <span class="text-emerald-600">Diskon Referral (<span x-text="selectedInvoice.affiliate_code"></span>):</span>
-                                <span class="text-emerald-600 font-bold">- <span x-text="selectedInvoice.formatted_discount"></span></span>
+                                <span class="text-emerald-600 font-bold sm:text-right break-words">- <span x-text="selectedInvoice.formatted_discount"></span></span>
                             </div>
                         </div>
                     </template>
 
-                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 flex items-center justify-between">
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4">
                         <span class="text-xs font-bold text-slate-600 dark:text-slate-300">Total Pembayaran:</span>
-                        <span class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400" x-text="selectedInvoice.formatted_amount"></span>
+                        <span class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400 sm:text-right break-words" x-text="selectedInvoice.formatted_amount"></span>
                     </div>
 
                     <div class="p-3.5 rounded-2xl text-xs font-medium"
@@ -2161,16 +2162,16 @@
                     <template x-if="!selectedInvoice.is_paid && !selectedInvoice.is_cancelled">
                         <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-800/80 space-y-2 text-xs">
                             <span class="font-bold text-slate-800 dark:text-slate-200 block">Rekening Pembayaran Resmi:</span>
-                            <div class="flex justify-between font-mono">
+                            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 font-mono">
                                 <span>{{ $academySettings['bank_name'] }}:</span>
-                                <strong>{{ $academySettings['bank_account_number'] }} ({{ $academySettings['bank_account_holder'] }})</strong>
+                                <strong class="sm:text-right break-words">{{ $academySettings['bank_account_number'] }} ({{ $academySettings['bank_account_holder'] }})</strong>
                             </div>
                         </div>
                     </template>
                 </div>
             </template>
 
-            <div class="flex items-center justify-end gap-3 pt-4">
+            <div class="flex flex-wrap items-center justify-end gap-3 pt-4">
                 <button type="button" @click="window.print()"
                     class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs hover:bg-slate-200 transition-colors inline-flex items-center gap-1.5">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>

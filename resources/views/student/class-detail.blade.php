@@ -20,8 +20,8 @@
 
     <!-- Header -->
     <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between gap-4">
-            <div class="flex items-center gap-4 min-w-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2 sm:gap-4">
+            <div class="flex items-center gap-2 sm:gap-4 min-w-0">
                 <a href="/" class="shrink-0">@include('student.partials.logo')</a>
                 <a href="{{ route('student.classes') }}"
                     class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors whitespace-nowrap">
@@ -52,7 +52,10 @@
         </div>
     </header>
 
-    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 w-full">
+        <div class="sm:hidden mb-4">
+            <a href="{{ route('student.classes') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">&larr; Kembali ke Katalog Kelas</a>
+        </div>
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             <!-- Left Content -->
             <div class="lg:col-span-8 space-y-6">
@@ -159,7 +162,7 @@
                             {{ $trainingClass->formatted_price }}
                         </div>
                         @if(session('affiliate_ref'))
-                            <div class="mt-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold">
+                            <div class="mt-2 inline-flex flex-wrap items-center gap-1.5 px-3 py-1.5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 text-xs font-bold">
                                 <span>Kode Referral Aktif: {{ session('affiliate_ref') }} (Diskon {{ $academySettings['affiliate_discount_percent'] }}%)</span>
                             </div>
                         @endif
@@ -176,13 +179,13 @@
                             @if($existingEnrollment->isPaid())
                                 <a href="{{ route('student.classroom', $existingEnrollment->id) }}"
                                     style="background-color: #059669; color: #ffffff;"
-                                    class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all whitespace-nowrap">
+                                    class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all leading-snug">
                                     Masuk ke Ruang Kelas
                                 </a>
                             @else
                                 <a href="{{ route('student.dashboard', ['#invoices']) }}"
                                     style="background-color: #f59e0b; color: #ffffff;"
-                                    class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all whitespace-nowrap">
+                                    class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all leading-snug">
                                     Menunggu Pembayaran — Upload Bukti Bayar
                                 </a>
                             @endif
@@ -194,7 +197,7 @@
                         @else
                             <a href="{{ route('student.checkout', $trainingClass->id) }}"
                                 style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all whitespace-nowrap">
+                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
                                 Lanjut ke Checkout Pendaftaran &rarr;
                             </a>
                         @endif
@@ -207,7 +210,7 @@
                         @else
                             <a href="{{ route('student.register') }}"
                                 style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all whitespace-nowrap">
+                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
                                 Daftar Akun & Gabung Kelas
                             </a>
                             <p class="text-center text-xs text-slate-500 dark:text-slate-400">

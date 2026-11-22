@@ -25,21 +25,28 @@
     @endphp
 
     <header class="bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-2 sm:gap-4">
             <div class="flex items-center gap-3 min-w-0">
                 <a href="/" class="shrink-0">@include('student.partials.logo')</a>
                 <a href="{{ route('student.dashboard', ['#classes']) }}"
-                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
+                    class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
                     <span>&larr; Kelas Saya</span>
                 </a>
             </div>
-            <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase whitespace-nowrap {{ $enrollment->status === 'completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700' }}">
+            <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase whitespace-nowrap shrink-0 {{ $enrollment->status === 'completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700' }}">
                 {{ $enrollment->status_label }}
             </span>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 space-y-8">
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8">
+        <div class="sm:hidden">
+            <a href="{{ route('student.dashboard', ['#classes']) }}"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">
+                <span>&larr; Kembali ke Kelas Saya</span>
+            </a>
+        </div>
+
         <!-- Hero Banner -->
         <div class="rounded-3xl p-6 sm:p-8 text-white shadow-xl" style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%);">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
@@ -64,18 +71,18 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-3 shrink-0">
+                <div class="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
                     @if($cls->whatsapp_group_link)
                         <a href="{{ $cls->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
                             style="background-color: #fbbf24; color: #0f172a;"
-                            class="px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-lg transition-all whitespace-nowrap">
+                            class="w-full sm:w-auto text-center px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-lg transition-all">
                             Gabung Grup WhatsApp Kelas
                         </a>
                     @endif
                     @if($cls->materials_link)
                         <a href="{{ $cls->materials_link }}" target="_blank" rel="noopener noreferrer"
                             style="background-color: rgba(255,255,255,0.16); color: #ffffff;"
-                            class="px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs transition-all whitespace-nowrap">
+                            class="w-full sm:w-auto text-center px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs transition-all">
                             Tautan Materi Tambahan
                         </a>
                     @endif
@@ -119,15 +126,15 @@
                 </div>
 
                 @forelse($pdfMaterials as $mat)
-                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between gap-4">
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                         <div class="min-w-0">
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white truncate">{{ $mat->title }}</h3>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white sm:truncate break-words">{{ $mat->title }}</h3>
                             @if($mat->description)
                                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{{ $mat->description }}</p>
                             @endif
                         </div>
                         <a href="{{ route('student.classroom.material', [$enrollment->id, $mat->id]) }}" target="_blank"
-                            class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shrink-0 transition-colors">
+                            class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shrink-0 transition-colors">
                             Buka PDF
                         </a>
                     </div>
@@ -148,18 +155,18 @@
                 </div>
 
                 @forelse($videoAndLinks as $mat)
-                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex items-center justify-between gap-4">
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
                         <div class="min-w-0">
                             <span class="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400 block">
                                 {{ $mat->type === 'video' ? 'Rekaman Video' : 'Tautan Materi' }}
                             </span>
-                            <h3 class="text-sm font-bold text-slate-900 dark:text-white truncate">{{ $mat->title }}</h3>
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white sm:truncate break-words">{{ $mat->title }}</h3>
                             @if($mat->description)
                                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{{ $mat->description }}</p>
                             @endif
                         </div>
                         <a href="{{ route('student.classroom.material', [$enrollment->id, $mat->id]) }}" target="_blank" rel="noopener noreferrer"
-                            class="px-4 py-2 rounded-xl bg-slate-900 dark:bg-blue-600 hover:opacity-90 text-white text-xs font-black shrink-0 transition-opacity">
+                            class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-slate-900 dark:bg-blue-600 hover:opacity-90 text-white text-xs font-black shrink-0 transition-opacity">
                             Buka Tautan
                         </a>
                     </div>

@@ -26,42 +26,44 @@
     <!-- Navbar -->
     <header class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-800 sticky top-0 z-40">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <div class="flex items-center gap-3">
-                    <a href="/" class="flex items-center gap-3 group">
-                        <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-0.5 shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform flex items-center justify-center">
+            <div class="flex items-center justify-between gap-2 h-20">
+                <div class="flex items-center gap-3 min-w-0">
+                    <a href="/" class="flex items-center gap-3 group min-w-0">
+                        <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-0.5 shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform flex items-center justify-center">
                             <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Visilab Academy" class="w-8 h-8 object-contain bg-white rounded-xl p-0.5">
                         </div>
-                        <div>
-                            <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white leading-tight block tracking-tight">Visilab Academy</span>
-                            <span class="text-[11px] font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">Pusat Pelatihan Alat Kesehatan & Radiologi</span>
+                        <div class="min-w-0">
+                            <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white leading-tight block tracking-tight truncate">Visilab Academy</span>
+                            <span class="hidden sm:block text-[11px] font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">Pusat Pelatihan Alat Kesehatan & Radiologi</span>
                         </div>
                     </a>
                 </div>
 
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
                     @auth
                         @if (Auth::user()->isStudent())
                             <a href="{{ route('student.dashboard') }}"
-                                class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all inline-flex items-center gap-2">
+                                class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all inline-flex items-center gap-2 whitespace-nowrap">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                                 </svg>
-                                <span>Portal Siswa Saya</span>
+                                <span class="hidden sm:inline">Portal Siswa Saya</span>
+                                <span class="sm:hidden">Portal</span>
                             </a>
                         @else
                             <a href="{{ route('dashboard') }}"
-                                class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 transition-all inline-flex items-center gap-2">
+                                class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 transition-all inline-flex items-center gap-2 whitespace-nowrap">
                                 <span>Admin Dashboard &rarr;</span>
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors">
+                        <a href="{{ route('login') }}" class="px-2.5 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors whitespace-nowrap">
                             Masuk
                         </a>
                         <a href="{{ route('student.register') }}"
-                            class="px-5 py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
-                            Daftar Akun Siswa
+                            class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap">
+                            <span class="hidden sm:inline">Daftar Akun Siswa</span>
+                            <span class="sm:hidden">Daftar</span>
                         </a>
                     @endauth
                 </div>
@@ -263,7 +265,7 @@
                     </div>
                 </div>
             @empty
-                <div class="col-span-3 text-center py-20 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
+                <div class="col-span-full text-center py-20 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
                     <p class="text-sm font-bold text-slate-400">Belum ada kelas pelatihan yang dibuka saat ini.</p>
                 </div>
             @endforelse
@@ -276,7 +278,7 @@
             <div>
                 &copy; {{ date('Y') }} PT Visi Yosindo Medikal. Seluruh hak cipta dilindungi.
             </div>
-            <div class="flex items-center gap-6">
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
                 <a href="{{ route('home') }}" class="hover:text-blue-600 transition-colors">Beranda</a>
                 <a href="{{ route('products') }}" class="hover:text-blue-600 transition-colors">Produk</a>
                 <a href="{{ route('student.classes') }}" class="hover:text-blue-600 transition-colors">Katalog Pelatihan</a>

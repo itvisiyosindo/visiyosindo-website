@@ -93,7 +93,13 @@
         </div>
     </header>
 
-    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-10">
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10">
+        <div class="sm:hidden mb-4">
+            <a href="{{ route('student.classes.show', $trainingClass->slug) }}"
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">
+                &larr; Detail Kelas
+            </a>
+        </div>
         <div class="mb-6">
             <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Checkout Pendaftaran Kelas</h1>
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Periksa rincian kelas, gunakan kode referral jika ada, lalu konfirmasi pendaftaran.</p>
@@ -122,21 +128,21 @@
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-3">
                     <h3 class="text-sm font-black text-slate-900 dark:text-white">Data Peserta (Untuk Sertifikat)</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-slate-400 block">Nama Lengkap</span>
-                            <strong class="text-slate-900 dark:text-white">{{ $user->name }}</strong>
+                            <strong class="text-slate-900 dark:text-white break-words block">{{ $user->name }}</strong>
                         </div>
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-slate-400 block">Email</span>
-                            <strong class="text-slate-900 dark:text-white">{{ $user->email }}</strong>
+                            <strong class="text-slate-900 dark:text-white break-all sm:break-words block">{{ $user->email }}</strong>
                         </div>
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-slate-400 block">WhatsApp</span>
-                            <strong class="text-slate-900 dark:text-white">{{ $user->phone ?: '-' }}</strong>
+                            <strong class="text-slate-900 dark:text-white break-words block">{{ $user->phone ?: '-' }}</strong>
                         </div>
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-slate-400 block">Instansi</span>
-                            <strong class="text-slate-900 dark:text-white">{{ $user->institution ?: '-' }}</strong>
+                            <strong class="text-slate-900 dark:text-white break-words block">{{ $user->institution ?: '-' }}</strong>
                         </div>
                     </div>
                 </div>
@@ -145,7 +151,7 @@
                     <div class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-3xl p-6 space-y-2 text-xs">
                         <h3 class="text-sm font-black text-blue-900 dark:text-blue-200">Informasi Pembayaran Transfer Bank</h3>
                         <p class="text-blue-800 dark:text-blue-300">Setelah klik konfirmasi pendaftaran, silakan transfer ke rekening berikut lalu unggah bukti transfer di menu <strong>Invoice</strong>:</p>
-                        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 font-mono space-y-1">
+                        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 font-mono space-y-1 break-words">
                             <div>Bank: <strong>{{ $academySettings['bank_name'] }}</strong></div>
                             <div>No. Rekening: <strong>{{ $academySettings['bank_account_number'] }}</strong></div>
                             <div>Atas Nama: <strong>{{ $academySettings['bank_account_holder'] }}</strong></div>
@@ -168,11 +174,11 @@
                             <label class="block text-xs font-bold text-slate-600 dark:text-slate-300">
                                 Kode Afiliasi / Referral (Opsional — Diskon {{ $academySettings['affiliate_discount_percent'] }}%)
                             </label>
-                            <div class="flex gap-2">
+                            <div class="flex flex-col sm:flex-row gap-2">
                                 <input type="text" x-model="code" placeholder="Contoh: VISI-BUDI123"
-                                    class="flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border-0 text-xs font-mono font-bold uppercase text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                    class="min-w-0 w-full flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border-0 text-xs font-mono font-bold uppercase text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 <button type="button" @click="applyCode()" :disabled="checking"
-                                    class="px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer">
+                                    class="w-full sm:w-auto shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer">
                                     <span x-text="checking ? '...' : 'Terapkan'"></span>
                                 </button>
                             </div>
