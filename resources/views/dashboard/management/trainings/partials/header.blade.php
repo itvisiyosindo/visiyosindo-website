@@ -35,6 +35,28 @@
         background-color: #153e75 !important;
         color: #ffffff !important;
     }
+    .vb-tab-active {
+        background-color: #0c2a52 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 6px -1px rgba(12, 42, 82, 0.25) !important;
+    }
+    .vb-tab-active svg {
+        color: #fbbf24 !important;
+    }
+    .vb-tab-active span {
+        color: #ffffff !important;
+    }
+    .vb-tab-inactive {
+        color: #475569 !important;
+        background-color: transparent !important;
+    }
+    .vb-tab-inactive:hover {
+        background-color: #f1f5f9 !important;
+        color: #1e40af !important;
+    }
+    .vb-tab-inactive svg {
+        color: #94a3b8 !important;
+    }
 </style>
 
 <!-- High-Energy Motivational Welcome Banner (Aligned with Student Design) -->
@@ -83,7 +105,7 @@
 <div class="p-1.5 bg-white dark:bg-slate-900 rounded-2xl shadow-xs border border-slate-100 dark:border-slate-800 flex flex-wrap sm:inline-flex items-center gap-1.5 w-full sm:w-auto mb-6">
     <!-- Tab 1: Kelas -->
     <a href="{{ route('dashboard.trainings.classes') }}"
-        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'classes' ? 'bg-[#0c2a52] text-white shadow-md font-black' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800' }}">
+        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'classes' ? 'vb-tab-active font-black' : 'vb-tab-inactive' }}">
         <svg class="w-4 h-4 {{ $active === 'classes' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
@@ -92,7 +114,7 @@
 
     <!-- Tab 2: Peserta & Verifikasi -->
     <a href="{{ route('dashboard.trainings.index') }}"
-        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'index' ? 'bg-[#0c2a52] text-white shadow-md font-black' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800' }}">
+        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'index' ? 'vb-tab-active font-black' : 'vb-tab-inactive' }}">
         <svg class="w-4 h-4 {{ $active === 'index' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
@@ -106,7 +128,7 @@
 
     <!-- Tab 3: Sertifikat -->
     <a href="{{ route('dashboard.trainings.certificates') }}"
-        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'certificates' ? 'bg-[#0c2a52] text-white shadow-md font-black' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800' }}">
+        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'certificates' ? 'vb-tab-active font-black' : 'vb-tab-inactive' }}">
         <svg class="w-4 h-4 {{ $active === 'certificates' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138z" />
         </svg>
@@ -115,7 +137,7 @@
 
     <!-- Tab 4: Afiliasi -->
     <a href="{{ route('dashboard.trainings.affiliates') }}"
-        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'affiliates' ? 'bg-[#0c2a52] text-white shadow-md font-black' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800' }}">
+        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'affiliates' ? 'vb-tab-active font-black' : 'vb-tab-inactive' }}">
         <svg class="w-4 h-4 {{ $active === 'affiliates' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
@@ -129,7 +151,7 @@
 
     <!-- Tab 5: Pengaturan -->
     <a href="{{ route('dashboard.trainings.settings') }}"
-        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'settings' ? 'bg-[#0c2a52] text-white shadow-md font-black' : 'text-slate-600 dark:text-slate-400 hover:text-blue-600 hover:bg-slate-50 dark:hover:bg-slate-800' }}">
+        class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'settings' ? 'vb-tab-active font-black' : 'vb-tab-inactive' }}">
         <svg class="w-4 h-4 {{ $active === 'settings' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
