@@ -370,7 +370,7 @@
             <!-- Bottom Section: Admin Help Card & User Profile / Logout -->
             <div class="p-3.5 pb-6 lg:pb-3.5 space-y-2.5 border-t border-slate-100 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xs">
                 <!-- Help WhatsApp Pill -->
-                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
+                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
                     target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 text-xs font-bold transition-all group shadow-2xs">
                     <div class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
@@ -882,7 +882,7 @@
                                                     class="flex-1 px-4 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-black text-xs rounded-2xl shadow-md shadow-blue-500/20 inline-flex items-center justify-center whitespace-nowrap transition-all cursor-pointer">
                                                     {{ $enrollment->hasPaymentProof() ? 'Ganti Bukti Bayar' : 'Upload Bukti Bayar' }}
                                                 </button>
-                                                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran Invoice ' . $enrollment->effective_invoice_no . ' untuk kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
+                                                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin konfirmasi pembayaran Invoice ' . $enrollment->effective_invoice_no . ' untuk kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
                                                     target="_blank" rel="noopener noreferrer"
                                                     style="background-color: #059669; color: #ffffff;"
                                                     class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap transition-all">
@@ -1149,7 +1149,7 @@
                         <div class="flex items-center justify-between">
                             <div>
                                 <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Arsip Sertifikat Resmi</h3>
-                                <p class="text-xs text-slate-500 dark:text-slate-400">Unduh salinan sertifikat PDF resmi yang diterbitkan Visilab Academy.</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Unduh salinan sertifikat PDF resmi yang diterbitkan Visi Academy.</p>
                             </div>
                         </div>
 
@@ -1265,7 +1265,7 @@
                             Dapatkan komisi <strong class="text-blue-600 dark:text-blue-400">{{ $affiliateStats['commission_percent'] }}%</strong> dari total pembayaran peserta baru yang mendaftar menggunakan kode afiliasimu (teman juga mendapat diskon <strong class="text-amber-600 dark:text-amber-400">{{ $affiliateStats['discount_percent'] }}%</strong>).
                             <button type="button" @click="showInfoModal = true" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Baca informasi lebih lanjut</button>.
                             Ikuti grup afiliasi untuk informasi terupdate
-                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bergabung ke grup komunitas afiliasi Visilab Academy.') }}"
+                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin bergabung ke grup komunitas afiliasi Visi Academy.') }}"
                                 target="_blank" rel="noopener noreferrer" class="text-blue-600 dark:text-blue-400 font-bold underline">di sini</a>.
                         </p>
                     </div>
@@ -1733,7 +1733,7 @@
                                                                 class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-sm cursor-pointer inline-flex items-center whitespace-nowrap">
                                                                 {{ $inv->has_payment_proof ? 'Ganti Bukti' : 'Upload Bukti Bayar' }}
                                                             </button>
-                                                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin konfirmasi pembayaran Invoice ' . $inv->invoice_no . ' untuk kelas: ' . $inv->class_title . ' sebesar ' . $inv->formatted_amount . ' atas nama ' . $user->name . '.') }}"
+                                                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin konfirmasi pembayaran Invoice ' . $inv->invoice_no . ' untuk kelas: ' . $inv->class_title . ' sebesar ' . $inv->formatted_amount . ' atas nama ' . $user->name . '.') }}"
                                                                 target="_blank" rel="noopener noreferrer"
                                                                 style="background-color: #059669; color: #ffffff;"
                                                                 class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs inline-flex items-center gap-1 shadow-sm whitespace-nowrap">
@@ -2047,15 +2047,15 @@
                 </button>
             </div>
             <p class="text-xs text-slate-500 leading-relaxed">
-                Gunakan materi resmi Visilab Academy berikut untuk promosi di status WhatsApp, Instagram Story, LinkedIn, atau grup Telegram.
+                Gunakan materi resmi Visi Academy berikut untuk promosi di status WhatsApp, Instagram Story, LinkedIn, atau grup Telegram.
             </p>
             <div class="space-y-3">
-                <a href="{{ asset('assets/logo/visiyosindo.png') }}" download="logo-visilab.png"
+                <a href="{{ asset('assets/logo/visi-academy.png') }}" download="logo-visi-academy.png"
                     class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 transition-colors">
                     <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/logo/visiyosindo.png') }}" class="w-8 h-8 object-contain">
+                        <img src="{{ asset('assets/logo/visi-academy.png') }}" class="w-8 h-8 object-contain">
                         <div>
-                            <span class="text-xs font-bold text-slate-900 dark:text-white block">Official Logo Visilab</span>
+                            <span class="text-xs font-bold text-slate-900 dark:text-white block">Official Logo Visi Academy</span>
                             <span class="text-[10px] text-slate-400">Format PNG High-Res</span>
                         </div>
                     </div>
@@ -2107,7 +2107,7 @@
                     <img src="{{ asset('assets/logo/visiyosindo.png') }}" class="w-10 h-10 object-contain">
                     <div>
                         <span class="font-display font-extrabold text-slate-900 dark:text-white text-base block">PT VISI YOSINDO MEDIKAL</span>
-                        <span class="text-[11px] text-blue-600 font-semibold block">Visilab Academy Official Receipt</span>
+                        <span class="text-[11px] text-blue-600 font-semibold block">Visi Academy Official Receipt</span>
                     </div>
                 </div>
                 <button type="button" @click="showReceiptModal = false" class="text-slate-400 hover:text-slate-600">
@@ -2155,7 +2155,7 @@
                     <div class="p-3.5 rounded-2xl text-xs font-medium"
                         :class="selectedInvoice.is_paid ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300' : (selectedInvoice.is_cancelled ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300')">
                         <div class="font-bold mb-1" x-text="selectedInvoice.is_paid ? 'STATUS: LUNAS / TERVERIFIKASI' : (selectedInvoice.is_cancelled ? 'STATUS: DIBATALKAN' : 'STATUS: MENUNGGU PEMBAYARAN')"></div>
-                        <span x-text="selectedInvoice.is_paid ? 'Pembayaran telah divalidasi oleh admin Visilab Academy.' : (selectedInvoice.is_cancelled ? 'Pendaftaran dibatalkan. Anda dapat melakukan pendaftaran ulang di halaman checkout.' : 'Silakan transfer ke rekening resmi di bawah ini lalu unggah bukti pembayaran di portal.')"></span>
+                        <span x-text="selectedInvoice.is_paid ? 'Pembayaran telah divalidasi oleh admin Visi Academy.' : (selectedInvoice.is_cancelled ? 'Pendaftaran dibatalkan. Anda dapat melakukan pendaftaran ulang di halaman checkout.' : 'Silakan transfer ke rekening resmi di bawah ini lalu unggah bukti pembayaran di portal.')"></span>
                     </div>
 
                     <!-- Payment Info if Unpaid -->

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ $trainingClass->title }} - Visilab Academy</title>
+    <title>{{ $trainingClass->title }} - Visi Academy</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|plus-jakarta-sans:600,700,800&display=swap" rel="stylesheet" />
@@ -219,7 +219,7 @@
                         @endif
                     @endauth
 
-                    <a href="https://wa.me/{{ $academySettings['admin_whatsapp'] }}?text={{ rawurlencode('Halo Admin Visilab Academy, saya ingin bertanya tentang kelas: ' . $trainingClass->title) }}"
+                    <a href="https://wa.me/{{ $academySettings['admin_whatsapp'] }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin bertanya tentang kelas: ' . $trainingClass->title) }}"
                         target="_blank" rel="noopener noreferrer"
                         class="w-full py-2.5 px-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-bold text-xs text-center block transition-colors">
                         Tanya Admin via WhatsApp

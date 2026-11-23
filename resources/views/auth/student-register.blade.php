@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Daftar Akun Pelajar - Visilab Academy</title>
+    <title>Daftar Akun Pelajar - Visi Academy</title>
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -26,11 +26,7 @@
         <!-- Logo -->
         <div class="flex justify-center">
             <a href="/" class="flex items-center gap-3">
-                <img class="h-12 w-12" src="{{ asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}">
-                <div>
-                    <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white block">Visilab Academy</span>
-                    <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">PT Visi Yosindo Medikal</span>
-                </div>
+                @include('student.partials.logo')
             </a>
         </div>
 

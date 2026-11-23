@@ -17,11 +17,17 @@ return new class extends Migration
                 $role = Role::firstOrCreate(
                     ['slug' => 'academy_admin'],
                     [
-                        'name' => 'Admin Visilab Academy',
-                        'description' => 'Pengelola kelas pelatihan, peserta, e-sertifikat, dan program afiliasi Visilab Academy',
+                        'name' => 'Admin Visi Academy',
+                        'description' => 'Pengelola kelas pelatihan, peserta, e-sertifikat, dan program afiliasi Visi Academy',
                         'is_active' => true,
                     ]
                 );
+
+                // Update existing record if needed
+                Role::where('slug', 'academy_admin')->update([
+                    'name' => 'Admin Visi Academy',
+                    'description' => 'Pengelola kelas pelatihan, peserta, e-sertifikat, dan program afiliasi Visi Academy',
+                ]);
 
                 // Give view-dashboard permission if available
                 if (Schema::hasTable('permissions') && Schema::hasTable('role_permissions')) {

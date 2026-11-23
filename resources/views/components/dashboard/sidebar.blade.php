@@ -40,7 +40,7 @@
                 :class="!$store.sidebar.open ? 'lg:hidden lg:opacity-0 lg:w-0' : 'lg:opacity-100'"
             >
                 @if($isAcademyOnly)
-                    <span>Visilab</span><span class="text-xs px-1.5 py-0.5 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-950/80 dark:text-blue-300 font-extrabold uppercase">Academy</span>
+                    <span>Visi</span><span class="text-xs px-1.5 py-0.5 rounded-md bg-blue-100 text-blue-700 dark:bg-blue-950/80 dark:text-blue-300 font-extrabold uppercase">Academy</span>
                 @else
                     Visiyosindo
                 @endif
@@ -234,7 +234,7 @@
         @endif
 
         <!-- Training & Certificates -->
-        <x-dashboard.nav-group title="Visilab Academy">
+        <x-dashboard.nav-group title="Visi Academy">
             <x-dashboard.nav-link href="{{ route('dashboard.trainings.classes') }}" :active="request()->routeIs('dashboard.trainings.classes*')">
                 <x-slot:icon>
                     <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">

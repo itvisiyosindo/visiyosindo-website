@@ -1,10 +1,10 @@
 <x-layouts.dashboard 
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
-        ['label' => 'Visilab Academy', 'url' => route('dashboard.trainings.classes')],
+        ['label' => 'Visi Academy', 'url' => route('dashboard.trainings.classes')],
         ['label' => 'Sertifikat Kelulusan']
     ]"
-    title="e-Sertifikat Kelulusan - Visilab Academy"
+    title="e-Sertifikat Kelulusan - Visi Academy"
 >
     <!-- Page Header (Global Slot) -->
     <x-slot:pageHeader>
@@ -13,7 +13,7 @@
                 <div class="flex items-center gap-2 mb-1.5">
                     <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm shadow-blue-500/25 inline-flex items-center gap-1.5">
                         <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                        Visilab Academy
+                        Visi Academy
                     </span>
                     <span class="text-xs text-slate-300 dark:text-slate-600">&bull;</span>
                     <span class="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wide">E-Credential & QR Verification</span>

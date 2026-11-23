@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Visilab Academy - Masuk ke Akun</title>
+    <title>Visi Academy - Masuk ke Akun</title>
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -100,7 +100,7 @@
                             class="w-12.5 h-12.5 bg-cover group-hover:rotate-45 group-hover:scale-150 duration-200 ease-linear">
                     </div>
                     <div>
-                        <span class="text-2xl font-bold text-white block">Visilab Academy</span>
+                        <span class="text-2xl font-bold text-white block">Visi Academy</span>
                         <span class="text-xs text-blue-100/90 font-medium">PT Visi Yosindo Medikal</span>
                     </div>
                 </div>
@@ -109,7 +109,7 @@
                 <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4" data-aos="fade-right"
                     data-aos-delay="200">
                     Selamat Datang di<br>
-                    <span class="bg-gradient-to-r from-blue-300 via-indigo-200 to-white bg-clip-text text-transparent">Visilab Academy</span>
+                    <span class="bg-gradient-to-r from-blue-300 via-indigo-200 to-white bg-clip-text text-transparent">Visi Academy</span>
                 </h1>
 
                 <p class="text-base text-slate-200/90 mb-8 leading-relaxed" data-aos="fade-right" data-aos-delay="300">
@@ -183,7 +183,7 @@
                     <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mb-2 shadow-md">
                         <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}" class="w-10 h-10">
                     </div>
-                    <span class="text-xl font-bold text-slate-900 dark:text-white">Visilab Academy</span>
+                    <span class="text-xl font-bold text-slate-900 dark:text-white">Visi Academy</span>
                     <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">PT Visi Yosindo Medikal</span>
                 </div>
 
@@ -256,7 +256,7 @@
                         </div>
                         <template x-if="role === 'student'">
                             <div>
-                                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Visilab Academy</h2>
+                                <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Visi Academy</h2>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
                                     Masuk ke akun belajar Anda untuk mengakses kelas & unduh sertifikat.
                                 </p>
@@ -431,7 +431,7 @@
                         <p class="text-xs text-slate-500 dark:text-slate-400">
                             Bukan staff atau admin?
                             <button type="button" @click="role = 'student'" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">
-                                Beralih ke Login Pelajar (Visilab Academy)
+                                Beralih ke Login Pelajar (Visi Academy)
                             </button>
                         </p>
                     </div>

@@ -27,7 +27,7 @@ class User extends Authenticatable
         self::ROLE_HR => 'HR',
         self::ROLE_DIRECTOR => 'Director',
         self::ROLE_STUDENT => 'Pelajar / Peserta',
-        self::ROLE_ACADEMY_ADMIN => 'Admin Visilab Academy',
+        self::ROLE_ACADEMY_ADMIN => 'Admin Visi Academy',
     ];
 
     /**
@@ -275,7 +275,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Check if user is academy admin (Visilab Academy manager)
+     * Check if user is academy admin (Visi Academy manager)
      */
     public function isAcademyAdmin(): bool
     {
@@ -323,7 +323,7 @@ class User extends Authenticatable
     public function getRoleNameAttribute(): string
     {
         if ($this->isAcademyAdmin()) {
-            return 'Admin Visilab Academy';
+            return 'Admin Visi Academy';
         }
         if ($this->isAdmin()) {
             return 'Administrator';

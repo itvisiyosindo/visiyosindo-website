@@ -29,7 +29,7 @@
                                 Sertifikat Sah & Terverifikasi
                             </h3>
                             <p class="text-xs text-emerald-700 dark:text-emerald-400">
-                                Data ini tercatat resmi di pangkalan data Visilab Academy.
+                                Data ini tercatat resmi di pangkalan data Visi Academy.
                             </p>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
 
                         <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Penerbit</span>
-                            <span class="font-semibold text-slate-900 dark:text-white">PT Visi Yosindo Medikal &bull; Visilab Academy</span>
+                            <span class="font-semibold text-slate-900 dark:text-white">PT Visi Yosindo Medikal &bull; Visi Academy</span>
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                                 <div>
                                     <h3 class="text-sm font-bold text-slate-900 dark:text-white">Pratinjau Sertifikat Resmi (PDF)</h3>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400">Dokumen digital resmi yang diterbitkan oleh Visilab Academy.</p>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400">Dokumen digital resmi yang diterbitkan oleh Visi Academy.</p>
                                 </div>
                                 <div class="flex flex-wrap items-center gap-2 shrink-0">
                                     <a href="{{ route('certificate.verify.file', $certificate->verification_code) }}" target="_blank"

@@ -89,7 +89,7 @@
                             PT VISI YOSINDO MEDIKAL
                         </h2>
                         <span class="text-xs text-blue-700 font-semibold tracking-wide block">
-                            VISILAB ACADEMY
+                            VISI ACADEMY
                         </span>
                         <span class="text-[10px] text-slate-500">
                             Pusat Pelatihan & Kalibrasi Alat Kesehatan Indonesia
@@ -181,7 +181,7 @@
                         <p class="text-xs font-bold text-slate-900 border-t border-slate-400 pt-1">
                             Direktur PT Visi Yosindo Medikal
                         </p>
-                        <span class="text-[10px] text-slate-500">Visilab Academy</span>
+                        <span class="text-[10px] text-slate-500">Visi Academy</span>
                     </div>
                 </div>
             </div>

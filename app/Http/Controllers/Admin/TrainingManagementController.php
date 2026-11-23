@@ -32,7 +32,7 @@ class TrainingManagementController extends Controller
     {
         $user = Auth::user();
         if (!$user || (!$user->isAdmin() && !$user->isAcademyAdmin() && !$user->isDirector())) {
-            abort(403, 'Akses terbatas untuk Administrator Visilab Academy.');
+            abort(403, 'Akses terbatas untuk Administrator Visi Academy.');
         }
 
         AcademySchemaEnsurer::ensure();
@@ -69,7 +69,7 @@ class TrainingManagementController extends Controller
         $this->authorizeManager();
 
         $enrollments = $this->buildEnrollmentsQuery($request)->get();
-        $filename = 'peserta-visilab-academy-' . now()->format('Ymd-His') . '.csv';
+        $filename = 'peserta-visi-academy-' . now()->format('Ymd-His') . '.csv';
 
         return response()->streamDownload(function () use ($enrollments) {
             $handle = fopen('php://output', 'w');
@@ -267,7 +267,7 @@ class TrainingManagementController extends Controller
 
         $certNumber = !empty($validated['certificate_number'])
             ? trim($validated['certificate_number'])
-            : ($enrollment->certificate->certificate_number ?? sprintf('CERT/VISILAB/%s/%s/%04d', date('Y'), date('m'), $enrollment->id));
+            : ($enrollment->certificate->certificate_number ?? sprintf('CERT/VISI/%s/%s/%04d', date('Y'), date('m'), $enrollment->id));
 
         $issuedDate = !empty($validated['issued_date'])
             ? $validated['issued_date']
@@ -935,7 +935,7 @@ class TrainingManagementController extends Controller
 
         return redirect()->route('dashboard.trainings.settings')->with('toast', [
             'type' => 'success',
-            'message' => 'Pengaturan Visilab Academy berhasil disimpan!',
+            'message' => 'Pengaturan Visi Academy berhasil disimpan!',
         ]);
     }
 

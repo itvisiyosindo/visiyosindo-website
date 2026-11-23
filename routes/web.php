@@ -966,7 +966,7 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/{user}', [UserManagementController::class, 'destroy'])->name('destroy')->middleware('permission:delete-users');
     });
 
-    // Visilab Academy Management (Classes, Materials, Enrollments, Certificates, Affiliates, Settings)
+    // Visi Academy Management (Classes, Materials, Enrollments, Certificates, Affiliates, Settings)
     Route::prefix('dashboard/trainings')->name('dashboard.trainings.')->group(function () {
         // Enrollments & Verification
         Route::get('/', [TrainingManagementController::class, 'index'])->name('index');

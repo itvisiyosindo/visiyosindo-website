@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Visilab Academy - Katalog Resmi Pelatihan & Sertifikasi</title>
+    <title>Visi Academy - Katalog Resmi Pelatihan & Sertifikasi</title>
 
     <!-- Fonts - Inter & Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -28,14 +28,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between gap-2 h-20">
                 <div class="flex items-center gap-3 min-w-0">
-                    <a href="/" class="flex items-center gap-3 group min-w-0">
-                        <div class="w-11 h-11 shrink-0 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 p-0.5 shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform flex items-center justify-center">
-                            <img src="{{ asset('assets/logo/visiyosindo.png') }}" alt="Visilab Academy" class="w-8 h-8 object-contain bg-white rounded-xl p-0.5">
-                        </div>
-                        <div class="min-w-0">
-                            <span class="text-base sm:text-lg font-black text-slate-900 dark:text-white leading-tight block tracking-tight truncate">Visilab Academy</span>
-                            <span class="hidden sm:block text-[11px] font-extrabold uppercase tracking-wider text-blue-600 dark:text-blue-400">Pusat Pelatihan Alat Kesehatan & Radiologi</span>
-                        </div>
+                    <a href="/" class="shrink-0 flex items-center gap-2 group">
+                        @include('student.partials.logo')
                     </a>
                 </div>
 

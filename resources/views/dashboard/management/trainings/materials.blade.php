@@ -1,17 +1,17 @@
 <x-layouts.dashboard 
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
-        ['label' => 'Visilab Academy', 'url' => route('dashboard.trainings.classes')],
+        ['label' => 'Visi Academy', 'url' => route('dashboard.trainings.classes')],
         ['label' => 'Materi Kelas']
     ]"
-    title="Materi Kelas - Visilab Academy"
+    title="Materi Kelas - Visi Academy"
 >
     <x-slot:pageHeader>
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div>
                 <div class="flex items-center gap-2 mb-1.5">
                     <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm">
-                        Visilab Academy
+                        Visi Academy
                     </span>
                     <span class="text-xs text-slate-400 font-bold uppercase">{{ $trainingClass->batch_name }}</span>
                 </div>
