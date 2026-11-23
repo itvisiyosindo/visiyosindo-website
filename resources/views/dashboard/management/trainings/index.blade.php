@@ -359,15 +359,46 @@
                                                 </svg>
                                                 <span>Luluskan & Upload Sertifikat</span>
                                             </button>
-                                        @elseif($item->certificate)
-                                            <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}" target="_blank"
-                                                class="vb-btn-slate px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
-                                                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                </svg>
-                                                <span>{{ $item->certificate->hasPdf() ? 'Unduh PDF' : 'Lihat Sertifikat' }}</span>
-                                            </a>
+                                        @elseif($item->status === 'completed')
+                                            <!-- Already Completed / Lulus -->
+                                            <div class="inline-flex items-center gap-1.5 flex-wrap justify-end">
+                                                <!-- Ganti / Upload Sertifikat PDF Baru -->
+                                                <button type="button"
+                                                    @click="openComplete({ id: {{ $item->id }}, name: @js($item->user->name), class_title: @js($item->trainingClass->title) })"
+                                                    style="background-color: #059669; color: #ffffff;"
+                                                    class="vb-btn-emerald px-3 py-1.5 rounded-xl text-white text-xs font-bold shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                                                    title="Upload atau ganti file PDF sertifikat untuk peserta ini">
+                                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                                                    </svg>
+                                                    <span>Ganti Sertifikat</span>
+                                                </button>
+
+                                                @if($item->certificate)
+                                                    <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}" target="_blank"
+                                                        style="background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;"
+                                                        class="vb-btn-slate px-3 py-1.5 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
+                                                        <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                        <span>{{ $item->certificate->hasPdf() ? 'Unduh PDF' : 'Lihat' }}</span>
+                                                    </a>
+                                                @endif
+
+                                                <!-- Ubah ke Belum Lulus (Aktif) -->
+                                                <form action="{{ route('dashboard.trainings.revert-active', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Kembalikan status peserta {{ $item->user->name }} menjadi Belum Lulus (Aktif)?');">
+                                                    @csrf
+                                                    <button type="submit" 
+                                                        class="px-2.5 py-1.5 rounded-xl text-amber-800 dark:text-amber-300 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-1 whitespace-nowrap"
+                                                        title="Kembalikan status pendaftaran menjadi Belum Lulus (Aktif)">
+                                                        <svg class="w-3.5 h-3.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                                        </svg>
+                                                        <span>Ubah ke Belum Lulus</span>
+                                                    </button>
+                                                </form>
+                                            </div>
                                         @endif
                                     </div>
                                 </td>

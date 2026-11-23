@@ -324,6 +324,26 @@ class TrainingManagementController extends Controller
     }
 
     /**
+     * Revert completed participant back to active (belum lulus).
+     */
+    public function revertActive(int $id): RedirectResponse
+    {
+        $this->authorizeManager();
+
+        $enrollment = TrainingEnrollment::with('user')->findOrFail($id);
+
+        $enrollment->update([
+            'status' => TrainingEnrollment::STATUS_ACTIVE,
+            'completed_at' => null,
+        ]);
+
+        return redirect()->back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Status pendaftaran peserta ' . ($enrollment->user->name ?? '') . ' berhasil dikembalikan menjadi Belum Lulus (Aktif).',
+        ]);
+    }
+
+    /**
      * 2. Display listing of all training classes (Katalog & Kelola Kelas).
      */
     public function classesIndex(Request $request): View

@@ -975,6 +975,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/{id}/approve', [TrainingManagementController::class, 'approve'])->name('approve');
         Route::post('/{id}/reject', [TrainingManagementController::class, 'reject'])->name('reject');
         Route::post('/{id}/complete', [TrainingManagementController::class, 'complete'])->name('complete');
+        Route::post('/{id}/revert-active', [TrainingManagementController::class, 'revertActive'])->name('revert-active');
 
         // Classes Management (CRUD)
         Route::get('/classes', [TrainingManagementController::class, 'classesIndex'])->name('classes');
