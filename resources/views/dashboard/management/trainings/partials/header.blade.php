@@ -57,6 +57,31 @@
     .vb-tab-inactive svg {
         color: #94a3b8 !important;
     }
+    .vb-btn-emerald {
+        background-color: #059669 !important;
+        color: #ffffff !important;
+    }
+    .vb-btn-emerald:hover {
+        background-color: #047857 !important;
+        color: #ffffff !important;
+    }
+    .vb-btn-blue {
+        background-color: #1d4ed8 !important;
+        color: #ffffff !important;
+    }
+    .vb-btn-blue:hover {
+        background-color: #1e40af !important;
+        color: #ffffff !important;
+    }
+    .vb-btn-slate {
+        background-color: #f1f5f9 !important;
+        color: #334155 !important;
+        border: 1px solid #cbd5e1 !important;
+    }
+    .vb-btn-slate:hover {
+        background-color: #e2e8f0 !important;
+        color: #0f172a !important;
+    }
 </style>
 
 <!-- High-Energy Motivational Welcome Banner (Aligned with Student Design) -->

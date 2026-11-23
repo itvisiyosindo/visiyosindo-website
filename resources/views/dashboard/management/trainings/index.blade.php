@@ -308,8 +308,8 @@
                                 </td>
 
                                 <!-- Actions -->
-                                <td class="py-4 px-6 text-right align-middle">
-                                    <div class="flex flex-wrap items-center justify-end gap-1.5">
+                                <td class="py-4 px-6 text-right align-middle whitespace-nowrap">
+                                    <div class="inline-flex items-center justify-end gap-1.5">
                                         <!-- WhatsApp Chat Direct Button -->
                                         @if($item->user->phone)
                                             @php
@@ -329,7 +329,7 @@
                                             <!-- Approve -->
                                             <form action="{{ route('dashboard.trainings.approve', $item->id) }}" method="POST" onsubmit="return confirm('Konfirmasi bahwa peserta ini telah menyelesaikan pembayaran?')">
                                                 @csrf
-                                                <button type="submit" class="px-3 py-1.5 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white text-xs font-black shadow-md shadow-emerald-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer">
+                                                <button type="submit" class="vb-btn-emerald px-3 py-1.5 rounded-xl text-white text-xs font-black shadow-md shadow-emerald-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap">
                                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                                     </svg>
@@ -349,7 +349,7 @@
                                             <!-- Complete & Upload Certificate PDF -->
                                             <button type="button"
                                                 @click="openComplete({ id: {{ $item->id }}, name: @js($item->user->name), class_title: @js($item->trainingClass->title) })"
-                                                class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap">
+                                                class="vb-btn-blue px-3.5 py-1.5 rounded-xl text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap">
                                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                                 </svg>
@@ -357,7 +357,7 @@
                                             </button>
                                         @elseif($item->certificate)
                                             <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}" target="_blank"
-                                                class="px-3.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
+                                                class="vb-btn-slate px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
                                                 <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
