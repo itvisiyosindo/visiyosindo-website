@@ -6,28 +6,58 @@
     ]"
     title="Materi Kelas - Visi Academy"
 >
-    <x-slot:pageHeader>
-        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-            <div>
-                <div class="flex items-center gap-2 mb-1.5">
-                    <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-sm">
-                        Visi Academy
+    <style>
+        .font-display { font-family: 'Plus Jakarta Sans', 'Inter', sans-serif; }
+        .vb-banner {
+            background: #0c2a52 !important;
+            background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%) !important;
+            color: #ffffff !important;
+        }
+        .vb-gold-btn {
+            background-color: #fbbf24 !important;
+            color: #0f172a !important;
+        }
+        .vb-gold-btn:hover {
+            background-color: #f59e0b !important;
+            color: #000000 !important;
+        }
+    </style>
+
+    <!-- Signature Visi Academy Hero Banner -->
+    <div class="vb-banner relative overflow-hidden rounded-3xl text-white p-6 sm:p-8 shadow-xl shadow-blue-950/20 mb-6">
+        <div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-blue-400/10 blur-3xl pointer-events-none"></div>
+        <div class="absolute right-1/3 -bottom-20 w-60 h-60 rounded-full bg-amber-400/10 blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div class="space-y-2.5 max-w-2xl">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-white shadow-xs">
+                    <span class="flex h-2 w-2 relative">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                     </span>
-                    <span class="text-xs text-slate-400 font-bold uppercase">{{ $trainingClass->batch_name }}</span>
+                    <span>⚡ Modul & Rekaman &bull; <span class="text-amber-300 font-extrabold">{{ $trainingClass->batch_name }}</span></span>
                 </div>
-                <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">Materi: {{ $trainingClass->title }}</h1>
-                <p class="mt-1 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+
+                <h1 class="text-2xl sm:text-3xl lg:text-4xl font-display font-black tracking-tight leading-tight text-white drop-shadow-xs">
+                    Materi: {{ $trainingClass->title }}
+                </h1>
+
+                <p class="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
                     Kelola modul PDF, rekaman video, atau tautan materi yang hanya bisa diakses oleh peserta berstatus Aktif/Lulus.
                 </p>
             </div>
-            <div>
+
+            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
                 <a href="{{ route('dashboard.trainings.classes') }}"
-                    class="px-4 py-2.5 rounded-2xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-50 shadow-sm inline-flex items-center gap-2">
-                    &larr; Kembali ke Kelola Kelas
+                    class="vb-gold-btn px-4 py-2.5 rounded-2xl text-xs sm:text-sm font-extrabold shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center gap-2">
+                    <svg class="w-4 h-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    <span class="text-slate-950">Kembali ke Kelola Kelas</span>
                 </a>
             </div>
         </div>
-    </x-slot:pageHeader>
+    </div>
 
     <div class="space-y-6" x-data="{ materialType: 'pdf' }">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
