@@ -61,6 +61,19 @@ class StudentPortalController extends Controller
             ->latest()
             ->get();
 
+        // Self-heal: ensure enrollment has relation to certificate if created without training_enrollment_id
+        foreach ($enrollments as $enr) {
+            if (!$enr->certificate) {
+                $fallbackCert = $certificates->firstWhere('training_class_id', $enr->training_class_id);
+                if ($fallbackCert) {
+                    if (!$fallbackCert->training_enrollment_id) {
+                        $fallbackCert->update(['training_enrollment_id' => $enr->id]);
+                    }
+                    $enr->setRelation('certificate', $fallbackCert);
+                }
+            }
+        }
+
         // Available classes currently open for registration
         $availableClasses = TrainingClass::where('is_active', true)->latest()->get();
         $enrolledClassIds = $enrollments
@@ -591,6 +604,20 @@ class StudentPortalController extends Controller
             ->where('user_id', Auth::id())
             ->firstOrFail();
 
+        // Self-heal fallback: link certificate if not connected by training_enrollment_id
+        if (!$enrollment->certificate) {
+            $fallbackCert = StudentCertificate::where('user_id', $enrollment->user_id)
+                ->where('training_class_id', $enrollment->training_class_id)
+                ->latest('id')
+                ->first();
+            if ($fallbackCert) {
+                if (!$fallbackCert->training_enrollment_id) {
+                    $fallbackCert->update(['training_enrollment_id' => $enrollment->id]);
+                }
+                $enrollment->setRelation('certificate', $fallbackCert);
+            }
+        }
+
         if (!$enrollment->isPaid()) {
             abort(403, 'Akses ruang kelas hanya tersedia setelah pembayaran diverifikasi.');
         }
@@ -861,24 +888,23 @@ class StudentPortalController extends Controller
             ->firstOrFail();
 
         if ($certificate->pdf_path) {
+            $fullPath = null;
             if (Storage::disk('local')->exists($certificate->pdf_path)) {
-                $filename = $certificate->original_filename ?: ('Sertifikat-' . Str::slug($certificate->certificate_number) . '.pdf');
-                return response()->file(
-                    Storage::disk('local')->path($certificate->pdf_path),
-                    [
-                        'Content-Type' => 'application/pdf',
-                        'Content-Disposition' => 'inline; filename="' . $filename . '"',
-                    ]
-                );
+                $fullPath = Storage::disk('local')->path($certificate->pdf_path);
+            } elseif (Storage::disk('public')->exists($certificate->pdf_path)) {
+                $fullPath = Storage::disk('public')->path($certificate->pdf_path);
             }
 
-            if (Storage::disk('public')->exists($certificate->pdf_path)) {
+            if ($fullPath) {
                 $filename = $certificate->original_filename ?: ('Sertifikat-' . Str::slug($certificate->certificate_number) . '.pdf');
                 return response()->file(
-                    Storage::disk('public')->path($certificate->pdf_path),
+                    $fullPath,
                     [
                         'Content-Type' => 'application/pdf',
                         'Content-Disposition' => 'inline; filename="' . $filename . '"',
+                        'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0',
+                        'Pragma' => 'no-cache',
+                        'Expires' => 'Sun, 02 Jan 1990 00:00:00 GMT',
                     ]
                 );
             }

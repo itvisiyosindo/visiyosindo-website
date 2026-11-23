@@ -911,7 +911,7 @@
                                                     Ruang Kelas
                                                 </a>
                                                 @if($enrollment->certificate)
-                                                    <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}" target="_blank"
+                                                    <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}?v={{ $enrollment->certificate->updated_at?->timestamp ?? time() }}" target="_blank"
                                                         style="background-color: #2563eb; color: #ffffff;"
                                                         class="flex-1 px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap shadow-md shadow-blue-500/20 transition-all">
                                                         {{ $enrollment->certificate->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
@@ -1175,7 +1175,7 @@
                                             </p>
                                         </div>
                                         <div class="flex flex-wrap items-center gap-2">
-                                            <a href="{{ route('student.certificate.view', $cert->id) }}" target="_blank"
+                                            <a href="{{ route('student.certificate.view', $cert->id) }}?v={{ $cert->updated_at?->timestamp ?? time() }}" target="_blank"
                                                 style="background-color: #2563eb; color: #ffffff;"
                                                 class="flex-1 py-2 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black inline-flex items-center justify-center whitespace-nowrap transition-colors">
                                                 {{ $cert->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
@@ -1241,7 +1241,7 @@
                                                 </a>
                                             @endif
                                             @if($hist->certificate)
-                                                <a href="{{ route('student.certificate.view', $hist->certificate->id) }}" target="_blank"
+                                                <a href="{{ route('student.certificate.view', $hist->certificate->id) }}?v={{ $hist->certificate->updated_at?->timestamp ?? time() }}" target="_blank"
                                                     class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors">
                                                     Sertifikat
                                                 </a>

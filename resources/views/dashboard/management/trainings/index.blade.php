@@ -375,7 +375,7 @@
                                                 </button>
 
                                                 @if($item->certificate)
-                                                    <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}" target="_blank"
+                                                    <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}?v={{ $item->certificate->updated_at?->timestamp ?? time() }}" target="_blank"
                                                         style="background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;"
                                                         class="vb-btn-slate px-3 py-1.5 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
                                                         <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">

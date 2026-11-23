@@ -244,13 +244,20 @@ class TrainingManagementController extends Controller
             ]);
         }
 
+        // Find certificate: first via relation, then fallback to user_id + training_class_id
+        $certificate = $enrollment->certificate ?: StudentCertificate::where('training_enrollment_id', $enrollment->id)
+            ->orWhere(function ($q) use ($enrollment) {
+                $q->where('user_id', $enrollment->user_id)
+                  ->where('training_class_id', $enrollment->training_class_id);
+            })->latest('id')->first();
+
         $validated = $request->validate([
             'certificate_pdf' => ['nullable', 'file', 'mimes:pdf', 'max:10240'],
             'certificate_number' => [
                 'nullable',
                 'string',
                 'max:100',
-                Rule::unique('student_certificates', 'certificate_number')->ignore($enrollment->certificate?->id),
+                Rule::unique('student_certificates', 'certificate_number')->ignore($certificate?->id),
             ],
             'issued_date' => ['nullable', 'date'],
             'notes' => ['nullable', 'string', 'max:255'],
@@ -267,40 +274,44 @@ class TrainingManagementController extends Controller
 
         $certNumber = !empty($validated['certificate_number'])
             ? trim($validated['certificate_number'])
-            : ($enrollment->certificate->certificate_number ?? sprintf('CERT/VISI/%s/%s/%04d', date('Y'), date('m'), $enrollment->id));
+            : ($certificate->certificate_number ?? sprintf('CERT/VISI/%s/%s/%04d', date('Y'), date('m'), $enrollment->id));
 
         $issuedDate = !empty($validated['issued_date'])
             ? $validated['issued_date']
-            : ($enrollment->certificate?->issued_date?->toDateString() ?? now()->toDateString());
+            : ($certificate?->issued_date?->toDateString() ?? now()->toDateString());
 
-        $pdfPath = $enrollment->certificate->pdf_path ?? null;
-        $originalFilename = $enrollment->certificate->original_filename ?? null;
+        $pdfPath = $certificate->pdf_path ?? null;
+        $originalFilename = $certificate->original_filename ?? null;
 
         if ($request->hasFile('certificate_pdf')) {
             if ($pdfPath && Storage::disk('local')->exists($pdfPath)) {
                 Storage::disk('local')->delete($pdfPath);
+            }
+            if ($pdfPath && Storage::disk('public')->exists($pdfPath)) {
+                Storage::disk('public')->delete($pdfPath);
             }
             $file = $request->file('certificate_pdf');
             $pdfPath = $file->store('trainings/certificates', 'local');
             $originalFilename = $file->getClientOriginalName();
         }
 
-        if ($enrollment->certificate) {
-            $enrollment->certificate->update([
+        if ($certificate) {
+            $certificate->update([
+                'training_enrollment_id' => $enrollment->id,
                 'certificate_number' => $certNumber,
-                'recipient_name' => $enrollment->certificate->recipient_name ?: ($enrollment->user->name ?? 'Peserta'),
-                'recipient_institution' => $enrollment->certificate->recipient_institution ?: ($enrollment->user->institution ?? null),
+                'recipient_name' => $certificate->recipient_name ?: ($enrollment->user->name ?? 'Peserta'),
+                'recipient_institution' => $certificate->recipient_institution ?: ($enrollment->user->institution ?? null),
                 'pdf_path' => $pdfPath,
                 'original_filename' => $originalFilename,
                 'issued_date' => $issuedDate,
-                'notes' => $validated['notes'] ?? $enrollment->certificate->notes,
+                'notes' => $validated['notes'] ?? $certificate->notes,
             ]);
         } else {
             do {
                 $verificationCode = 'VSI-' . strtoupper(Str::random(8));
             } while (StudentCertificate::where('verification_code', $verificationCode)->exists());
 
-            StudentCertificate::create([
+            $certificate = StudentCertificate::create([
                 'training_enrollment_id' => $enrollment->id,
                 'user_id' => $enrollment->user_id,
                 'training_class_id' => $enrollment->training_class_id,
@@ -697,7 +708,7 @@ class TrainingManagementController extends Controller
     {
         $this->authorizeManager();
 
-        $certificate = StudentCertificate::with('user')->findOrFail($id);
+        $certificate = StudentCertificate::with(['user', 'enrollment'])->findOrFail($id);
 
         $validated = $request->validate([
             'certificate_pdf' => ['required', 'file', 'mimes:pdf', 'max:10240'],
@@ -719,11 +730,27 @@ class TrainingManagementController extends Controller
         if ($certificate->pdf_path && Storage::disk('local')->exists($certificate->pdf_path)) {
             Storage::disk('local')->delete($certificate->pdf_path);
         }
+        if ($certificate->pdf_path && Storage::disk('public')->exists($certificate->pdf_path)) {
+            Storage::disk('public')->delete($certificate->pdf_path);
+        }
 
         $file = $request->file('certificate_pdf');
         $pdfPath = $file->store('trainings/certificates', 'local');
 
+        // Resolve related enrollment if not yet linked
+        $enrollmentId = $certificate->training_enrollment_id;
+        if (!$enrollmentId) {
+            $matched = TrainingEnrollment::where('user_id', $certificate->user_id)
+                ->where('training_class_id', $certificate->training_class_id)
+                ->latest('id')
+                ->first();
+            if ($matched) {
+                $enrollmentId = $matched->id;
+            }
+        }
+
         $certificate->update([
+            'training_enrollment_id' => $enrollmentId,
             'pdf_path' => $pdfPath,
             'original_filename' => $file->getClientOriginalName(),
             'certificate_number' => !empty($validated['certificate_number']) ? trim($validated['certificate_number']) : $certificate->certificate_number,
@@ -733,9 +760,17 @@ class TrainingManagementController extends Controller
             'recipient_institution' => $certificate->recipient_institution ?: ($certificate->user->institution ?? null),
         ]);
 
+        // Automatically ensure the corresponding enrollment is set to COMPLETED
+        if ($enrollmentId) {
+            TrainingEnrollment::where('id', $enrollmentId)->update([
+                'status' => TrainingEnrollment::STATUS_COMPLETED,
+                'completed_at' => now(),
+            ]);
+        }
+
         return redirect()->back()->with('toast', [
             'type' => 'success',
-            'message' => 'File sertifikat PDF resmi berhasil diunggah!',
+            'message' => 'File sertifikat PDF resmi berhasil diperbarui dan disinkronkan ke akun pelajar!',
         ]);
     }
 
@@ -749,23 +784,23 @@ class TrainingManagementController extends Controller
         $certificate = StudentCertificate::with(['user', 'trainingClass'])->findOrFail($id);
 
         if ($certificate->pdf_path) {
+            $fullPath = null;
             if (Storage::disk('local')->exists($certificate->pdf_path)) {
-                $filename = $certificate->original_filename ?: ('Sertifikat-' . Str::slug($certificate->certificate_number) . '.pdf');
-                return response()->file(
-                    Storage::disk('local')->path($certificate->pdf_path),
-                    [
-                        'Content-Type' => 'application/pdf',
-                        'Content-Disposition' => 'inline; filename="' . $filename . '"',
-                    ]
-                );
+                $fullPath = Storage::disk('local')->path($certificate->pdf_path);
+            } elseif (Storage::disk('public')->exists($certificate->pdf_path)) {
+                $fullPath = Storage::disk('public')->path($certificate->pdf_path);
             }
-            if (Storage::disk('public')->exists($certificate->pdf_path)) {
+
+            if ($fullPath) {
                 $filename = $certificate->original_filename ?: ('Sertifikat-' . Str::slug($certificate->certificate_number) . '.pdf');
                 return response()->file(
-                    Storage::disk('public')->path($certificate->pdf_path),
+                    $fullPath,
                     [
                         'Content-Type' => 'application/pdf',
                         'Content-Disposition' => 'inline; filename="' . $filename . '"',
+                        'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0',
+                        'Pragma' => 'no-cache',
+                        'Expires' => 'Sun, 02 Jan 1990 00:00:00 GMT',
                     ]
                 );
             }

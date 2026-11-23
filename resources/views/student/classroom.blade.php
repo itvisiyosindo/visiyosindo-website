@@ -101,7 +101,7 @@
                     </p>
                 </div>
                 <div class="flex flex-wrap items-center gap-2.5 shrink-0">
-                    <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}" target="_blank"
+                    <a href="{{ route('student.certificate.view', $enrollment->certificate->id) }}?v={{ $enrollment->certificate->updated_at?->timestamp ?? time() }}" target="_blank"
                         style="background-color: #059669; color: #ffffff;"
                         class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md transition-all whitespace-nowrap">
                         {{ $enrollment->certificate->hasPdf() ? 'Unduh / Lihat Sertifikat PDF' : 'Lihat Sertifikat' }}

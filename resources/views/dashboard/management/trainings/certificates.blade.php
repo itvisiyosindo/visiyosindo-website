@@ -219,7 +219,7 @@
                                             </svg>
                                             <span>{{ $cert->hasPdf() ? 'Ganti PDF' : 'Upload PDF' }}</span>
                                         </button>
-                                        <a href="{{ route('dashboard.trainings.certificates.download', $cert->id) }}" target="_blank"
+                                        <a href="{{ route('dashboard.trainings.certificates.download', $cert->id) }}?v={{ $cert->updated_at?->timestamp ?? time() }}" target="_blank"
                                             style="background-color: #0c2a52; color: #ffffff;"
                                             class="vb-btn-blue px-3.5 py-2 rounded-xl text-xs font-bold shadow-xs transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
                                             <svg class="w-3.5 h-3.5 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
