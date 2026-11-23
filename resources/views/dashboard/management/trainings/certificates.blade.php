@@ -41,59 +41,62 @@
         <!-- High-Impact Energetic Metrics Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
             <!-- Card 1: Total -->
-            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Total e-Sertifikat Terbit</span>
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Total e-Sertifikat Terbit</span>
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md"
+                        style="background: linear-gradient(135deg, #0c2a52 0%, #1d4ed8 100%) !important; color: #ffffff !important; box-shadow: 0 8px 16px -2px rgba(12, 42, 82, 0.25) !important;">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">{{ $stats['total'] }}</div>
-                    <span class="text-xs text-blue-600 dark:text-blue-400 font-bold mt-1 inline-flex items-center gap-1">
-                        <span>●</span>
+                    <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['total'] }}</div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900/40">
+                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                         <span>Sepanjang Waktu</span>
                     </span>
                 </div>
             </div>
 
             <!-- Card 2: This Year -->
-            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Tahun {{ date('Y') }}</span>
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 to-violet-600 text-white flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Tahun {{ date('Y') }}</span>
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md"
+                        style="background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%) !important; color: #ffffff !important; box-shadow: 0 8px 16px -2px rgba(79, 70, 229, 0.25) !important;">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl sm:text-4xl font-black text-indigo-600 dark:text-indigo-400 tracking-tight">{{ $stats['this_year'] }}</div>
-                    <span class="text-xs text-indigo-600/80 font-bold mt-1 inline-flex items-center gap-1">
-                        <span>●</span>
+                    <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['this_year'] }}</div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/40">
+                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
                         <span>Diterbitkan Tahun Berjalan</span>
                     </span>
                 </div>
             </div>
 
             <!-- Card 3: This Month -->
-            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
+            <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Bulan Ini</span>
-                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 text-white flex items-center justify-center shadow-lg shadow-emerald-500/25 group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <span class="text-[11px] sm:text-xs font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Bulan Ini</span>
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md"
+                        style="background: linear-gradient(135deg, #059669 0%, #0d9488 100%) !important; color: #ffffff !important; box-shadow: 0 8px 16px -2px rgba(5, 150, 105, 0.25) !important;">
+                        <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                         </svg>
                     </div>
                 </div>
                 <div>
-                    <div class="text-3xl sm:text-4xl font-black text-emerald-600 dark:text-emerald-400 tracking-tight">{{ $stats['this_month'] }}</div>
-                    <span class="text-xs text-emerald-600 dark:text-emerald-400 font-bold mt-1 inline-flex items-center gap-1.5">
-                        <span class="relative flex h-2 w-2">
+                    <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['this_month'] }}</div>
+                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/40">
+                        <span class="relative flex h-1.5 w-1.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                         </span>
                         <span>Peserta Lulus Baru</span>
                     </span>
