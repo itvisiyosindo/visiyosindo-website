@@ -205,7 +205,7 @@
         </div>
 
         <!-- High-End Energetic Course Cards Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
             @forelse($classes as $item)
                 @php
                     $cat = strtolower($item->category);
@@ -241,7 +241,7 @@
                             </div>
                         @else
                             <!-- Vibrant Solid Header with Inline Fallback (Never White) -->
-                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[150px]
+                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px]
                                 @if($isKalibrasi) bg-teal-600
                                 @elseif($isPPR) bg-amber-600
                                 @elseif($isElektro) bg-purple-600
@@ -283,16 +283,14 @@
                         @endif
 
                         <!-- Card Body Details -->
-                        <div class="p-6 space-y-4">
+                        <div class="p-5 sm:p-6 space-y-4">
                             <div>
-                                <div class="flex items-center gap-2 mb-1.5">
+                                <div class="flex items-center gap-2 mb-2">
                                     <span class="px-2.5 py-0.5 rounded-lg text-xs font-black text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70 uppercase tracking-wide">
                                         {{ $item->batch_name }}
                                     </span>
-                                    <span class="text-xs text-slate-300 dark:text-slate-600">&bull;</span>
-                                    <span class="text-xs text-slate-500 font-bold uppercase tracking-wider">{{ $item->category }}</span>
                                 </div>
-                                <h3 class="text-xl font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
+                                <h3 class="text-lg font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
                                     {{ $item->title }}
                                 </h3>
                                 @if($item->description)
@@ -303,27 +301,27 @@
                             </div>
 
                             <!-- Metadata Chips Grid -->
-                            <div class="grid grid-cols-2 gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800">
-                                <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2.5">
-                                    <div class="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 min-w-0">
+                                    <div class="w-7 h-7 rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <div class="min-w-0">
-                                        <span class="text-[10px] text-slate-400 uppercase font-black block">Jadwal</span>
-                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
+                                    <div class="min-w-0 flex-1">
+                                        <span class="text-[9px] text-slate-400 uppercase font-black block leading-none">Jadwal</span>
+                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block mt-0.5" title="{{ $item->schedule }}">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
                                     </div>
                                 </div>
-                                <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2.5">
-                                    <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 min-w-0">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                     </div>
-                                    <div class="min-w-0">
-                                        <span class="text-[10px] text-slate-400 uppercase font-black block">Durasi</span>
-                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block">{{ $item->duration ?? '-' }}</span>
+                                    <div class="min-w-0 flex-1">
+                                        <span class="text-[9px] text-slate-400 uppercase font-black block leading-none">Durasi</span>
+                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block mt-0.5" title="{{ $item->duration }}">{{ $item->duration ?? '-' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -346,32 +344,33 @@
                             </div>
 
                             <!-- Integration Status Indicators -->
-                            <div class="flex flex-wrap items-center gap-2 pt-1 text-[11px]">
+                            <div class="flex flex-wrap items-center gap-1.5 pt-1 text-[11px]">
                                 @if($item->whatsapp_group_link)
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-bold">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-400 font-bold border border-emerald-200/60 dark:border-emerald-800/60">
                                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
-                                        <span>Grup WA Ready</span>
+                                        <span>Grup WA</span>
                                     </span>
                                 @else
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 font-bold">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-400 font-bold border border-amber-200/60 dark:border-amber-800/60">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
                                         <span>Belum set WA</span>
                                     </span>
                                 @endif
 
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold border border-slate-200 dark:border-slate-700">
+                                    <svg class="w-3.5 h-3.5 text-indigo-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                                    <span>{{ $item->materials_count ?? 0 }} Materi</span>
+                                </span>
+
                                 @if($item->materials_link)
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 font-bold">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-400 font-bold border border-blue-200/60 dark:border-blue-800/60">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                                        <span>Modul Cloud Ready</span>
+                                        <span>Modul Cloud</span>
                                     </span>
                                 @endif
 
-                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 font-bold">
-                                    <span>{{ $item->materials_count ?? 0 }} Materi Portal</span>
-                                </span>
-
                                 @if($item->quota)
-                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold">
+                                    <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold border border-slate-200 dark:border-slate-700">
                                         <span>Kuota: {{ $item->quota }}</span>
                                     </span>
                                 @endif
@@ -380,55 +379,61 @@
                     </div>
 
                     <!-- Card Actions Footer -->
-                    <div class="p-3.5 bg-slate-50/70 dark:bg-slate-800/40 border-t border-slate-100 dark:border-slate-800 space-y-2">
-                        <!-- Toggle Status Batch -->
-                        <form action="{{ route('dashboard.trainings.classes.toggle', $item->id) }}" method="POST" class="w-full block">
-                            @csrf
-                            <button type="submit" 
-                                class="w-full py-2 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shadow-xs border
-                                    {{ $item->is_active 
-                                        ? 'bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-200/80 dark:bg-amber-950/50 dark:text-amber-300 dark:border-amber-800/80' 
-                                        : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200/80 dark:bg-emerald-950/50 dark:text-emerald-300 dark:border-emerald-800/80' }}">
-                                @if($item->is_active)
-                                    <svg class="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M6 5h4v14H6V5zm8 0h4v14h-4V5z"/>
-                                    </svg>
-                                    <span>Tutup Batch Pendaftaran</span>
-                                @else
-                                    <svg class="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M8 5v14l11-7z"/>
-                                    </svg>
-                                    <span>Buka Batch Pendaftaran</span>
-                                @endif
-                            </button>
-                        </form>
-
-                        <!-- Action Buttons -->
-                        <div class="flex items-center gap-2">
+                    <div class="p-3.5 bg-slate-50/80 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
+                        <div class="grid grid-cols-2 gap-2">
+                            <!-- Materi -->
                             <a href="{{ route('dashboard.trainings.materials', $item->id) }}"
-                                class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold text-center text-blue-700 dark:text-blue-300 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 dark:hover:bg-blue-900/60 border border-blue-200/60 dark:border-blue-800/80 transition-all inline-flex items-center justify-center gap-1.5 shrink-0 whitespace-nowrap">
-                                <svg class="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                class="py-2.5 px-3 rounded-xl text-xs font-bold text-center text-blue-700 dark:text-blue-300 bg-white dark:bg-slate-800 hover:bg-blue-50 dark:hover:bg-blue-950/50 border border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-800 shadow-xs transition-all inline-flex items-center justify-center gap-1.5 whitespace-nowrap">
+                                <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                 </svg>
                                 <span>Materi</span>
                             </a>
+
+                            <!-- Edit -->
                             <button type="button" 
                                 @click="openEdit({{ json_encode($item) }})"
-                                class="flex-1 py-1.5 px-3 rounded-xl text-xs font-bold text-center text-slate-700 dark:text-slate-200 bg-white hover:bg-slate-100 dark:bg-slate-800 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shrink-0 whitespace-nowrap">
-                                <svg class="w-3.5 h-3.5 text-slate-500 dark:text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                class="py-2.5 px-3 rounded-xl text-xs font-bold text-center text-slate-700 dark:text-slate-200 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 shadow-xs transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 whitespace-nowrap">
+                                <svg class="w-4 h-4 text-slate-500 dark:text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                                 </svg>
                                 <span>Edit</span>
                             </button>
-                            <form action="{{ route('dashboard.trainings.classes.destroy', $item->id) }}" method="POST" class="inline shrink-0" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini tidak dapat dibatalkan.');">
+
+                            <!-- Toggle Status Batch -->
+                            <form action="{{ route('dashboard.trainings.classes.toggle', $item->id) }}" method="POST" class="w-full">
+                                @csrf
+                                <button type="submit" 
+                                    class="w-full py-2.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shadow-xs border whitespace-nowrap
+                                        {{ $item->is_active 
+                                            ? 'bg-amber-50 hover:bg-amber-100 text-amber-800 border-amber-200/80 dark:bg-amber-950/40 dark:text-amber-300 dark:border-amber-800/60' 
+                                            : 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border-emerald-200/80 dark:bg-emerald-950/40 dark:text-emerald-300 dark:border-emerald-800/60' }}">
+                                    @if($item->is_active)
+                                        <svg class="w-4 h-4 text-amber-600 dark:text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Tutup Batch</span>
+                                    @else
+                                        <svg class="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span>Buka Batch</span>
+                                    @endif
+                                </button>
+                            </form>
+
+                            <!-- Hapus -->
+                            <form action="{{ route('dashboard.trainings.classes.destroy', $item->id) }}" method="POST" class="w-full" onsubmit="return confirm('Apakah Anda yakin ingin menghapus kelas ini? Tindakan ini tidak dapat dibatalkan.');">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" 
-                                    class="p-1.5 rounded-xl text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/50 border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-all cursor-pointer inline-flex items-center justify-center shrink-0"
+                                    class="w-full py-2.5 px-3 rounded-xl text-xs font-bold text-rose-700 dark:text-rose-300 bg-rose-50 hover:bg-rose-100 dark:bg-rose-950/40 dark:hover:bg-rose-900/60 border border-rose-200/80 dark:border-rose-800/60 transition-all cursor-pointer inline-flex items-center justify-center gap-1.5 shadow-xs whitespace-nowrap"
                                     title="Hapus Kelas">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <svg class="w-4 h-4 text-rose-600 dark:text-rose-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                     </svg>
+                                    <span>Hapus</span>
                                 </button>
                             </form>
                         </div>
