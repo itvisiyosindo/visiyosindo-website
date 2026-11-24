@@ -75,18 +75,19 @@
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                 </svg>
-                <a href="{{ route('news') }}" class="hover:text-blue-600">{{ __('News') }}</a>
+                <a href="{{ route('news') }}" class="hover:text-blue-600">{{ __('News & Events') }}</a>
                 @if($post->category)
+                    @php $isDetailBrand = strtolower((string) $post->category) === 'visi academy'; @endphp
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
-                    <span>{{ $post->category }}</span>
+                    <span @if($isDetailBrand) class="notranslate" translate="no" @endif>{{ $post->category }}</span>
                 @endif
             </nav>
 
             <div class="flex items-center gap-4 mb-6">
                 @if($post->category)
-                    <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg text-sm font-semibold">
+                    <span class="px-3 py-1.5 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg text-sm font-semibold {{ strtolower((string) $post->category) === 'visi academy' ? 'notranslate' : '' }}" @if(strtolower((string) $post->category) === 'visi academy') translate="no" @endif>
                         {{ $post->category }}
                     </span>
                 @endif

@@ -1,7 +1,7 @@
 <x-layouts.dashboard 
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
-        ['label' => 'News & Updates', 'url' => route('dashboard.news.index')],
+        ['label' => 'News & Events', 'url' => route('dashboard.news.index')],
         ['label' => isset($post) ? 'Edit Berita' : 'Buat Berita Baru']
     ]"
     :title="isset($post) ? 'Edit Berita' : 'Buat Berita Baru'"
@@ -616,7 +616,22 @@
 
                     <div class="space-y-4">
                         <!-- Category -->
-                        <div>
+                        <div x-data="{ selectedCategory: @js(old('category', $post->category ?? '')) }">
+                            <style>
+                                .dn-cat-pick {
+                                    display: inline-flex; align-items: center;
+                                    padding: 0.3rem 0.75rem; border-radius: 9999px;
+                                    font-size: 0.75rem; font-weight: 600; cursor: pointer;
+                                    background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;
+                                    transition: all 0.15s ease;
+                                }
+                                .dn-cat-pick:hover { background: #eff6ff; color: #1d4ed8; border-color: #60a5fa; }
+                                html.dark .dn-cat-pick { background: #334155; color: #e2e8f0; border-color: #475569; }
+                                html.dark .dn-cat-pick:hover { background: #1e3a8a; color: #93c5fd; border-color: #3b82f6; }
+                                .dn-cat-pick-active, .dn-cat-pick-active:hover {
+                                    background: #2563eb !important; color: #ffffff !important; border-color: #2563eb !important;
+                                }
+                            </style>
                             <label for="category" class="block text-sm font-medium text-surface-700 dark:text-surface-300 mb-1.5">
                                 Kategori
                             </label>
@@ -625,15 +640,31 @@
                                 id="category" 
                                 name="category" 
                                 list="categories"
-                                value="{{ old('category', $post->category ?? '') }}"
+                                x-model="selectedCategory"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-lg bg-white dark:bg-surface-700 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
-                                placeholder="Pilih atau ketik kategori baru"
+                                placeholder="Pilih bubble di bawah atau ketik kategori baru"
                             >
                             <datalist id="categories">
                                 @foreach($categories as $cat)
                                     <option value="{{ $cat }}">
                                 @endforeach
                             </datalist>
+                            @if($categories->count() > 0)
+                                <div class="flex flex-wrap gap-2 mt-2">
+                                    @foreach($categories as $cat)
+                                        <button
+                                            type="button"
+                                            data-cat="{{ $cat }}"
+                                            @click="selectedCategory = $el.dataset.cat"
+                                            :class="((selectedCategory || '').trim().toLowerCase() === $el.dataset.cat.toLowerCase() ? 'dn-cat-pick dn-cat-pick-active' : 'dn-cat-pick') + '{{ strtolower((string) $cat) === 'visi academy' ? ' notranslate' : '' }}'"
+                                            @if(strtolower((string) $cat) === 'visi academy') translate="no" @endif
+                                        >
+                                            {{ $cat }}
+                                        </button>
+                                    @endforeach
+                                </div>
+                            @endif
+                            <p class="text-xs text-surface-400 mt-1.5">Pilih cepat kategori (seperti Event atau Visi Academy) atau ketik kategori baru.</p>
                         </div>
 
                         <!-- Tags -->

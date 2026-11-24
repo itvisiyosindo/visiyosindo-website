@@ -17,6 +17,8 @@ class NewsPostController extends Controller
      */
     public function index(Request $request)
     {
+        NewsPost::syncVisiAcademyCategoryOnce();
+
         $query = NewsPost::with('author')->latest();
 
         // Filter by status
@@ -39,7 +41,7 @@ class NewsPostController extends Controller
             $query->where('is_featured', $request->featured === 'yes');
         }
 
-        $posts = $query->paginate(15);
+        $posts = $query->paginate(15)->withQueryString();
         $categories = NewsPost::availableCategories();
 
         return view('dashboard.news.index', compact('posts', 'categories'));
@@ -98,6 +100,15 @@ class NewsPostController extends Controller
         // Process meta keywords
         if ($request->filled('meta_keywords')) {
             $validated['meta_keywords'] = array_map('trim', explode(',', $request->meta_keywords));
+        }
+
+        // Normalize category; auto-assign "Visi Academy" if left blank on a Visi Academy article
+        $validated['category'] = isset($validated['category']) ? trim($validated['category']) : null;
+        if (blank($validated['category'])) {
+            $combined = strtolower(($validated['title'] ?? '') . ' ' . ($validated['excerpt'] ?? '') . ' ' . ($validated['content'] ?? ''));
+            if (str_contains($combined, 'visi academy')) {
+                $validated['category'] = 'Visi Academy';
+            }
         }
 
         // Generate slug if not provided
@@ -202,6 +213,15 @@ class NewsPostController extends Controller
             $validated['meta_keywords'] = array_map('trim', explode(',', $request->meta_keywords));
         } else {
             $validated['meta_keywords'] = null;
+        }
+
+        // Normalize category; auto-assign "Visi Academy" if left blank on a Visi Academy article
+        $validated['category'] = isset($validated['category']) ? trim($validated['category']) : null;
+        if (blank($validated['category'])) {
+            $combined = strtolower(($validated['title'] ?? '') . ' ' . ($validated['excerpt'] ?? '') . ' ' . ($validated['content'] ?? ''));
+            if (str_contains($combined, 'visi academy')) {
+                $validated['category'] = 'Visi Academy';
+            }
         }
 
         // Generate slug if not provided

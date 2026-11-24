@@ -184,8 +184,10 @@
                     <span>{{ __('Semua') }}</span>
                 </a>
                 @foreach($categories as $cat)
+                    @php $isBrandCat = strtolower((string) $cat) === 'visi academy'; @endphp
                     <a href="{{ route('news', array_filter(['category' => $cat, 'search' => $currentSearch])) }}"
-                        class="vni-bubble {{ $activeCategory === strtolower((string) $cat) ? 'vni-bubble-active' : '' }}">
+                        class="vni-bubble {{ $activeCategory === strtolower((string) $cat) ? 'vni-bubble-active' : '' }} {{ $isBrandCat ? 'notranslate' : '' }}"
+                        @if($isBrandCat) translate="no" @endif>
                         <span class="vni-bubble-dot"></span>
                         <span>{{ $cat }}</span>
                     </a>
@@ -237,7 +239,8 @@
                                 <div class="p-6">
                                     <div class="flex items-center gap-3 mb-3 text-xs text-slate-500 dark:text-slate-400">
                                         @if($featured->category)
-                                            <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg font-medium">
+                                            @php $isFeatBrand = strtolower((string) $featured->category) === 'visi academy'; @endphp
+                                            <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg font-medium {{ $isFeatBrand ? 'notranslate' : '' }}" @if($isFeatBrand) translate="no" @endif>
                                                 {{ $featured->category }}
                                             </span>
                                         @endif
@@ -302,7 +305,8 @@
                             >
                                 <option value="">{{ __('Semua Kategori') }}</option>
                                 @foreach($categories as $cat)
-                                    <option value="{{ $cat }}" {{ $activeCategory === strtolower((string) $cat) ? 'selected' : '' }}>{{ $cat }}</option>
+                                    @php $isBrandOpt = strtolower((string) $cat) === 'visi academy'; @endphp
+                                    <option value="{{ $cat }}" {{ $activeCategory === strtolower((string) $cat) ? 'selected' : '' }} @if($isBrandOpt) class="notranslate" translate="no" @endif>{{ $cat }}</option>
                                 @endforeach
                             </select>
 
@@ -347,7 +351,8 @@
                                         <div class="flex-1 p-6">
                                             <div class="flex items-center gap-3 mb-3 text-xs">
                                                 @if($post->category)
-                                                    <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg font-medium">
+                                                    @php $isPostBrand = strtolower((string) $post->category) === 'visi academy'; @endphp
+                                                    <span class="px-2.5 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-lg font-medium {{ $isPostBrand ? 'notranslate' : '' }}" @if($isPostBrand) translate="no" @endif>
                                                         {{ $post->category }}
                                                     </span>
                                                 @endif
@@ -434,7 +439,8 @@
                                 {{ __('Semua Kategori') }}
                             </a>
                             @foreach($categories as $cat)
-                                <a href="{{ route('news', array_filter(['category' => $cat, 'search' => $currentSearch])) }}" class="block px-3 py-2 rounded-lg {{ $activeCategory === strtolower((string) $cat) ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
+                                @php $isSideBrand = strtolower((string) $cat) === 'visi academy'; @endphp
+                                <a href="{{ route('news', array_filter(['category' => $cat, 'search' => $currentSearch])) }}" class="block px-3 py-2 rounded-lg {{ $activeCategory === strtolower((string) $cat) ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} {{ $isSideBrand ? 'notranslate' : '' }} transition-colors" @if($isSideBrand) translate="no" @endif>
                                     {{ $cat }}
                                 </a>
                             @endforeach

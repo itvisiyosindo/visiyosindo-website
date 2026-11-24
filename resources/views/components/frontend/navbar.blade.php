@@ -343,7 +343,11 @@
                         <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <span>{{ Auth::user()->isStudent() ? 'Visi Academy' : 'Dashboard' }}</span>
+                        @if(Auth::user()->isStudent())
+                            <span class="notranslate" translate="no">Visi Academy</span>
+                        @else
+                            <span>Dashboard</span>
+                        @endif
                     </a>
                 @else
                     <a href="{{ route('login') }}"
@@ -497,7 +501,11 @@
                 @auth
                     <a href="{{ Auth::user()->isStudent() ? route('student.dashboard') : route('dashboard') }}" @click="mobileOpen = false"
                         class="px-4 py-3 text-sm font-bold rounded-xl bg-blue-600 text-white flex items-center justify-between shadow-xs">
-                        <span>{{ Auth::user()->isStudent() ? 'Portal Member (Visi Academy)' : 'Dashboard' }}</span>
+                        @if(Auth::user()->isStudent())
+                            <span>Portal Member (<span class="notranslate" translate="no">Visi Academy</span>)</span>
+                        @else
+                            <span>Dashboard</span>
+                        @endif
                         <span>&rarr;</span>
                     </a>
                 @else

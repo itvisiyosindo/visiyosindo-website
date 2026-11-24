@@ -261,13 +261,70 @@
             window.location.href = "{{ url('/locale') }}/" + lang;
         };
 
+        // Protect proper brand name "Visi Academy" from Google Translate / browser auto-translation
+        function protectBrandTerms() {
+            if (!document.body) return;
+            const brandRegex = /\bvisi\s+academy\b/gi;
+            const skipTags = { SCRIPT: 1, STYLE: 1, TEXTAREA: 1, INPUT: 1, SELECT: 1, OPTION: 1, NOSCRIPT: 1, SVG: 1 };
+
+            document.querySelectorAll('option').forEach(function(opt) {
+                if (brandRegex.test(opt.textContent || '')) {
+                    opt.classList.add('notranslate');
+                    opt.setAttribute('translate', 'no');
+                }
+                brandRegex.lastIndex = 0;
+            });
+
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
+            const targets = [];
+            let node;
+            while ((node = walker.nextNode())) {
+                const parent = node.parentElement;
+                if (!parent || skipTags[parent.tagName] || parent.closest('.notranslate, [translate="no"]')) {
+                    continue;
+                }
+                brandRegex.lastIndex = 0;
+                if (brandRegex.test(node.nodeValue || '')) {
+                    targets.push(node);
+                }
+            }
+
+            targets.forEach(function(textNode) {
+                const text = textNode.nodeValue || '';
+                brandRegex.lastIndex = 0;
+                const frag = document.createDocumentFragment();
+                let lastIdx = 0;
+                let match;
+                while ((match = brandRegex.exec(text)) !== null) {
+                    if (match.index > lastIdx) {
+                        frag.appendChild(document.createTextNode(text.slice(lastIdx, match.index)));
+                    }
+                    const span = document.createElement('span');
+                    span.className = 'notranslate';
+                    span.setAttribute('translate', 'no');
+                    span.textContent = match[0];
+                    frag.appendChild(span);
+                    lastIdx = match.index + match[0].length;
+                }
+                if (lastIdx < text.length) {
+                    frag.appendChild(document.createTextNode(text.slice(lastIdx)));
+                }
+                if (textNode.parentNode) {
+                    textNode.parentNode.replaceChild(frag, textNode);
+                }
+            });
+        }
+
         function googleTranslateElementInit() {
+            protectBrandTerms();
             new google.translate.TranslateElement({
                 pageLanguage: 'id',
                 includedLanguages: 'id,en',
                 autoDisplay: false
             }, 'google_translate_element');
         }
+
+        protectBrandTerms();
 
         (function() {
             const currentLocale = @js(app()->getLocale());

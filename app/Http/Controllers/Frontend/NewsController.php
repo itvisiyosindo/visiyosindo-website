@@ -14,6 +14,8 @@ class NewsController extends Controller
      */
     public function index(Request $request)
     {
+        NewsPost::syncVisiAcademyCategoryOnce();
+
         $query = NewsPost::with('author')
             ->published()
             ->latest('published_at');

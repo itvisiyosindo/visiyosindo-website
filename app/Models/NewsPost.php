@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use App\Helpers\EncryptedRouteHelper;
+use App\Support\AcademySchemaEnsurer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
 class NewsPost extends Model
@@ -13,6 +16,8 @@ class NewsPost extends Model
     use HasFactory, SoftDeletes;
 
     public const DEFAULT_CATEGORIES = ['Event', 'Visi Academy'];
+
+    private static bool $visiAcademySynced = false;
 
     protected $fillable = [
         'title',
@@ -226,10 +231,60 @@ class NewsPost extends Model
     }
 
     /**
+     * One-time sync that assigns existing news mentioning "Visi Academy" to the "Visi Academy" category.
+     * Tracked via academy_settings so subsequent manual category edits in admin panel are preserved.
+     */
+    public static function syncVisiAcademyCategoryOnce(): void
+    {
+        if (self::$visiAcademySynced) {
+            return;
+        }
+        self::$visiAcademySynced = true;
+
+        try {
+            if (!Schema::hasTable('news_posts')) {
+                return;
+            }
+
+            AcademySchemaEnsurer::ensure();
+
+            $flagKey = 'news_visi_academy_synced_v1';
+            $hasSettings = Schema::hasTable('academy_settings');
+
+            if ($hasSettings && DB::table('academy_settings')->where('key', $flagKey)->exists()) {
+                return;
+            }
+
+            static::where(function ($q) {
+                $q->whereRaw('LOWER(title) LIKE ?', ['%visi academy%'])
+                    ->orWhereRaw('LOWER(excerpt) LIKE ?', ['%visi academy%'])
+                    ->orWhereRaw('LOWER(content) LIKE ?', ['%visi academy%']);
+            })->where(function ($q) {
+                $q->whereNull('category')
+                    ->orWhereRaw("LOWER(TRIM(category)) != 'visi academy'");
+            })->update(['category' => 'Visi Academy']);
+
+            if ($hasSettings) {
+                $now = now();
+                DB::table('academy_settings')->insertOrIgnore([
+                    'key' => $flagKey,
+                    'value' => '1',
+                    'created_at' => $now,
+                    'updated_at' => $now,
+                ]);
+            }
+        } catch (\Throwable $e) {
+            // Keep page rendering safely if DB lacks write permission during read request
+        }
+    }
+
+    /**
      * Distinct categories including built-in defaults (Event, Visi Academy).
      */
     public static function availableCategories(bool $publishedOnly = false)
     {
+        static::syncVisiAcademyCategoryOnce();
+
         $query = $publishedOnly ? static::published() : static::query();
 
         $categories = $query->distinct()->pluck('category')->filter()->values();

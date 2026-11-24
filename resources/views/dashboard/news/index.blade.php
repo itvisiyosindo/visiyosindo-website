@@ -1,16 +1,43 @@
+@php
+    $activeAdminCategory = strtolower((string) request('category', ''));
+    $baseFilterQuery = array_filter([
+        'search' => request('search'),
+        'status' => request('status'),
+        'featured' => request('featured'),
+    ], fn ($v) => $v !== null && $v !== '');
+@endphp
+
 <x-layouts.dashboard 
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
-        ['label' => 'News & Updates']
+        ['label' => 'News & Events']
     ]"
-    title="News & Updates"
+    title="News & Events"
 >
+    <style>
+        .dn-bubble-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
+        .dn-bubble {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.42rem 0.9rem; border-radius: 9999px;
+            font-size: 0.8125rem; font-weight: 600; text-decoration: none;
+            background: #ffffff; color: #475569; border: 1px solid #cbd5e1;
+            transition: all 0.18s ease;
+        }
+        .dn-bubble:hover { background: #eff6ff; color: #1d4ed8; border-color: #60a5fa; }
+        html.dark .dn-bubble { background: #1e293b; color: #cbd5e1; border-color: #334155; }
+        html.dark .dn-bubble:hover { background: #1e3a8a; color: #93c5fd; border-color: #3b82f6; }
+        .dn-bubble-active, .dn-bubble-active:hover {
+            background: #2563eb !important; color: #ffffff !important; border-color: #2563eb !important;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+        }
+    </style>
+
     <x-slot:pageHeader>
         <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
-                <h1 class="text-xl md:text-2xl font-bold text-surface-900 dark:text-white">News & Updates</h1>
+                <h1 class="text-xl md:text-2xl font-bold text-surface-900 dark:text-white">News & Events</h1>
                 <p class="mt-0.5 text-[13px] text-surface-500 dark:text-surface-400">
-                    Kelola artikel berita dan update perusahaan Anda
+                    Kelola artikel berita, acara (Event), dan publikasi <span class="notranslate" translate="no">Visi Academy</span>
                 </p>
             </div>
             <a href="{{ route('dashboard.news.create') }}">
@@ -23,6 +50,21 @@
             </a>
         </div>
     </x-slot:pageHeader>
+
+    <!-- Category Quick Filter Bubbles -->
+    <div class="dn-bubble-bar">
+        <a href="{{ route('dashboard.news.index', $baseFilterQuery) }}"
+            class="dn-bubble {{ $activeAdminCategory === '' ? 'dn-bubble-active' : '' }}">
+            Semua
+        </a>
+        @foreach($categories as $cat)
+            <a href="{{ route('dashboard.news.index', array_merge($baseFilterQuery, ['category' => $cat])) }}"
+                class="dn-bubble {{ $activeAdminCategory === strtolower((string) $cat) ? 'dn-bubble-active' : '' }} {{ strtolower((string) $cat) === 'visi academy' ? 'notranslate' : '' }}"
+                @if(strtolower((string) $cat) === 'visi academy') translate="no" @endif>
+                {{ $cat }}
+            </a>
+        @endforeach
+    </div>
 
     <!-- Filters -->
     <x-dashboard.card class="mb-6">
