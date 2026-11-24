@@ -16,6 +16,46 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .st-card-header {
+            position: relative !important;
+            height: 184px !important;
+            min-height: 184px !important;
+            max-height: 184px !important;
+        }
+        .st-card-photo-img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: top center !important;
+        }
+        .st-floating-badges {
+            position: absolute !important;
+            top: 14px !important;
+            left: 14px !important;
+            right: 14px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 8px !important;
+            z-index: 10 !important;
+        }
+        .st-card-title {
+            min-height: 3.1rem !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+        }
+        .st-card-desc {
+            min-height: 2.25rem !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col selection:bg-blue-600 selection:text-white">
@@ -37,7 +77,7 @@
                     @auth
                         @if (Auth::user()->isStudent())
                             <a href="{{ route('student.dashboard') }}"
-                                class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all inline-flex items-center gap-2 whitespace-nowrap">
+                                class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 transition-all inline-flex items-center gap-2 whitespace-nowrap">
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                                 </svg>
@@ -46,16 +86,16 @@
                             </a>
                         @else
                             <a href="{{ route('dashboard') }}"
-                                class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 transition-all inline-flex items-center gap-2 whitespace-nowrap">
+                                class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-slate-900 dark:bg-white dark:text-slate-900 hover:bg-slate-800 transition-all inline-flex items-center gap-2 whitespace-nowrap">
                                 <span>Admin Dashboard &rarr;</span>
                             </a>
                         @endif
                     @else
-                        <a href="{{ route('login') }}" class="px-2.5 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors whitespace-nowrap">
+                        <a href="{{ route('login') }}" class="px-3 sm:px-4 py-2 text-xs sm:text-sm font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 transition-colors whitespace-nowrap">
                             Masuk
                         </a>
                         <a href="{{ route('student.register') }}"
-                            class="px-3.5 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap">
+                            class="px-4 sm:px-5 py-2 sm:py-2.5 rounded-2xl text-xs sm:text-sm font-black text-white bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all whitespace-nowrap">
                             <span class="hidden sm:inline">Daftar Akun Siswa</span>
                             <span class="sm:hidden">Daftar</span>
                         </a>
@@ -94,26 +134,28 @@
                 <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 overflow-hidden flex flex-col justify-between group">
                     <div>
                         @if ($item->image)
-                            <!-- Clean Flyer Banner (16:9 Unobscured) -->
-                            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-950">
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-black/30 pointer-events-none"></div>
+                            <!-- Clean Flyer Banner (Uniform Height) -->
+                            <div class="st-card-header w-full overflow-hidden bg-slate-950">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="st-card-photo-img group-hover:scale-105 transition-transform duration-700 ease-out">
+                                <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.05) 55%, rgba(15,23,42,0.25) 100%);"></div>
                                 
                                 <!-- Floating Badges -->
-                                <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10">
-                                    <span class="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white shadow-lg backdrop-blur-md">
+                                <div class="st-floating-badges">
+                                    <span class="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md"
+                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a;">
                                         {{ $item->category }}
                                     </span>
                                     @if ($item->batch_name)
-                                        <span class="text-xs font-black px-3 py-1 rounded-full bg-blue-600 text-white shadow-lg">
+                                        <span class="text-xs font-black px-3 py-1 rounded-full shadow-md"
+                                            style="background-color: #2563eb; color: #ffffff;">
                                             {{ $item->batch_name }}
                                         </span>
                                     @endif
                                 </div>
                             </div>
                         @else
-                            <!-- Vibrant Solid Header (Never White) -->
-                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[160px]
+                            <!-- Vibrant Solid Header (Uniform Height) -->
+                            <div class="st-card-header p-6 text-white overflow-hidden flex flex-col justify-between
                                 @if($isKalibrasi) bg-teal-600
                                 @elseif($isPPR) bg-amber-600
                                 @elseif($isElektro) bg-purple-600
@@ -125,7 +167,7 @@
                                        @else background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%); @endif">
                                 <div class="absolute -right-8 -bottom-8 w-40 h-40 bg-white/10 rounded-full blur-2xl pointer-events-none group-hover:scale-125 transition-transform"></div>
 
-                                <div class="flex items-center justify-between z-10">
+                                <div class="flex items-center justify-between gap-2 z-10">
                                     <span class="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white">
                                         {{ $item->category }}
                                     </span>
@@ -136,12 +178,12 @@
                                     @endif
                                 </div>
                                 <div class="z-10 mt-4 flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center">
+                                    <div class="w-8 h-8 rounded-xl bg-white/20 flex items-center justify-center shrink-0">
                                         <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                         </svg>
                                     </div>
-                                    <span class="text-xs font-black text-white tracking-wide">{{ $item->batch_name ?: 'Batch Pelatihan' }}</span>
+                                    <span class="text-xs font-black text-white tracking-wide truncate">{{ $item->batch_name ?: 'Batch Pelatihan' }}</span>
                                 </div>
                             </div>
                         @endif
@@ -165,46 +207,44 @@
                                 </div>
 
                                 <a href="{{ route('student.classes.show', $item->slug) }}" class="block">
-                                    <h3 class="text-xl font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
+                                    <h3 class="st-card-title text-lg font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
                                         {{ $item->title }}
                                     </h3>
                                 </a>
 
                                 @if($item->instructor)
-                                    <p class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                                    <p class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 mt-1 truncate">
                                         Narasumber: {{ $item->instructor }}
                                     </p>
                                 @endif
 
-                                @if($item->description)
-                                    <p class="text-xs text-slate-600 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
-                                        {{ $item->description }}
-                                    </p>
-                                @endif
+                                <p class="st-card-desc text-xs text-slate-600 dark:text-slate-400 mt-2 leading-relaxed">
+                                    {{ $item->description ?: 'Program pelatihan profesional bersertifikat resmi Visi Academy.' }}
+                                </p>
                             </div>
 
                             <!-- Schedule & Duration Grid -->
-                            <div class="grid grid-cols-2 gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800">
-                                <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-xl bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div class="grid grid-cols-2 gap-2 pt-3 border-t border-slate-100 dark:border-slate-800">
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 min-w-0">
+                                    <div class="w-7 h-7 rounded-lg bg-blue-100 dark:bg-blue-950/80 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
                                     </div>
-                                    <div class="min-w-0">
-                                        <span class="text-[10px] text-slate-400 uppercase font-black block">Jadwal</span>
-                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
+                                    <div class="min-w-0 flex-1">
+                                        <span class="text-[9px] text-slate-400 uppercase font-black block leading-none">Jadwal</span>
+                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block mt-0.5" title="{{ $item->schedule }}">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
                                     </div>
                                 </div>
-                                <div class="p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2">
-                                    <div class="w-8 h-8 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center flex-shrink-0">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 min-w-0">
+                                    <div class="w-7 h-7 rounded-lg bg-amber-100 dark:bg-amber-950/80 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
+                                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
                                     </div>
-                                    <div class="min-w-0">
-                                        <span class="text-[10px] text-slate-400 uppercase font-black block">Durasi</span>
-                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block">{{ $item->duration ?? '-' }}</span>
+                                    <div class="min-w-0 flex-1">
+                                        <span class="text-[9px] text-slate-400 uppercase font-black block leading-none">Durasi</span>
+                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block mt-0.5" title="{{ $item->duration }}">{{ $item->duration ?? '-' }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -219,7 +259,7 @@
                                     {{ $item->formatted_price }}
                                 </span>
                             </div>
-                            <a href="{{ route('student.classes.show', $item->slug) }}" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">
+                            <a href="{{ route('student.classes.show', $item->slug) }}" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline whitespace-nowrap">
                                 Lihat Silabus &rarr;
                             </a>
                         </div>
@@ -227,7 +267,7 @@
                         @auth
                             @if ($isEnrolled)
                                 <a href="{{ route('student.dashboard', ['#classes']) }}"
-                                    class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-black text-xs transition-all">
+                                    class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-black text-xs transition-all">
                                     <svg class="w-4 h-4 text-emerald-500" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                                     </svg>
@@ -235,12 +275,13 @@
                                 </a>
                             @elseif(!$item->is_registration_open)
                                 <a href="{{ route('student.classes.show', $item->slug) }}"
-                                    class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs">
+                                    class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs">
                                     <span>{{ $item->is_full ? 'Kuota Penuh' : 'Pendaftaran Ditutup' }}</span>
                                 </a>
                             @else
                                 <a href="{{ route('student.checkout', $item->id) }}"
-                                    class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                    style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #ffffff;"
+                                    class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
                                     <span>Daftar & Checkout Kelas</span>
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -249,7 +290,8 @@
                             @endif
                         @else
                             <a href="{{ route('student.classes.show', $item->slug) }}"
-                                class="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #ffffff;"
+                                class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 hover:shadow-blue-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all">
                                 <span>Lihat Detail & Daftar</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />

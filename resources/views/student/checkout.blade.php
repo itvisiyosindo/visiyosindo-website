@@ -13,6 +13,36 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .st-ref-row {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 8px !important;
+        }
+        .st-ref-input {
+            width: 100% !important;
+            min-width: 0 !important;
+            flex: 1 1 auto !important;
+        }
+        .st-ref-btn {
+            width: 100% !important;
+            flex-shrink: 0 !important;
+            white-space: nowrap !important;
+        }
+        @media (min-width: 640px) {
+            .st-ref-row {
+                flex-direction: row !important;
+                align-items: center !important;
+            }
+            .st-ref-input {
+                width: auto !important;
+            }
+            .st-ref-btn {
+                width: auto !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100"
@@ -148,10 +178,10 @@
                 </div>
 
                 @if($trainingClass->price > 0)
-                    <div class="bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900 rounded-3xl p-6 space-y-2 text-xs">
+                    <div class="bg-blue-50 dark:bg-blue-950/30 rounded-3xl p-6 space-y-2 text-xs" style="border: 1px solid #bfdbfe;">
                         <h3 class="text-sm font-black text-blue-900 dark:text-blue-200">Informasi Pembayaran Transfer Bank</h3>
                         <p class="text-blue-800 dark:text-blue-300">Setelah klik konfirmasi pendaftaran, silakan transfer ke rekening berikut lalu unggah bukti transfer di menu <strong>Invoice</strong>:</p>
-                        <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 font-mono space-y-1 break-words">
+                        <div class="p-4 rounded-2xl bg-white dark:bg-slate-900 font-mono space-y-1 break-words">
                             <div>Bank: <strong>{{ $academySettings['bank_name'] }}</strong></div>
                             <div>No. Rekening: <strong>{{ $academySettings['bank_account_number'] }}</strong></div>
                             <div>Atas Nama: <strong>{{ $academySettings['bank_account_holder'] }}</strong></div>
@@ -174,11 +204,11 @@
                             <label class="block text-xs font-bold text-slate-600 dark:text-slate-300">
                                 Kode Afiliasi / Referral (Opsional — Diskon {{ $academySettings['affiliate_discount_percent'] }}%)
                             </label>
-                            <div class="flex flex-col sm:flex-row gap-2">
+                            <div class="st-ref-row">
                                 <input type="text" x-model="code" placeholder="Contoh: VISI-BUDI123"
-                                    class="min-w-0 w-full flex-1 px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border-0 text-xs font-mono font-bold uppercase text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                    class="st-ref-input px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border-0 text-xs font-mono font-bold uppercase text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                                 <button type="button" @click="applyCode()" :disabled="checking"
-                                    class="w-full sm:w-auto shrink-0 px-4 py-2.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer">
+                                    class="st-ref-btn px-5 py-2.5 rounded-xl bg-slate-900 dark:bg-blue-600 text-white text-xs font-bold hover:opacity-90 transition-opacity cursor-pointer">
                                     <span x-text="checking ? '...' : 'Terapkan'"></span>
                                 </button>
                             </div>
@@ -205,7 +235,7 @@
 
                     <button type="submit"
                         style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                        class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 transition-all cursor-pointer">
+                        class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 transition-all cursor-pointer">
                         {{ $trainingClass->price > 0 ? 'Buat Invoice & Daftar Sekarang' : 'Konfirmasi Daftar Kelas Gratis' }}
                     </button>
                 </form>

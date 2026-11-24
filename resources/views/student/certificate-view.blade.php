@@ -54,13 +54,14 @@
             <span>Kembali ke Portal Pelajar</span>
         </a>
 
-        <div class="flex flex-wrap items-center justify-end gap-3">
+        <div class="flex flex-wrap items-center justify-start sm:justify-end gap-2.5 sm:gap-3">
             <a href="{{ route('certificate.verify', $certificate->verification_code) }}" target="_blank"
-                class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition-colors">
+                class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 border border-slate-700 transition-colors whitespace-nowrap">
                 Cek Halaman Verifikasi
             </a>
             <button onclick="window.print()"
-                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all cursor-pointer">
+                style="background-color: #2563eb; color: #ffffff;"
+                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm shadow-lg shadow-blue-500/30 transition-all cursor-pointer whitespace-nowrap">
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                 </svg>
@@ -72,7 +73,8 @@
     <!-- The Certificate Canvas (A4 Landscape aspect ratio) -->
     <div class="certificate-wrapper relative w-full max-w-5xl bg-white rounded-2xl shadow-2xl overflow-hidden p-3 sm:p-5 border-8 border-slate-100 sm:aspect-[1.414/1] flex flex-col justify-between">
         <!-- Inner Border Frame -->
-        <div class="relative w-full h-full border-4 border-double border-amber-600/60 rounded-xl p-5 sm:p-10 md:p-12 flex flex-col justify-between bg-gradient-to-br from-amber-50/20 via-white to-blue-50/20">
+        <div class="relative w-full h-full border-4 border-double rounded-xl p-5 sm:p-10 md:p-12 flex flex-col justify-between bg-gradient-to-br from-amber-50/20 via-white to-blue-50/20"
+            style="border-color: rgba(217, 119, 6, 0.55);">
 
             <!-- Decorative Corners -->
             <div class="absolute top-2 left-2 w-8 h-8 border-t-2 border-l-2 border-amber-600"></div>

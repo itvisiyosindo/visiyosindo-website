@@ -35,7 +35,15 @@
                     </div>
 
                     <!-- Details Table -->
-                    <div class="space-y-4 text-sm divide-y divide-slate-100 dark:divide-slate-700/60">
+                    <style>
+                        .vc-detail-list > div + div {
+                            border-top: 1px solid #f1f5f9 !important;
+                        }
+                        .dark .vc-detail-list > div + div {
+                            border-top-color: rgba(51, 65, 85, 0.6) !important;
+                        }
+                    </style>
+                    <div class="vc-detail-list space-y-4 text-sm">
                         <div class="pt-3 flex flex-col sm:flex-row sm:justify-between gap-1 sm:gap-4">
                             <span class="text-xs uppercase tracking-wider text-slate-400 font-medium">Nomor Sertifikat</span>
                             <span class="font-mono font-bold text-slate-900 dark:text-white break-all sm:break-normal">{{ $certificate->certificate_number }}</span>
@@ -90,13 +98,14 @@
                                     <p class="text-xs text-slate-500 dark:text-slate-400">Dokumen digital resmi yang diterbitkan oleh Visi Academy.</p>
                                 </div>
                                 <div class="flex flex-wrap items-center gap-2 shrink-0">
-                                    <a href="{{ route('certificate.verify.file', $certificate->verification_code) }}" target="_blank"
+                                    @php $certPdfVersion = $certificate->updated_at?->timestamp ?? time(); @endphp
+                                    <a href="{{ route('certificate.verify.file', $certificate->verification_code) }}?v={{ $certPdfVersion }}" target="_blank"
                                         style="background-color: #f1f5f9; color: #1e293b;"
                                         class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-800 dark:text-white text-xs font-bold transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
                                         <span>Buka Layar Penuh</span>
                                     </a>
-                                    <a href="{{ route('certificate.verify.file', ['code' => $certificate->verification_code, 'download' => 1]) }}"
+                                    <a href="{{ route('certificate.verify.file', ['code' => $certificate->verification_code, 'download' => 1, 'v' => $certPdfVersion]) }}"
                                         style="background-color: #2563eb; color: #ffffff;"
                                         class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-sm transition-colors inline-flex items-center gap-1.5 whitespace-nowrap">
                                         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -107,7 +116,7 @@
 
                             <div class="rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-900">
                                 <iframe
-                                    src="{{ route('certificate.verify.file', $certificate->verification_code) }}#toolbar=1&view=FitH"
+                                    src="{{ route('certificate.verify.file', $certificate->verification_code) }}?v={{ $certPdfVersion }}#toolbar=1&view=FitH"
                                     title="Sertifikat {{ $certificate->display_recipient_name }}"
                                     style="width: 100%; height: clamp(380px, 65vh, 660px); border: 0; display: block;"
                                     class="w-full h-[380px] sm:h-[660px] border-0">

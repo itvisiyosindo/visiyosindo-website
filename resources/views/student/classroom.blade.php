@@ -13,6 +13,27 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .st-btn-responsive {
+            width: 100% !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+        }
+        .st-hero-actions {
+            width: 100% !important;
+        }
+        @media (min-width: 640px) {
+            .st-btn-responsive {
+                width: auto !important;
+            }
+        }
+        @media (min-width: 1024px) {
+            .st-hero-actions {
+                width: auto !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100">
@@ -50,7 +71,7 @@
         <!-- Hero Banner -->
         <div class="rounded-3xl p-6 sm:p-8 text-white shadow-xl" style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%);">
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                <div class="space-y-2.5">
+                <div class="space-y-2.5 min-w-0">
                     <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
                         <span class="px-3 py-1 rounded-full bg-white/15">{{ $cls->category }}</span>
                         @if($cls->batch_name)
@@ -58,8 +79,8 @@
                         @endif
                         <span class="px-3 py-1 rounded-full bg-white/15">{{ $cls->delivery_mode_label }}</span>
                     </div>
-                    <h1 class="text-2xl sm:text-3xl font-black leading-tight">{{ $cls->title }}</h1>
-                    <div class="flex flex-wrap items-center gap-4 text-xs text-blue-100">
+                    <h1 class="text-2xl sm:text-3xl font-black leading-tight break-words">{{ $cls->title }}</h1>
+                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-blue-100">
                         @if($cls->instructor)
                             <span>Narasumber: <strong class="text-white">{{ $cls->instructor }}</strong></span>
                         @endif
@@ -71,18 +92,18 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap items-center gap-3 shrink-0 w-full lg:w-auto">
+                <div class="st-hero-actions flex flex-wrap items-center gap-3 shrink-0">
                     @if($cls->whatsapp_group_link)
                         <a href="{{ $cls->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
                             style="background-color: #fbbf24; color: #0f172a;"
-                            class="w-full sm:w-auto text-center px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-lg transition-all">
+                            class="st-btn-responsive px-5 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-lg transition-all">
                             Gabung Grup WhatsApp Kelas
                         </a>
                     @endif
                     @if($cls->materials_link)
                         <a href="{{ $cls->materials_link }}" target="_blank" rel="noopener noreferrer"
                             style="background-color: rgba(255,255,255,0.16); color: #ffffff;"
-                            class="w-full sm:w-auto text-center px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs transition-all">
+                            class="st-btn-responsive px-5 py-3 rounded-2xl bg-white/15 hover:bg-white/25 text-white font-bold text-xs transition-all">
                             Tautan Materi Tambahan
                         </a>
                     @endif
@@ -92,7 +113,7 @@
 
         <!-- Certificate Banner if Completed -->
         @if($enrollment->status === 'completed' && $enrollment->certificate)
-            <div class="bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 rounded-3xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="bg-emerald-50 dark:bg-emerald-950/40 rounded-3xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4" style="border: 1px solid #a7f3d0;">
                 <div>
                     <span class="text-xs font-black uppercase tracking-wider text-emerald-700 dark:text-emerald-300 block">Selamat! Anda Telah Lulus Pelatihan Ini</span>
                     <h2 class="text-lg font-black text-slate-900 dark:text-white mt-0.5">Sertifikat Resmi Anda Sudah Tersedia</h2>
@@ -127,14 +148,15 @@
 
                 @forelse($pdfMaterials as $mat)
                     <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-                        <div class="min-w-0">
+                        <div class="min-w-0 flex-1">
                             <h3 class="text-sm font-bold text-slate-900 dark:text-white sm:truncate break-words">{{ $mat->title }}</h3>
                             @if($mat->description)
                                 <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5 line-clamp-2">{{ $mat->description }}</p>
                             @endif
                         </div>
                         <a href="{{ route('student.classroom.material', [$enrollment->id, $mat->id]) }}" target="_blank"
-                            class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shrink-0 transition-colors">
+                            style="background-color: #2563eb; color: #ffffff;"
+                            class="st-btn-responsive px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-black shrink-0 transition-colors">
                             Buka PDF
                         </a>
                     </div>
@@ -156,7 +178,7 @@
 
                 @forelse($videoAndLinks as $mat)
                     <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
-                        <div class="min-w-0">
+                        <div class="min-w-0 flex-1">
                             <span class="text-[10px] font-black uppercase text-amber-600 dark:text-amber-400 block">
                                 {{ $mat->type === 'video' ? 'Rekaman Video' : 'Tautan Materi' }}
                             </span>
@@ -166,7 +188,8 @@
                             @endif
                         </div>
                         <a href="{{ route('student.classroom.material', [$enrollment->id, $mat->id]) }}" target="_blank" rel="noopener noreferrer"
-                            class="w-full sm:w-auto text-center px-4 py-2 rounded-xl bg-slate-900 dark:bg-blue-600 hover:opacity-90 text-white text-xs font-black shrink-0 transition-opacity">
+                            style="background-color: #0c2a52; color: #ffffff;"
+                            class="st-btn-responsive px-4 py-2 rounded-xl bg-slate-900 dark:bg-blue-600 hover:opacity-90 text-white text-xs font-black shrink-0 transition-opacity">
                             Buka Tautan
                         </a>
                     </div>

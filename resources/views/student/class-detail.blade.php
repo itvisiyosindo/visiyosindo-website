@@ -41,7 +41,7 @@
                         </a>
                     @endif
                 @else
-                    <a href="{{ route('login') }}" class="px-3.5 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
+                    <a href="{{ route('login') }}" class="px-4 py-2 text-xs font-bold text-slate-700 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
                         Masuk
                     </a>
                     <a href="{{ route('student.register') }}" style="background-color: #0c2a52; color: #ffffff;" class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
@@ -60,8 +60,8 @@
             <!-- Left Content -->
             <div class="lg:col-span-8 space-y-6">
                 @if($trainingClass->image)
-                    <div class="rounded-3xl overflow-hidden shadow-lg bg-slate-900 aspect-[16/9]">
-                        <img src="{{ asset('storage/' . $trainingClass->image) }}" alt="{{ $trainingClass->title }}" class="w-full h-full object-cover">
+                    <div class="rounded-3xl overflow-hidden shadow-lg bg-slate-900 flex items-center justify-center" style="max-height: 520px;">
+                        <img src="{{ asset('storage/' . $trainingClass->image) }}" alt="{{ $trainingClass->title }}" class="w-full h-full object-contain" style="max-height: 520px;">
                     </div>
                 @endif
 
@@ -93,21 +93,21 @@
 
                     <!-- Key Info Grid -->
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-[10px] font-black uppercase text-slate-400 block">Jadwal</span>
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">{{ $trainingClass->schedule ?? 'Menyesuaikan' }}</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block break-words">{{ $trainingClass->schedule ?? 'Menyesuaikan' }}</span>
                         </div>
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-[10px] font-black uppercase text-slate-400 block">Durasi</span>
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">{{ $trainingClass->duration ?? '-' }}</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block break-words">{{ $trainingClass->duration ?? '-' }}</span>
                         </div>
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-[10px] font-black uppercase text-slate-400 block">Lokasi / Media</span>
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block">{{ $trainingClass->location ?: $trainingClass->delivery_mode_label }}</span>
+                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block break-words">{{ $trainingClass->location ?: $trainingClass->delivery_mode_label }}</span>
                         </div>
-                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                        <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-[10px] font-black uppercase text-slate-400 block">Kuota Peserta</span>
-                            <span class="text-xs font-bold {{ $trainingClass->is_full ? 'text-rose-600' : 'text-emerald-600 dark:text-emerald-400' }} mt-0.5 block">
+                            <span class="text-xs font-bold {{ $trainingClass->is_full ? 'text-rose-600' : 'text-emerald-600 dark:text-emerald-400' }} mt-0.5 block break-words">
                                 @if($trainingClass->remaining_quota !== null)
                                     {{ $trainingClass->is_full ? 'Penuh' : 'Sisa ' . $trainingClass->remaining_quota . ' dari ' . $trainingClass->quota }}
                                 @else
@@ -179,38 +179,38 @@
                             @if($existingEnrollment->isPaid())
                                 <a href="{{ route('student.classroom', $existingEnrollment->id) }}"
                                     style="background-color: #059669; color: #ffffff;"
-                                    class="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all leading-snug">
+                                    class="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all leading-snug">
                                     Masuk ke Ruang Kelas
                                 </a>
                             @else
                                 <a href="{{ route('student.dashboard', ['#invoices']) }}"
                                     style="background-color: #f59e0b; color: #ffffff;"
-                                    class="w-full py-3.5 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all leading-snug">
+                                    class="w-full py-3 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all leading-snug">
                                     Menunggu Pembayaran — Upload Bukti Bayar
                                 </a>
                             @endif
                         @elseif(!$trainingClass->is_registration_open)
                             <button type="button" disabled
-                                class="w-full py-3.5 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
+                                class="w-full py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
                                 {{ $trainingClass->is_full ? 'Kuota Peserta Sudah Penuh' : 'Pendaftaran Ditutup' }}
                             </button>
                         @else
                             <a href="{{ route('student.checkout', $trainingClass->id) }}"
                                 style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
+                                class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
                                 Lanjut ke Checkout Pendaftaran &rarr;
                             </a>
                         @endif
                     @else
                         @if(!$trainingClass->is_registration_open)
                             <button type="button" disabled
-                                class="w-full py-3.5 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
+                                class="w-full py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
                                 {{ $trainingClass->is_full ? 'Kuota Peserta Sudah Penuh' : 'Pendaftaran Ditutup' }}
                             </button>
                         @else
                             <a href="{{ route('student.register') }}"
                                 style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                                class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
+                                class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
                                 Daftar Akun & Gabung Kelas
                             </a>
                             <p class="text-center text-xs text-slate-500 dark:text-slate-400">

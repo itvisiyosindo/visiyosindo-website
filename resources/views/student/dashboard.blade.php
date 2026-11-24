@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800|plus-jakarta-sans:500,600,700,800&display=swap" rel="stylesheet" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ asset('assets/logo/visi-academy.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -79,8 +79,104 @@
         .vb-text-navy {
             color: #0c2a52 !important;
         }
+        .dark .vb-text-navy {
+            color: #f8fafc !important;
+        }
         .vb-text-gold {
             color: #f59e0b !important;
+        }
+        .vb-app-shell {
+            height: 100vh;
+            height: 100dvh;
+        }
+
+        /* Unified Student Card Header, Flyer Framing & Floating Badges */
+        .vb-card-header {
+            position: relative !important;
+            height: 176px !important;
+            min-height: 176px !important;
+            max-height: 176px !important;
+        }
+        .vb-card-photo-img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover !important;
+            object-position: top center !important;
+        }
+        .vb-card-floating-badges {
+            position: absolute !important;
+            top: 14px !important;
+            left: 14px !important;
+            right: 14px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            gap: 8px !important;
+            z-index: 10 !important;
+        }
+        .vb-card-title {
+            min-height: 2.8rem !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+        }
+        .vb-card-desc {
+            min-height: 2.25rem !important;
+            display: -webkit-box !important;
+            -webkit-line-clamp: 2 !important;
+            -webkit-box-orient: vertical !important;
+            overflow: hidden !important;
+        }
+
+        /* Responsive Filter Pills (Kelas Saya) */
+        .vb-filter-pills {
+            display: flex !important;
+            flex-wrap: wrap !important;
+            align-items: center !important;
+            gap: 4px !important;
+            padding: 4px !important;
+            border-radius: 1rem !important;
+            width: 100% !important;
+        }
+        .vb-filter-pill-btn {
+            flex: 1 1 auto !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            padding: 7px 14px !important;
+            font-size: 12px !important;
+            font-weight: 700 !important;
+            border-radius: 12px !important;
+            cursor: pointer !important;
+        }
+        @media (min-width: 640px) {
+            .vb-filter-pills {
+                display: inline-flex !important;
+                width: auto !important;
+            }
+            .vb-filter-pill-btn {
+                flex: 0 0 auto !important;
+            }
+        }
+
+        /* Soft Table Dividers (No harsh black borders) */
+        .vb-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+        }
+        .vb-table thead tr {
+            border-bottom: 1px solid #e2e8f0 !important;
+        }
+        .vb-table tbody tr {
+            border-top: 1px solid #f1f5f9 !important;
+            border-bottom: none !important;
+        }
+        .vb-table tbody tr:first-child {
+            border-top: none !important;
+        }
+        .dark .vb-table thead tr,
+        .dark .vb-table tbody tr {
+            border-color: #1e293b !important;
         }
     </style>
 </head>
@@ -158,7 +254,7 @@
         <span x-text="copiedText"></span>
     </div>
 
-    <div class="flex h-screen overflow-hidden">
+    <div class="vb-app-shell flex overflow-hidden">
 
         <!-- ========================================================================= -->
         <!-- 1. LEFT SIDEBAR (Navbar Kiri) Desktop & Mobile Drawer -->
@@ -197,7 +293,7 @@
             </div>
 
             <!-- Navigation Links -->
-            <div class="px-3.5 py-4 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
+            <div class="px-3 py-4 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
                 <div class="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Menu Utama
                 </div>
@@ -290,7 +386,7 @@
                     @endif
                 </button>
 
-                <div class="px-3 pt-3.5 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div class="px-3 pt-4 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Keuangan & Program
                 </div>
 
@@ -343,7 +439,7 @@
                     @endif
                 </button>
 
-                <div class="px-3 pt-3.5 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                <div class="px-3 pt-4 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
                     Pengaturan
                 </div>
 
@@ -368,11 +464,11 @@
             </div>
 
             <!-- Bottom Section: Admin Help Card & User Profile / Logout -->
-            <div class="p-3.5 pb-6 lg:pb-3.5 space-y-2.5 border-t border-slate-100 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xs">
+            <div class="p-4 pb-6 lg:pb-4 space-y-2.5 border-t border-slate-100 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xs">
                 <!-- Help WhatsApp Pill -->
                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
                     target="_blank" rel="noopener noreferrer"
-                    class="flex items-center gap-2.5 px-3.5 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 text-xs font-bold transition-all group shadow-2xs">
+                    class="flex items-center gap-2.5 px-3 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 text-xs font-bold transition-all group shadow-2xs">
                     <div class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
                         <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
@@ -480,7 +576,7 @@
                         <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="space-y-3 max-w-2xl">
                                 <!-- Energetic Pill Badge -->
-                                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white shadow-xs">
+                                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white shadow-xs">
                                     <span class="flex h-2 w-2 relative">
                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                                         <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
@@ -520,7 +616,7 @@
                     </div>
 
                     <!-- 4 Metric Cards (Clean White with Logo Blue & Gold Accent) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
                         <!-- Stat 1: Kelas Saya -->
                         <div @click="setTab('classes')"
                             class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
@@ -534,7 +630,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div style="color: #0c2a52 !important;" class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-blue-600 transition-colors tracking-tight">
+                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-blue-600 transition-colors tracking-tight">
                                     {{ $enrollments->count() }}
                                 </div>
                                 <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300">
@@ -556,7 +652,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div style="color: #0c2a52 !important;" class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-blue-600 transition-colors tracking-tight">
+                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-blue-600 transition-colors tracking-tight">
                                     {{ $certificates->count() }}
                                 </div>
                                 <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300">
@@ -578,7 +674,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div style="color: #0c2a52 !important;" class="vb-text-navy text-2xl sm:text-3xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight truncate">
+                                <div class="vb-text-navy text-2xl sm:text-3xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight truncate">
                                     Rp {{ number_format($affiliateStats['balance'], 0, ',', '.') }}
                                 </div>
                                 <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300">
@@ -600,7 +696,7 @@
                                 </div>
                             </div>
                             <div>
-                                <div style="color: #0c2a52 !important;" class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight">
+                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight">
                                     {{ $unpaidCount }}
                                 </div>
                                 <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold {{ $unpaidCount > 0 ? 'bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300' : 'bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300' }}">
@@ -669,12 +765,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                                     </svg>
                                 </div>
-                                <h4 style="color: #0c2a52 !important;" class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-blue-600 transition-colors">Daftar Kelas Pelatihan</h4>
+                                <h4 class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-blue-600 transition-colors">Daftar Kelas Pelatihan</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                                     Telusuri katalog pelatihan terakreditasi, bootcamp kalibrasi alat elektromedis, dan sertifikasi proteksi radiasi (PPR).
                                 </p>
                             </div>
-                            <span style="color: #0c2a52 !important;" class="vb-text-navy inline-flex items-center gap-2 text-xs font-black group-hover:text-blue-600 group-hover:gap-3 transition-all">
+                            <span class="vb-text-navy inline-flex items-center gap-2 text-xs font-black group-hover:text-blue-600 group-hover:gap-3 transition-all">
                                 <span>Lihat Jadwal Terbuka</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
@@ -689,7 +785,7 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <h4 style="color: #0c2a52 !important;" class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-amber-600 transition-colors">Dapatkan Komisi {{ $academySettings['affiliate_commission_percent'] }}%</h4>
+                                <h4 class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-amber-600 transition-colors">Dapatkan Komisi {{ $academySettings['affiliate_commission_percent'] }}%</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                                     Bagikan kode referral unik milikmu ke teman kuliah atau rumah sakit, teman dapat diskon {{ $academySettings['affiliate_discount_percent'] }}% dan kamu dapat komisi {{ $academySettings['affiliate_commission_percent'] }}% tiap pendaftaran lunas.
                                 </p>
@@ -709,12 +805,12 @@
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                     </svg>
                                 </div>
-                                <h4 style="color: #0c2a52 !important;" class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-blue-600 transition-colors">E-Sertifikat Resmi</h4>
+                                <h4 class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-blue-600 transition-colors">E-Sertifikat Resmi</h4>
                                 <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
                                     Unduh dan cetak sertifikat pelatihan resmi ber-QR Code yang dapat divalidasi keasliannya secara publik oleh instansi.
                                 </p>
                             </div>
-                            <span style="color: #0c2a52 !important;" class="vb-text-navy inline-flex items-center gap-2 text-xs font-black group-hover:text-blue-600 group-hover:gap-3 transition-all">
+                            <span class="vb-text-navy inline-flex items-center gap-2 text-xs font-black group-hover:text-blue-600 group-hover:gap-3 transition-all">
                                 <span>Cek Sertifikat Saya</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                             </span>
@@ -734,24 +830,24 @@
                         </div>
 
                         <!-- Filter Pills -->
-                        <div class="flex flex-wrap sm:inline-flex items-center gap-1 p-1 bg-slate-100 dark:bg-slate-800 rounded-2xl w-full sm:w-auto">
+                        <div class="vb-filter-pills bg-slate-100 dark:bg-slate-800">
                             <button type="button" @click="classFilter = 'all'"
-                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="vb-filter-pill-btn transition-all"
                                 :class="classFilter === 'all' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Semua ({{ $enrollments->count() }})
                             </button>
                             <button type="button" @click="classFilter = 'active'"
-                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="vb-filter-pill-btn transition-all"
                                 :class="classFilter === 'active' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Aktif ({{ $enrollments->where('status', 'active')->count() }})
                             </button>
                             <button type="button" @click="classFilter = 'completed'"
-                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="vb-filter-pill-btn transition-all"
                                 :class="classFilter === 'completed' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Selesai ({{ $enrollments->where('status', 'completed')->count() }})
                             </button>
                             <button type="button" @click="classFilter = 'pending'"
-                                class="flex-1 sm:flex-initial text-center whitespace-nowrap px-3.5 py-1.5 text-xs font-bold rounded-xl transition-all"
+                                class="vb-filter-pill-btn transition-all"
                                 :class="classFilter === 'pending' ? 'bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 shadow-sm' : 'text-slate-600 dark:text-slate-400'">
                                 Menunggu ({{ $enrollments->where('status', 'pending')->count() }})
                             </button>
@@ -792,26 +888,27 @@
                                     class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col justify-between group">
                                     <div>
                                         @if($cls->image)
-                                            <!-- Flyer Banner Header -->
-                                            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-950">
-                                                <img src="{{ asset('storage/' . $cls->image) }}" alt="{{ $cls->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-black/30 pointer-events-none"></div>
-                                                <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10">
-                                                    <span class="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white shadow-lg backdrop-blur-md">
+                                            <!-- Flyer Banner Header (Uniform Height) -->
+                                            <div class="vb-card-header w-full overflow-hidden bg-slate-950">
+                                                <img src="{{ asset('storage/' . $cls->image) }}" alt="{{ $cls->title }}" class="vb-card-photo-img group-hover:scale-105 transition-transform duration-500">
+                                                <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.05) 55%, rgba(15,23,42,0.25) 100%);"></div>
+                                                <div class="vb-card-floating-badges">
+                                                    <span class="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full shadow-md"
+                                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a;">
                                                         {{ $cls->category }}
                                                     </span>
-                                                    <span class="text-xs font-black px-3 py-1 rounded-full shadow-lg
-                                                        @if($enrollment->status === 'active') bg-emerald-500 text-white
-                                                        @elseif($enrollment->status === 'completed') bg-blue-600 text-white
-                                                        @elseif($enrollment->status === 'pending') bg-amber-500 text-white
-                                                        @else bg-slate-800 text-slate-300 @endif">
+                                                    <span class="text-xs font-black px-3 py-1 rounded-full shadow-md"
+                                                        style="@if($enrollment->status === 'active') background-color: #10b981; color: #ffffff;
+                                                               @elseif($enrollment->status === 'completed') background-color: #2563eb; color: #ffffff;
+                                                               @elseif($enrollment->status === 'pending') background-color: #f59e0b; color: #ffffff;
+                                                               @else background-color: #1e293b; color: #cbd5e1; @endif">
                                                         ● {{ $enrollment->status_label }}
                                                     </span>
                                                 </div>
                                             </div>
                                         @else
-                                            <!-- Vibrant Solid Gradient Header -->
-                                            <div class="p-5 text-white relative overflow-hidden flex flex-col justify-between min-h-[130px]
+                                            <!-- Vibrant Solid Gradient Header (Uniform Height) -->
+                                            <div class="vb-card-header p-5 text-white overflow-hidden flex flex-col justify-between
                                                 @if($isKalibrasi) bg-teal-600
                                                 @elseif($isPPR) bg-amber-600
                                                 @elseif($isElektro) bg-purple-600
@@ -821,7 +918,7 @@
                                                        @elseif($isPPR) background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
                                                        @elseif($isElektro) background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #4f46e5 100%);
                                                        @else background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%); @endif">
-                                                <div class="flex items-center justify-between z-10">
+                                                <div class="flex items-center justify-between gap-2 z-10">
                                                     <span class="text-[11px] font-black uppercase tracking-wider px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white">
                                                         {{ $cls->category }}
                                                     </span>
@@ -830,10 +927,10 @@
                                                     </span>
                                                 </div>
                                                 <div class="z-10 mt-3 flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-white/80" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg class="w-4 h-4 text-white/80 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                                     </svg>
-                                                    <span class="text-xs font-bold text-white tracking-wide">{{ $cls->batch_name ?: 'Batch Pelatihan' }}</span>
+                                                    <span class="text-xs font-bold text-white tracking-wide truncate">{{ $cls->batch_name ?: 'Batch Pelatihan' }}</span>
                                                 </div>
                                             </div>
                                         @endif
@@ -841,26 +938,26 @@
                                         <!-- Class Content -->
                                         <div class="p-6 space-y-4">
                                             <div>
-                                                <div class="flex items-center gap-2 mb-1">
+                                                <div class="flex flex-wrap items-center gap-2 mb-1">
                                                     <span class="text-xs font-black text-blue-600 dark:text-blue-400 uppercase tracking-wide">
                                                         {{ $cls->batch_name }}
                                                     </span>
                                                     <span class="text-xs text-slate-300 dark:text-slate-600">&bull;</span>
                                                     <span class="text-xs text-slate-400 font-mono">Daftar: {{ $enrollment->created_at->format('d M Y') }}</span>
                                                 </div>
-                                                <h3 class="text-lg font-display font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
+                                                <h3 class="vb-card-title text-lg font-display font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
                                                     {{ $cls->title }}
                                                 </h3>
                                             </div>
 
                                             <div class="grid grid-cols-2 gap-2.5 text-xs bg-slate-50 dark:bg-slate-800/50 p-3 rounded-2xl">
-                                                <div>
+                                                <div class="min-w-0">
                                                     <span class="text-slate-400 block text-[10px] uppercase font-black">Jadwal</span>
-                                                    <span class="font-bold text-slate-800 dark:text-slate-200 truncate block">{{ $cls->schedule ?? 'Menyesuaikan' }}</span>
+                                                    <span class="font-bold text-slate-800 dark:text-slate-200 truncate block" title="{{ $cls->schedule }}">{{ $cls->schedule ?? 'Menyesuaikan' }}</span>
                                                 </div>
-                                                <div>
+                                                <div class="min-w-0">
                                                     <span class="text-slate-400 block text-[10px] uppercase font-black">Durasi</span>
-                                                    <span class="font-bold text-slate-800 dark:text-slate-200 truncate block">{{ $cls->duration ?? '-' }}</span>
+                                                    <span class="font-bold text-slate-800 dark:text-slate-200 truncate block" title="{{ $cls->duration }}">{{ $cls->duration ?? '-' }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -885,7 +982,7 @@
                                                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin konfirmasi pembayaran Invoice ' . $enrollment->effective_invoice_no . ' untuk kelas: ' . $cls->title . ' atas nama ' . $user->name . ' (' . $user->email . ').') }}"
                                                     target="_blank" rel="noopener noreferrer"
                                                     style="background-color: #059669; color: #ffffff;"
-                                                    class="px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap transition-all">
+                                                    class="px-4 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs rounded-2xl inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                     WA Admin
                                                 </a>
                                             </div>
@@ -907,7 +1004,7 @@
                                         @elseif($enrollment->status === 'completed')
                                             <div class="flex flex-wrap items-center gap-2">
                                                 <a href="{{ route('student.classroom', $enrollment->id) }}"
-                                                    class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 inline-flex items-center justify-center whitespace-nowrap transition-all">
+                                                    class="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                     Ruang Kelas
                                                 </a>
                                                 @if($enrollment->certificate)
@@ -917,7 +1014,7 @@
                                                         {{ $enrollment->certificate->hasPdf() ? 'Unduh Sertifikat PDF' : 'Lihat Sertifikat' }}
                                                     </a>
                                                     <a href="{{ route('certificate.verify', $enrollment->certificate->verification_code) }}" target="_blank"
-                                                        class="px-3.5 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 inline-flex items-center justify-center whitespace-nowrap transition-all">
+                                                        class="px-4 py-2.5 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold text-xs rounded-2xl hover:bg-slate-200 inline-flex items-center justify-center whitespace-nowrap transition-all">
                                                         Verifikasi
                                                     </a>
                                                 @else
@@ -952,7 +1049,7 @@
                             <h2 class="text-xl sm:text-2xl font-display font-extrabold text-slate-900 dark:text-white">Daftar Kelas Pelatihan</h2>
                             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Pilih kelas yang sedang membuka pendaftaran untuk bergabung.</p>
                         </div>
-                        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold shadow-2xs">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 text-xs font-bold shadow-2xs self-start sm:self-auto">
                             <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             <span>{{ $availableClasses->count() }} Pelatihan Aktif</span>
                         </div>
@@ -963,7 +1060,7 @@
                             <p class="text-slate-500 text-sm">Saat ini belum ada batch pelatihan baru yang dibuka. Silakan hubungi admin untuk informasi jadwal batch selanjutnya.</p>
                         </div>
                     @else
-                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                             @foreach($availableClasses as $class)
                                 @php
                                     $isAlreadyEnrolled = in_array($class->id, $enrolledClassIds, true);
@@ -975,37 +1072,47 @@
                                 <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group">
                                     <div>
                                         @if($class->image)
-                                            <!-- Clean Flyer Banner Header -->
-                                            <div class="relative aspect-[16/9] w-full overflow-hidden bg-slate-900">
-                                                <img src="{{ asset('storage/' . $class->image) }}" alt="{{ $class->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-black/20 pointer-events-none"></div>
-                                                <div class="absolute top-3 left-3 right-3 flex items-center justify-between z-10">
-                                                    <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-white shadow-md backdrop-blur-md">
+                                            <!-- Clean Flyer Banner Header (Uniform Height) -->
+                                            <div class="vb-card-header w-full overflow-hidden bg-slate-900">
+                                                <img src="{{ asset('storage/' . $class->image) }}" alt="{{ $class->title }}" class="vb-card-photo-img group-hover:scale-105 transition-transform duration-500">
+                                                <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.05) 55%, rgba(15,23,42,0.25) 100%);"></div>
+                                                <div class="vb-card-floating-badges">
+                                                    <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md truncate max-w-[55%]"
+                                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a;">
                                                         {{ $class->category ?? 'Bootcamp' }}
                                                     </span>
-                                                    <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wide shadow-md">
-                                                        {{ $class->batch_name }}
-                                                    </span>
+                                                    @if($class->batch_name)
+                                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wide shadow-md truncate max-w-[45%]"
+                                                            style="background-color: #fbbf24; color: #0f172a;">
+                                                            {{ $class->batch_name }}
+                                                        </span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         @else
-                                            <!-- Poster / Category Header with Inline Fallback -->
-                                            <div class="p-6 text-white relative overflow-hidden flex flex-col justify-between min-h-[140px]"
-                                                style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%);">
+                                            <!-- Poster / Category Header with Uniform Height -->
+                                            <div class="vb-card-header p-5 text-white overflow-hidden flex flex-col justify-between"
+                                                style="@if($isKal) background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0f766e 100%);
+                                                       @elseif($isPpr) background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
+                                                       @elseif($isElk) background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #4f46e5 100%);
+                                                       @else background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%); @endif">
                                                 <div class="absolute -right-8 -top-8 w-36 h-36 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform"></div>
-                                                <div class="flex items-center justify-between z-10">
-                                                    <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider">
+                                                <div class="flex items-center justify-between gap-2 z-10">
+                                                    <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider truncate max-w-[55%]">
                                                         {{ $class->category ?? 'Bootcamp' }}
                                                     </span>
-                                                    <span class="px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wide">
-                                                        {{ $class->batch_name }}
-                                                    </span>
+                                                    @if($class->batch_name)
+                                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wide truncate max-w-[45%]"
+                                                            style="background-color: #fbbf24; color: #0f172a;">
+                                                            {{ $class->batch_name }}
+                                                        </span>
+                                                    @endif
                                                 </div>
                                                 <div class="z-10 mt-3 flex items-center gap-2">
-                                                    <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg class="w-5 h-5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                                     </svg>
-                                                    <span class="text-xs font-bold text-white tracking-wide">{{ $class->batch_name ?: 'Batch Pelatihan' }}</span>
+                                                    <span class="text-xs font-bold text-white tracking-wide truncate">{{ $class->batch_name ?: 'Batch Pelatihan' }}</span>
                                                 </div>
                                             </div>
                                         @endif
@@ -1024,40 +1131,38 @@
                                                     @endif
                                                 </div>
                                                 <a href="{{ route('student.classes.show', $class->slug) }}" class="block">
-                                                    <h3 class="font-display font-bold text-blue-950 vb-text-navy dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
+                                                    <h3 class="vb-card-title font-display font-bold text-blue-950 vb-text-navy dark:text-white text-base leading-snug group-hover:text-blue-600 transition-colors">
                                                         {{ $class->title }}
                                                     </h3>
                                                 </a>
                                                 @if($class->instructor)
-                                                    <p class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 mt-1">
+                                                    <p class="text-[11px] font-semibold text-blue-600 dark:text-blue-400 mt-1 truncate">
                                                         Narasumber: {{ $class->instructor }}
                                                     </p>
                                                 @endif
-                                                @if($class->description)
-                                                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 mt-2 leading-relaxed">
-                                                        {{ $class->description }}
-                                                    </p>
-                                                @endif
+                                                <p class="vb-card-desc text-xs text-slate-500 dark:text-slate-400 mt-2 leading-relaxed">
+                                                    {{ $class->description ?: 'Program pelatihan profesional bersertifikat resmi Visi Academy.' }}
+                                                </p>
                                             </div>
 
                                             <div class="space-y-2 pt-3 text-xs text-slate-600 dark:text-slate-400">
-                                                <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-blue-950 vb-text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                                                    <span>Jadwal: <strong class="text-slate-800 dark:text-slate-200">{{ $class->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
+                                                <div class="flex items-center gap-2 min-w-0">
+                                                    <svg class="w-4 h-4 shrink-0 text-blue-950 vb-text-navy" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                                                    <span class="truncate">Jadwal: <strong class="text-slate-800 dark:text-slate-200">{{ $class->schedule ?? 'Menyesuaikan Jadwal' }}</strong></span>
                                                 </div>
-                                                <div class="flex items-center gap-2">
-                                                    <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                                                    <span>Durasi: <strong class="text-slate-800 dark:text-slate-200">{{ $class->duration ?? '-' }}</strong></span>
+                                                <div class="flex items-center gap-2 min-w-0">
+                                                    <svg class="w-4 h-4 shrink-0 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                                                    <span class="truncate">Durasi: <strong class="text-slate-800 dark:text-slate-200">{{ $class->duration ?? '-' }}</strong></span>
                                                 </div>
                                             </div>
 
                                             <!-- Price Area -->
-                                            <div class="pt-3 flex items-baseline justify-between">
-                                                <div>
+                                            <div class="pt-3 flex items-baseline justify-between gap-2">
+                                                <div class="min-w-0">
                                                     <span class="text-[10px] uppercase font-bold text-slate-400 block tracking-wider">Investasi</span>
-                                                    <div class="text-xl font-display font-black text-blue-950 vb-text-navy dark:text-blue-400">{{ $class->formatted_price }}</div>
+                                                    <div class="text-xl font-display font-black text-blue-950 vb-text-navy dark:text-blue-400 truncate">{{ $class->formatted_price }}</div>
                                                 </div>
-                                                <a href="{{ route('student.classes.show', $class->slug) }}" class="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline">
+                                                <a href="{{ route('student.classes.show', $class->slug) }}" class="text-xs text-blue-600 dark:text-blue-400 font-bold hover:underline whitespace-nowrap shrink-0">
                                                     Detail & Silabus &rarr;
                                                 </a>
                                             </div>
@@ -1102,7 +1207,7 @@
                     </div>
 
                     <!-- Summary Cards -->
-                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+                    <div class="grid grid-cols-2 xl:grid-cols-4 gap-3 sm:gap-6">
                         <div class="p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
                             <div class="flex items-center justify-between gap-2 mb-3">
                                 <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Total Kelas</span>
@@ -1110,7 +1215,7 @@
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                                 </div>
                             </div>
-                            <div style="color: #0c2a52 !important;" class="vb-text-navy text-2xl sm:text-3xl font-display font-black">{{ $learningStats['total_classes'] }}</div>
+                            <div class="vb-text-navy text-2xl sm:text-3xl font-display font-black">{{ $learningStats['total_classes'] }}</div>
                         </div>
 
                         <div class="p-4 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm flex flex-col justify-between">
@@ -1236,13 +1341,15 @@
                                         <div class="flex flex-wrap items-center gap-2 shrink-0">
                                             @if($hist->isPaid())
                                                 <a href="{{ route('student.classroom', $hist->id) }}"
-                                                    class="px-3.5 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-colors">
+                                                    style="background-color: #2563eb; color: #ffffff;"
+                                                    class="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold whitespace-nowrap transition-colors">
                                                     Ruang Kelas
                                                 </a>
                                             @endif
                                             @if($hist->certificate)
                                                 <a href="{{ route('student.certificate.view', $hist->certificate->id) }}?v={{ $hist->certificate->updated_at?->timestamp ?? time() }}" target="_blank"
-                                                    class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold transition-colors">
+                                                    style="background-color: #059669; color: #ffffff;"
+                                                    class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold whitespace-nowrap transition-colors">
                                                     Sertifikat
                                                 </a>
                                             @endif
@@ -1301,7 +1408,8 @@
 
                                 <!-- Tarik Komisi Button -->
                                 <button type="button" @click="showWithdrawModal = true"
-                                    class="px-6 py-2.5 rounded-full bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-extrabold text-xs sm:text-sm shadow-md transition-all inline-flex items-center gap-2">
+                                    style="background-color: #fbbf24 !important; color: #0f172a !important;"
+                                    class="vb-gold-btn px-6 py-2.5 rounded-full font-display font-extrabold text-xs sm:text-sm shadow-md transition-all inline-flex items-center gap-2 cursor-pointer">
                                     <span>Tarik Komisi</span>
                                 </button>
                             </div>
@@ -1362,7 +1470,7 @@
                         <!-- Right: Stats Breakdown (Komisi Bulan Ini, Sudah Ditarik, Total Seluruh) -->
                         <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col justify-between shadow-sm space-y-3">
                             <!-- Row 1: Komisi Bulan Ini -->
-                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
                                 <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
                                     <span class="w-2 h-2 rounded-full bg-blue-600"></span>
                                     <span>Komisi Bulan Ini</span>
@@ -1373,7 +1481,7 @@
                             </div>
 
                             <!-- Row 2: Komisi Sudah Ditarik -->
-                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
                                 <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
                                     <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
                                     <span>Komisi sudah ditarik</span>
@@ -1384,7 +1492,7 @@
                             </div>
 
                             <!-- Row 3: Total Seluruh Komisi -->
-                            <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
+                            <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
                                 <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
                                     <span class="w-2 h-2 rounded-full bg-violet-600"></span>
                                     <span>Total Seluruh Komisi</span>
@@ -1397,73 +1505,73 @@
                     </div>
 
                     <!-- 4 Quick Action Cards (Pendapatan, Penarikan, Material, Informasi) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                         <!-- Card 1: Pendapatan -->
                         <div @click="showInfoModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
-                            <div class="flex items-center gap-3.5">
+                            <div class="flex items-center gap-3 min-w-0">
                                 <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-950 vb-text-navy dark:text-blue-300 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
                                 </div>
-                                <div>
+                                <div class="min-w-0">
                                     <h4 class="text-sm font-bold text-slate-900 dark:text-white">Pendapatan</h4>
-                                    <span class="text-[11px] text-slate-400 block">Lihat histori pendapatan komisi</span>
+                                    <span class="text-[11px] text-slate-400 block truncate">Lihat histori pendapatan komisi</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-950 vb-text-navy group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 shrink-0 text-slate-400 group-hover:text-blue-950 vb-text-navy group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
 
                         <!-- Card 2: Penarikan -->
                         <div @click="showWithdrawModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
-                            <div class="flex items-center gap-3.5">
+                            <div class="flex items-center gap-3 min-w-0">
                                 <div class="w-10 h-10 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
                                     </svg>
                                 </div>
-                                <div>
+                                <div class="min-w-0">
                                     <h4 class="text-sm font-bold text-slate-900 dark:text-white">Penarikan</h4>
-                                    <span class="text-[11px] text-slate-400 block">Lihat histori penarikan</span>
+                                    <span class="text-[11px] text-slate-400 block truncate">Lihat histori penarikan</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 shrink-0 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
 
                         <!-- Card 3: Material -->
                         <div @click="showPromoModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
-                            <div class="flex items-center gap-3.5">
+                            <div class="flex items-center gap-3 min-w-0">
                                 <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                     </svg>
                                 </div>
-                                <div>
+                                <div class="min-w-0">
                                     <h4 class="text-sm font-bold text-slate-900 dark:text-white">Material</h4>
-                                    <span class="text-[11px] text-slate-400 block">Download Material Promosi</span>
+                                    <span class="text-[11px] text-slate-400 block truncate">Download Material Promosi</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 shrink-0 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
 
                         <!-- Card 4: Informasi -->
                         <div @click="showInfoModal = true"
                             class="p-4 sm:p-5 bg-white dark:bg-slate-900 rounded-2xl shadow-sm flex items-center justify-between hover:shadow-md transition-all cursor-pointer group">
-                            <div class="flex items-center gap-3.5">
+                            <div class="flex items-center gap-3 min-w-0">
                                 <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-blue-950 vb-text-navy dark:text-blue-300 flex items-center justify-center flex-shrink-0 group-hover:scale-105 transition-transform">
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                 </div>
-                                <div>
+                                <div class="min-w-0">
                                     <h4 class="text-sm font-bold text-slate-900 dark:text-white">Informasi</h4>
-                                    <span class="text-[11px] text-slate-400 block">Informasi lengkap tentang afiliasi</span>
+                                    <span class="text-[11px] text-slate-400 block truncate">Informasi lengkap tentang afiliasi</span>
                                 </div>
                             </div>
-                            <svg class="w-4 h-4 text-slate-400 group-hover:text-blue-950 vb-text-navy group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                            <svg class="w-4 h-4 shrink-0 text-slate-400 group-hover:text-blue-950 vb-text-navy group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                         </div>
                     </div>
 
@@ -1480,7 +1588,7 @@
                                 </div>
                                 <button type="button" @click="showNewCodeModal = true"
                                     style="background-color: #0c2a52 !important; color: #ffffff !important;"
-                                    class="vb-navy-btn px-4 py-2.5 rounded-full text-white font-black text-xs shadow-md shadow-blue-950/20 inline-flex items-center gap-1.5 transition-all self-start sm:self-auto cursor-pointer">
+                                    class="vb-navy-btn px-4 py-2.5 rounded-full text-white font-black text-xs shadow-md shadow-blue-950/20 inline-flex items-center gap-1.5 transition-all self-start sm:self-auto whitespace-nowrap shrink-0 cursor-pointer">
                                     <svg class="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                                     <span>Buat kode baru</span>
                                 </button>
@@ -1488,7 +1596,7 @@
 
                             <!-- Table Codes -->
                             <div class="overflow-x-auto">
-                                <table class="w-full min-w-[520px] text-left text-xs">
+                                <table class="vb-table min-w-[520px] text-left text-xs">
                                     <thead>
                                         <tr class="text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="pb-3 px-2">Kode Afiliasi</th>
@@ -1497,10 +1605,10 @@
                                             <th class="pb-3 px-2 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tbody>
                                         @foreach($affiliateCodes as $affiliate)
                                             <tr class="group hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
-                                                <td class="py-3.5 px-2 font-mono font-bold text-slate-900 dark:text-white">
+                                                <td class="py-3 px-2 font-mono font-bold text-slate-900 dark:text-white">
                                                     <div class="flex items-center gap-2">
                                                         <span class="px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 font-extrabold">
                                                             {{ $affiliate->code }}
@@ -1514,13 +1622,13 @@
                                                         </button>
                                                     </div>
                                                 </td>
-                                                <td class="py-3.5 px-2 text-center font-bold text-slate-700 dark:text-slate-300">
+                                                <td class="py-3 px-2 text-center font-bold text-slate-700 dark:text-slate-300">
                                                     {{ $affiliate->usage_count ?? 0 }}
                                                 </td>
-                                                <td class="py-3.5 px-2 text-center font-bold text-slate-900 dark:text-white">
+                                                <td class="py-3 px-2 text-center font-bold text-slate-900 dark:text-white">
                                                     Rp {{ number_format($affiliate->total_commission ?? 0, 0, ',', '.') }}
                                                 </td>
-                                                <td class="py-3.5 px-2 text-right">
+                                                <td class="py-3 px-2 text-right">
                                                     <div class="flex items-center justify-end gap-1.5">
                                                         <!-- Copy referral link button -->
                                                         <button type="button"
@@ -1614,9 +1722,9 @@
                             </div>
                         @else
                             <div class="overflow-x-auto">
-                                <table class="w-full min-w-[600px] text-left text-xs">
+                                <table class="vb-table min-w-[600px] text-left text-xs">
                                     <thead>
-                                        <tr class="text-slate-400 font-bold uppercase tracking-wider border-b border-slate-100 dark:border-slate-800">
+                                        <tr class="text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-3 px-2">Tanggal Ajuan</th>
                                             <th class="py-3 px-2">Nominal</th>
                                             <th class="py-3 px-2">Rekening Tujuan</th>
@@ -1624,7 +1732,7 @@
                                             <th class="py-3 px-2">Catatan Admin</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tbody>
                                         @foreach($withdrawals as $wd)
                                             <tr>
                                                 <td class="py-3 px-2 text-slate-500">{{ $wd->created_at?->translatedFormat('d M Y, H:i') }}</td>
@@ -1670,7 +1778,7 @@
                         <!-- Invoices List Card -->
                         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
                             <div class="overflow-x-auto">
-                                <table class="w-full min-w-[720px] text-left text-xs">
+                                <table class="vb-table min-w-[720px] text-left text-xs">
                                     <thead>
                                         <tr class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-4 px-6">No. Invoice</th>
@@ -1681,7 +1789,7 @@
                                             <th class="py-4 px-6 text-right">Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                                    <tbody>
                                         @foreach($invoices as $inv)
                                             <tr class="hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors">
                                                 <td class="py-4 px-6 font-mono font-bold text-blue-600 dark:text-blue-400">
@@ -2024,7 +2132,8 @@
                         Batal
                     </button>
                     <button type="submit"
-                        class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-extrabold text-xs shadow-md">
+                        style="background-color: #fbbf24; color: #0f172a;"
+                        class="px-5 py-2.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-display font-extrabold text-xs shadow-md cursor-pointer">
                         Konfirmasi Penarikan
                     </button>
                 </div>
@@ -2051,9 +2160,14 @@
             </p>
             <div class="space-y-3">
                 <a href="{{ asset('assets/logo/visi-academy.png') }}" download="logo-visi-academy.png"
-                    class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 transition-colors">
+                    class="flex items-center justify-between p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-750 transition-colors">
                     <div class="flex items-center gap-3">
-                        <img src="{{ asset('assets/logo/visi-academy.png') }}" class="w-8 h-8 object-contain">
+                        <span class="w-9 h-9 rounded-xl flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #ffffff;">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                            </svg>
+                        </span>
                         <div>
                             <span class="text-xs font-bold text-slate-900 dark:text-white block">Official Logo Visi Academy</span>
                             <span class="text-[10px] text-slate-400">Format PNG High-Res</span>
@@ -2077,11 +2191,11 @@
                 </button>
             </div>
             <div class="space-y-3 text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                <div class="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40">
+                <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40">
                     <strong class="text-blue-800 dark:text-blue-300 block mb-1">Komisi {{ $affiliateStats['commission_percent'] }}% & Diskon {{ $affiliateStats['discount_percent'] }}%</strong>
                     Pendaftar yang menggunakan kode referralmu otomatis mendapat diskon {{ $affiliateStats['discount_percent'] }}% dari biaya pelatihan, dan kamu berhak atas komisi {{ $affiliateStats['commission_percent'] }}% dari total yang dibayarkan setelah pembayaran teman diverifikasi admin.
                 </div>
-                <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800">
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800">
                     <strong class="text-slate-900 dark:text-white block mb-1">Pencairan Dana Fleksibel</strong>
                     Penarikan saldo komisi dapat diajukan langsung dari portal ke rekening bank lokal (BCA, Mandiri, BRI, BNI) atau E-Wallet dengan minimal saldo Rp {{ number_format($affiliateStats['min_withdrawal'], 0, ',', '.') }}.
                 </div>
@@ -2152,7 +2266,7 @@
                         <span class="text-xl font-display font-extrabold text-blue-600 dark:text-blue-400 sm:text-right break-words" x-text="selectedInvoice.formatted_amount"></span>
                     </div>
 
-                    <div class="p-3.5 rounded-2xl text-xs font-medium"
+                    <div class="p-4 rounded-2xl text-xs font-medium"
                         :class="selectedInvoice.is_paid ? 'bg-emerald-50 dark:bg-emerald-950/40 text-emerald-800 dark:text-emerald-300' : (selectedInvoice.is_cancelled ? 'bg-rose-50 dark:bg-rose-950/40 text-rose-800 dark:text-rose-300' : 'bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300')">
                         <div class="font-bold mb-1" x-text="selectedInvoice.is_paid ? 'STATUS: LUNAS / TERVERIFIKASI' : (selectedInvoice.is_cancelled ? 'STATUS: DIBATALKAN' : 'STATUS: MENUNGGU PEMBAYARAN')"></div>
                         <span x-text="selectedInvoice.is_paid ? 'Pembayaran telah divalidasi oleh admin Visi Academy.' : (selectedInvoice.is_cancelled ? 'Pendaftaran dibatalkan. Anda dapat melakukan pendaftaran ulang di halaman checkout.' : 'Silakan transfer ke rekening resmi di bawah ini lalu unggah bukti pembayaran di portal.')"></span>
@@ -2207,7 +2321,7 @@
                 </div>
             </template>
 
-            <div class="p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-xs space-y-1 text-blue-900 dark:text-blue-200">
+            <div class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-xs space-y-1 text-blue-900 dark:text-blue-200">
                 <span class="font-bold block">Transfer ke Rekening Resmi:</span>
                 <div class="font-mono">{{ $academySettings['bank_name'] }}: <strong>{{ $academySettings['bank_account_number'] }}</strong></div>
                 <div class="font-mono">a.n {{ $academySettings['bank_account_holder'] }}</div>
