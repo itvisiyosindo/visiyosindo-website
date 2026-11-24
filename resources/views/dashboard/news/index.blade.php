@@ -66,6 +66,22 @@
         @endforeach
     </div>
 
+    @if($activeAdminCategory === 'event')
+        <div class="mb-4 rounded-xl border border-blue-200 dark:border-blue-800/60 bg-blue-50 dark:bg-blue-900/20 px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <p class="text-xs sm:text-sm text-blue-800 dark:text-blue-200">
+                Foto <strong>Activity Documentation</strong> dari menu <strong>Gallery</strong> otomatis tampil di kategori <strong>Event</strong> pada halaman News & Events.
+            </p>
+            @if(auth()->user()?->hasPermission('view-galleries'))
+                <a href="{{ route('dashboard.galleries.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shrink-0 transition-colors">
+                    <span>Kelola Gallery</span>
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            @endif
+        </div>
+    @endif
+
     <!-- Filters -->
     <x-dashboard.card class="mb-6">
         <form method="GET" action="{{ route('dashboard.news.index') }}" class="grid grid-cols-1 md:grid-cols-4 gap-4">

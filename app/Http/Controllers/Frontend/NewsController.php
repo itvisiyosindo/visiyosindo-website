@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Helpers\EncryptedRouteHelper;
 use App\Http\Controllers\Controller;
+use App\Models\Gallery;
 use App\Models\NewsPost;
 use Illuminate\Http\Request;
 
@@ -44,7 +45,27 @@ class NewsController extends Controller
 
         $featuredPosts = $featuredQuery->limit(3)->get();
 
-        return view('pages.news.index', compact('posts', 'categories', 'featuredPosts'));
+        // Include Activity Documentation (Gallery) items when viewing the Event category
+        $eventGalleries = collect();
+        if (strtolower((string) $request->category) === 'event') {
+            try {
+                $galleryQuery = Gallery::with('category')->active()->ordered();
+
+                if ($request->filled('search')) {
+                    $term = '%' . $request->search . '%';
+                    $galleryQuery->where(function ($q) use ($term) {
+                        $q->where('title', 'like', $term)
+                            ->orWhere('description', 'like', $term);
+                    });
+                }
+
+                $eventGalleries = $galleryQuery->get();
+            } catch (\Throwable $e) {
+                $eventGalleries = collect();
+            }
+        }
+
+        return view('pages.news.index', compact('posts', 'categories', 'featuredPosts', 'eventGalleries'));
     }
 
     /**

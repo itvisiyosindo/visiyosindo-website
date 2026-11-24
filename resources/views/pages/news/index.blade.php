@@ -133,6 +133,86 @@
             background: #ffffff;
             opacity: 1;
         }
+        /* Activity Documentation Grid inside Event category */
+        .vni-doc-section {
+            padding: 3.25rem 0 2.5rem;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        html.dark .vni-doc-section {
+            background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+            border-bottom-color: #334155;
+        }
+        .vni-doc-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1.25rem;
+        }
+        @media (min-width: 640px) {
+            .vni-doc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+            .vni-doc-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.5rem; }
+        }
+        .vni-doc-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+        .vni-doc-card:hover {
+            transform: translateY(-4px);
+            border-color: #93c5fd;
+            box-shadow: 0 16px 32px rgba(37, 99, 235, 0.14);
+        }
+        html.dark .vni-doc-card { background: #1e293b; border-color: #334155; }
+        html.dark .vni-doc-card:hover { border-color: #3b82f6; }
+        .vni-doc-media {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        html.dark .vni-doc-media { background: #0f172a; border-bottom-color: #334155; }
+        .vni-doc-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.45s ease;
+        }
+        .vni-doc-card:hover .vni-doc-media img { transform: scale(1.06); }
+        .vni-doc-chip {
+            position: absolute;
+            top: 0.75rem;
+            left: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            font-size: 0.6875rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            background: rgba(15, 23, 42, 0.78);
+            color: #ffffff;
+            backdrop-filter: blur(6px);
+        }
+        .vni-doc-body {
+            padding: 1rem 1.25rem 1.25rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+        .vni-lightbox-img {
+            max-height: 72vh;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+        }
     </style>
 
     {{-- Hero Section --}}
@@ -195,6 +275,104 @@
             </div>
         </div>
     </section>
+
+    {{-- Activity Documentation (Synced from Home / Gallery into Event Category) --}}
+    @if($activeCategory === 'event' && isset($eventGalleries) && $eventGalleries->count() > 0)
+        <section class="vni-doc-section"
+            x-data="{
+                activePhoto: null,
+                activeTitle: '',
+                activeDesc: '',
+                activeCat: '',
+                openPhoto(el) {
+                    this.activePhoto = el.dataset.img;
+                    this.activeTitle = el.dataset.title || '';
+                    this.activeDesc = el.dataset.desc || '';
+                    this.activeCat = el.dataset.cat || '';
+                },
+                closePhoto() {
+                    this.activePhoto = null;
+                }
+            }"
+            @keydown.escape.window="closePhoto()">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+                    <div>
+                        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider mb-2">
+                            {{ __('Event & Dokumentasi') }}
+                        </span>
+                        <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
+                            {{ __('Activity Documentation') }}
+                        </h2>
+                        <p class="text-slate-600 dark:text-slate-400 text-sm mt-1">
+                            {{ __('Dokumentasi kegiatan, acara, dan aktivitas resmi PT Visi Yosindo Medikal') }}
+                        </p>
+                    </div>
+                    <a href="{{ route('gallery') }}" class="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 dark:text-blue-400 hover:underline">
+                        <span>{{ __('Explore Our Gallery') }}</span>
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+
+                <div class="vni-doc-grid">
+                    @foreach($eventGalleries as $gallery)
+                        <article class="vni-doc-card"
+                            data-img="{{ $gallery->image_url }}"
+                            data-title="{{ $gallery->title }}"
+                            data-desc="{{ $gallery->description ?? '' }}"
+                            data-cat="{{ $gallery->category?->name ?? 'Event' }}"
+                            @click="openPhoto($el)"
+                            role="button"
+                            tabindex="0"
+                            @keydown.enter="openPhoto($el)">
+                            <div class="vni-doc-media">
+                                <img src="{{ $gallery->image_url }}" alt="{{ $gallery->title }}" loading="lazy">
+                                <span class="vni-doc-chip">{{ $gallery->category?->name ?? 'Event' }}</span>
+                            </div>
+                            <div class="vni-doc-body">
+                                <h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-2">
+                                    {{ $gallery->title }}
+                                </h3>
+                                @if($gallery->description)
+                                    <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 line-clamp-2">
+                                        {{ $gallery->description }}
+                                    </p>
+                                @endif
+                            </div>
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- Lightbox Modal --}}
+            <div x-show="activePhoto" x-cloak
+                x-transition.opacity
+                class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+                style="display:none;">
+                <div @click.away="closePhoto()" class="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-4xl w-full overflow-hidden border border-white/20">
+                    <div class="px-5 py-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
+                        <div class="min-w-0 pr-4">
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-600 dark:text-blue-400" x-text="activeCat"></span>
+                            <h4 class="text-base font-bold text-slate-900 dark:text-white truncate" x-text="activeTitle"></h4>
+                        </div>
+                        <button type="button" @click="closePhoto()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center cursor-pointer">
+                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="p-4 sm:p-6 bg-slate-100 dark:bg-slate-950 flex items-center justify-center">
+                        <img :src="activePhoto" :alt="activeTitle" class="vni-lightbox-img rounded-xl shadow-lg">
+                    </div>
+                    <template x-if="activeDesc">
+                        <div class="px-5 py-3 border-t border-slate-200 dark:border-slate-800 text-sm text-slate-600 dark:text-slate-300" x-text="activeDesc"></div>
+                    </template>
+                </div>
+            </div>
+        </section>
+    @endif
 
     {{-- Featured Posts --}}
     @if($featuredPosts->count() > 0)
@@ -407,6 +585,12 @@
                                 {{ $posts->links() }}
                             </div>
                         @endif
+                    @elseif($activeCategory === 'event' && isset($eventGalleries) && $eventGalleries->count() > 0)
+                        <div class="vni-card rounded-xl bg-slate-50 dark:bg-slate-700/60 p-6 text-center">
+                            <p class="text-sm text-slate-600 dark:text-slate-300">
+                                {{ __('Dokumentasi kegiatan Event tampil di bagian Activity Documentation di atas. Belum ada artikel berita tambahan di kategori Event.') }}
+                            </p>
+                        </div>
                     @else
                         <div class="text-center py-16">
                             <svg class="w-16 h-16 mx-auto text-slate-300 dark:text-slate-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
