@@ -55,6 +55,59 @@
                 display: inline-flex;
             }
         }
+        .va-brand-kicker {
+            color: #fbbf24;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+        .va-brand-gradient {
+            background: linear-gradient(90deg, #fbbf24 0%, #fde68a 52%, #ffffff 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .va-subtitle {
+            color: rgba(219, 234, 254, 0.9);
+        }
+        .va-feature-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(8px);
+        }
+        .va-feature-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .va-feature-desc {
+            color: rgba(226, 232, 240, 0.8);
+            font-size: 13px;
+            line-height: 1.45;
+        }
+        .va-quote-box {
+            margin-top: 32px;
+            padding: 14px 18px;
+            border-left: 3px solid #fbbf24;
+            border-radius: 0 14px 14px 0;
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .va-quote-text {
+            color: rgba(226, 232, 240, 0.92);
+            font-style: italic;
+            font-size: 13.5px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -127,70 +180,67 @@
                         @include('student.partials.logo')
                     </a>
                     <div>
-                        <span class="text-xs uppercase tracking-wider text-blue-200/90 font-semibold block">Official Portal</span>
-                        <span class="text-sm text-white font-semibold">PT Visi Yosindo Medikal</span>
+                        <span class="va-brand-kicker block">Official Portal</span>
+                        <span class="text-sm font-semibold" style="color: #ffffff;">PT Visi Yosindo Medikal</span>
                     </div>
                 </div>
 
                 <!-- Headline -->
-                <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4" data-aos="fade-right"
+                <h1 class="text-4xl xl:text-5xl font-bold text-white leading-tight mb-4" style="color: #ffffff;" data-aos="fade-right"
                     data-aos-delay="200">
                     Selamat Datang di<br>
-                    <span class="bg-gradient-to-r from-blue-300 via-indigo-200 to-white bg-clip-text text-transparent">Visi Academy</span>
+                    <span class="va-brand-gradient">Visi Academy</span>
                 </h1>
 
-                <p class="text-base text-slate-200/90 mb-8 leading-relaxed" data-aos="fade-right" data-aos-delay="300">
+                <p class="va-subtitle text-base mb-8 leading-relaxed" data-aos="fade-right" data-aos-delay="300">
                     Pusat Pelatihan & Sertifikasi Profesional Alat Kesehatan dan Proteksi Radiasi Indonesia
                 </p>
 
                 <!-- Features -->
-                <div class="space-y-4">
-                    <div class="flex items-center gap-4 text-white" data-aos="fade-right" data-aos-delay="400">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                            <svg class="w-5 h-5 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <div class="space-y-3.5">
+                    <div class="va-feature-card" data-aos="fade-right" data-aos-delay="400">
+                        <div class="va-feature-icon" style="background: rgba(59, 130, 246, 0.2); border: 1px solid rgba(147, 197, 253, 0.3);">
+                            <svg class="w-5 h-5" style="color: #93c5fd;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-semibold block">Pelatihan Berstandar Nasional</span>
-                            <span class="text-sm text-slate-200/75">Program PPR, Kalibrasi Elektromedis, & Uji Kesesuaian</span>
+                            <span class="font-semibold block" style="color: #ffffff;">Pelatihan Berstandar Nasional</span>
+                            <span class="va-feature-desc block">Program PPR, Kalibrasi Elektromedis, & Uji Kesesuaian</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4 text-white" data-aos="fade-right" data-aos-delay="500">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                            <svg class="w-5 h-5 text-emerald-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="va-feature-card" data-aos="fade-right" data-aos-delay="500">
+                        <div class="va-feature-icon" style="background: rgba(16, 185, 129, 0.2); border: 1px solid rgba(110, 231, 183, 0.3);">
+                            <svg class="w-5 h-5" style="color: #6ee7b7;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-semibold block">E-Sertifikat Resmi & QR Verifikasi</span>
-                            <span class="text-sm text-slate-200/75">Nomor seri unik & validasi keaslian digital terpercaya</span>
+                            <span class="font-semibold block" style="color: #ffffff;">E-Sertifikat Resmi & QR Verifikasi</span>
+                            <span class="va-feature-desc block">Nomor seri unik & validasi keaslian digital terpercaya</span>
                         </div>
                     </div>
 
-                    <div class="flex items-center gap-4 text-white" data-aos="fade-right" data-aos-delay="600">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/10">
-                            <svg class="w-5 h-5 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <div class="va-feature-card" data-aos="fade-right" data-aos-delay="600">
+                        <div class="va-feature-icon" style="background: rgba(245, 158, 11, 0.2); border: 1px solid rgba(252, 211, 77, 0.3);">
+                            <svg class="w-5 h-5" style="color: #fcd34d;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                             </svg>
                         </div>
                         <div>
-                            <span class="font-semibold block">Portal Belajar Mandiri</span>
-                            <span class="text-sm text-slate-200/75">Akses materi, jadwal pelatihan, dan grup koordinasi</span>
+                            <span class="font-semibold block" style="color: #ffffff;">Portal Belajar Mandiri</span>
+                            <span class="va-feature-desc block">Akses materi, jadwal pelatihan, dan grup koordinasi</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Decorative Quote -->
-                <div class="mt-12 pt-6 border-t border-white/20">
-                    <blockquote class="text-blue-100/90 italic text-sm">
+                <div class="va-quote-box">
+                    <blockquote class="va-quote-text">
                         &rdquo;Mencetak tenaga medis dan fisikawan kesehatan yang kompeten, bersertifikasi, dan berdaya saing.&rdquo;
                     </blockquote>
                 </div>
