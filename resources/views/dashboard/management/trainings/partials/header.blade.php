@@ -82,6 +82,121 @@
         background-color: #e2e8f0 !important;
         color: #0f172a !important;
     }
+
+    /* Unified Filter Strip (Prevents search input squishing) */
+    .vb-filter-form {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.75rem !important;
+        align-items: stretch !important;
+    }
+    .vb-filter-search {
+        position: relative !important;
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        width: 100% !important;
+    }
+    .vb-filter-select {
+        width: 100% !important;
+        flex-shrink: 0 !important;
+    }
+    .vb-filter-btn {
+        width: 100% !important;
+        flex-shrink: 0 !important;
+        white-space: nowrap !important;
+    }
+    @media (min-width: 768px) {
+        .vb-filter-form {
+            flex-direction: row !important;
+            align-items: center !important;
+        }
+        .vb-filter-search {
+            width: auto !important;
+            min-width: 240px !important;
+        }
+        .vb-filter-select {
+            width: 220px !important;
+        }
+        .vb-filter-btn {
+            width: auto !important;
+        }
+    }
+
+    /* Unified Course Card Header Height */
+    .vb-card-header {
+        height: 176px !important;
+        min-height: 176px !important;
+        max-height: 176px !important;
+    }
+
+    /* Soft Integration Chips */
+    .vb-chip-emerald {
+        background-color: #ecfdf5 !important;
+        color: #047857 !important;
+        border: 1px solid #a7f3d0 !important;
+    }
+    .vb-chip-amber {
+        background-color: #fffbeb !important;
+        color: #b45309 !important;
+        border: 1px solid #fde68a !important;
+    }
+    .vb-chip-blue {
+        background-color: #eff6ff !important;
+        color: #1d4ed8 !important;
+        border: 1px solid #bfdbfe !important;
+    }
+    .vb-chip-slate {
+        background-color: #f8fafc !important;
+        color: #334155 !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    /* Unified Course Card Footer Action Buttons */
+    .vb-card-btn-blue {
+        background-color: #eff6ff !important;
+        color: #1d4ed8 !important;
+        border: 1px solid #bfdbfe !important;
+    }
+    .vb-card-btn-blue:hover {
+        background-color: #dbeafe !important;
+        border-color: #93c5fd !important;
+    }
+    .vb-card-btn-slate {
+        background-color: #ffffff !important;
+        color: #334155 !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    .vb-card-btn-slate:hover {
+        background-color: #f1f5f9 !important;
+        border-color: #cbd5e1 !important;
+    }
+    .vb-card-btn-amber {
+        background-color: #fffbeb !important;
+        color: #b45309 !important;
+        border: 1px solid #fde68a !important;
+    }
+    .vb-card-btn-amber:hover {
+        background-color: #fef3c7 !important;
+        border-color: #fcd34d !important;
+    }
+    .vb-card-btn-emerald {
+        background-color: #ecfdf5 !important;
+        color: #047857 !important;
+        border: 1px solid #a7f3d0 !important;
+    }
+    .vb-card-btn-emerald:hover {
+        background-color: #d1fae5 !important;
+        border-color: #6ee7b7 !important;
+    }
+    .vb-card-btn-rose {
+        background-color: #fff1f2 !important;
+        color: #be123c !important;
+        border: 1px solid #fecdd3 !important;
+    }
+    .vb-card-btn-rose:hover {
+        background-color: #ffe4e6 !important;
+        border-color: #fda4af !important;
+    }
 </style>
 
 <!-- High-Energy Motivational Welcome Banner (Aligned with Student Design) -->
@@ -112,10 +227,17 @@
             </p>
         </div>
 
-        <!-- Right Side: Fast Actions & Brand Logo -->
+        <!-- Right Side: Fast Actions & Brand Badge -->
         <div class="flex flex-wrap items-center gap-3 shrink-0">
-            <div class="hidden md:flex items-center justify-center px-3.5 py-1.5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/20 shadow-xs">
-                <img src="{{ asset('assets/logo/visi-academy.png') }}" alt="Visi Academy" class="h-9 w-auto object-contain">
+            <div class="hidden md:inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur-md shadow-xs" style="border: 1px solid rgba(255,255,255,0.25);">
+                <span class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #ffffff;">
+                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                    </svg>
+                </span>
+                <span class="text-sm font-black tracking-tight" style="color: #0f172a;">Visi</span>
+                <span class="px-2 py-0.5 rounded-md text-[10px] font-black uppercase tracking-wider" style="background-color: #dbeafe; color: #1d4ed8;">ACADEMY</span>
             </div>
             @if(!empty($actions))
                 <div class="flex flex-wrap items-center gap-2.5">

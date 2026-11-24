@@ -139,8 +139,8 @@
 
         <!-- Filter & Search Section (Smooth) -->
         <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
-            <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="flex flex-col md:flex-row items-stretch md:items-center gap-3">
-                <div class="relative flex-1">
+            <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="vb-filter-form">
+                <div class="vb-filter-search">
                     <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -155,7 +155,7 @@
                     >
                 </div>
                 
-                <div class="w-full md:w-48">
+                <div class="vb-filter-select">
                     <select 
                         name="status" 
                         class="w-full px-3.5 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
@@ -169,7 +169,7 @@
                 </div>
 
                 @if(isset($classesList) && $classesList->isNotEmpty())
-                    <div class="w-full md:w-56">
+                    <div class="vb-filter-select">
                         <select 
                             name="training_class_id" 
                             class="w-full px-3.5 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
@@ -184,12 +184,12 @@
                     </div>
                 @endif
 
-                <div class="flex items-center gap-2">
-                    <button type="submit" class="w-full md:w-auto px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-xs transition-all cursor-pointer">
+                <div class="flex items-center gap-2 shrink-0">
+                    <button type="submit" class="vb-filter-btn vb-btn-blue px-5 py-2.5 text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer">
                         Filter Data
                     </button>
                     @if(request()->hasAny(['search', 'status', 'training_class_id']))
-                        <a href="{{ route('dashboard.trainings.index') }}" class="px-3.5 py-2.5 text-xs font-semibold text-surface-600 dark:text-surface-300 bg-surface-100 dark:bg-surface-700 rounded-xl hover:bg-surface-200 dark:hover:bg-surface-600 transition-all">
+                        <a href="{{ route('dashboard.trainings.index') }}" class="vb-filter-btn vb-btn-slate px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all text-center">
                             Reset
                         </a>
                     @endif
