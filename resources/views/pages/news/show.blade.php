@@ -19,6 +19,60 @@
             document.documentElement.dataset.navbarSolid = 'true';
         </script>
 
+        <style>
+            /* Override inline black text / white bg styles pasted via Quill in dark mode */
+            html.dark .news-article-content,
+            html.dark .news-article-content p,
+            html.dark .news-article-content li,
+            html.dark .news-article-content span,
+            html.dark .news-article-content div,
+            html.dark .news-article-content td,
+            html.dark .news-article-content th,
+            html.dark .news-article-content em,
+            html.dark .news-article-content u,
+            html.dark .news-article-content small,
+            html.dark .news-article-content figcaption,
+            html.dark .news-article-content blockquote,
+            html.dark .news-article-content font {
+                color: #e2e8f0 !important;
+                background-color: transparent !important;
+            }
+            html.dark .news-article-content :is(h1, h2, h3, h4, h5, h6, strong, b, th),
+            html.dark .news-article-content :is(h1, h2, h3, h4, h5, h6, strong, b, th) span {
+                color: #f8fafc !important;
+            }
+            html.dark .news-article-content a,
+            html.dark .news-article-content a span,
+            html.dark .news-article-content a strong {
+                color: #7dd3fc !important;
+            }
+            html.dark .news-article-content a:hover,
+            html.dark .news-article-content a:hover span {
+                color: #bae6fd !important;
+            }
+            html.dark .news-article-content blockquote {
+                background-color: rgba(15, 23, 42, 0.7) !important;
+                border-left-color: #38bdf8 !important;
+            }
+            html.dark .news-article-content code {
+                color: #7dd3fc !important;
+                background-color: #1e293b !important;
+            }
+            html.dark .news-article-content pre,
+            html.dark .news-article-content pre code {
+                color: #e2e8f0 !important;
+                background-color: #020617 !important;
+            }
+            html.dark .news-article-content th {
+                background-color: #1e293b !important;
+            }
+            html.dark .news-article-content hr,
+            html.dark .news-article-content th,
+            html.dark .news-article-content td {
+                border-color: #334155 !important;
+            }
+        </style>
+
         <script type="application/ld+json">
         {
             "@@context": "https://schema.org",

@@ -187,6 +187,21 @@
         --news-article-table-head-bg: rgb(30 41 59);
     }
 
+    .dark .news-article-content.prose :is(p, li, span, div, td, th, em, u, small, figcaption, blockquote, font) {
+        color: var(--news-article-text) !important;
+        background-color: transparent !important;
+    }
+
+    .dark .news-article-content.prose :is(h1, h2, h3, h4, h5, h6, strong, b, th),
+    .dark .news-article-content.prose :is(h1, h2, h3, h4, h5, h6, strong, b, th) span {
+        color: var(--news-article-heading) !important;
+    }
+
+    .dark .news-article-content.prose a,
+    .dark .news-article-content.prose a span {
+        color: var(--news-article-link) !important;
+    }
+
     .news-article-content.prose {
         color: var(--news-article-text);
         line-height: 1.8;
