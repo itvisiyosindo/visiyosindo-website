@@ -37,7 +37,7 @@
             <div>
                 <h1 class="text-xl md:text-2xl font-bold text-surface-900 dark:text-white">News & Events</h1>
                 <p class="mt-0.5 text-[13px] text-surface-500 dark:text-surface-400">
-                    Kelola artikel berita, acara (Event), dan publikasi <span class="notranslate" translate="no">Visi Academy</span>
+                    Kelola artikel berita, Dokumentasi Event, dan publikasi <span class="notranslate" translate="no">Visi Academy</span>
                 </p>
             </div>
             <a href="{{ route('dashboard.news.create') }}">
@@ -66,10 +66,10 @@
         @endforeach
     </div>
 
-    @if($activeAdminCategory === 'event')
+    @if(\App\Models\NewsPost::isEventCategory($activeAdminCategory))
         <div class="mb-4 rounded-xl border border-blue-200 dark:border-blue-800/60 bg-blue-50 dark:bg-blue-900/20 px-4 py-3 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <p class="text-xs sm:text-sm text-blue-800 dark:text-blue-200">
-                Foto <strong>Activity Documentation</strong> dari menu <strong>Gallery</strong> otomatis tampil di kategori <strong>Event</strong> pada halaman News & Events.
+                Foto <strong>Activity Documentation</strong> dari menu <strong>Gallery</strong> otomatis tampil di kategori <strong>Dokumentasi Event</strong> pada halaman News & Events.
             </p>
             @if(auth()->user()?->hasPermission('view-galleries'))
                 <a href="{{ route('dashboard.galleries.index') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold shrink-0 transition-colors">

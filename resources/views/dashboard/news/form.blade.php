@@ -664,7 +664,7 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <p class="text-xs text-surface-400 mt-1.5">Pilih cepat kategori (seperti Event atau Visi Academy) atau ketik kategori baru.</p>
+                            <p class="text-xs text-surface-400 mt-1.5">Pilih cepat kategori (seperti Visi Academy atau Dokumentasi Event) atau ketik kategori baru.</p>
                         </div>
 
                         <!-- Tags -->

@@ -3,6 +3,7 @@
     $metaDescription = __('Berita terbaru, acara, dan update seputar inovasi alat kesehatan, produk terbaru, dan perkembangan industri kesehatan di Indonesia.');
     $ogImage = asset('images/og-news.jpg');
     $activeCategory = strtolower((string) request('category', ''));
+    $isEventCategory = \App\Models\NewsPost::isEventCategory($activeCategory);
     $currentSearch = request('search');
 @endphp
 
@@ -276,8 +277,8 @@
         </div>
     </section>
 
-    {{-- Activity Documentation (Synced from Home / Gallery into Event Category) --}}
-    @if($activeCategory === 'event' && isset($eventGalleries) && $eventGalleries->count() > 0)
+    {{-- Activity Documentation (Synced from Home / Gallery into Dokumentasi Event Category) --}}
+    @if($isEventCategory && isset($eventGalleries) && $eventGalleries->count() > 0)
         <section class="vni-doc-section"
             x-data="{
                 activePhoto: null,
@@ -299,7 +300,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
                     <div>
                         <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs font-bold uppercase tracking-wider mb-2">
-                            {{ __('Event & Dokumentasi') }}
+                            {{ __('Dokumentasi Event') }}
                         </span>
                         <h2 class="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
                             {{ __('Activity Documentation') }}
@@ -322,14 +323,14 @@
                             data-img="{{ $gallery->image_url }}"
                             data-title="{{ $gallery->title }}"
                             data-desc="{{ $gallery->description ?? '' }}"
-                            data-cat="{{ $gallery->category?->name ?? 'Event' }}"
+                            data-cat="{{ $gallery->category?->name ?? 'Dokumentasi Event' }}"
                             @click="openPhoto($el)"
                             role="button"
                             tabindex="0"
                             @keydown.enter="openPhoto($el)">
                             <div class="vni-doc-media">
                                 <img src="{{ $gallery->image_url }}" alt="{{ $gallery->title }}" loading="lazy">
-                                <span class="vni-doc-chip">{{ $gallery->category?->name ?? 'Event' }}</span>
+                                <span class="vni-doc-chip">{{ $gallery->category?->name ?? 'Dokumentasi Event' }}</span>
                             </div>
                             <div class="vni-doc-body">
                                 <h3 class="text-base font-bold text-slate-900 dark:text-white line-clamp-2">
@@ -585,10 +586,10 @@
                                 {{ $posts->links() }}
                             </div>
                         @endif
-                    @elseif($activeCategory === 'event' && isset($eventGalleries) && $eventGalleries->count() > 0)
+                    @elseif($isEventCategory && isset($eventGalleries) && $eventGalleries->count() > 0)
                         <div class="vni-card rounded-xl bg-slate-50 dark:bg-slate-700/60 p-6 text-center">
                             <p class="text-sm text-slate-600 dark:text-slate-300">
-                                {{ __('Dokumentasi kegiatan Event tampil di bagian Activity Documentation di atas. Belum ada artikel berita tambahan di kategori Event.') }}
+                                {{ __('Dokumentasi kegiatan tampil di bagian Activity Documentation di atas. Belum ada artikel berita tambahan di kategori Dokumentasi Event.') }}
                             </p>
                         </div>
                     @else

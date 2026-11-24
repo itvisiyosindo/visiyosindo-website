@@ -45,9 +45,9 @@ class NewsController extends Controller
 
         $featuredPosts = $featuredQuery->limit(3)->get();
 
-        // Include Activity Documentation (Gallery) items when viewing the Event category
+        // Include Activity Documentation (Gallery) items when viewing Dokumentasi Event category
         $eventGalleries = collect();
-        if (strtolower((string) $request->category) === 'event') {
+        if (NewsPost::isEventCategory($request->category)) {
             try {
                 $galleryQuery = Gallery::with('category')->active()->ordered();
 

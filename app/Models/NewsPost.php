@@ -15,7 +15,9 @@ class NewsPost extends Model
 {
     use HasFactory, SoftDeletes;
 
-    public const DEFAULT_CATEGORIES = ['Event', 'Visi Academy'];
+    public const EVENT_CATEGORY = 'Dokumentasi Event';
+
+    public const DEFAULT_CATEGORIES = ['Visi Academy', self::EVENT_CATEGORY];
 
     private static bool $visiAcademySynced = false;
 
@@ -279,7 +281,15 @@ class NewsPost extends Model
     }
 
     /**
-     * Distinct categories including built-in defaults (Event, Visi Academy).
+     * Check whether a category value refers to the Event / Dokumentasi Event category.
+     */
+    public static function isEventCategory(?string $category): bool
+    {
+        return in_array(strtolower(trim((string) $category)), [strtolower(self::EVENT_CATEGORY), 'event'], true);
+    }
+
+    /**
+     * Distinct categories including built-in defaults, with "Dokumentasi Event" always last (rightmost).
      */
     public static function availableCategories(bool $publishedOnly = false)
     {
@@ -295,6 +305,12 @@ class NewsPost extends Model
             }
         }
 
-        return $categories->sort(SORT_NATURAL | SORT_FLAG_CASE)->values();
+        $eventKey = strtolower(self::EVENT_CATEGORY);
+        $others = $categories
+            ->reject(fn ($cat) => strtolower((string) $cat) === $eventKey)
+            ->sort(SORT_NATURAL | SORT_FLAG_CASE)
+            ->values();
+
+        return $others->push(self::EVENT_CATEGORY)->values();
     }
 }
