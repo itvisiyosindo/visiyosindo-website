@@ -13,7 +13,7 @@ class AcademySetting extends Model
     ];
 
     public const DEFAULTS = [
-        'admin_whatsapp' => '6281261457547',
+        'admin_whatsapp' => '6289507240145',
         'bank_name' => 'Bank Mandiri',
         'bank_account_number' => '137-00-1888-2929',
         'bank_account_holder' => 'PT Visi Yosindo Medikal',

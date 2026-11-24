@@ -23,11 +23,11 @@
                 </h2>
 
                 <div>
-                    <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1.5">Nomor WhatsApp Admin Academy <span class="text-rose-500">*</span></label>
+                    <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1.5">Nomor WhatsApp Admin Visilab / Academy <span class="text-rose-500">*</span></label>
                     <input type="text" name="admin_whatsapp" required value="{{ old('admin_whatsapp', $settings['admin_whatsapp']) }}"
-                        placeholder="6281261457547"
+                        placeholder="6289507240145"
                         class="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white">
-                    <span class="text-[11px] text-slate-400 mt-1 block">Gunakan format kode negara tanpa + (contoh: 6281261457547).</span>
+                    <span class="text-[11px] text-slate-400 mt-1 block">Gunakan format kode negara tanpa + (contoh: 6289507240145 — Admin Visilab).</span>
                 </div>
 
                 <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">

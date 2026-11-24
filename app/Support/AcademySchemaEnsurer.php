@@ -207,7 +207,7 @@ class AcademySchemaEnsurer
 
         $now = now();
         $defaults = [
-            ['key' => 'admin_whatsapp', 'value' => '6281261457547'],
+            ['key' => 'admin_whatsapp', 'value' => '6289507240145'],
             ['key' => 'bank_name', 'value' => 'Bank Mandiri'],
             ['key' => 'bank_account_number', 'value' => '137-00-1888-2929'],
             ['key' => 'bank_account_holder', 'value' => 'PT Visi Yosindo Medikal'],
@@ -224,5 +224,14 @@ class AcademySchemaEnsurer
                 'updated_at' => $now,
             ]);
         }
+
+        // Switch legacy CRO default number to Admin Visilab if not customized
+        DB::table('academy_settings')
+            ->where('key', 'admin_whatsapp')
+            ->where('value', '6281261457547')
+            ->update([
+                'value' => '6289507240145',
+                'updated_at' => $now,
+            ]);
     }
 }

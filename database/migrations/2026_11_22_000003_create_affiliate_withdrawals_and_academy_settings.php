@@ -39,7 +39,7 @@ return new class extends Migration
 
         $now = now();
         $defaults = [
-            ['key' => 'admin_whatsapp', 'value' => '6281261457547'],
+            ['key' => 'admin_whatsapp', 'value' => '6289507240145'],
             ['key' => 'bank_name', 'value' => 'Bank Mandiri'],
             ['key' => 'bank_account_number', 'value' => '137-00-1888-2929'],
             ['key' => 'bank_account_holder', 'value' => 'PT Visi Yosindo Medikal'],
