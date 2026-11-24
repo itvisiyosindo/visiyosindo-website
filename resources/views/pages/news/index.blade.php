@@ -5,6 +5,86 @@
 @endphp
 
 <x-layouts.frontend :title="$metaTitle" :metaDescription="$metaDescription" :ogImage="$ogImage">
+    {{-- Scoped styles ensuring crisp visual separation between article photos and editorial text --}}
+    <style>
+        .vni-card {
+            border: 1px solid #e2e8f0;
+        }
+        html.dark .vni-card {
+            border-color: #334155;
+        }
+        .vni-feat-media {
+            position: relative;
+            height: 208px;
+            overflow: hidden;
+            background: #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        html.dark .vni-feat-media {
+            background: #0f172a;
+            border-bottom-color: #334155;
+        }
+        .vni-post-media {
+            position: relative;
+            width: 100%;
+            height: 224px;
+            flex-shrink: 0;
+            overflow: hidden;
+            background: #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        html.dark .vni-post-media {
+            background: #0f172a;
+            border-bottom-color: #334155;
+        }
+        @media (min-width: 768px) {
+            .vni-post-media {
+                width: 300px;
+                height: auto;
+                min-height: 220px;
+                border-bottom: 0;
+                border-right: 1px solid #e2e8f0;
+            }
+            html.dark .vni-post-media {
+                border-right-color: #334155;
+            }
+        }
+        .vni-media-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 0.45rem;
+            padding: 1rem;
+            text-align: center;
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0e7490 100%);
+            color: #e2e8f0;
+        }
+        .vni-events-box {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+            border: 1px solid rgba(147, 197, 253, 0.25);
+        }
+        .vni-events-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            width: 100%;
+            padding: 0.65rem 1rem;
+            border-radius: 0.6rem;
+            background: #fbbf24;
+            color: #0f172a;
+            font-weight: 700;
+            font-size: 0.875rem;
+            transition: background-color 0.2s ease;
+        }
+        .vni-events-btn:hover {
+            background: #fcd34d;
+        }
+    </style>
+
     {{-- Hero Section --}}
     <section class="relative pt-32 pb-20 overflow-hidden" x-data="{ scrollY: 0 }" @scroll.window="scrollY = window.scrollY">
         <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900"></div>
@@ -57,21 +137,32 @@
 
                 <div class="grid md:grid-cols-3 gap-6">
                     @foreach($featuredPosts as $featured)
-                        <article class="group relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
-                            <a href="{{ route('news.detail', $featured->slug) }}" class="block">
-                                @if($featured->featured_image)
-                                    <div class="relative h-48 overflow-hidden">
+                        @php
+                            $featuredHasImg = !empty($featured->featured_image);
+                        @endphp
+                        <article class="vni-card group relative bg-white dark:bg-slate-800 rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <a href="{{ route('news.detail', $featured->slug) }}" class="block h-full">
+                                <div class="vni-feat-media">
+                                    @if($featuredHasImg)
                                         <img 
                                             src="{{ asset('storage/' . $featured->featured_image) }}" 
                                             alt="{{ $featured->featured_image_alt ?? $featured->title }}"
+                                            loading="lazy"
+                                            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                         >
-                                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                                        <span class="absolute top-3 right-3 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
-                                            Featured
-                                        </span>
+                                    @endif
+                                    <div class="vni-media-fallback" style="{{ $featuredHasImg ? 'display:none;' : 'display:flex;' }}">
+                                        <svg class="w-9 h-9 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                        </svg>
+                                        <span class="text-[11px] font-bold tracking-wider uppercase text-blue-200">{{ __('Berita & Artikel') }}</span>
                                     </div>
-                                @endif
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent pointer-events-none"></div>
+                                    <span class="absolute top-3 right-3 px-3 py-1 bg-amber-500 text-white text-xs font-semibold rounded-full">
+                                        Featured
+                                    </span>
+                                </div>
                                 
                                 <div class="p-6">
                                     <div class="flex items-center gap-3 mb-3 text-xs text-slate-500 dark:text-slate-400">
@@ -160,17 +251,28 @@
                     @if($posts->count() > 0)
                         <div class="grid gap-6 mb-8">
                             @foreach($posts as $post)
-                                <article class="group bg-white dark:bg-slate-700 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
+                                @php
+                                    $postHasImg = !empty($post->featured_image);
+                                @endphp
+                                <article class="vni-card group bg-white dark:bg-slate-700 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden">
                                     <a href="{{ route('news.detail', $post->slug) }}" class="flex flex-col md:flex-row">
-                                        @if($post->featured_image)
-                                            <div class="md:w-80 h-64 md:h-auto overflow-hidden flex-shrink-0">
+                                        <div class="vni-post-media">
+                                            @if($postHasImg)
                                                 <img 
                                                     src="{{ asset('storage/' . $post->featured_image) }}" 
                                                     alt="{{ $post->featured_image_alt ?? $post->title }}"
+                                                    loading="lazy"
+                                                    onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
                                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                                                 >
+                                            @endif
+                                            <div class="vni-media-fallback" style="{{ $postHasImg ? 'display:none;' : 'display:flex;' }}">
+                                                <svg class="w-9 h-9 text-blue-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.6" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                                </svg>
+                                                <span class="text-[11px] font-bold tracking-wider uppercase text-blue-200">{{ __('Berita & Artikel') }}</span>
                                             </div>
-                                        @endif
+                                        </div>
                                         
                                         <div class="flex-1 p-6">
                                             <div class="flex items-center gap-3 mb-3 text-xs">
@@ -250,10 +352,10 @@
                 {{-- Sidebar --}}
                 <aside class="space-y-6">
                     {{-- Categories Widget --}}
-                    <div class="bg-white dark:bg-slate-700 rounded-xl shadow-md p-6">
+                    <div class="vni-card bg-white dark:bg-slate-700 rounded-xl shadow-md p-6">
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                             <svg class="w-5 h-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke line-join="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
                             </svg>
                             {{ __('Kategori') }}
                         </h3>
@@ -267,6 +369,27 @@
                                 </a>
                             @endforeach
                         </div>
+                    </div>
+
+                    {{-- Events & Posters Signpost --}}
+                    <div class="vni-events-box rounded-xl shadow-lg p-6 text-white">
+                        <div class="flex items-start gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5" style="color:#fcd34d;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-lg mb-1">{{ __('Poster & Agenda Acara') }}</h4>
+                                <p class="text-sm text-slate-200">{{ __('Cari jadwal webinar, pelatihan PPR, atau poster kegiatan resmi? Cek halaman Acara.') }}</p>
+                            </div>
+                        </div>
+                        <a href="{{ route('events') }}" class="vni-events-btn">
+                            <span>{{ __('Lihat Poster & Acara') }}</span>
+                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                            </svg>
+                        </a>
                     </div>
 
                    {{-- Promotion Banner (Like Homepage) --}}

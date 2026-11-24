@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
-use App\Models\NewsPost;
 use App\Models\PromoBanner;
 use App\Models\TrainingClass;
+use App\Support\AcademySchemaEnsurer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -60,7 +60,7 @@ class EventController extends Controller
                         '🎓 Diskon Webinar SKP 10%',
                         '⚡ Diskon Pelatihan PPR 10%',
                         '🏥 Training Center Diskon 20%',
-                        '🎁 Referral Reward Hingga 10%',
+                        '✨ Akses Prioritas Program & Webinar',
                     ];
                 } elseif ($isCalib) {
                     $category = 'program';
@@ -226,8 +226,10 @@ class EventController extends Controller
             ]);
         }
 
-        // 2. Fetch active training classes from Visi Academy
+        // 2. Fetch active training & webinar programs from Visi Academy
         try {
+            AcademySchemaEnsurer::ensure();
+
             $trainingClasses = TrainingClass::where('is_active', true)
                 ->orderBy('id', 'desc')
                 ->get();
@@ -235,22 +237,6 @@ class EventController extends Controller
             $trainingClasses = collect();
         }
 
-        // 3. Fetch recent event recap articles from NewsPost
-        try {
-            $eventArticles = NewsPost::published()
-                ->where(function ($q) {
-                    $q->where('category', 'like', '%event%')
-                      ->orWhere('category', 'like', '%acara%')
-                      ->orWhere('title', 'like', '%webinar%')
-                      ->orWhere('title', 'like', '%pelatihan%');
-                })
-                ->latest('published_at')
-                ->take(3)
-                ->get();
-        } catch (\Throwable $e) {
-            $eventArticles = collect();
-        }
-
-        return view('pages.events', compact('events', 'trainingClasses', 'eventArticles'));
+        return view('pages.events', compact('events', 'trainingClasses'));
     }
 }
