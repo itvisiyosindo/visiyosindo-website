@@ -45,8 +45,8 @@
                 </div>
                 <div>
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['total_codes'] }}</div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-blue">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #2563eb;"></span>
                         <span>Kode Aktif Terdaftar</span>
                     </span>
                 </div>
@@ -65,8 +65,8 @@
                 </div>
                 <div>
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['total_usage'] }} <span class="text-lg font-bold text-slate-400">Pendaftar</span></div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300 border border-indigo-100 dark:border-indigo-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-indigo">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #4f46e5;"></span>
                         <span>Total Penggunaan Kupon</span>
                     </span>
                 </div>
@@ -85,8 +85,8 @@
                 </div>
                 <div>
                     <div class="text-2xl sm:text-3xl font-display font-black text-amber-600 dark:text-amber-400 tracking-tight leading-none mb-3">Rp {{ number_format($stats['total_commission'], 0, ',', '.') }}</div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-100 dark:border-amber-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                    <span class="vb-stat-pill vb-stat-pill-amber">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #f59e0b;"></span>
                         <span>Reward untuk Pelajar</span>
                     </span>
                 </div>
@@ -95,9 +95,9 @@
 
         <!-- Filter Strip (Sleek & Integrated) -->
         <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
-            <form action="{{ route('dashboard.trainings.affiliates') }}" method="GET" class="flex flex-col sm:flex-row items-center gap-3">
-                <div class="flex-1 w-full relative">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+            <form action="{{ route('dashboard.trainings.affiliates') }}" method="GET" class="vb-filter-form">
+                <div class="vb-filter-search">
+                    <div class="vb-filter-search-icon">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -107,14 +107,14 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari kode referral, nama siswa pemilik kode, atau email..." 
-                        class="w-full pl-11 pr-4 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-2xl bg-slate-50/70 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        class="vb-filter-input text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all"
                     >
                 </div>
-                <button type="submit" class="w-full sm:w-auto px-6 py-2.5 text-xs sm:text-sm font-extrabold text-white bg-blue-600 hover:bg-blue-700 rounded-2xl transition-all shadow-md shadow-blue-500/25 cursor-pointer">
+                <button type="submit" class="vb-filter-btn vb-btn-blue font-extrabold transition-all shadow-md shadow-blue-500/25 cursor-pointer">
                     Cari Kode
                 </button>
                 @if(request('search'))
-                    <a href="{{ route('dashboard.trainings.affiliates') }}" class="w-full sm:w-auto px-4 py-2.5 text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-2xl hover:bg-slate-200 transition-all text-center">
+                    <a href="{{ route('dashboard.trainings.affiliates') }}" class="vb-filter-btn vb-btn-slate font-bold transition-all text-center">
                         Reset
                     </a>
                 @endif
@@ -124,9 +124,9 @@
         <!-- High-End Affiliates Table -->
         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full min-w-[740px] text-left border-collapse">
+                <table class="vb-table min-w-[740px] text-left">
                     <thead>
-                        <tr class="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                        <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-4 px-6">Kode Kupon Afiliasi</th>
                             <th class="py-4 px-6">Pemilik Kode (Siswa)</th>
                             <th class="py-4 px-6 text-center">Frekuensi Penggunaan</th>
@@ -134,7 +134,7 @@
                             <th class="py-4 px-6 text-right">Saldo Komisi</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                    <tbody class="text-xs">
                         @forelse($affiliates as $item)
                             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
                                 <!-- Code -->
@@ -230,9 +230,9 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="w-full min-w-[640px] text-left border-collapse text-xs">
+                <table class="vb-table min-w-[640px] text-left text-xs">
                     <thead>
-                        <tr class="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                        <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-3.5 px-4">Pelajar</th>
                             <th class="py-3.5 px-4">Nominal</th>
                             <th class="py-3.5 px-4">Rekening Tujuan</th>
@@ -240,7 +240,7 @@
                             <th class="py-3.5 px-4 text-right">Aksi Admin</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                    <tbody>
                         @forelse($withdrawals as $wd)
                             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
                                 <td class="py-3.5 px-4 align-middle">
@@ -272,8 +272,7 @@
                                                 onsubmit="return confirm('Tandai penarikan sebesar Rp {{ number_format($wd->amount, 0, ',', '.') }} ini sebagai Sudah Ditransfer?')">
                                                 @csrf
                                                 <button type="submit"
-                                                    style="background-color: #059669; color: #ffffff;"
-                                                    class="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs cursor-pointer whitespace-nowrap">
+                                                    class="vb-action-btn vb-btn-emerald cursor-pointer">
                                                     Tandai Transfer
                                                 </button>
                                             </form>
@@ -281,8 +280,7 @@
                                                 onsubmit="return confirm('Tolak pengajuan penarikan ini dan kembalikan saldo ke pelajar?')">
                                                 @csrf
                                                 <button type="submit"
-                                                    style="background-color: #fff1f2; color: #e11d48;"
-                                                    class="px-3 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 font-bold text-xs cursor-pointer whitespace-nowrap">
+                                                    class="vb-action-btn vb-card-btn-rose cursor-pointer">
                                                     Tolak
                                                 </button>
                                             </form>

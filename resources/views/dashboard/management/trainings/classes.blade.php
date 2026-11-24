@@ -89,8 +89,8 @@
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">
                         {{ $stats['total'] }}
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-blue">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #2563eb;"></span>
                         <span>Kelas Pelatihan Terdaftar</span>
                     </span>
                 </div>
@@ -111,10 +111,10 @@
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">
                         {{ $stats['active'] }}
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/40">
+                    <span class="vb-stat-pill vb-stat-pill-emerald">
                         <span class="relative flex h-1.5 w-1.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5" style="background-color: #10b981;"></span>
                         </span>
                         <span>Siap Menerima Siswa</span>
                     </span>
@@ -136,8 +136,8 @@
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">
                         {{ $stats['inactive'] }}
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-700">
-                        <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
+                    <span class="vb-stat-pill vb-stat-pill-slate">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #94a3b8;"></span>
                         <span>Batch Selesai / Ditutup</span>
                     </span>
                 </div>
@@ -158,8 +158,8 @@
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">
                         {{ $stats['total_students'] }}
                     </div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-violet-50 dark:bg-violet-950/60 text-violet-700 dark:text-violet-300 border border-violet-100 dark:border-violet-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-violet-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-violet">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #7c3aed;"></span>
                         <span>Pelajar Telah Mendaftar</span>
                     </span>
                 </div>
@@ -170,7 +170,7 @@
         <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.classes') }}" method="GET" class="vb-filter-form">
                 <div class="vb-filter-search">
-                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                    <div class="vb-filter-search-icon">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -180,24 +180,24 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari judul kelas pelatihan, nama batch, atau kategori..." 
-                        class="w-full pl-11 pr-4 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-2xl bg-slate-50/70 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+                        class="vb-filter-input text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all"
                     >
                 </div>
                 <div class="vb-filter-select">
                     <select 
                         name="is_active" 
-                        class="w-full px-4 py-2.5 text-xs sm:text-sm border border-slate-200 dark:border-slate-700 rounded-2xl bg-slate-50/70 dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer font-medium"
+                        class="vb-filter-select-input text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer font-medium"
                     >
                         <option value="">Semua Status Pendaftaran</option>
                         <option value="1" {{ request('is_active') === '1' ? 'selected' : '' }}>🟢 Aktif (Buka)</option>
                         <option value="0" {{ request('is_active') === '0' ? 'selected' : '' }}>⚪ Pendaftaran Tutup</option>
                     </select>
                 </div>
-                <button type="submit" class="vb-filter-btn vb-btn-blue px-6 py-2.5 text-xs sm:text-sm font-extrabold rounded-2xl transition-all shadow-md shadow-blue-500/25 cursor-pointer">
+                <button type="submit" class="vb-filter-btn vb-btn-blue font-extrabold transition-all shadow-md shadow-blue-500/25 cursor-pointer">
                     Terapkan Filter
                 </button>
                 @if(request()->hasAny(['search', 'is_active']))
-                    <a href="{{ route('dashboard.trainings.classes') }}" class="vb-filter-btn vb-btn-slate px-4 py-2.5 text-xs sm:text-sm font-bold rounded-2xl transition-all text-center">
+                    <a href="{{ route('dashboard.trainings.classes') }}" class="vb-filter-btn vb-btn-slate font-bold transition-all text-center">
                         Reset
                     </a>
                 @endif
@@ -217,13 +217,14 @@
                     <div>
                         @if($item->image)
                             <!-- Clean Photo Banner Header (Uniform Height) -->
-                            <div class="vb-card-header relative w-full overflow-hidden bg-slate-950">
-                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
-                                <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/30 pointer-events-none"></div>
+                            <div class="vb-card-header w-full overflow-hidden bg-slate-950">
+                                <img src="{{ asset('storage/' . $item->image) }}" alt="{{ $item->title }}" class="vb-card-photo-img group-hover:scale-105 transition-transform duration-700 ease-out">
+                                <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.05) 55%, rgba(15,23,42,0.25) 100%);"></div>
 
                                 <!-- Floating Badges over Flyer -->
-                                <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-10">
-                                    <span class="px-3 py-1.5 rounded-full text-xs font-black shadow-lg backdrop-blur-md inline-flex items-center gap-1.5 {{ $item->is_active ? 'bg-emerald-500 text-white shadow-emerald-500/40' : 'bg-slate-900/80 text-slate-300' }}">
+                                <div class="vb-card-floating-badges">
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider shadow-md inline-flex items-center gap-1.5"
+                                        style="{{ $item->is_active ? 'background-color: #10b981; color: #ffffff;' : 'background-color: rgba(15,23,42,0.85); color: #cbd5e1;' }}">
                                         @if($item->is_active)
                                             <span class="relative flex h-2 w-2">
                                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
@@ -234,7 +235,8 @@
                                             <span>Pendaftaran Tutup</span>
                                         @endif
                                     </span>
-                                    <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/95 dark:bg-slate-900/95 text-slate-900 dark:text-white shadow-lg backdrop-blur-md">
+                                    <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md"
+                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a;">
                                         {{ $item->category }}
                                     </span>
                                 </div>
@@ -290,14 +292,12 @@
                                         {{ $item->batch_name }}
                                     </span>
                                 </div>
-                                <h3 class="text-lg font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
+                                <h3 class="vb-card-title text-lg font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
                                     {{ $item->title }}
                                 </h3>
-                                @if($item->description)
-                                    <p class="mt-2 text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                                        {{ $item->description }}
-                                    </p>
-                                @endif
+                                <p class="vb-card-desc mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    {{ $item->description ?: 'Program pelatihan profesional bersertifikat resmi Visi Academy.' }}
+                                </p>
                             </div>
 
                             <!-- Metadata Chips Grid -->

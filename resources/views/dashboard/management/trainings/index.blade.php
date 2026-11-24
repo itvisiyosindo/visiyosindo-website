@@ -66,8 +66,8 @@
                 </div>
                 <div>
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['total'] }}</div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-blue">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #2563eb;"></span>
                         <span>Semua Status Siswa</span>
                     </span>
                 </div>
@@ -86,10 +86,10 @@
                 </div>
                 <div>
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['pending'] }}</div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 border border-amber-100 dark:border-amber-900/40">
+                    <span class="vb-stat-pill vb-stat-pill-amber">
                         <span class="relative flex h-1.5 w-1.5">
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                            <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-amber-500"></span>
+                            <span class="relative inline-flex rounded-full h-1.5 w-1.5" style="background-color: #f59e0b;"></span>
                         </span>
                         <span>Menunggu Konfirmasi Bayar</span>
                     </span>
@@ -109,8 +109,8 @@
                 </div>
                 <div>
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['active'] }}</div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-sky-50 dark:bg-sky-950/60 text-sky-700 dark:text-sky-300 border border-sky-100 dark:border-sky-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-sky-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-sky">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #0284c7;"></span>
                         <span>Sedang Mengikuti Kelas</span>
                     </span>
                 </div>
@@ -129,8 +129,8 @@
                 </div>
                 <div>
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['completed'] }}</div>
-                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/40">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                    <span class="vb-stat-pill vb-stat-pill-emerald">
+                        <span class="w-1.5 h-1.5 rounded-full" style="background-color: #059669;"></span>
                         <span>e-Sertifikat Diterbitkan</span>
                     </span>
                 </div>
@@ -141,7 +141,7 @@
         <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="vb-filter-form">
                 <div class="vb-filter-search">
-                    <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-surface-400">
+                    <div class="vb-filter-search-icon">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
@@ -151,14 +151,14 @@
                         name="search" 
                         value="{{ request('search') }}"
                         placeholder="Cari nama peserta, email, nomor HP/WA, atau institusi..." 
-                        class="w-full pl-10 pr-4 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white placeholder-surface-400 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                        class="vb-filter-input text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all"
                     >
                 </div>
                 
                 <div class="vb-filter-select">
                     <select 
                         name="status" 
-                        class="w-full px-3.5 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
+                        class="vb-filter-select-input text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer font-medium"
                     >
                         <option value="">Semua Status</option>
                         <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>⏳ Menunggu Bayar</option>
@@ -172,7 +172,7 @@
                     <div class="vb-filter-select">
                         <select 
                             name="training_class_id" 
-                            class="w-full px-3.5 py-2.5 text-xs font-medium border border-slate-200 dark:border-surface-600 rounded-xl bg-slate-50/50 dark:bg-surface-900/50 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all cursor-pointer"
+                            class="vb-filter-select-input text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer font-medium"
                         >
                             <option value="">Semua Program Kelas</option>
                             @foreach($classesList as $cl)
@@ -185,11 +185,11 @@
                 @endif
 
                 <div class="flex items-center gap-2 shrink-0">
-                    <button type="submit" class="vb-filter-btn vb-btn-blue px-5 py-2.5 text-xs font-bold rounded-xl shadow-xs transition-all cursor-pointer">
+                    <button type="submit" class="vb-filter-btn vb-btn-blue font-bold shadow-xs transition-all cursor-pointer">
                         Filter Data
                     </button>
                     @if(request()->hasAny(['search', 'status', 'training_class_id']))
-                        <a href="{{ route('dashboard.trainings.index') }}" class="vb-filter-btn vb-btn-slate px-3.5 py-2.5 text-xs font-semibold rounded-xl transition-all text-center">
+                        <a href="{{ route('dashboard.trainings.index') }}" class="vb-filter-btn vb-btn-slate font-semibold transition-all text-center">
                             Reset
                         </a>
                     @endif
@@ -200,9 +200,9 @@
         <!-- Participants Table Section (Smooth, High-Energy) -->
         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full min-w-[780px] text-left border-collapse">
+                <table class="vb-table min-w-[780px] text-left">
                     <thead>
-                        <tr class="border-b border-slate-100 dark:border-slate-800 bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
+                        <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-4 px-6">Informasi Peserta</th>
                             <th class="py-4 px-6">Program Kelas</th>
                             <th class="py-4 px-6">Status Pendaftaran</th>
@@ -210,7 +210,7 @@
                             <th class="py-4 px-6 text-right">Tindakan</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-100 dark:divide-slate-800 text-xs">
+                    <tbody class="text-xs">
                         @forelse($enrollments as $item)
                             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
                                 <!-- Peserta Info -->
@@ -324,7 +324,7 @@
                                             @endphp
                                             <a href="https://wa.me/{{ $cleanPhone }}?text={{ rawurlencode('Halo ' . $item->user->name . ', ini Admin Visi Academy terkait pelatihan ' . $item->trainingClass->title . '.') }}"
                                                 target="_blank" rel="noopener noreferrer"
-                                                class="p-2 rounded-xl bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300 hover:bg-emerald-100 transition-colors shadow-xs" title="Chat WhatsApp Peserta">
+                                                class="vb-icon-btn-wa transition-colors shadow-xs" title="Chat WhatsApp Peserta">
                                                 <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
                                             </a>
                                         @endif
@@ -333,8 +333,8 @@
                                             <!-- Approve -->
                                             <form action="{{ route('dashboard.trainings.approve', $item->id) }}" method="POST" onsubmit="return confirm('Konfirmasi bahwa peserta ini telah menyelesaikan pembayaran?')">
                                                 @csrf
-                                                <button type="submit" class="vb-btn-emerald px-3 py-1.5 rounded-xl text-white text-xs font-black shadow-md shadow-emerald-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap">
-                                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <button type="submit" class="vb-action-btn vb-btn-emerald shadow-sm transition-all cursor-pointer">
+                                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                                                     </svg>
                                                     <span>Setujui</span>
@@ -353,8 +353,8 @@
                                             <!-- Complete & Upload Certificate PDF -->
                                             <button type="button"
                                                 @click="openComplete({ id: {{ $item->id }}, name: @js($item->user->name), class_title: @js($item->trainingClass->title) })"
-                                                class="vb-btn-blue px-3.5 py-1.5 rounded-xl text-white text-xs font-black shadow-md shadow-blue-500/20 transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap">
-                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                class="vb-action-btn vb-btn-blue shadow-sm transition-all cursor-pointer">
+                                                <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                                                 </svg>
                                                 <span>Luluskan & Upload Sertifikat</span>
@@ -365,10 +365,9 @@
                                                 <!-- Ganti / Upload Sertifikat PDF Baru -->
                                                 <button type="button"
                                                     @click="openComplete({ id: {{ $item->id }}, name: @js($item->user->name), class_title: @js($item->trainingClass->title) })"
-                                                    style="background-color: #059669; color: #ffffff;"
-                                                    class="vb-btn-emerald px-3 py-1.5 rounded-xl text-white text-xs font-bold shadow-xs transition-all inline-flex items-center gap-1.5 cursor-pointer whitespace-nowrap"
+                                                    class="vb-action-btn vb-btn-emerald shadow-xs transition-all cursor-pointer"
                                                     title="Upload atau ganti file PDF sertifikat untuk peserta ini">
-                                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                                                     </svg>
                                                     <span>Ganti Sertifikat</span>
@@ -376,9 +375,8 @@
 
                                                 @if($item->certificate)
                                                     <a href="{{ route('dashboard.trainings.certificates.download', $item->certificate->id) }}?v={{ $item->certificate->updated_at?->timestamp ?? time() }}" target="_blank"
-                                                        style="background-color: #f1f5f9; color: #334155; border: 1px solid #cbd5e1;"
-                                                        class="vb-btn-slate px-3 py-1.5 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-1.5 whitespace-nowrap">
-                                                        <svg class="w-3.5 h-3.5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        class="vb-action-btn vb-btn-slate transition-all">
+                                                        <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                                         </svg>
@@ -390,9 +388,9 @@
                                                 <form action="{{ route('dashboard.trainings.revert-active', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Kembalikan status peserta {{ $item->user->name }} menjadi Belum Lulus (Aktif)?');">
                                                     @csrf
                                                     <button type="submit" 
-                                                        class="px-2.5 py-1.5 rounded-xl text-amber-800 dark:text-amber-300 bg-amber-50 hover:bg-amber-100 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 text-xs font-bold transition-all cursor-pointer inline-flex items-center gap-1 whitespace-nowrap"
+                                                        class="vb-action-btn vb-btn-amber transition-all cursor-pointer"
                                                         title="Kembalikan status pendaftaran menjadi Belum Lulus (Aktif)">
-                                                        <svg class="w-3.5 h-3.5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                                         </svg>
                                                         <span>Ubah ke Belum Lulus</span>
@@ -459,19 +457,19 @@
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Nomor Sertifikat (Opsional)</label>
                             <input type="text" name="certificate_number" placeholder="Otomatis jika dikosongkan"
-                                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
+                                class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Tanggal Terbit</label>
                             <input type="date" name="issued_date" value="{{ date('Y-m-d') }}"
-                                class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
+                                class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
                         </div>
                     </div>
 
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Catatan (Opsional)</label>
                         <input type="text" name="notes" placeholder="Catatan tambahan sertifikat..."
-                            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white">
                     </div>
 
                     <div class="flex items-center justify-end gap-2 pt-2">
@@ -508,7 +506,7 @@
                     <div>
                         <label class="block text-xs font-bold uppercase text-slate-600 dark:text-slate-300 mb-1">Alasan Pembatalan / Penolakan</label>
                         <textarea name="rejection_reason" rows="3" placeholder="Cth: Bukti transfer belum sesuai nominal / peserta mengundurkan diri..."
-                            class="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white"></textarea>
+                            class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-900 dark:text-white"></textarea>
                     </div>
 
                     <div class="flex items-center justify-end gap-2 pt-2">

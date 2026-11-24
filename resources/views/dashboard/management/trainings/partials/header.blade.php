@@ -82,8 +82,46 @@
         background-color: #e2e8f0 !important;
         color: #0f172a !important;
     }
+    .vb-btn-amber {
+        background-color: #fffbeb !important;
+        color: #b45309 !important;
+        border: 1px solid #fde68a !important;
+    }
+    .vb-btn-amber:hover {
+        background-color: #fef3c7 !important;
+        border-color: #fcd34d !important;
+    }
 
-    /* Unified Filter Strip (Prevents search input squishing) */
+    /* Unified Table Action Buttons (Guaranteed padding even without Vite rebuild) */
+    .vb-action-btn {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 6px !important;
+        padding: 7px 14px !important;
+        border-radius: 12px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+        line-height: 1.25 !important;
+        white-space: nowrap !important;
+    }
+    .vb-icon-btn-wa {
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 10px !important;
+        background-color: #ecfdf5 !important;
+        color: #059669 !important;
+        border: 1px solid #a7f3d0 !important;
+        flex-shrink: 0 !important;
+    }
+    .vb-icon-btn-wa:hover {
+        background-color: #d1fae5 !important;
+    }
+
+    /* Unified Filter Strip (Prevents search input squishing & icon overlap) */
     .vb-filter-form {
         display: flex !important;
         flex-direction: column !important;
@@ -96,14 +134,57 @@
         min-width: 0 !important;
         width: 100% !important;
     }
+    .vb-filter-search-icon {
+        position: absolute !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        padding-left: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        pointer-events: none !important;
+        color: #94a3b8 !important;
+    }
+    .vb-filter-input {
+        width: 100% !important;
+        padding: 10px 16px 10px 42px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 14px !important;
+        background-color: #f8fafc !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
+    .dark .vb-filter-input {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #ffffff !important;
+    }
     .vb-filter-select {
         width: 100% !important;
         flex-shrink: 0 !important;
+    }
+    .vb-filter-select-input {
+        width: 100% !important;
+        padding: 10px 36px 10px 14px !important;
+        border: 1px solid #e2e8f0 !important;
+        border-radius: 14px !important;
+        background-color: #f8fafc !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
+    }
+    .dark .vb-filter-select-input {
+        background-color: #1e293b !important;
+        border-color: #334155 !important;
+        color: #ffffff !important;
     }
     .vb-filter-btn {
         width: 100% !important;
         flex-shrink: 0 !important;
         white-space: nowrap !important;
+        padding: 10px 22px !important;
+        border-radius: 14px !important;
+        font-size: 13px !important;
+        line-height: 1.4 !important;
     }
     @media (min-width: 768px) {
         .vb-filter-form {
@@ -115,18 +196,116 @@
             min-width: 240px !important;
         }
         .vb-filter-select {
-            width: 220px !important;
+            width: 245px !important;
         }
         .vb-filter-btn {
             width: auto !important;
         }
     }
 
-    /* Unified Course Card Header Height */
+    /* Unified Soft Table Dividers (No harsh black borders) */
+    .vb-table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+    }
+    .vb-table thead tr {
+        border-bottom: 1px solid #e2e8f0 !important;
+    }
+    .vb-table tbody tr {
+        border-top: 1px solid #f1f5f9 !important;
+        border-bottom: none !important;
+    }
+    .vb-table tbody tr:first-child {
+        border-top: none !important;
+    }
+    .dark .vb-table thead tr,
+    .dark .vb-table tbody tr {
+        border-color: #1e293b !important;
+    }
+
+    /* Unified Metric Stat Card Pills */
+    .vb-stat-pill {
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        padding: 4px 10px !important;
+        border-radius: 9999px !important;
+        font-size: 12px !important;
+        font-weight: 700 !important;
+    }
+    .vb-stat-pill-blue {
+        background-color: #eff6ff !important;
+        color: #1d4ed8 !important;
+        border: 1px solid #dbeafe !important;
+    }
+    .vb-stat-pill-amber {
+        background-color: #fffbeb !important;
+        color: #b45309 !important;
+        border: 1px solid #fde68a !important;
+    }
+    .vb-stat-pill-sky {
+        background-color: #f0f9ff !important;
+        color: #0369a1 !important;
+        border: 1px solid #bae6fd !important;
+    }
+    .vb-stat-pill-emerald {
+        background-color: #ecfdf5 !important;
+        color: #047857 !important;
+        border: 1px solid #a7f3d0 !important;
+    }
+    .vb-stat-pill-indigo {
+        background-color: #eef2ff !important;
+        color: #4338ca !important;
+        border: 1px solid #c7d2fe !important;
+    }
+    .vb-stat-pill-violet {
+        background-color: #f5f3ff !important;
+        color: #6d28d9 !important;
+        border: 1px solid #ddd6fe !important;
+    }
+    .vb-stat-pill-slate {
+        background-color: #f1f5f9 !important;
+        color: #475569 !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+
+    /* Unified Course Card Header Height & Flyer Floating Badges */
     .vb-card-header {
+        position: relative !important;
         height: 176px !important;
         min-height: 176px !important;
         max-height: 176px !important;
+    }
+    .vb-card-photo-img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        object-position: top center !important;
+    }
+    .vb-card-floating-badges {
+        position: absolute !important;
+        top: 14px !important;
+        left: 14px !important;
+        right: 14px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 8px !important;
+        z-index: 10 !important;
+    }
+    .vb-card-title {
+        min-height: 3.1rem !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+    .vb-card-desc {
+        min-height: 2.25rem !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
     }
 
     /* Soft Integration Chips */
@@ -208,7 +387,7 @@
     <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
         <div class="space-y-2.5 max-w-2xl">
             <!-- Energetic Pill Badge -->
-            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-white shadow-xs">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-xs font-bold text-white shadow-xs">
                 <span class="flex h-2 w-2 relative">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
@@ -229,7 +408,7 @@
 
         <!-- Right Side: Fast Actions & Brand Badge -->
         <div class="flex flex-wrap items-center gap-3 shrink-0">
-            <div class="hidden md:inline-flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-white/95 backdrop-blur-md shadow-xs" style="border: 1px solid rgba(255,255,255,0.25);">
+            <div class="hidden md:inline-flex items-center gap-2.5 px-4 py-2 rounded-2xl bg-white/95 backdrop-blur-md shadow-xs" style="border: 1px solid rgba(255,255,255,0.25);">
                 <span class="w-7 h-7 rounded-lg flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #2563eb 0%, #4f46e5 100%); color: #ffffff;">
                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
