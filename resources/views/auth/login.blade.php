@@ -13,9 +13,9 @@
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/logo/visiyosindo.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/logo/visiyosindo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo/visi-academy.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/logo/visi-academy.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/logo/visi-academy.png') }}">
 
     <!-- Prevent FOUC -->
     <script>
@@ -27,6 +27,35 @@
     </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .va-logo-badge-light {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.96);
+            padding: 10px 16px;
+            border-radius: 16px;
+        }
+        .va-logo-adaptive {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+        }
+        .dark .va-logo-adaptive {
+            background-color: rgba(255, 255, 255, 0.96);
+            padding: 8px 16px;
+        }
+        .va-login-card-logo {
+            display: none;
+        }
+        @media (min-width: 1024px) {
+            .va-login-card-logo {
+                display: inline-flex;
+            }
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased min-h-screen bg-slate-50 dark:bg-slate-900">
@@ -94,14 +123,12 @@
             <div class="relative z-10 flex flex-col justify-center px-16 xl:px-24 w-full max-w-2xl mx-auto">
                 <!-- Logo -->
                 <div class="flex items-center gap-4 mb-8" data-aos="fade-right" data-aos-delay="100">
-                    <div
-                        class="w-14 h-14 rounded-full bg-white/20 backdrop-blur-sm flex items-center justify-center shadow-xl border border-white/20 group">
-                        <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}"
-                            class="w-12.5 h-12.5 bg-cover group-hover:rotate-45 group-hover:scale-150 duration-200 ease-linear">
-                    </div>
+                    <a href="/" class="va-logo-badge-light shadow-xl border border-white/40 group" title="Visi Academy">
+                        @include('student.partials.logo')
+                    </a>
                     <div>
-                        <span class="text-2xl font-bold text-white block">Visi Academy</span>
-                        <span class="text-xs text-blue-100/90 font-medium">PT Visi Yosindo Medikal</span>
+                        <span class="text-xs uppercase tracking-wider text-blue-200/90 font-semibold block">Official Portal</span>
+                        <span class="text-sm text-white font-semibold">PT Visi Yosindo Medikal</span>
                     </div>
                 </div>
 
@@ -180,10 +207,9 @@
             <div class="w-full max-w-md">
                 <!-- Mobile Logo -->
                 <div class="lg:hidden flex flex-col items-center mb-8">
-                    <div class="w-12 h-12 rounded-full bg-blue-600 flex items-center justify-center mb-2 shadow-md">
-                        <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}" class="w-10 h-10">
-                    </div>
-                    <span class="text-xl font-bold text-slate-900 dark:text-white">Visi Academy</span>
+                    <a href="/" class="va-logo-adaptive mb-2 group" title="Visi Academy">
+                        @include('student.partials.logo')
+                    </a>
                     <span class="text-xs text-blue-600 dark:text-blue-400 font-semibold">PT Visi Yosindo Medikal</span>
                 </div>
 
@@ -249,11 +275,9 @@
                 <div class="w-full">
                     <!-- Dynamic Header -->
                     <div class="text-center mb-6">
-                        <div
-                            class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 shadow-lg shadow-blue-500/30 mb-3">
-                            <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}"
-                                class="w-13 h-13 bg-cover">
-                        </div>
+                        <a href="/" class="va-login-card-logo va-logo-adaptive mb-3 group" title="Visi Academy">
+                            @include('student.partials.logo')
+                        </a>
                         <template x-if="role === 'student'">
                             <div>
                                 <h2 class="text-2xl font-extrabold text-slate-900 dark:text-white">Visi Academy</h2>
