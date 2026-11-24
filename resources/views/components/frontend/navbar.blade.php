@@ -1,49 +1,136 @@
 {{-- Navbar Component --}}
+<style>
+    .vn-nav-inner {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        min-height: 60px !important;
+        padding-top: 6px !important;
+        padding-bottom: 6px !important;
+    }
+    .vn-nav-brand {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        flex-shrink: 0 !important;
+        min-width: 0 !important;
+    }
+    .vn-nav-brand-title {
+        font-size: 14px !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+    }
+    .vn-nav-brand-sub {
+        font-size: 10.5px !important;
+        line-height: 1.2 !important;
+        white-space: nowrap !important;
+        margin-top: 1px !important;
+    }
+    .vn-nav-desktop {
+        display: none !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 2px !important;
+        min-width: 0 !important;
+    }
+    .vn-nav-link {
+        white-space: nowrap !important;
+        padding: 7px 10px !important;
+        font-size: 13px !important;
+        line-height: 1.2 !important;
+        flex-shrink: 0 !important;
+    }
+    .vn-nav-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        flex-shrink: 0 !important;
+    }
+    .vn-nav-cta {
+        white-space: nowrap !important;
+        padding: 7px 14px !important;
+        font-size: 12.5px !important;
+        line-height: 1.2 !important;
+        flex-shrink: 0 !important;
+    }
+    .vn-nav-mobile-toggle {
+        display: flex !important;
+    }
+    .vn-nav-pill {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+    @media (min-width: 640px) {
+        .vn-nav-pill {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+    }
+    @media (min-width: 1200px) {
+        .vn-nav-desktop {
+            display: flex !important;
+        }
+        .vn-nav-mobile-toggle,
+        .vn-nav-mobile-menu {
+            display: none !important;
+        }
+    }
+    @media (min-width: 1280px) {
+        .vn-nav-brand-title {
+            font-size: 15px !important;
+        }
+        .vn-nav-link {
+            padding: 7px 12px !important;
+            font-size: 13.5px !important;
+        }
+    }
+</style>
 <nav x-data="{
     mobileOpen: false,
     aboutDropdown: false,
     visilabDropdown: false,
     solidPage: document.documentElement.dataset.navbarSolid === 'true'
 }" @click.away="aboutDropdown = false; visilabDropdown = false"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-4 px-4" :class="(scrolled || solidPage) && 'py-2'">
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 py-3 px-3 sm:px-4" :class="(scrolled || solidPage) && 'py-2'">
     <div class="navbar-bg-scrolled max-w-7xl mx-auto transition-all duration-500"
         :class="(scrolled || solidPage) ?
-            'bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl rounded-full shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-200/50 dark:border-slate-700/50 px-6' :
-            'bg-transparent'">
-        <div class="flex items-center justify-between h-16">
+            ('vn-nav-pill bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl shadow-lg shadow-slate-200/50 dark:shadow-slate-900/50 border border-slate-200/60 dark:border-slate-700/50 ' + (mobileOpen ? 'rounded-3xl pb-3' : 'rounded-full')) :
+            'bg-transparent px-2'">
+        <div class="vn-nav-inner">
             <!-- Logo -->
-            <a href="/" class="flex items-center gap-3 group">
-                <div class="w-11 h-11 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-                    :class="(scrolled || solidPage) ? 'bg-gradient-to-br from-blue-500 to-blue-600 shadow-lg shadow-blue-500/30' :
+            <a href="/" class="vn-nav-brand group">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 group-hover:scale-105"
+                    :class="(scrolled || solidPage) ? 'bg-gradient-to-br from-blue-500 to-blue-600 shadow-md shadow-blue-500/25' :
                         'bg-white/20 backdrop-blur-sm'">
                     <img src="{{ URL::asset('assets/logo/visiyosindo.png') }}" alt="{{ config('app.name') }}"
-                        class="w-10 h-10 bg-cover">
+                        class="w-9 h-9 object-contain">
                 </div>
                 <div class="hidden sm:block">
-                    <span class="text-lg font-bold transition-colors duration-300"
+                    <span class="vn-nav-brand-title font-bold block transition-colors duration-300"
                         :class="(scrolled || solidPage) ? 'text-slate-900 dark:text-white' : 'text-white'">{{ config('app.name') }}</span>
-                    <span class="text-xs block -mt-1 transition-colors duration-300 italic"
-                        :class="(scrolled || solidPage) ? 'text-slate-500 dark:text-slate-400' : 'text-white/70'">{{ __('Affordable Healthcare Solutions') }}</span>
+                    <span class="vn-nav-brand-sub block transition-colors duration-300 italic"
+                        :class="(scrolled || solidPage) ? 'text-slate-500 dark:text-slate-400' : 'text-white/75'">{{ __('Affordable Healthcare Solutions') }}</span>
                 </div>
             </a>
 
             <!-- Desktop Navigation -->
-            <div class="hidden lg:flex items-center gap-1">
+            <div class="vn-nav-desktop">
                 <!-- Home -->
-                <a href="/" class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                <a href="/" class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('Home') }}
                 </a>
 
                 <!-- About Us Dropdown -->
-                <div class="relative" @mouseenter="aboutDropdown = true" @mouseleave="aboutDropdown = false">
+                <div class="relative shrink-0" @mouseenter="aboutDropdown = true" @mouseleave="aboutDropdown = false">
                     <button
-                        class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                        class="vn-nav-link inline-flex items-center gap-1 font-medium rounded-full transition-all duration-300 cursor-pointer"
                         :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                             'text-white/90 hover:text-white hover:bg-white/10'">
                         <span>{{ __('About Us') }}</span>
-                        <svg class="w-4 h-4 transition-transform duration-200"
+                        <svg class="w-3.5 h-3.5 shrink-0 transition-transform duration-200"
                             :class="aboutDropdown ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -94,7 +181,7 @@
 
                 <!-- Produk Kami -->
                 <a href="{{ route('products') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('Products') }}
@@ -102,7 +189,7 @@
 
                 <!-- News -->
                 <a href="{{ route('news') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('News') }}
@@ -110,7 +197,7 @@
 
                 <!-- Events -->
                 <a href="{{ route('events') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('Events') }}
@@ -118,20 +205,20 @@
 
                 <!-- Contact -->
                 <a href="{{ route('contact') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('Contact') }}
                 </a>
 
                 <!-- Visilab Dropdown -->
-                <div class="relative" @mouseenter="visilabDropdown = true" @mouseleave="visilabDropdown = false">
+                <div class="relative shrink-0" @mouseenter="visilabDropdown = true" @mouseleave="visilabDropdown = false">
                     <button
-                        class="flex items-center gap-1 px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                        class="vn-nav-link inline-flex items-center gap-1 font-medium rounded-full transition-all duration-300 cursor-pointer"
                         :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                             'text-white/90 hover:text-white hover:bg-white/10'">
                         <span>{{ __('Visilab') }}</span>
-                        <svg class="w-4 h-4 transition-transform duration-200"
+                        <svg class="w-3.5 h-3.5 shrink-0 transition-transform duration-200"
                             :class="visilabDropdown ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
@@ -186,7 +273,7 @@
 
                 <!-- SGM -->
                 <a href="{{ route('sgm') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('SGM') }}
@@ -194,7 +281,7 @@
 
                 <!-- Karir -->
                 <a href="{{ route('karir') }}"
-                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    class="vn-nav-link font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
                     {{ __('Careers') }}
@@ -202,19 +289,19 @@
             </div>
 
             <!-- Right Actions -->
-            <div class="flex items-center gap-2 sm:gap-3">
+            <div class="vn-nav-actions">
                 @php
                     $currentLocale = app()->getLocale();
                 @endphp
 
                 <!-- Language Toggle Switch (ID / EN) -->
-                <div class="flex items-center p-0.5 rounded-full text-xs font-semibold transition-all duration-300 shadow-2xs"
+                <div class="flex items-center p-0.5 rounded-full text-xs font-semibold transition-all duration-300 shadow-2xs shrink-0"
                     :class="(scrolled || solidPage) ?
                         'bg-slate-100 dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700' :
                         'bg-white/15 dark:bg-slate-900/40 backdrop-blur-md border border-white/20 dark:border-slate-700/60'">
                     <a href="{{ route('set-locale', 'id') }}"
                         @click.prevent="window.changeWebsiteLanguage ? window.changeWebsiteLanguage('id') : (window.location.href='{{ route('set-locale', 'id') }}')"
-                        class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none {{ $currentLocale === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
+                        class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none whitespace-nowrap {{ $currentLocale === 'id' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
                         :class="'{{ $currentLocale }}' === 'id' ?
                             'bg-blue-600 text-white shadow-xs font-bold' :
                             ((scrolled || solidPage) ?
@@ -225,7 +312,7 @@
                     </a>
                     <a href="{{ route('set-locale', 'en') }}"
                         @click.prevent="window.changeWebsiteLanguage ? window.changeWebsiteLanguage('en') : (window.location.href='{{ route('set-locale', 'en') }}')"
-                        class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none {{ $currentLocale === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
+                        class="px-2.5 py-1 rounded-full transition-all duration-200 flex items-center gap-1 cursor-pointer select-none whitespace-nowrap {{ $currentLocale === 'en' ? 'bg-blue-600 text-white shadow-xs font-bold' : '' }}"
                         :class="'{{ $currentLocale }}' === 'en' ?
                             'bg-blue-600 text-white shadow-xs font-bold' :
                             ((scrolled || solidPage) ?
@@ -238,16 +325,16 @@
 
                 <!-- Theme Toggle -->
                 <button @click="toggleDarkMode()"
-                    class="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer"
+                    class="w-9 h-9 rounded-full flex items-center justify-center shrink-0 transition-all duration-300 cursor-pointer"
                     :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/80 hover:text-white hover:bg-white/10'"
                     title="{{ __('Toggle Mode Tampilan') }}">
-                    <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    <svg x-show="!darkMode" class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                     </svg>
-                    <svg x-show="darkMode" x-cloak class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                    <svg x-show="darkMode" x-cloak class="w-4 h-4" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -257,22 +344,22 @@
                 <!-- Login / Portal Button -->
                 @auth
                     <a href="{{ Auth::user()->isStudent() ? route('student.dashboard') : route('dashboard') }}"
-                        class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300"
+                        class="vn-nav-cta hidden sm:inline-flex items-center gap-1.5 rounded-full font-semibold transition-all duration-300"
                         :class="(scrolled || solidPage) ?
                             'bg-blue-600 hover:bg-blue-700 text-white shadow-xs' :
                             'bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/20'">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                         <span>{{ Auth::user()->isStudent() ? 'Visi Academy' : 'Dashboard' }}</span>
                     </a>
                 @else
                     <a href="{{ route('login') }}"
-                        class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-300"
+                        class="vn-nav-cta hidden sm:inline-flex items-center gap-1.5 rounded-full font-semibold transition-all duration-300"
                         :class="(scrolled || solidPage) ?
                             'bg-blue-600 hover:bg-blue-700 text-white shadow-xs' :
                             'bg-white/20 hover:bg-white/30 text-white backdrop-blur-md border border-white/20'">
-                        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                         </svg>
                         <span>Masuk</span>
@@ -281,7 +368,7 @@
 
                 <!-- Mobile Menu Button -->
                 <button @click="mobileOpen = !mobileOpen"
-                    class="lg:hidden w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer"
+                    class="vn-nav-mobile-toggle w-9 h-9 rounded-full items-center justify-center shrink-0 transition-all duration-300 cursor-pointer"
                     :class="(scrolled || solidPage) ? 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
                     <svg x-show="!mobileOpen" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
@@ -302,7 +389,7 @@
         <div x-show="mobileOpen" x-transition:enter="transition ease-out duration-200"
             x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
-            x-transition:leave-end="opacity-0 -translate-y-4" x-cloak class="lg:hidden mt-4"
+            x-transition:leave-end="opacity-0 -translate-y-4" x-cloak class="vn-nav-mobile-menu mt-3"
             :class="(scrolled || solidPage) ? 'bg-white dark:bg-slate-800 rounded-2xl shadow-lg p-4' :
                 'bg-white/10 backdrop-blur-xl rounded-2xl p-4'">
             <div class="flex flex-col gap-1">
@@ -425,7 +512,7 @@
                 @auth
                     <a href="{{ Auth::user()->isStudent() ? route('student.dashboard') : route('dashboard') }}" @click="mobileOpen = false"
                         class="px-4 py-3 text-sm font-bold rounded-xl bg-blue-600 text-white flex items-center justify-between shadow-xs">
-                        <span>{{ Auth::user()->isStudent() ? 'Visi Academy (Akun Saya)' : 'Dashboard' }}</span>
+                        <span>{{ Auth::user()->isStudent() ? 'Portal Member (Visi Academy)' : 'Dashboard' }}</span>
                         <span>&rarr;</span>
                     </a>
                 @else
