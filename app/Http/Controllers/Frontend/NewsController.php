@@ -30,18 +30,7 @@ class NewsController extends Controller
 
         $posts = $query->paginate(12)->withQueryString();
 
-        $categories = NewsPost::published()
-            ->distinct()
-            ->pluck('category')
-            ->filter()
-            ->values();
-
-        // Always expose "Event" category even before the first Event article is published
-        if (!$categories->contains(fn ($cat) => strtolower((string) $cat) === 'event')) {
-            $categories->push('Event');
-        }
-
-        $categories = $categories->sort(SORT_NATURAL | SORT_FLAG_CASE)->values();
+        $categories = NewsPost::availableCategories(publishedOnly: true);
 
         $featuredQuery = NewsPost::published()
             ->featured()

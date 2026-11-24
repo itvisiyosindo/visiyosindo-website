@@ -12,6 +12,8 @@ class NewsPost extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const DEFAULT_CATEGORIES = ['Event', 'Visi Academy'];
+
     protected $fillable = [
         'title',
         'slug',
@@ -221,5 +223,23 @@ class NewsPost extends Model
             'scheduled' => 'Terjadwal',
             default => 'Unknown',
         };
+    }
+
+    /**
+     * Distinct categories including built-in defaults (Event, Visi Academy).
+     */
+    public static function availableCategories(bool $publishedOnly = false)
+    {
+        $query = $publishedOnly ? static::published() : static::query();
+
+        $categories = $query->distinct()->pluck('category')->filter()->values();
+
+        foreach (self::DEFAULT_CATEGORIES as $defaultCategory) {
+            if (!$categories->contains(fn ($cat) => strtolower((string) $cat) === strtolower($defaultCategory))) {
+                $categories->push($defaultCategory);
+            }
+        }
+
+        return $categories->sort(SORT_NATURAL | SORT_FLAG_CASE)->values();
     }
 }
