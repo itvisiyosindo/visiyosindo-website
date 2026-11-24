@@ -9,6 +9,8 @@ return [
     'certificates' => 'Certificates',
     'product' => 'Products',
     'products' => 'Products',
+    'news' => 'News',
+    'events' => 'Events',
     'news_event' => 'News & Events',
     'contact' => 'Contact',
     'visilab' => 'Visilab',

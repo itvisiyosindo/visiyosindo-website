@@ -9,6 +9,8 @@ return [
     'certificates' => 'Sertifikat',
     'product' => 'Produk',
     'products' => 'Produk',
+    'news' => 'Berita',
+    'events' => 'Acara',
     'news_event' => 'Berita & Acara',
     'contact' => 'Kontak',
     'visilab' => 'Visilab',

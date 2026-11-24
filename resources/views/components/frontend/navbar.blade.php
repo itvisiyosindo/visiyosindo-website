@@ -100,12 +100,20 @@
                     {{ __('Products') }}
                 </a>
 
-                <!-- News & Event -->
+                <!-- News -->
                 <a href="{{ route('news') }}"
                     class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white/90 hover:text-white hover:bg-white/10'">
-                    {{ __('News & Event') }}
+                    {{ __('News') }}
+                </a>
+
+                <!-- Events -->
+                <a href="{{ route('events') }}"
+                    class="px-4 py-2 text-sm font-medium rounded-full transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white/90 hover:text-white hover:bg-white/10'">
+                    {{ __('Events') }}
                 </a>
 
                 <!-- Contact -->
@@ -349,7 +357,14 @@
                     class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
                     :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
                         'text-white hover:bg-white/10'">
-                    {{ __('News & Event') }}
+                    {{ __('News') }}
+                </a>
+
+                <a href="{{ route('events') }}" @click="mobileOpen = false"
+                    class="px-4 py-3 text-sm font-medium rounded-xl transition-all duration-300"
+                    :class="(scrolled || solidPage) ? 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800' :
+                        'text-white hover:bg-white/10'">
+                    {{ __('Events') }}
                 </a>
 
                 <a href="{{ route('contact') }}" @click="mobileOpen = false"
