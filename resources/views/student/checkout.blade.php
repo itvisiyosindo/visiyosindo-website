@@ -42,6 +42,21 @@
                 width: auto !important;
             }
         }
+        .st-grid-12 {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+        .st-col-7, .st-col-5 {
+            grid-column: span 1 / span 1 !important;
+            min-width: 0 !important;
+        }
+        @media (min-width: 1024px) {
+            .st-grid-12 {
+                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+            }
+            .st-col-7 { grid-column: span 7 / span 7 !important; }
+            .st-col-5 { grid-column: span 5 / span 5 !important; }
+        }
     </style>
 </head>
 
@@ -135,9 +150,9 @@
             <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Periksa rincian kelas, gunakan kode referral jika ada, lalu konfirmasi pendaftaran.</p>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <div class="st-grid-12 gap-8">
             <!-- Left Column: Class & Participant Info -->
-            <div class="lg:col-span-7 space-y-6">
+            <div class="st-col-7 space-y-6">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-4">
                     <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 inline-block">
                         {{ $trainingClass->category }} &bull; {{ $trainingClass->batch_name }}
@@ -191,7 +206,7 @@
             </div>
 
             <!-- Right Column: Referral & Confirm -->
-            <div class="lg:col-span-5">
+            <div class="st-col-5">
                 <form action="{{ route('student.enroll', $trainingClass->id) }}" method="POST"
                     class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl space-y-5 border border-slate-100 dark:border-slate-800">
                     @csrf

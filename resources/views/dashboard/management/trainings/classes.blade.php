@@ -167,7 +167,7 @@
         </div>
 
         <!-- Filter Strip (Sleek & Integrated) -->
-        <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
+        <div class="p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.classes') }}" method="GET" class="vb-filter-form">
                 <div class="vb-filter-search">
                     <div class="vb-filter-search-icon">
@@ -379,7 +379,7 @@
                     </div>
 
                     <!-- Card Actions Footer -->
-                    <div class="p-3.5 bg-slate-50/80 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
+                    <div class="p-4 bg-slate-50/80 dark:bg-slate-800/50 border-t border-slate-100 dark:border-slate-800">
                         <div class="grid grid-cols-2 gap-2">
                             <!-- Materi -->
                             <a href="{{ route('dashboard.trainings.materials', $item->id) }}"
@@ -465,7 +465,8 @@
             class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
             @keydown.escape.window="showCreateModal = false">
             <div @click.away="showCreateModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
+                style="max-height: 85vh;"
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 overflow-y-auto">
                 
                 <div class="flex items-center justify-between pb-4 border-b border-surface-100 dark:border-surface-700">
                     <div class="flex items-center gap-3">
@@ -633,7 +634,8 @@
             class="fixed inset-0 z-50 overflow-y-auto flex items-start justify-center p-4 py-8 bg-slate-900/60 backdrop-blur-sm"
             @keydown.escape.window="showEditModal = false">
             <div @click.away="showEditModal = false"
-                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 max-h-[85vh] overflow-y-auto">
+                style="max-height: 85vh;"
+                class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 max-w-2xl w-full shadow-2xl space-y-6 overflow-y-auto">
                 
                 <div class="flex items-center justify-between pb-4 border-b border-surface-100 dark:border-surface-700">
                     <div class="flex items-center gap-3">

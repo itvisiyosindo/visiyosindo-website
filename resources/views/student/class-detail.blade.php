@@ -13,6 +13,28 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo/visiyosindo.png') }}">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+    <style>
+        .st-grid-12 {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+        .st-col-8, .st-col-4 {
+            grid-column: span 1 / span 1 !important;
+            min-width: 0 !important;
+        }
+        @media (min-width: 1024px) {
+            .st-grid-12 {
+                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+            }
+            .st-col-8 { grid-column: span 8 / span 8 !important; }
+            .st-col-4 {
+                grid-column: span 4 / span 4 !important;
+                position: sticky !important;
+                top: 6.5rem !important;
+            }
+        }
+    </style>
 </head>
 
 <body class="font-sans antialiased min-h-screen bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 flex flex-col">
@@ -56,9 +78,9 @@
         <div class="sm:hidden mb-4">
             <a href="{{ route('student.classes') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">&larr; Kembali ke Katalog Kelas</a>
         </div>
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div class="st-grid-12 gap-8 items-start">
             <!-- Left Content -->
-            <div class="lg:col-span-8 space-y-6">
+            <div class="st-col-8 space-y-6">
                 @if($trainingClass->image)
                     <div class="rounded-3xl overflow-hidden shadow-lg bg-slate-900 flex items-center justify-center" style="max-height: 520px;">
                         <img src="{{ asset('storage/' . $trainingClass->image) }}" alt="{{ $trainingClass->title }}" class="w-full h-full object-contain" style="max-height: 520px;">
@@ -154,7 +176,7 @@
             </div>
 
             <!-- Right Sticky Checkout Card -->
-            <div class="lg:col-span-4 lg:sticky lg:top-28 space-y-4">
+            <div class="st-col-4 space-y-4">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl space-y-5 border border-slate-100 dark:border-slate-800">
                     <div>
                         <span class="text-xs font-black uppercase tracking-wider text-slate-400 block">Investasi Pelatihan</span>

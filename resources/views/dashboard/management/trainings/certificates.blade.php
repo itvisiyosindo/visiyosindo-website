@@ -105,7 +105,7 @@
         </div>
 
         <!-- Filter Strip (Sleek & Integrated) -->
-        <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
+        <div class="p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.certificates') }}" method="GET" class="vb-filter-form">
                 <div class="vb-filter-search">
                     <div class="vb-filter-search-icon">
@@ -135,7 +135,7 @@
         <!-- High-End Certificates Table -->
         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="vb-table min-w-[760px] text-left">
+                <table class="vb-table text-left" style="min-width: 760px;">
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-4 px-6">No. Sertifikat & Verifikasi</th>

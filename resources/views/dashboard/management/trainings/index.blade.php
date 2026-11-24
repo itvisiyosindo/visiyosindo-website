@@ -138,7 +138,7 @@
         </div>
 
         <!-- Filter & Search Section (Smooth) -->
-        <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
+        <div class="p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.index') }}" method="GET" class="vb-filter-form">
                 <div class="vb-filter-search">
                     <div class="vb-filter-search-icon">
@@ -200,7 +200,7 @@
         <!-- Participants Table Section (Smooth, High-Energy) -->
         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="vb-table min-w-[780px] text-left">
+                <table class="vb-table text-left" style="min-width: 780px;">
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-4 px-6">Informasi Peserta</th>
@@ -513,7 +513,7 @@
                         <button type="button" @click="showRejectModal = false" class="px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold">
                             Batal
                         </button>
-                        <button type="submit" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black cursor-pointer">
+                        <button type="submit" style="background-color: #e11d48; color: #ffffff;" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-black cursor-pointer">
                             Konfirmasi Batalkan
                         </button>
                     </div>

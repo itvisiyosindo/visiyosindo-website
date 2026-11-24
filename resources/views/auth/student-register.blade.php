@@ -38,7 +38,7 @@
         </p>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-lg">
+    <div class="mt-8 mx-auto w-full max-w-lg">
         <div class="bg-white dark:bg-slate-800 py-8 px-6 shadow-xl shadow-slate-200/50 dark:shadow-slate-950/50 rounded-3xl sm:px-10">
             
             @if ($errors->any())

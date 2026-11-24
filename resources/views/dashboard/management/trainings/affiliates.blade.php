@@ -94,7 +94,7 @@
         </div>
 
         <!-- Filter Strip (Sleek & Integrated) -->
-        <div class="p-3.5 sm:p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
+        <div class="p-4 bg-white dark:bg-slate-900 rounded-3xl shadow-sm">
             <form action="{{ route('dashboard.trainings.affiliates') }}" method="GET" class="vb-filter-form">
                 <div class="vb-filter-search">
                     <div class="vb-filter-search-icon">
@@ -124,7 +124,7 @@
         <!-- High-End Affiliates Table -->
         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="vb-table min-w-[740px] text-left">
+                <table class="vb-table text-left" style="min-width: 740px;">
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-4 px-6">Kode Kupon Afiliasi</th>
@@ -230,7 +230,7 @@
             </div>
 
             <div class="overflow-x-auto">
-                <table class="vb-table min-w-[640px] text-left text-xs">
+                <table class="vb-table text-left text-xs" style="min-width: 640px;">
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-3.5 px-4">Pelajar</th>

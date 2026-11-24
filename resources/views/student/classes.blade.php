@@ -251,7 +251,7 @@
                         </div>
                     </div>
 
-                    <div class="p-6 pt-0 mt-2 space-y-2.5">
+                    <div class="px-6 pb-6 mt-2 space-y-2.5">
                         <div class="flex items-baseline justify-between py-4 border-t border-slate-100 dark:border-slate-800">
                             <div>
                                 <span class="text-[10px] text-slate-400 uppercase tracking-wider block font-black">Investasi Pelatihan</span>

@@ -21,6 +21,21 @@
             background-color: #f59e0b !important;
             color: #000000 !important;
         }
+        .vb-grid-12 {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+        .vb-col-5, .vb-col-7 {
+            grid-column: span 1 / span 1 !important;
+            min-width: 0 !important;
+        }
+        @media (min-width: 1024px) {
+            .vb-grid-12 {
+                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+            }
+            .vb-col-5 { grid-column: span 5 / span 5 !important; }
+            .vb-col-7 { grid-column: span 7 / span 7 !important; }
+        }
     </style>
 
     <!-- Signature Visi Academy Hero Banner -->
@@ -60,13 +75,13 @@
     </div>
 
     <div class="space-y-6" x-data="{ materialType: 'pdf' }">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div class="vb-grid-12 gap-6">
             <!-- Add Material Form -->
-            <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-5">
+            <div class="vb-col-5 bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-5">
                 <h2 class="text-base font-black text-slate-900 dark:text-white">Tambah Materi Baru</h2>
 
                 @if($errors->any())
-                    <div class="p-3.5 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-xs text-rose-600 dark:text-rose-300 space-y-1">
+                    <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-950/40 text-xs text-rose-600 dark:text-rose-300 space-y-1">
                         @foreach($errors->all() as $err)
                             <p>{{ $err }}</p>
                         @endforeach
@@ -124,7 +139,7 @@
             </div>
 
             <!-- Materials List -->
-            <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-4">
+            <div class="vb-col-7 bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
                     <h2 class="text-base font-black text-slate-900 dark:text-white">Daftar Materi Terpasang ({{ $trainingClass->materials->count() }})</h2>
                 </div>

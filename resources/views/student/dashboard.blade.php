@@ -89,6 +89,34 @@
             height: 100vh;
             height: 100dvh;
         }
+        .vb-sidebar {
+            width: min(18rem, 85vw) !important;
+        }
+
+        /* Guaranteed 12-col layout (production CSS lacks lg:col-span-5 / 7) */
+        .vb-grid-12 {
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr) !important;
+        }
+        .vb-col-7, .vb-col-5, .vb-col-8, .vb-col-4 {
+            grid-column: span 1 / span 1 !important;
+            min-width: 0 !important;
+        }
+        @media (min-width: 1024px) {
+            .vb-sidebar {
+                width: 16rem !important;
+            }
+            .vb-hero-btns {
+                flex-direction: column !important;
+            }
+            .vb-grid-12 {
+                grid-template-columns: repeat(12, minmax(0, 1fr)) !important;
+            }
+            .vb-col-7 { grid-column: span 7 / span 7 !important; }
+            .vb-col-5 { grid-column: span 5 / span 5 !important; }
+            .vb-col-8 { grid-column: span 8 / span 8 !important; }
+            .vb-col-4 { grid-column: span 4 / span 4 !important; }
+        }
 
         /* Unified Student Card Header, Flyer Framing & Floating Badges */
         .vb-card-header {
@@ -273,7 +301,7 @@
         </div>
 
         <!-- Sidebar Container (Borderless & Soft) -->
-        <aside class="fixed inset-y-0 left-0 z-50 w-72 sm:w-80 lg:w-64 max-w-[85vw] bg-white dark:bg-slate-900 shadow-2xl lg:shadow-sm flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
+        <aside class="vb-sidebar fixed inset-y-0 left-0 z-50 bg-white dark:bg-slate-900 shadow-2xl lg:shadow-sm flex flex-col justify-between transition-transform duration-300 ease-in-out lg:static lg:translate-x-0"
             :class="mobileSidebarOpen ? 'translate-x-0' : '-translate-x-full'">
 
             <!-- Top Header & Brand -->
@@ -314,7 +342,7 @@
                         </svg>
                     </span>
                     <span class="flex-1 text-left truncate font-semibold">Overview</span>
-                    <span x-show="currentTab === 'overview'" class="shrink-0 w-2 h-2 rounded-full bg-amber-400 shadow-xs animate-pulse"></span>
+                    <span x-show="currentTab === 'overview'" style="background-color: #fbbf24;" class="shrink-0 w-2 h-2 rounded-full shadow-xs animate-pulse"></span>
                 </button>
 
                 <!-- 2. Kelas Saya -->
@@ -357,7 +385,8 @@
                     </span>
                     <span class="flex-1 text-left truncate font-semibold">Daftar Kelas</span>
                     <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
-                        :class="currentTab === 'browse' ? 'bg-amber-400 text-slate-950' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
+                        :class="currentTab === 'browse' ? '' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'"
+                        :style="currentTab === 'browse' ? 'background-color: #fbbf24; color: #0f172a;' : ''">
                         OPEN
                     </span>
                 </button>
@@ -407,7 +436,8 @@
                     </span>
                     <span class="flex-1 text-left truncate font-semibold">Afiliasi</span>
                     <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
-                        :class="currentTab === 'affiliate' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
+                        :class="currentTab === 'affiliate' ? '' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'"
+                        :style="currentTab === 'affiliate' ? 'background-color: #fbbf24; color: #0f172a;' : ''">
                         {{ $academySettings['affiliate_commission_percent'] }}% Komisi
                     </span>
                 </button>
@@ -433,7 +463,8 @@
                     @endphp
                     @if($unpaidCount > 0)
                         <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all"
-                            :class="currentTab === 'invoices' ? 'bg-amber-400 text-slate-950' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'">
+                            :class="currentTab === 'invoices' ? '' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'"
+                            :style="currentTab === 'invoices' ? 'background-color: #fbbf24; color: #0f172a;' : ''">
                             {{ $unpaidCount }} Belum Bayar
                         </span>
                     @endif
@@ -595,7 +626,7 @@
                             </div>
 
                             <!-- Right Side: Fast Motivating Action Buttons (High Contrast & Gold Touch) -->
-                            <div class="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
+                            <div class="vb-hero-btns flex flex-col sm:flex-row gap-3 shrink-0">
                                 <button type="button" @click="setTab('browse')"
                                     style="background-color: #fbbf24 !important; color: #0f172a !important;"
                                     class="vb-gold-btn px-5 py-3 rounded-2xl font-display font-black text-xs sm:text-sm shadow-xl shadow-blue-950/30 hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer group">
@@ -964,7 +995,7 @@
                                     </div>
 
                                     <!-- Action Buttons -->
-                                    <div class="p-6 pt-0 mt-2 space-y-2.5">
+                                    <div class="px-6 pb-6 mt-2 space-y-2.5">
                                         @if($enrollment->status === 'pending')
                                             @if($enrollment->hasPaymentProof())
                                                 <div class="px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 text-[11px] font-bold flex items-center justify-between gap-2">
@@ -1077,13 +1108,13 @@
                                                 <img src="{{ asset('storage/' . $class->image) }}" alt="{{ $class->title }}" class="vb-card-photo-img group-hover:scale-105 transition-transform duration-500">
                                                 <div class="absolute inset-0 pointer-events-none" style="background: linear-gradient(180deg, rgba(15,23,42,0.55) 0%, rgba(15,23,42,0.05) 55%, rgba(15,23,42,0.25) 100%);"></div>
                                                 <div class="vb-card-floating-badges">
-                                                    <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md truncate max-w-[55%]"
-                                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a;">
+                                                    <span class="text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md truncate"
+                                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a; max-width: 55%;">
                                                         {{ $class->category ?? 'Bootcamp' }}
                                                     </span>
                                                     @if($class->batch_name)
-                                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wide shadow-md truncate max-w-[45%]"
-                                                            style="background-color: #fbbf24; color: #0f172a;">
+                                                        <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wide shadow-md truncate"
+                                                            style="background-color: #fbbf24; color: #0f172a; max-width: 45%;">
                                                             {{ $class->batch_name }}
                                                         </span>
                                                     @endif
@@ -1098,12 +1129,12 @@
                                                        @else background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%); @endif">
                                                 <div class="absolute -right-8 -top-8 w-36 h-36 bg-white/10 rounded-full blur-xl group-hover:scale-125 transition-transform"></div>
                                                 <div class="flex items-center justify-between gap-2 z-10">
-                                                    <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider truncate max-w-[55%]">
+                                                    <span class="px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-[11px] font-bold uppercase tracking-wider truncate" style="max-width: 55%;">
                                                         {{ $class->category ?? 'Bootcamp' }}
                                                     </span>
                                                     @if($class->batch_name)
-                                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wide truncate max-w-[45%]"
-                                                            style="background-color: #fbbf24; color: #0f172a;">
+                                                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wide truncate"
+                                                            style="background-color: #fbbf24; color: #0f172a; max-width: 45%;">
                                                             {{ $class->batch_name }}
                                                         </span>
                                                     @endif
@@ -1170,7 +1201,7 @@
                                     </div>
 
                                     <!-- Enrollment Action Button -->
-                                    <div class="p-6 pt-0">
+                                    <div class="px-6 pb-6">
                                         @if($isAlreadyEnrolled)
                                             <button type="button" @click="setTab('classes')"
                                                 class="w-full py-2.5 px-4 rounded-xl bg-blue-50 dark:bg-slate-800 text-blue-950 vb-text-navy dark:text-blue-300 font-black text-xs flex items-center justify-center gap-1.5 cursor-pointer">
@@ -1378,10 +1409,10 @@
                     </div>
 
                     <!-- Top 2-Column Banner: Saldo Box (Left) & Stats Box (Right) -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="vb-grid-12 gap-6">
                         <!-- Left: Saldo Komisi Afiliasimu Banner (Deep Blue Card dengan Koin Emas 3D) -->
-                        <div style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 100%) !important; color: #ffffff !important;"
-                            class="vb-banner-secondary lg:col-span-7 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between relative overflow-hidden min-h-[220px]">
+                        <div style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 100%) !important; color: #ffffff !important; min-height: 220px;"
+                            class="vb-banner-secondary vb-col-7 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col justify-between relative overflow-hidden">
                             <!-- Ambient Glows -->
                             <div class="absolute -right-6 -bottom-8 w-44 h-44 bg-blue-500/20 rounded-full blur-2xl pointer-events-none"></div>
 
@@ -1468,7 +1499,7 @@
                         </div>
 
                         <!-- Right: Stats Breakdown (Komisi Bulan Ini, Sudah Ditarik, Total Seluruh) -->
-                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col justify-between shadow-sm space-y-3">
+                        <div class="vb-col-5 bg-white dark:bg-slate-900 rounded-3xl p-6 flex flex-col justify-between shadow-sm space-y-3">
                             <!-- Row 1: Komisi Bulan Ini -->
                             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
                                 <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
@@ -1494,7 +1525,7 @@
                             <!-- Row 3: Total Seluruh Komisi -->
                             <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60">
                                 <div class="flex items-center gap-2 text-xs font-bold text-slate-500 dark:text-slate-400 mb-1">
-                                    <span class="w-2 h-2 rounded-full bg-violet-600"></span>
+                                    <span style="background-color: #7c3aed;" class="w-2 h-2 rounded-full"></span>
                                     <span>Total Seluruh Komisi</span>
                                 </div>
                                 <div class="text-xl sm:text-2xl font-display font-black text-slate-900 dark:text-white">
@@ -1576,9 +1607,9 @@
                     </div>
 
                     <!-- Bottom Section: Daftar Kode Afiliasimu (Left) & Afiliasi Terakhir (Right) -->
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="vb-grid-12 gap-6">
                         <!-- Left: Daftar Kode Afiliasimu -->
-                        <div class="lg:col-span-8 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                        <div class="vb-col-8 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                                 <div>
                                     <h3 class="text-lg font-display font-extrabold text-blue-950 vb-text-navy dark:text-white">Daftar Kode Afiliasimu</h3>
@@ -1596,7 +1627,7 @@
 
                             <!-- Table Codes -->
                             <div class="overflow-x-auto">
-                                <table class="vb-table min-w-[520px] text-left text-xs">
+                                <table class="vb-table text-left text-xs" style="min-width: 520px;">
                                     <thead>
                                         <tr class="text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="pb-3 px-2">Kode Afiliasi</th>
@@ -1664,7 +1695,7 @@
                         </div>
 
                         <!-- Right: Afiliasi Terakhir -->
-                        <div class="lg:col-span-4 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between">
+                        <div class="vb-col-4 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col justify-between">
                             <div class="space-y-4">
                                 <div class="flex items-center justify-between">
                                     <h3 class="text-base font-display font-extrabold text-slate-900 dark:text-white">Afiliasi Terakhir</h3>
@@ -1722,7 +1753,7 @@
                             </div>
                         @else
                             <div class="overflow-x-auto">
-                                <table class="vb-table min-w-[600px] text-left text-xs">
+                                <table class="vb-table text-left text-xs" style="min-width: 600px;">
                                     <thead>
                                         <tr class="text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-3 px-2">Tanggal Ajuan</th>
@@ -1778,7 +1809,7 @@
                         <!-- Invoices List Card -->
                         <div class="bg-white dark:bg-slate-900 rounded-3xl shadow-sm overflow-hidden">
                             <div class="overflow-x-auto">
-                                <table class="vb-table min-w-[720px] text-left text-xs">
+                                <table class="vb-table text-left text-xs" style="min-width: 720px;">
                                     <thead>
                                         <tr class="bg-slate-50 dark:bg-slate-800/60 text-slate-400 font-bold uppercase tracking-wider">
                                             <th class="py-4 px-6">No. Invoice</th>
@@ -1881,9 +1912,9 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <div class="vb-grid-12 gap-8">
                         <!-- Left Form: Data Diri Pelajar -->
-                        <div class="lg:col-span-7 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                        <div class="vb-col-7 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div>
                                 <h3 class="text-base font-display font-bold text-slate-900 dark:text-white">Data Diri Peserta Pelatihan</h3>
                                 <p class="text-xs text-slate-500 dark:text-slate-400">Pastikan nama lengkap sesuai kartu identitas karena digunakan pada cetak sertifikat resmi.</p>
@@ -1959,7 +1990,7 @@
                         </div>
 
                         <!-- Right Form: Ganti Kata Sandi -->
-                        <div class="lg:col-span-5 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+                        <div class="vb-col-5 bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                             <div>
                                 <h3 class="text-base font-display font-bold text-slate-900 dark:text-white">Keamanan Akun</h3>
                                 <p class="text-xs text-slate-500 dark:text-slate-400">Perbarui kata sandi akun untuk menjaga keamanan data Anda.</p>

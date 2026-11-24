@@ -75,12 +75,12 @@
                     <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
                         <span class="px-3 py-1 rounded-full bg-white/15">{{ $cls->category }}</span>
                         @if($cls->batch_name)
-                            <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-black">{{ $cls->batch_name }}</span>
+                            <span style="background-color: #fbbf24; color: #0f172a;" class="px-3 py-1 rounded-full font-black">{{ $cls->batch_name }}</span>
                         @endif
                         <span class="px-3 py-1 rounded-full bg-white/15">{{ $cls->delivery_mode_label }}</span>
                     </div>
                     <h1 class="text-2xl sm:text-3xl font-black leading-tight break-words">{{ $cls->title }}</h1>
-                    <div class="flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-blue-100">
+                    <div class="flex flex-wrap items-center gap-3 text-xs text-blue-100">
                         @if($cls->instructor)
                             <span>Narasumber: <strong class="text-white">{{ $cls->instructor }}</strong></span>
                         @endif
