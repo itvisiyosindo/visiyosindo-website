@@ -1,7 +1,9 @@
 @php
-    $metaTitle = 'News & Updates - PT Visi Yosindo Medikal';
-    $metaDescription = __('Berita terbaru dan update seputar inovasi alat kesehatan, produk terbaru, dan perkembangan industri kesehatan di Indonesia.');
+    $metaTitle = 'News & Events - PT Visi Yosindo Medikal';
+    $metaDescription = __('Berita terbaru, acara, dan update seputar inovasi alat kesehatan, produk terbaru, dan perkembangan industri kesehatan di Indonesia.');
     $ogImage = asset('images/og-news.jpg');
+    $activeCategory = strtolower((string) request('category', ''));
+    $currentSearch = request('search');
 @endphp
 
 <x-layouts.frontend :title="$metaTitle" :metaDescription="$metaDescription" :ogImage="$ogImage">
@@ -62,26 +64,74 @@
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 60%, #0e7490 100%);
             color: #e2e8f0;
         }
-        .vni-events-box {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
-            border: 1px solid rgba(147, 197, 253, 0.25);
+        .vni-bubble-section {
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1.5rem 0;
         }
-        .vni-events-btn {
-            display: inline-flex;
+        html.dark .vni-bubble-section {
+            background: #0f172a;
+            border-bottom-color: #1e293b;
+        }
+        .vni-bubble-wrap {
+            display: flex;
+            flex-wrap: wrap;
             align-items: center;
             justify-content: center;
-            gap: 0.4rem;
-            width: 100%;
-            padding: 0.65rem 1rem;
-            border-radius: 0.6rem;
-            background: #fbbf24;
-            color: #0f172a;
-            font-weight: 700;
-            font-size: 0.875rem;
-            transition: background-color 0.2s ease;
+            gap: 0.625rem;
         }
-        .vni-events-btn:hover {
-            background: #fcd34d;
+        .vni-bubble {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.55rem 1.15rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            line-height: 1.2;
+            text-decoration: none;
+            background: #ffffff;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+            transition: all 0.2s ease;
+        }
+        .vni-bubble:hover {
+            color: #1d4ed8;
+            border-color: #60a5fa;
+            background: #eff6ff;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 14px rgba(37, 99, 235, 0.14);
+        }
+        html.dark .vni-bubble {
+            background: #1e293b;
+            color: #cbd5e1;
+            border-color: #334155;
+            box-shadow: 0 2px 6px rgba(2, 6, 23, 0.35);
+        }
+        html.dark .vni-bubble:hover {
+            color: #93c5fd;
+            border-color: #3b82f6;
+            background: #1e3a8a;
+        }
+        .vni-bubble-active,
+        .vni-bubble-active:hover {
+            background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%) !important;
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: 0 8px 18px rgba(37, 99, 235, 0.32) !important;
+            transform: translateY(-1px);
+        }
+        .vni-bubble-dot {
+            width: 0.45rem;
+            height: 0.45rem;
+            border-radius: 9999px;
+            background: currentColor;
+            opacity: 0.7;
+        }
+        .vni-bubble-active .vni-bubble-dot {
+            background: #ffffff;
+            opacity: 1;
         }
     </style>
 
@@ -111,16 +161,36 @@
                 <svg class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
                 </svg>
-                <span>{{ __('Berita & Update Terbaru') }}</span>
+                <span>{{ __('Berita & Acara') }}</span>
             </span>
 
             <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white mb-6 tracking-tight">
-                News & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400">Updates</span>
+                News & <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-400">Events</span>
             </h1>
 
             <p class="text-lg sm:text-xl text-white/80 max-w-3xl mx-auto leading-relaxed">
-                {{ __('Informasi terkini seputar inovasi, produk baru, dan perkembangan industri alat kesehatan') }}
+                {{ __('Informasi terkini seputar berita, acara, inovasi produk, dan perkembangan industri alat kesehatan') }}
             </p>
+        </div>
+    </section>
+
+    {{-- Category Bubbles Bar (Above Featured Stories) --}}
+    <section class="vni-bubble-section" aria-label="{{ __('Pilih Kategori') }}">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="vni-bubble-wrap">
+                <a href="{{ route('news', array_filter(['search' => $currentSearch])) }}"
+                    class="vni-bubble {{ $activeCategory === '' ? 'vni-bubble-active' : '' }}">
+                    <span class="vni-bubble-dot"></span>
+                    <span>{{ __('Semua') }}</span>
+                </a>
+                @foreach($categories as $cat)
+                    <a href="{{ route('news', array_filter(['category' => $cat, 'search' => $currentSearch])) }}"
+                        class="vni-bubble {{ $activeCategory === strtolower((string) $cat) ? 'vni-bubble-active' : '' }}">
+                        <span class="vni-bubble-dot"></span>
+                        <span>{{ $cat }}</span>
+                    </a>
+                @endforeach
+            </div>
         </div>
     </section>
 
@@ -232,7 +302,7 @@
                             >
                                 <option value="">{{ __('Semua Kategori') }}</option>
                                 @foreach($categories as $cat)
-                                    <option value="{{ $cat }}" {{ request('category') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                                    <option value="{{ $cat }}" {{ $activeCategory === strtolower((string) $cat) ? 'selected' : '' }}>{{ $cat }}</option>
                                 @endforeach
                             </select>
 
@@ -360,36 +430,15 @@
                             {{ __('Kategori') }}
                         </h3>
                         <div class="space-y-2">
-                            <a href="{{ route('news') }}" class="block px-3 py-2 rounded-lg {{ !request('category') ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
+                            <a href="{{ route('news', array_filter(['search' => $currentSearch])) }}" class="block px-3 py-2 rounded-lg {{ $activeCategory === '' ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
                                 {{ __('Semua Kategori') }}
                             </a>
                             @foreach($categories as $cat)
-                                <a href="{{ route('news', ['category' => $cat]) }}" class="block px-3 py-2 rounded-lg {{ request('category') === $cat ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
+                                <a href="{{ route('news', array_filter(['category' => $cat, 'search' => $currentSearch])) }}" class="block px-3 py-2 rounded-lg {{ $activeCategory === strtolower((string) $cat) ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 font-medium' : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600' }} transition-colors">
                                     {{ $cat }}
                                 </a>
                             @endforeach
                         </div>
-                    </div>
-
-                    {{-- Events & Posters Signpost --}}
-                    <div class="vni-events-box rounded-xl shadow-lg p-6 text-white">
-                        <div class="flex items-start gap-3 mb-4">
-                            <div class="w-10 h-10 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0">
-                                <svg class="w-5 h-5" style="color:#fcd34d;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                                </svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">{{ __('Poster & Agenda Acara') }}</h4>
-                                <p class="text-sm text-slate-200">{{ __('Cari jadwal webinar, pelatihan PPR, atau poster kegiatan resmi? Cek halaman Acara.') }}</p>
-                            </div>
-                        </div>
-                        <a href="{{ route('events') }}" class="vni-events-btn">
-                            <span>{{ __('Lihat Poster & Acara') }}</span>
-                            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
                     </div>
 
                    {{-- Promotion Banner (Like Homepage) --}}

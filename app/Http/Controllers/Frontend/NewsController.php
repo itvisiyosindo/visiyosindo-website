@@ -18,9 +18,9 @@ class NewsController extends Controller
             ->published()
             ->latest('published_at');
 
-        // Filter by category
+        // Filter by category (case-insensitive so Event/event both match)
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->whereRaw('LOWER(category) = ?', [strtolower($request->category)]);
         }
 
         // Search
@@ -28,19 +28,30 @@ class NewsController extends Controller
             $query->search($request->search);
         }
 
-        $posts = $query->paginate(12);
+        $posts = $query->paginate(12)->withQueryString();
+
         $categories = NewsPost::published()
             ->distinct()
             ->pluck('category')
             ->filter()
-            ->sort()
             ->values();
-        
-        $featuredPosts = NewsPost::published()
+
+        // Always expose "Event" category even before the first Event article is published
+        if (!$categories->contains(fn ($cat) => strtolower((string) $cat) === 'event')) {
+            $categories->push('Event');
+        }
+
+        $categories = $categories->sort(SORT_NATURAL | SORT_FLAG_CASE)->values();
+
+        $featuredQuery = NewsPost::published()
             ->featured()
-            ->latest('published_at')
-            ->limit(3)
-            ->get();
+            ->latest('published_at');
+
+        if ($request->filled('category')) {
+            $featuredQuery->whereRaw('LOWER(category) = ?', [strtolower($request->category)]);
+        }
+
+        $featuredPosts = $featuredQuery->limit(3)->get();
 
         return view('pages.news.index', compact('posts', 'categories', 'featuredPosts'));
     }

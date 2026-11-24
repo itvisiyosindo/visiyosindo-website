@@ -596,8 +596,8 @@ Route::get('/news', [\App\Http\Controllers\Frontend\NewsController::class, 'inde
 Route::get('/news/{slug}', [\App\Http\Controllers\Frontend\NewsController::class, 'show'])->name('news.detail');
 Route::post('/news/{slug}/share', [\App\Http\Controllers\Frontend\NewsController::class, 'share'])->name('news.share');
 
-Route::get('/events', [\App\Http\Controllers\Frontend\EventController::class, 'index'])->name('events');
-Route::get('/acara', [\App\Http\Controllers\Frontend\EventController::class, 'index']);
+Route::get('/events', fn () => redirect()->route('news', ['category' => 'Event']))->name('events');
+Route::get('/acara', fn () => redirect()->route('news', ['category' => 'Event']));
 
 Route::get('/contact', function () {
     return view('pages.contact');

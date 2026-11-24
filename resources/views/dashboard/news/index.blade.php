@@ -59,7 +59,7 @@
                 >
                     <option value="">Semua Kategori</option>
                     @foreach($categories as $cat)
-                        <option value="{{ $cat }}" {{ request('category') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
+                        <option value="{{ $cat }}" {{ strtolower((string) request('category')) === strtolower((string) $cat) ? 'selected' : '' }}>{{ $cat }}</option>
                     @endforeach
                 </select>
             </div>

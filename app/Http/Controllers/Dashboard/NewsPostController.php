@@ -26,7 +26,7 @@ class NewsPostController extends Controller
 
         // Filter by category
         if ($request->filled('category')) {
-            $query->where('category', $request->category);
+            $query->whereRaw('LOWER(category) = ?', [strtolower($request->category)]);
         }
 
         // Search
@@ -40,7 +40,7 @@ class NewsPostController extends Controller
         }
 
         $posts = $query->paginate(15);
-        $categories = NewsPost::distinct()->pluck('category')->filter()->sort()->values();
+        $categories = $this->availableCategories();
 
         return view('dashboard.news.index', compact('posts', 'categories'));
     }
@@ -50,7 +50,7 @@ class NewsPostController extends Controller
      */
     public function create()
     {
-        $categories = NewsPost::distinct()->pluck('category')->filter()->sort()->values();
+        $categories = $this->availableCategories();
         return view('dashboard.news.form', compact('categories'));
     }
 
@@ -138,9 +138,23 @@ class NewsPostController extends Controller
     {
         $id = EncryptedRouteHelper::decrypt($encryptedId);
         $post = NewsPost::findOrFail($id);
-        $categories = NewsPost::distinct()->pluck('category')->filter()->sort()->values();
+        $categories = $this->availableCategories();
         
         return view('dashboard.news.form', compact('post', 'categories'));
+    }
+
+    /**
+     * Distinct categories including default "Event" option.
+     */
+    private function availableCategories()
+    {
+        $categories = NewsPost::distinct()->pluck('category')->filter()->values();
+
+        if (!$categories->contains(fn ($cat) => strtolower((string) $cat) === 'event')) {
+            $categories->push('Event');
+        }
+
+        return $categories->sort(SORT_NATURAL | SORT_FLAG_CASE)->values();
     }
 
     /**
