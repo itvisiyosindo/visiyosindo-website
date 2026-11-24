@@ -68,8 +68,8 @@ class StudentAuthController extends Controller
             $studentRole = Role::firstOrCreate(
                 ['slug' => 'student'],
                 [
-                    'name' => 'Pelajar / Peserta Pelatihan',
-                    'description' => 'Akses portal peserta pelatihan, materi, dan sertifikat',
+                    'name' => 'Member Visi Academy',
+                    'description' => 'Akses portal member Visi Academy, program pelatihan & webinar, materi, dan sertifikat',
                     'is_active' => true,
                 ]
             );
@@ -104,7 +104,7 @@ class StudentAuthController extends Controller
 
         return redirect()->route('student.dashboard')->with('toast', [
             'type' => 'success',
-            'message' => 'Pendaftaran akun berhasil! Selamat datang di Portal Pelajar.',
+            'message' => 'Pendaftaran akun berhasil! Selamat datang di Portal Member Visi Academy.',
         ]);
     }
 }

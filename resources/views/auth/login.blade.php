@@ -233,7 +233,7 @@
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
-                        <span>Portal Pelajar</span>
+                        <span>Portal Member</span>
                     </button>
                     <button type="button" @click="role = 'admin'"
                         class="py-2.5 px-3 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-1.5 cursor-pointer"
@@ -398,7 +398,7 @@
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                 </path>
                             </svg>
-                            <span x-text="loading ? 'Memproses...' : (role === 'student' ? 'Masuk ke Portal Pelajar' : 'Masuk ke Dashboard Admin')"></span>
+                            <span x-text="loading ? 'Memproses...' : (role === 'student' ? 'Masuk ke Portal Member' : 'Masuk ke Dashboard Admin')"></span>
                             <svg x-show="!loading" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -407,18 +407,18 @@
                         </button>
                     </form>
 
-                    <!-- Student Registration CTA Box (When role is student) -->
+                    <!-- Member Registration CTA Box (When role is student) -->
                     <div x-show="role === 'student'" class="mt-6 pt-5 border-t border-slate-200 dark:border-slate-700">
                         <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 text-center">
                             <p class="text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
-                                Belum Memiliki Akun Pelajar?
+                                Belum Memiliki Akun Member?
                             </p>
                             <p class="text-[11px] text-slate-500 dark:text-slate-400 mb-3">
-                                Daftar mandiri sekarang untuk memilih kelas pelatihan dan akses sertifikat kelulusan.
+                                Daftar mandiri sekarang untuk mengikuti program pelatihan & webinar serta akses sertifikat resmi.
                             </p>
                             <a href="{{ route('student.register') }}"
                                 class="inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold transition-all shadow-sm shadow-blue-500/20">
-                                <span>Daftar Akun Pelajar Sendiri</span>
+                                <span>Daftar Akun Member</span>
                                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -431,7 +431,7 @@
                         <p class="text-xs text-slate-500 dark:text-slate-400">
                             Bukan staff atau admin?
                             <button type="button" @click="role = 'student'" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">
-                                Beralih ke Login Pelajar (Visi Academy)
+                                Beralih ke Login Member (Visi Academy)
                             </button>
                         </p>
                     </div>

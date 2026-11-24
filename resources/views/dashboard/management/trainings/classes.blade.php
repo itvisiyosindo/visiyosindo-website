@@ -2,9 +2,9 @@
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Visi Academy', 'url' => route('dashboard.trainings.classes')],
-        ['label' => 'Kelola Kelas Pelatihan']
+        ['label' => 'Kelola Program']
     ]"
-    title="Kelola Kelas Pelatihan - Visi Academy"
+    title="Kelola Program (Pelatihan & Webinar) - Visi Academy"
 >
     <!-- Main Content Container with Alpine.js Scope -->
     <div x-data="{
@@ -13,6 +13,7 @@
         editingClass: {
             id: '',
             title: '',
+            program_type: 'pelatihan',
             category: 'Radiologi',
             batch_name: '',
             instructor: '',
@@ -29,17 +30,21 @@
             image_url: '',
             description: '',
             syllabus: '',
-            is_active: true
+            is_active: true,
+            is_coming_soon: false
         },
         openEdit(cls) {
             this.editingClass = { 
                 ...cls,
+                program_type: cls.program_type || 'pelatihan',
                 instructor: cls.instructor || '',
                 quota: cls.quota || '',
                 registration_deadline: cls.registration_deadline ? String(cls.registration_deadline).substring(0, 10) : '',
                 location: cls.location || '',
                 delivery_mode: cls.delivery_mode || 'online',
                 syllabus: cls.syllabus || '',
+                is_active: Boolean(cls.is_active),
+                is_coming_soon: Boolean(cls.is_coming_soon),
                 image_url: cls.image ? '{{ asset('storage') }}/' + cls.image : '' 
             };
             this.showEditModal = true;
@@ -57,15 +62,15 @@
             <svg class="w-4 h-4 text-slate-950 group-hover:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M12 4v16m8-8H4" />
             </svg>
-            <span class="font-black text-slate-950">Tambah Kelas Baru</span>
+            <span class="font-black text-slate-950">Tambah Program Baru</span>
         </button>
         @php
             $actions = ob_get_clean();
         @endphp
 
         @include('dashboard.management.trainings.partials.header', [
-            'title' => 'Kelola Kelas Pelatihan',
-            'subtitle' => 'Atur silabus, jadwal, durasi, investasi pelatihan, hubungkan tautan WhatsApp grup peserta, dan buka pendaftaran batch baru.',
+            'title' => 'Kelola Program (Pelatihan & Webinar)',
+            'subtitle' => 'Atur program pelatihan dan webinar, jadwal atau status Coming Soon, silabus, tautan grup WhatsApp member, dan materi.',
             'active' => 'classes',
             'actions' => $actions,
         ])
@@ -91,7 +96,7 @@
                     </div>
                     <span class="vb-stat-pill vb-stat-pill-blue">
                         <span class="w-1.5 h-1.5 rounded-full" style="background-color: #2563eb;"></span>
-                        <span>Kelas Pelatihan Terdaftar</span>
+                        <span>Pelatihan & Webinar</span>
                     </span>
                 </div>
             </div>
@@ -99,7 +104,7 @@
             <!-- Card 2: Pendaftaran Aktif -->
             <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Pendaftaran Aktif</span>
+                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Program Aktif</span>
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md"
                         style="background: linear-gradient(135deg, #059669 0%, #0d9488 100%) !important; color: #ffffff !important; box-shadow: 0 8px 16px -2px rgba(5, 150, 105, 0.25) !important;">
                         <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -116,7 +121,7 @@
                             <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                             <span class="relative inline-flex rounded-full h-1.5 w-1.5" style="background-color: #10b981;"></span>
                         </span>
-                        <span>Siap Menerima Siswa</span>
+                        <span>Tampil di Katalog Member</span>
                     </span>
                 </div>
             </div>
@@ -138,15 +143,15 @@
                     </div>
                     <span class="vb-stat-pill vb-stat-pill-slate">
                         <span class="w-1.5 h-1.5 rounded-full" style="background-color: #94a3b8;"></span>
-                        <span>Batch Selesai / Ditutup</span>
+                        <span>Program Selesai / Ditutup</span>
                     </span>
                 </div>
             </div>
 
-            <!-- Card 4: Total Pelajar -->
+            <!-- Card 4: Total Member -->
             <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Total Pelajar</span>
+                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Total Member</span>
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md"
                         style="background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%) !important; color: #ffffff !important; box-shadow: 0 8px 16px -2px rgba(124, 58, 237, 0.25) !important;">
                         <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -160,7 +165,7 @@
                     </div>
                     <span class="vb-stat-pill vb-stat-pill-violet">
                         <span class="w-1.5 h-1.5 rounded-full" style="background-color: #7c3aed;"></span>
-                        <span>Pelajar Telah Mendaftar</span>
+                        <span>Member Telah Mendaftar</span>
                     </span>
                 </div>
             </div>
@@ -179,24 +184,35 @@
                         type="text" 
                         name="search" 
                         value="{{ request('search') }}"
-                        placeholder="Cari judul kelas pelatihan, nama batch, atau kategori..." 
+                        placeholder="Cari judul pelatihan/webinar, nama batch, atau kategori..." 
                         class="vb-filter-input text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-blue-500 transition-all"
                     >
+                </div>
+                <div class="vb-filter-select">
+                    <select 
+                        name="program_type" 
+                        class="vb-filter-select-input text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer font-medium"
+                    >
+                        <option value="">Semua Jenis Program</option>
+                        <option value="pelatihan" {{ request('program_type') === 'pelatihan' ? 'selected' : '' }}>Pelatihan</option>
+                        <option value="webinar" {{ request('program_type') === 'webinar' ? 'selected' : '' }}>Webinar</option>
+                    </select>
                 </div>
                 <div class="vb-filter-select">
                     <select 
                         name="is_active" 
                         class="vb-filter-select-input text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 cursor-pointer font-medium"
                     >
-                        <option value="">Semua Status Pendaftaran</option>
+                        <option value="">Semua Status</option>
                         <option value="1" {{ request('is_active') === '1' ? 'selected' : '' }}>🟢 Aktif (Buka)</option>
+                        <option value="coming_soon" {{ request('is_active') === 'coming_soon' ? 'selected' : '' }}>⏳ Coming Soon</option>
                         <option value="0" {{ request('is_active') === '0' ? 'selected' : '' }}>⚪ Pendaftaran Tutup</option>
                     </select>
                 </div>
                 <button type="submit" class="vb-filter-btn vb-btn-blue font-extrabold transition-all shadow-md shadow-blue-500/25 cursor-pointer">
                     Terapkan Filter
                 </button>
-                @if(request()->hasAny(['search', 'is_active']))
+                @if(request()->hasAny(['search', 'is_active', 'program_type']))
                     <a href="{{ route('dashboard.trainings.classes') }}" class="vb-filter-btn vb-btn-slate font-bold transition-all text-center">
                         Reset
                     </a>
@@ -224,32 +240,32 @@
                                 <!-- Floating Badges over Flyer -->
                                 <div class="vb-card-floating-badges">
                                     <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider shadow-md inline-flex items-center gap-1.5"
-                                        style="{{ $item->is_active ? 'background-color: #10b981; color: #ffffff;' : 'background-color: rgba(15,23,42,0.85); color: #cbd5e1;' }}">
-                                        @if($item->is_active)
+                                        style="@if(!$item->is_active) background-color: rgba(15,23,42,0.85); color: #cbd5e1;
+                                               @elseif($item->is_coming_soon_program) background-color: #fbbf24; color: #0f172a;
+                                               @else background-color: #10b981; color: #ffffff; @endif">
+                                        @if(!$item->is_active)
+                                            <span>Pendaftaran Tutup</span>
+                                        @elseif($item->is_coming_soon_program)
+                                            <span>Coming Soon</span>
+                                        @else
                                             <span class="relative flex h-2 w-2">
                                                 <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
                                                 <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
                                             </span>
                                             <span>Pendaftaran Buka</span>
-                                        @else
-                                            <span>Pendaftaran Tutup</span>
                                         @endif
                                     </span>
                                     <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider shadow-md"
-                                        style="background-color: rgba(255,255,255,0.95); color: #0f172a;">
-                                        {{ $item->category }}
+                                        style="background-color: {{ $item->is_webinar ? '#7c3aed' : 'rgba(255,255,255,0.95)' }}; color: {{ $item->is_webinar ? '#ffffff' : '#0f172a' }};">
+                                        {{ $item->program_type_label }}
                                     </span>
                                 </div>
                             </div>
                         @else
                             <!-- Vibrant Solid Header with Uniform Height (Never White) -->
-                            <div class="vb-card-header p-6 text-white relative overflow-hidden flex flex-col justify-between
-                                @if($isKalibrasi) bg-teal-600
-                                @elseif($isPPR) bg-amber-600
-                                @elseif($isElektro) bg-purple-600
-                                @else bg-blue-600
-                                @endif"
-                                style="@if($isKalibrasi) background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0f766e 100%);
+                            <div class="vb-card-header p-6 text-white relative overflow-hidden flex flex-col justify-between"
+                                style="@if($item->is_webinar) background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #6d28d9 100%);
+                                       @elseif($isKalibrasi) background: linear-gradient(135deg, #059669 0%, #0d9488 50%, #0f766e 100%);
                                        @elseif($isPPR) background: linear-gradient(135deg, #f59e0b 0%, #ea580c 50%, #dc2626 100%);
                                        @elseif($isElektro) background: linear-gradient(135deg, #7c3aed 0%, #9333ea 50%, #4f46e5 100%);
                                        @else background: linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #1d4ed8 100%); @endif">
@@ -257,19 +273,22 @@
 
                                 <!-- Top Badges -->
                                 <div class="flex items-center justify-between z-10 gap-2">
-                                    <span class="px-3 py-1.5 rounded-full text-xs font-black uppercase tracking-wider inline-flex items-center gap-1.5
-                                        @if($item->is_active) bg-emerald-400 text-slate-950 shadow-md
-                                        @else bg-white/20 text-white backdrop-blur-md @endif">
-                                        @if($item->is_active)
+                                    <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider inline-flex items-center gap-1.5 shadow-md"
+                                        style="@if(!$item->is_active) background-color: rgba(15,23,42,0.45); color: #ffffff;
+                                               @elseif($item->is_coming_soon_program) background-color: #fbbf24; color: #0f172a;
+                                               @else background-color: #34d399; color: #0f172a; @endif">
+                                        @if(!$item->is_active)
+                                            <span>Pendaftaran Tutup</span>
+                                        @elseif($item->is_coming_soon_program)
+                                            <span>Coming Soon</span>
+                                        @else
                                             <span class="w-2 h-2 rounded-full bg-slate-950 animate-pulse"></span>
                                             <span>Pendaftaran Buka</span>
-                                        @else
-                                            <span>Pendaftaran Tutup</span>
                                         @endif
                                     </span>
 
                                     <span class="px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-white/20 backdrop-blur-md text-white">
-                                        {{ $item->category }}
+                                        {{ $item->program_type_label }}
                                     </span>
                                 </div>
 
@@ -279,7 +298,7 @@
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                                         </svg>
                                     </div>
-                                    <span class="text-xs font-extrabold text-white tracking-wide">{{ $item->batch_name ?: 'Batch Pelatihan' }}</span>
+                                    <span class="text-xs font-extrabold text-white tracking-wide">{{ $item->category ?: $item->batch_name }}</span>
                                 </div>
                             </div>
                         @endif
@@ -287,16 +306,19 @@
                         <!-- Card Body Details -->
                         <div class="p-5 sm:p-6 space-y-4">
                             <div>
-                                <div class="flex items-center gap-2 mb-2">
+                                <div class="flex flex-wrap items-center gap-2 mb-2">
                                     <span class="px-2.5 py-0.5 rounded-lg text-xs font-black text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/70 uppercase tracking-wide">
                                         {{ $item->batch_name }}
+                                    </span>
+                                    <span class="px-2.5 py-0.5 rounded-lg text-[10px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 uppercase">
+                                        {{ $item->category }}
                                     </span>
                                 </div>
                                 <h3 class="vb-card-title text-lg font-black text-slate-900 dark:text-white leading-snug group-hover:text-blue-600 transition-colors">
                                     {{ $item->title }}
                                 </h3>
                                 <p class="vb-card-desc mt-2 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    {{ $item->description ?: 'Program pelatihan profesional bersertifikat resmi Visi Academy.' }}
+                                    {{ $item->description ?: 'Program profesional bersertifikat resmi Visi Academy.' }}
                                 </p>
                             </div>
 
@@ -310,7 +332,7 @@
                                     </div>
                                     <div class="min-w-0 flex-1">
                                         <span class="text-[9px] text-slate-400 uppercase font-black block leading-none">Jadwal</span>
-                                        <span class="text-xs font-bold text-slate-800 dark:text-slate-200 truncate block mt-0.5" title="{{ $item->schedule }}">{{ $item->schedule ?? 'Menyesuaikan' }}</span>
+                                        <span class="text-xs font-bold {{ $item->is_coming_soon_program ? 'text-amber-600 dark:text-amber-400' : 'text-slate-800 dark:text-slate-200' }} truncate block mt-0.5" title="{{ $item->display_schedule }}">{{ $item->is_coming_soon_program ? 'Coming Soon' : $item->display_schedule }}</span>
                                     </div>
                                 </div>
                                 <div class="p-2 rounded-xl bg-slate-50 dark:bg-slate-800/50 flex items-center gap-2 min-w-0">
@@ -326,10 +348,10 @@
                                 </div>
                             </div>
 
-                            <!-- Price & Student Stats -->
+                            <!-- Price & Member Stats -->
                             <div class="flex items-baseline justify-between pt-3 border-t border-slate-100 dark:border-slate-800">
                                 <div>
-                                    <span class="text-[10px] uppercase font-black text-slate-400 block tracking-wider">Investasi Pelatihan</span>
+                                    <span class="text-[10px] uppercase font-black text-slate-400 block tracking-wider">Investasi Program</span>
                                     <div class="text-2xl font-black text-blue-600 dark:text-blue-400 tracking-tight">{{ $item->formatted_price }}</div>
                                 </div>
                                 <div class="text-right">
@@ -338,7 +360,7 @@
                                         <svg class="w-3.5 h-3.5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                                         </svg>
-                                        <span>{{ $item->enrollments_count ?? $item->enrollments()->count() }} Siswa</span>
+                                        <span>{{ $item->enrollments_count ?? $item->enrollments()->count() }} Member</span>
                                     </div>
                                 </div>
                             </div>
@@ -442,13 +464,13 @@
                         <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
                     </div>
                     <div>
-                        <h4 class="text-base font-bold text-slate-900 dark:text-white">Belum Ada Kelas Pelatihan</h4>
-                        <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">Buat kelas pelatihan baru untuk membuka pendaftaran di portal pelajar Visi Academy.</p>
+                        <h4 class="text-base font-bold text-slate-900 dark:text-white">Belum Ada Program Terdaftar</h4>
+                        <p class="text-xs text-slate-500 max-w-sm mx-auto mt-1">Buat program pelatihan atau webinar baru untuk ditampilkan di Portal Member Visi Academy.</p>
                     </div>
                     <button type="button" @click="showCreateModal = true"
                         class="px-5 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md transition-all inline-flex items-center gap-2 cursor-pointer">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-                        <span>Buat Kelas Pelatihan Sekarang</span>
+                        <span>Buat Program Baru Sekarang</span>
                     </button>
                 </div>
             @endforelse
@@ -474,8 +496,8 @@
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-surface-900 dark:text-white">Tambah Kelas Pelatihan Baru</h3>
-                            <span class="text-xs text-surface-400">Isi detail kelas untuk membuka pendaftaran di portal pelajar.</span>
+                            <h3 class="text-lg font-bold text-surface-900 dark:text-white">Tambah Program Baru</h3>
+                            <span class="text-xs text-surface-400">Tambah program Pelatihan atau Webinar untuk ditampilkan di Portal Member.</span>
                         </div>
                     </div>
                     <button type="button" @click="showCreateModal = false" class="text-surface-400 hover:text-surface-600 p-1.5 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors">
@@ -499,30 +521,38 @@
                     @csrf
 
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Judul Pelatihan <span class="text-rose-500">*</span></label>
-                        <input type="text" name="title" value="{{ old('title') }}" required placeholder="Contoh: Pelatihan Uji Kesesuaian Pesawat Sinar-X Radiologi"
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Judul Program <span class="text-rose-500">*</span></label>
+                        <input type="text" name="title" value="{{ old('title') }}" required placeholder="Contoh: Pelatihan Uji Kesesuaian Pesawat Sinar-X / Webinar Regulasi Portable X-Ray"
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                     </div>
 
-                    <!-- Upload Flyer / Brosur Pelatihan -->
+                    <!-- Upload Flyer / Brosur Program -->
                     <div>
-                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Flyer / Brosur Pelatihan (Gambar)</label>
+                        <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Flyer / Brosur Program (Gambar)</label>
                         <div class="mt-1">
                             <input type="file" name="image" accept="image/*"
                                 class="block w-full text-xs text-surface-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-blue-950/60 dark:file:text-blue-300 transition-all border border-surface-200 dark:border-surface-700 rounded-xl bg-surface-50/50 dark:bg-surface-900/50 cursor-pointer">
                         </div>
-                        <span class="text-[11px] text-surface-400 mt-1 block">Format: JPG, PNG, atau WEBP (Maksimal 5 MB). Gambar akan tampil sebagai cover kartu pelatihan di katalog.</span>
+                        <span class="text-[11px] text-surface-400 mt-1 block">Format: JPG, PNG, atau WEBP (Maksimal 5 MB). Gambar akan tampil sebagai cover kartu program di katalog.</span>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Kategori Pelatihan <span class="text-rose-500">*</span></label>
-                            <input type="text" name="category" value="{{ old('category', 'Radiologi') }}" required placeholder="Radiologi / Kalibrasi / PPR / Elektromedis"
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Jenis Program <span class="text-rose-500">*</span></label>
+                            <select name="program_type" required
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                <option value="pelatihan" {{ old('program_type', 'pelatihan') === 'pelatihan' ? 'selected' : '' }}>Pelatihan</option>
+                                <option value="webinar" {{ old('program_type') === 'webinar' ? 'selected' : '' }}>Webinar</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Kategori <span class="text-rose-500">*</span></label>
+                            <input type="text" name="category" value="{{ old('category', 'Radiologi') }}" required placeholder="Radiologi / Kalibrasi / PPR / Regulasi"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Nama Batch Pelatihan <span class="text-rose-500">*</span></label>
-                            <input type="text" name="batch_name" value="{{ old('batch_name') }}" required placeholder="Contoh: Batch 5 - Februari 2027"
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Batch / Seri <span class="text-rose-500">*</span></label>
+                            <input type="text" name="batch_name" value="{{ old('batch_name') }}" required placeholder="Contoh: Batch 5 / Seri 1"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
@@ -536,12 +566,12 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Durasi</label>
-                            <input type="text" name="duration" value="{{ old('duration') }}" placeholder="Cth: 3 Hari / 32 JP"
+                            <input type="text" name="duration" value="{{ old('duration') }}" placeholder="Cth: 3 Hari / 2 Jam"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Jadwal Pelaksanaan</label>
-                            <input type="text" name="schedule" value="{{ old('schedule') }}" placeholder="Cth: 15 - 17 Jan 2027"
+                            <input type="text" name="schedule" value="{{ old('schedule') }}" placeholder="Cth: 15 - 17 Jan 2027 / Coming Soon"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
@@ -605,12 +635,21 @@
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">{{ old('syllabus') }}</textarea>
                     </div>
 
-                    <div class="flex items-center gap-2 p-3 bg-surface-50 dark:bg-surface-700/50 rounded-xl">
-                        <input type="checkbox" name="is_active" id="create_is_active" value="1" checked
-                            class="w-4 h-4 text-blue-600 rounded border-surface-300 focus:ring-blue-500">
-                        <label for="create_is_active" class="text-xs font-bold text-surface-800 dark:text-surface-200 cursor-pointer">
-                            Buka pendaftaran langsung (tampil di katalog peserta)
-                        </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 p-3 bg-surface-50 dark:bg-surface-700/50 rounded-xl">
+                            <input type="checkbox" name="is_active" id="create_is_active" value="1" checked
+                                class="w-4 h-4 text-blue-600 rounded border-surface-300 focus:ring-blue-500">
+                            <label for="create_is_active" class="text-xs font-bold text-surface-800 dark:text-surface-200 cursor-pointer">
+                                Tampil di katalog member (Aktif)
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-2 p-3 rounded-xl" style="background-color: #fffbeb; border: 1px solid #fde68a;">
+                            <input type="checkbox" name="is_coming_soon" id="create_is_coming_soon" value="1" {{ old('is_coming_soon') ? 'checked' : '' }}
+                                class="w-4 h-4 text-amber-600 rounded border-amber-400 focus:ring-amber-500">
+                            <label for="create_is_coming_soon" class="text-xs font-bold cursor-pointer" style="color: #92400e;">
+                                Status Coming Soon (Jadwal segera hadir)
+                            </label>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-3 border-t border-surface-100 dark:border-surface-700">
@@ -620,7 +659,7 @@
                         </button>
                         <button type="submit"
                             class="px-6 py-2.5 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl shadow-md transition-all cursor-pointer">
-                            Simpan Kelas Pelatihan
+                            Simpan Program
                         </button>
                     </div>
                 </form>
@@ -643,8 +682,8 @@
                             <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
                         </div>
                         <div>
-                            <h3 class="text-lg font-bold text-surface-900 dark:text-white">Edit Kelas Pelatihan</h3>
-                            <span class="text-xs text-surface-400">Perbarui jadwal, harga, grup WhatsApp, atau materi.</span>
+                            <h3 class="text-lg font-bold text-surface-900 dark:text-white">Edit Program</h3>
+                            <span class="text-xs text-surface-400">Perbarui jenis program, jadwal / Coming Soon, biaya, grup WA, atau materi.</span>
                         </div>
                     </div>
                     <button type="button" @click="showEditModal = false" class="text-surface-400 hover:text-surface-600 p-1.5 rounded-xl hover:bg-surface-100 dark:hover:bg-surface-700">
@@ -682,14 +721,22 @@
                         <span class="text-[11px] text-surface-400 mt-1 block">Pilih file baru untuk mengganti flyer (Maksimal 5 MB).</span>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Jenis Program</label>
+                            <select name="program_type" required x-model="editingClass.program_type"
+                                class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
+                                <option value="pelatihan">Pelatihan</option>
+                                <option value="webinar">Webinar</option>
+                            </select>
+                        </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Kategori</label>
                             <input type="text" name="category" required x-model="editingClass.category"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
                         <div>
-                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Nama Batch</label>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Batch / Seri</label>
                             <input type="text" name="batch_name" required x-model="editingClass.batch_name"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
@@ -708,7 +755,7 @@
                         </div>
                         <div>
                             <label class="block text-xs font-bold uppercase tracking-wider text-surface-700 dark:text-surface-300 mb-1.5">Jadwal</label>
-                            <input type="text" name="schedule" x-model="editingClass.schedule"
+                            <input type="text" name="schedule" x-model="editingClass.schedule" placeholder="Tanggal atau Coming Soon"
                                 class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500">
                         </div>
                     </div>
@@ -771,12 +818,21 @@
                             class="w-full px-4 py-2.5 text-sm border border-surface-300 dark:border-surface-600 rounded-xl bg-white dark:bg-surface-700 text-surface-900 dark:text-white focus:ring-2 focus:ring-blue-500"></textarea>
                     </div>
 
-                    <div class="flex items-center gap-2 p-3 bg-surface-50 dark:bg-surface-700/50 rounded-xl">
-                        <input type="checkbox" name="is_active" id="edit_is_active" value="1" x-model="editingClass.is_active"
-                            class="w-4 h-4 text-blue-600 rounded border-surface-300 focus:ring-blue-500">
-                        <label for="edit_is_active" class="text-xs font-bold text-surface-800 dark:text-surface-200 cursor-pointer">
-                            Status aktif (buka pendaftaran)
-                        </label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div class="flex items-center gap-2 p-3 bg-surface-50 dark:bg-surface-700/50 rounded-xl">
+                            <input type="checkbox" name="is_active" id="edit_is_active" value="1" x-model="editingClass.is_active"
+                                class="w-4 h-4 text-blue-600 rounded border-surface-300 focus:ring-blue-500">
+                            <label for="edit_is_active" class="text-xs font-bold text-surface-800 dark:text-surface-200 cursor-pointer">
+                                Status aktif (tampil di katalog)
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-2 p-3 rounded-xl" style="background-color: #fffbeb; border: 1px solid #fde68a;">
+                            <input type="checkbox" name="is_coming_soon" id="edit_is_coming_soon" value="1" x-model="editingClass.is_coming_soon"
+                                class="w-4 h-4 text-amber-600 rounded border-amber-400 focus:ring-amber-500">
+                            <label for="edit_is_coming_soon" class="text-xs font-bold cursor-pointer" style="color: #92400e;">
+                                Status Coming Soon
+                            </label>
+                        </div>
                     </div>
 
                     <div class="flex items-center justify-end gap-3 pt-3 border-t border-surface-100 dark:border-surface-700">

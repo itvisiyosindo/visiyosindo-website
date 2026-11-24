@@ -435,16 +435,16 @@
         <svg class="w-4 h-4 {{ $active === 'classes' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
         </svg>
-        <span>Kelola Kelas & Batch</span>
+        <span>Kelola Program</span>
     </a>
 
-    <!-- Tab 2: Peserta & Verifikasi -->
+    <!-- Tab 2: Member & Verifikasi -->
     <a href="{{ route('dashboard.trainings.index') }}"
         class="px-4 py-2.5 rounded-xl text-xs font-extrabold transition-all inline-flex items-center gap-2 whitespace-nowrap {{ $active === 'index' ? 'vb-tab-active font-black' : 'vb-tab-inactive' }}">
         <svg class="w-4 h-4 {{ $active === 'index' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
-        <span>Peserta & Verifikasi</span>
+        <span>Member & Verifikasi</span>
         @if($pendingCount > 0)
             <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-slate-950 animate-pulse">
                 {{ $pendingCount }}
@@ -467,7 +467,7 @@
         <svg class="w-4 h-4 {{ $active === 'affiliates' ? 'text-amber-300' : 'text-slate-400' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
         </svg>
-        <span>Program Afiliasi</span>
+        <span>Referral Member</span>
         @if($pendingWithdrawalCount > 0)
             <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-amber-500 text-slate-950 animate-pulse">
                 {{ $pendingWithdrawalCount }}

@@ -128,12 +128,12 @@
                 <a href="/" class="shrink-0">@include('student.partials.logo')</a>
                 <a href="{{ route('student.classes.show', $trainingClass->slug) }}"
                     class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
-                    <span>&larr; Detail Kelas</span>
+                    <span>&larr; Detail Program</span>
                 </a>
             </div>
             <a href="{{ route('student.dashboard') }}" style="background-color: #0c2a52; color: #ffffff;"
                 class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
-                Portal Pelajar
+                Portal Member
             </a>
         </div>
     </header>
@@ -142,26 +142,26 @@
         <div class="sm:hidden mb-4">
             <a href="{{ route('student.classes.show', $trainingClass->slug) }}"
                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">
-                &larr; Detail Kelas
+                &larr; Detail Program
             </a>
         </div>
         <div class="mb-6">
-            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Checkout Pendaftaran Kelas</h1>
-            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Periksa rincian kelas, gunakan kode referral jika ada, lalu konfirmasi pendaftaran.</p>
+            <h1 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white">Checkout Pendaftaran Program</h1>
+            <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">Periksa rincian program, gunakan kode referral jika ada, lalu konfirmasi pendaftaran.</p>
         </div>
 
         <div class="st-grid-12 gap-8">
-            <!-- Left Column: Class & Participant Info -->
+            <!-- Left Column: Program & Member Info -->
             <div class="st-col-7 space-y-6">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-4">
                     <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase bg-blue-50 dark:bg-blue-950 text-blue-700 dark:text-blue-300 inline-block">
-                        {{ $trainingClass->category }} &bull; {{ $trainingClass->batch_name }}
+                        {{ $trainingClass->program_type_label }} &bull; {{ $trainingClass->category }} &bull; {{ $trainingClass->batch_name }}
                     </span>
                     <h2 class="text-xl font-black text-slate-900 dark:text-white">{{ $trainingClass->title }}</h2>
                     <div class="grid grid-cols-2 gap-3 text-xs text-slate-600 dark:text-slate-300 pt-2 border-t border-slate-100 dark:border-slate-800">
                         <div>
                             <span class="text-slate-400 block">Jadwal</span>
-                            <strong class="text-slate-800 dark:text-white">{{ $trainingClass->schedule ?? 'Menyesuaikan' }}</strong>
+                            <strong class="text-slate-800 dark:text-white">{{ $trainingClass->display_schedule }}</strong>
                         </div>
                         <div>
                             <span class="text-slate-400 block">Mode</span>
@@ -171,7 +171,7 @@
                 </div>
 
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-3">
-                    <h3 class="text-sm font-black text-slate-900 dark:text-white">Data Peserta (Untuk Sertifikat)</h3>
+                    <h3 class="text-sm font-black text-slate-900 dark:text-white">Data Member (Untuk Sertifikat)</h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                         <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-slate-400 block">Nama Lengkap</span>
@@ -251,7 +251,7 @@
                     <button type="submit"
                         style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
                         class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs shadow-xl shadow-blue-500/25 transition-all cursor-pointer">
-                        {{ $trainingClass->price > 0 ? 'Buat Invoice & Daftar Sekarang' : 'Konfirmasi Daftar Kelas Gratis' }}
+                        {{ $trainingClass->price > 0 ? 'Buat Invoice & Daftar Sekarang' : 'Konfirmasi Daftar Program Gratis' }}
                     </button>
                 </form>
             </div>

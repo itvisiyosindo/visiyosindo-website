@@ -11,10 +11,14 @@ class TrainingClass extends Model
 {
     use HasFactory, SoftDeletes;
 
+    public const PROGRAM_TYPE_TRAINING = 'pelatihan';
+    public const PROGRAM_TYPE_WEBINAR = 'webinar';
+
     protected $fillable = [
         'title',
         'slug',
         'category',
+        'program_type',
         'batch_name',
         'instructor',
         'description',
@@ -30,6 +34,7 @@ class TrainingClass extends Model
         'materials_link',
         'image',
         'is_active',
+        'is_coming_soon',
     ];
 
     protected $casts = [
@@ -37,6 +42,7 @@ class TrainingClass extends Model
         'quota' => 'integer',
         'registration_deadline' => 'date',
         'is_active' => 'boolean',
+        'is_coming_soon' => 'boolean',
     ];
 
     public function enrollments(): HasMany
@@ -94,9 +100,34 @@ class TrainingClass extends Model
         return now()->startOfDay()->gt($this->registration_deadline->copy()->endOfDay());
     }
 
+    public function getIsComingSoonProgramAttribute(): bool
+    {
+        return (bool) $this->is_coming_soon
+            || str_contains(strtolower((string) $this->schedule), 'coming soon');
+    }
+
+    public function getIsWebinarAttribute(): bool
+    {
+        return ($this->program_type ?? self::PROGRAM_TYPE_TRAINING) === self::PROGRAM_TYPE_WEBINAR;
+    }
+
+    public function getProgramTypeLabelAttribute(): string
+    {
+        return $this->is_webinar ? 'Webinar' : 'Pelatihan';
+    }
+
+    public function getDisplayScheduleAttribute(): string
+    {
+        if ($this->is_coming_soon && blank($this->schedule)) {
+            return 'Coming Soon';
+        }
+
+        return $this->schedule ?: 'Menyesuaikan Jadwal';
+    }
+
     public function getIsRegistrationOpenAttribute(): bool
     {
-        return (bool) $this->is_active && !$this->is_full && !$this->is_deadline_passed;
+        return (bool) $this->is_active && !$this->is_coming_soon_program && !$this->is_full && !$this->is_deadline_passed;
     }
 
     public function getDeliveryModeLabelAttribute(): string

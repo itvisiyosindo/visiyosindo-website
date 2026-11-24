@@ -2,9 +2,9 @@
     :breadcrumbs="[
         ['label' => 'Dashboard', 'url' => route('dashboard')],
         ['label' => 'Visi Academy', 'url' => route('dashboard.trainings.classes')],
-        ['label' => 'Peserta & Verifikasi']
+        ['label' => 'Member & Verifikasi']
     ]"
-    title="Peserta & Verifikasi - Visi Academy"
+    title="Member & Verifikasi - Visi Academy"
 >
     <div class="space-y-6" x-data="{
         showCompleteModal: false,
@@ -37,7 +37,7 @@
                 <svg class="w-4 h-4 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                 </svg>
-                <span>Katalog Kelas</span>
+                <span>Katalog Program</span>
             </a>
         </div>
         @php
@@ -45,8 +45,8 @@
         @endphp
 
         @include('dashboard.management.trainings.partials.header', [
-            'title' => 'Peserta & Verifikasi Pembayaran',
-            'subtitle' => 'Verifikasi bukti transfer WhatsApp, konfirmasi status pendaftaran siswa, dan terbitkan e-sertifikat kelulusan resmi.',
+            'title' => 'Member & Verifikasi Pembayaran',
+            'subtitle' => 'Verifikasi bukti transfer pembayaran, konfirmasi status pendaftaran member, dan terbitkan e-sertifikat kelulusan resmi.',
             'active' => 'index',
             'actions' => $headerActions,
         ])
@@ -68,7 +68,7 @@
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['total'] }}</div>
                     <span class="vb-stat-pill vb-stat-pill-blue">
                         <span class="w-1.5 h-1.5 rounded-full" style="background-color: #2563eb;"></span>
-                        <span>Semua Status Siswa</span>
+                        <span>Semua Status Member</span>
                     </span>
                 </div>
             </div>
@@ -99,7 +99,7 @@
             <!-- Card 3: Aktif -->
             <div class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group">
                 <div class="flex items-center justify-between mb-4">
-                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Siswa Aktif</span>
+                    <span class="text-[11px] sm:text-xs font-black text-slate-400 dark:text-slate-500 uppercase tracking-wider">Member Aktif</span>
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform shadow-md"
                         style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important; color: #ffffff !important; box-shadow: 0 8px 16px -2px rgba(2, 132, 199, 0.25) !important;">
                         <svg class="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -111,7 +111,7 @@
                     <div class="text-3xl sm:text-4xl font-display font-black text-slate-900 dark:text-white tracking-tight leading-none mb-3">{{ $stats['active'] }}</div>
                     <span class="vb-stat-pill vb-stat-pill-sky">
                         <span class="w-1.5 h-1.5 rounded-full" style="background-color: #0284c7;"></span>
-                        <span>Sedang Mengikuti Kelas</span>
+                        <span>Sedang Mengikuti Program</span>
                     </span>
                 </div>
             </div>
@@ -174,7 +174,7 @@
                             name="training_class_id" 
                             class="vb-filter-select-input text-slate-900 dark:text-white focus:ring-2 focus:ring-blue-500 transition-all cursor-pointer font-medium"
                         >
-                            <option value="">Semua Program Kelas</option>
+                            <option value="">Semua Program</option>
                             @foreach($classesList as $cl)
                                 <option value="{{ $cl->id }}" {{ request('training_class_id') == $cl->id ? 'selected' : '' }}>
                                     {{ Str::limit($cl->title, 24) }} ({{ $cl->batch_name }})
@@ -203,8 +203,8 @@
                 <table class="vb-table text-left" style="min-width: 780px;">
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
-                            <th class="py-4 px-6">Informasi Peserta</th>
-                            <th class="py-4 px-6">Program Kelas</th>
+                            <th class="py-4 px-6">Informasi Member</th>
+                            <th class="py-4 px-6">Program</th>
                             <th class="py-4 px-6">Status Pendaftaran</th>
                             <th class="py-4 px-6">e-Sertifikat</th>
                             <th class="py-4 px-6 text-right">Tindakan</th>
@@ -280,7 +280,7 @@
                                     @elseif($item->status === 'active')
                                         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-blue-100 dark:bg-blue-950/80 text-blue-800 dark:text-blue-300 whitespace-nowrap">
                                             <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-                                            Siswa Aktif
+                                            Member Aktif
                                         </span>
                                     @elseif($item->status === 'completed')
                                         <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 whitespace-nowrap">

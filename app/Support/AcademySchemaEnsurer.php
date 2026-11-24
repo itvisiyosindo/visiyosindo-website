@@ -35,16 +35,21 @@ class AcademySchemaEnsurer
     {
         if (Schema::hasTable('training_classes')) {
             $missing = [
+                'program_type' => !Schema::hasColumn('training_classes', 'program_type'),
                 'instructor' => !Schema::hasColumn('training_classes', 'instructor'),
                 'location' => !Schema::hasColumn('training_classes', 'location'),
                 'delivery_mode' => !Schema::hasColumn('training_classes', 'delivery_mode'),
                 'syllabus' => !Schema::hasColumn('training_classes', 'syllabus'),
                 'quota' => !Schema::hasColumn('training_classes', 'quota'),
                 'registration_deadline' => !Schema::hasColumn('training_classes', 'registration_deadline'),
+                'is_coming_soon' => !Schema::hasColumn('training_classes', 'is_coming_soon'),
             ];
 
             if (in_array(true, $missing, true)) {
                 Schema::table('training_classes', function (Blueprint $table) use ($missing) {
+                    if ($missing['program_type']) {
+                        $table->string('program_type', 30)->default('pelatihan')->after('category');
+                    }
                     if ($missing['instructor']) {
                         $table->string('instructor')->nullable()->after('batch_name');
                     }
@@ -62,6 +67,9 @@ class AcademySchemaEnsurer
                     }
                     if ($missing['registration_deadline']) {
                         $table->date('registration_deadline')->nullable()->after('quota');
+                    }
+                    if ($missing['is_coming_soon']) {
+                        $table->boolean('is_coming_soon')->default(false)->after('is_active');
                     }
                 });
             }

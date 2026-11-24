@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Daftar Akun Pelajar - Visi Academy</title>
+    <title>Daftar Akun Member - Visi Academy</title>
 
     <!-- Fonts - Inter -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,10 +31,10 @@
         </div>
 
         <h2 class="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-            Pendaftaran Akun Pelajar
+            Pendaftaran Akun Member
         </h2>
         <p class="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
-            Daftar mandiri untuk memilih kelas pelatihan dan akses sertifikat resmi Anda
+            Daftar mandiri untuk mengikuti program pelatihan & webinar serta akses sertifikat resmi Visi Academy
         </p>
     </div>
 

@@ -16,7 +16,7 @@
                 <svg class="w-4 h-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                 </svg>
-                <span class="text-slate-950">Daftar Peserta & Verifikasi</span>
+                <span class="text-slate-950">Member & Verifikasi</span>
             </a>
         </div>
         @php
@@ -24,8 +24,8 @@
         @endphp
 
         @include('dashboard.management.trainings.partials.header', [
-            'title' => 'Program Afiliasi Siswa',
-            'subtitle' => 'Pantau kinerja kode rujukan siswa, frekuensi pendaftaran kelas baru melalui kupon, dan saldo komisi reward afiliasi.',
+            'title' => 'Kode Referral Member',
+            'subtitle' => 'Pantau kode referral member, frekuensi pendaftaran program melalui kupon, dan riwayat penarikan saldo.',
             'active' => 'affiliates',
             'actions' => $headerActions,
         ])
@@ -87,7 +87,7 @@
                     <div class="text-2xl sm:text-3xl font-display font-black text-amber-600 dark:text-amber-400 tracking-tight leading-none mb-3">Rp {{ number_format($stats['total_commission'], 0, ',', '.') }}</div>
                     <span class="vb-stat-pill vb-stat-pill-amber">
                         <span class="w-1.5 h-1.5 rounded-full" style="background-color: #f59e0b;"></span>
-                        <span>Reward untuk Pelajar</span>
+                        <span>Total Saldo Referral</span>
                     </span>
                 </div>
             </div>
@@ -128,7 +128,7 @@
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
                             <th class="py-4 px-6">Kode Kupon Afiliasi</th>
-                            <th class="py-4 px-6">Pemilik Kode (Siswa)</th>
+                            <th class="py-4 px-6">Pemilik Kode (Member)</th>
                             <th class="py-4 px-6 text-center">Frekuensi Penggunaan</th>
                             <th class="py-4 px-6 text-center">Reward Komisi / Diskon</th>
                             <th class="py-4 px-6 text-right">Saldo Komisi</th>
@@ -155,7 +155,7 @@
                                         </div>
                                         <div>
                                             <div class="font-extrabold text-slate-900 dark:text-white text-sm">
-                                                {{ $item->user->name ?? 'Pelajar' }}
+                                                {{ $item->user->name ?? 'Member' }}
                                             </div>
                                             <div class="text-xs text-slate-400 font-mono mt-0.5">
                                                 {{ $item->user->email ?? '-' }}
@@ -200,7 +200,7 @@
                                             </svg>
                                         </div>
                                         <div class="font-black text-slate-900 dark:text-white text-base">Belum Ada Kode Afiliasi</div>
-                                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Siswa dapat membuat kode rujukan unik mandiri melalui portal siswa untuk mendapatkan komisi reward.</p>
+                                        <p class="text-xs text-slate-400 mt-1 leading-relaxed">Member dapat membuat kode referral mandiri melalui Portal Member.</p>
                                     </div>
                                 </td>
                             </tr>
@@ -220,9 +220,9 @@
         <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-sm space-y-5">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
                 <div>
-                    <h2 class="text-lg font-black text-slate-900 dark:text-white">Pengajuan Penarikan Komisi Pelajar</h2>
+                    <h2 class="text-lg font-black text-slate-900 dark:text-white">Pengajuan Penarikan Saldo Member</h2>
                     <p class="text-xs text-slate-500 dark:text-slate-400">
-                        Skema aktif: Komisi {{ $academySettings['affiliate_commission_percent'] }}% &bull; Diskon Teman {{ $academySettings['affiliate_discount_percent'] }}% &bull;
+                        Skema aktif: Diskon Referral {{ $academySettings['affiliate_discount_percent'] }}% &bull;
                         Menunggu Proses: <strong>{{ $withdrawalStats['pending_count'] }} ajuan (Rp {{ number_format($withdrawalStats['pending_amount'], 0, ',', '.') }})</strong> &bull;
                         Total Sudah Ditransfer: <strong class="text-emerald-600">Rp {{ number_format($withdrawalStats['paid_amount'], 0, ',', '.') }}</strong>
                     </p>
@@ -233,28 +233,28 @@
                 <table class="vb-table text-left text-xs" style="min-width: 640px;">
                     <thead>
                         <tr class="bg-slate-50/80 dark:bg-slate-800/50 text-[11px] font-black text-slate-400 uppercase tracking-wider">
-                            <th class="py-3.5 px-4">Pelajar</th>
-                            <th class="py-3.5 px-4">Nominal</th>
-                            <th class="py-3.5 px-4">Rekening Tujuan</th>
-                            <th class="py-3.5 px-4">Status</th>
-                            <th class="py-3.5 px-4 text-right">Aksi Admin</th>
+                            <th class="py-3 px-4">Member</th>
+                            <th class="py-3 px-4">Nominal</th>
+                            <th class="py-3 px-4">Rekening Tujuan</th>
+                            <th class="py-3 px-4">Status</th>
+                            <th class="py-3 px-4 text-right">Aksi Admin</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse($withdrawals as $wd)
                             <tr class="hover:bg-slate-50/70 dark:hover:bg-slate-800/40 transition-colors">
-                                <td class="py-3.5 px-4 align-middle">
-                                    <div class="font-bold text-slate-900 dark:text-white">{{ $wd->user->name ?? 'Pelajar' }}</div>
+                                <td class="py-3 px-4 align-middle">
+                                    <div class="font-bold text-slate-900 dark:text-white">{{ $wd->user->name ?? 'Member' }}</div>
                                     <div class="text-[11px] text-slate-400">{{ $wd->created_at?->format('d M Y, H:i') }}</div>
                                 </td>
-                                <td class="py-3.5 px-4 align-middle font-black text-slate-900 dark:text-white whitespace-nowrap">
+                                <td class="py-3 px-4 align-middle font-black text-slate-900 dark:text-white whitespace-nowrap">
                                     Rp {{ number_format($wd->amount, 0, ',', '.') }}
                                 </td>
-                                <td class="py-3.5 px-4 align-middle">
+                                <td class="py-3 px-4 align-middle">
                                     <div class="font-bold text-slate-800 dark:text-slate-200">{{ $wd->bank_name }}</div>
                                     <div class="font-mono text-[11px] text-slate-500">{{ $wd->account_number }} a.n {{ $wd->account_holder }}</div>
                                 </td>
-                                <td class="py-3.5 px-4 align-middle">
+                                <td class="py-3 px-4 align-middle">
                                     <span class="px-2.5 py-1 rounded-full text-[10px] font-black uppercase whitespace-nowrap inline-block
                                         @if($wd->status === 'paid') bg-emerald-100 text-emerald-700
                                         @elseif($wd->status === 'rejected') bg-rose-100 text-rose-700
@@ -265,7 +265,7 @@
                                         <span class="block text-[11px] text-slate-400 mt-1">{{ $wd->admin_notes }}</span>
                                     @endif
                                 </td>
-                                <td class="py-3.5 px-4 text-right align-middle">
+                                <td class="py-3 px-4 text-right align-middle">
                                     @if($wd->status === 'pending')
                                         <div class="flex flex-wrap items-center justify-end gap-2">
                                             <form action="{{ route('dashboard.trainings.withdrawals.approve', $wd->id) }}" method="POST"

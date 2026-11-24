@@ -203,28 +203,35 @@ Route::middleware('guest')->group(function () {
     Route::get('/reset-password/{token}', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [PasswordResetController::class, 'reset'])->name('password.update');
 
-    // Student Registration
-    Route::get('/pelajar/daftar', [StudentAuthController::class, 'showRegisterForm'])->name('student.register');
-    Route::post('/pelajar/daftar', [StudentAuthController::class, 'register'])->name('student.register.submit')->middleware('throttle:10,1');
+    // Member Registration
+    Route::get('/member/daftar', [StudentAuthController::class, 'showRegisterForm'])->name('student.register');
+    Route::post('/member/daftar', [StudentAuthController::class, 'register'])->name('student.register.submit')->middleware('throttle:10,1');
+    Route::redirect('/pelajar/daftar', '/member/daftar', 301);
 });
 
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout')->middleware('auth');
 
 /*
 |--------------------------------------------------------------------------
-| Student Portal & Training Routes
+| Member Portal & Visi Academy Program Routes
 |--------------------------------------------------------------------------
 */
-// Public Training Catalogue & Class Detail
+// Public Program Catalogue (Pelatihan & Webinar) & Detail
 Route::get('/pelatihan', [StudentPortalController::class, 'classes'])->name('student.classes');
 Route::get('/pelatihan/{slug}', [StudentPortalController::class, 'classDetail'])->name('student.classes.show');
+Route::redirect('/program', '/pelatihan');
 
 // Public Certificate Verification
 Route::get('/verify-certificate/{code}', [PublicCertificateController::class, 'verify'])->name('certificate.verify');
 Route::get('/verify-certificate/{code}/file', [PublicCertificateController::class, 'file'])->name('certificate.verify.file');
 
-// Authenticated Student Portal
-Route::middleware(['auth'])->prefix('student')->name('student.')->group(function () {
+// Legacy /student/* redirect to /member/*
+Route::middleware(['auth'])->get('/student/{any?}', function (?string $any = null) {
+    return redirect('/member/' . ltrim((string) ($any ?: 'dashboard'), '/'));
+})->where('any', '.*');
+
+// Authenticated Member Portal
+Route::middleware(['auth'])->prefix('member')->name('student.')->group(function () {
     Route::get('/dashboard', [StudentPortalController::class, 'dashboard'])->name('dashboard');
     Route::get('/checkout/{id}', [StudentPortalController::class, 'checkout'])->name('checkout');
     Route::post('/affiliate/validate-code', [StudentPortalController::class, 'validateAffiliateCode'])->name('affiliate.validate')->middleware('throttle:20,1');
@@ -588,6 +595,9 @@ Route::get('/gallery/{slug}', [\App\Http\Controllers\Frontend\GalleryController:
 Route::get('/news', [\App\Http\Controllers\Frontend\NewsController::class, 'index'])->name('news');
 Route::get('/news/{slug}', [\App\Http\Controllers\Frontend\NewsController::class, 'show'])->name('news.detail');
 Route::post('/news/{slug}/share', [\App\Http\Controllers\Frontend\NewsController::class, 'share'])->name('news.share');
+
+Route::get('/events', [\App\Http\Controllers\Frontend\EventController::class, 'index'])->name('events');
+Route::get('/acara', [\App\Http\Controllers\Frontend\EventController::class, 'index']);
 
 Route::get('/contact', function () {
     return view('pages.contact');

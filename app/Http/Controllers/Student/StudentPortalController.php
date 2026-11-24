@@ -245,8 +245,9 @@ class StudentPortalController extends Controller
                 ->pluck('training_class_id')
                 ->toArray()
             : [];
+        $academySettings = AcademySetting::allSettings();
 
-        return view('student.classes', compact('classes', 'enrolledClassIds'));
+        return view('student.classes', compact('classes', 'enrolledClassIds', 'academySettings'));
     }
 
     /**
@@ -295,16 +296,20 @@ class StudentPortalController extends Controller
         if ($existing && !$existing->isCancelled()) {
             return redirect()->route('student.dashboard', ['#classes'])->with('toast', [
                 'type' => 'info',
-                'message' => 'Anda sudah terdaftar di kelas ' . $trainingClass->title . '.',
+                'message' => 'Anda sudah terdaftar pada program ' . $trainingClass->title . '.',
             ]);
         }
 
         if (!$trainingClass->is_registration_open) {
+            $reason = $trainingClass->is_coming_soon_program
+                ? 'Program ini masih Coming Soon. Jadwal pendaftaran akan segera diumumkan.'
+                : ($trainingClass->is_full
+                    ? 'Maaf, kuota member untuk program ini sudah penuh.'
+                    : 'Maaf, batas waktu pendaftaran program ini telah berakhir.');
+
             return redirect()->route('student.classes.show', $trainingClass->slug)->with('toast', [
                 'type' => 'warning',
-                'message' => $trainingClass->is_full
-                    ? 'Maaf, kuota peserta untuk kelas ini sudah penuh.'
-                    : 'Maaf, batas waktu pendaftaran kelas ini telah berakhir.',
+                'message' => $reason,
             ]);
         }
 
@@ -424,16 +429,20 @@ class StudentPortalController extends Controller
             if ($existing && !$existing->isCancelled()) {
                 return redirect()->route('student.dashboard', ['#classes'])->with('toast', [
                     'type' => 'info',
-                    'message' => 'Anda sudah terdaftar di kelas ' . $trainingClass->title . '.',
+                    'message' => 'Anda sudah terdaftar pada program ' . $trainingClass->title . '.',
                 ]);
             }
 
             if (!$trainingClass->is_registration_open) {
+                $reason = $trainingClass->is_coming_soon_program
+                    ? 'Pendaftaran belum dibuka karena program ini masih berstatus Coming Soon.'
+                    : ($trainingClass->is_full
+                        ? 'Pendaftaran gagal karena kuota program sudah penuh.'
+                        : 'Pendaftaran gagal karena batas pendaftaran telah berakhir.');
+
                 return redirect()->route('student.classes.show', $trainingClass->slug)->with('toast', [
                     'type' => 'error',
-                    'message' => $trainingClass->is_full
-                        ? 'Pendaftaran gagal karena kuota kelas sudah penuh.'
-                        : 'Pendaftaran gagal karena batas pendaftaran telah berakhir.',
+                    'message' => $reason,
                 ]);
             }
 

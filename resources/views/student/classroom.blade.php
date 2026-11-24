@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Ruang Kelas - {{ $enrollment->trainingClass->title }}</title>
+    <title>Ruang Belajar - {{ $enrollment->trainingClass->title }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800,900|plus-jakarta-sans:600,700,800&display=swap" rel="stylesheet" />
@@ -51,7 +51,7 @@
                 <a href="/" class="shrink-0">@include('student.partials.logo')</a>
                 <a href="{{ route('student.dashboard', ['#classes']) }}"
                     class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 whitespace-nowrap">
-                    <span>&larr; Kelas Saya</span>
+                    <span>&larr; Program Saya</span>
                 </a>
             </div>
             <span class="px-3 py-1 rounded-full text-[11px] font-black uppercase whitespace-nowrap shrink-0 {{ $enrollment->status === 'completed' ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-100 text-blue-700' }}">
@@ -64,7 +64,7 @@
         <div class="sm:hidden">
             <a href="{{ route('student.dashboard', ['#classes']) }}"
                 class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">
-                <span>&larr; Kembali ke Kelas Saya</span>
+                <span>&larr; Kembali ke Program Saya</span>
             </a>
         </div>
 
@@ -73,6 +73,7 @@
             <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                 <div class="space-y-2.5 min-w-0">
                     <div class="flex flex-wrap items-center gap-2 text-xs font-bold">
+                        <span class="px-3 py-1 rounded-full bg-white/20">{{ $cls->program_type_label }}</span>
                         <span class="px-3 py-1 rounded-full bg-white/15">{{ $cls->category }}</span>
                         @if($cls->batch_name)
                             <span style="background-color: #fbbf24; color: #0f172a;" class="px-3 py-1 rounded-full font-black">{{ $cls->batch_name }}</span>
@@ -84,7 +85,7 @@
                         @if($cls->instructor)
                             <span>Narasumber: <strong class="text-white">{{ $cls->instructor }}</strong></span>
                         @endif
-                        <span>Jadwal: <strong class="text-white">{{ $cls->schedule ?? 'Menyesuaikan' }}</strong></span>
+                        <span>Jadwal: <strong class="text-white">{{ $cls->display_schedule }}</strong></span>
                         <span>Durasi: <strong class="text-white">{{ $cls->duration ?? '-' }}</strong></span>
                         @if($cls->location)
                             <span>Lokasi: <strong class="text-white">{{ $cls->location }}</strong></span>

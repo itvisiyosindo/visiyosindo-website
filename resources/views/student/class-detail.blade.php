@@ -47,7 +47,7 @@
                 <a href="/" class="shrink-0">@include('student.partials.logo')</a>
                 <a href="{{ route('student.classes') }}"
                     class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-blue-600 transition-colors whitespace-nowrap">
-                    <span>&larr; Katalog Kelas</span>
+                    <span>&larr; Katalog Program</span>
                 </a>
             </div>
 
@@ -55,7 +55,7 @@
                 @auth
                     @if(Auth::user()->isStudent())
                         <a href="{{ route('student.dashboard') }}" style="background-color: #0c2a52; color: #ffffff;" class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
-                            Portal Pelajar
+                            Portal Member
                         </a>
                     @else
                         <a href="{{ route('dashboard.trainings.classes') }}" style="background-color: #0c2a52; color: #ffffff;" class="px-4 py-2 rounded-xl text-xs font-black text-white hover:opacity-90 transition-opacity whitespace-nowrap">
@@ -76,7 +76,7 @@
 
     <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 w-full">
         <div class="sm:hidden mb-4">
-            <a href="{{ route('student.classes') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">&larr; Kembali ke Katalog Kelas</a>
+            <a href="{{ route('student.classes') }}" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-bold text-slate-600 dark:text-slate-300">&larr; Kembali ke Katalog Program</a>
         </div>
         <div class="st-grid-12 gap-8 items-start">
             <!-- Left Content -->
@@ -89,10 +89,18 @@
 
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
                     <div class="flex flex-wrap items-center gap-2">
+                        <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider"
+                            style="background-color: {{ $trainingClass->is_webinar ? '#7c3aed' : '#2563eb' }}; color: #ffffff;">
+                            {{ $trainingClass->program_type_label }}
+                        </span>
                         <span class="px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300">
                             {{ $trainingClass->category }}
                         </span>
-                        @if($trainingClass->batch_name)
+                        @if($trainingClass->is_coming_soon_program)
+                            <span class="px-3 py-1 rounded-full text-xs font-black uppercase" style="background-color: #fbbf24; color: #0f172a;">
+                                COMING SOON
+                            </span>
+                        @elseif($trainingClass->batch_name)
                             <span class="px-3 py-1 rounded-full text-xs font-black bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300">
                                 {{ $trainingClass->batch_name }}
                             </span>
@@ -117,7 +125,9 @@
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
                         <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-[10px] font-black uppercase text-slate-400 block">Jadwal</span>
-                            <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block break-words">{{ $trainingClass->schedule ?? 'Menyesuaikan' }}</span>
+                            <span class="text-xs font-bold {{ $trainingClass->is_coming_soon_program ? 'text-amber-600 dark:text-amber-400' : 'text-slate-800 dark:text-slate-200' }} mt-0.5 block break-words">
+                                {{ $trainingClass->is_coming_soon_program ? 'Coming Soon' : $trainingClass->display_schedule }}
+                            </span>
                         </div>
                         <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
                             <span class="text-[10px] font-black uppercase text-slate-400 block">Durasi</span>
@@ -128,9 +138,11 @@
                             <span class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-0.5 block break-words">{{ $trainingClass->location ?: $trainingClass->delivery_mode_label }}</span>
                         </div>
                         <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-800/60 min-w-0">
-                            <span class="text-[10px] font-black uppercase text-slate-400 block">Kuota Peserta</span>
+                            <span class="text-[10px] font-black uppercase text-slate-400 block">Kuota Member</span>
                             <span class="text-xs font-bold {{ $trainingClass->is_full ? 'text-rose-600' : 'text-emerald-600 dark:text-emerald-400' }} mt-0.5 block break-words">
-                                @if($trainingClass->remaining_quota !== null)
+                                @if($trainingClass->is_coming_soon_program)
+                                    Segera Dibuka
+                                @elseif($trainingClass->remaining_quota !== null)
                                     {{ $trainingClass->is_full ? 'Penuh' : 'Sisa ' . $trainingClass->remaining_quota . ' dari ' . $trainingClass->quota }}
                                 @else
                                     Terbuka
@@ -179,7 +191,7 @@
             <div class="st-col-4 space-y-4">
                 <div class="bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl space-y-5 border border-slate-100 dark:border-slate-800">
                     <div>
-                        <span class="text-xs font-black uppercase tracking-wider text-slate-400 block">Investasi Pelatihan</span>
+                        <span class="text-xs font-black uppercase tracking-wider text-slate-400 block">Investasi {{ $trainingClass->program_type_label }}</span>
                         <div class="text-3xl font-black text-blue-600 dark:text-blue-400 mt-1">
                             {{ $trainingClass->formatted_price }}
                         </div>
@@ -190,61 +202,73 @@
                         @endif
                     </div>
 
-                    @if($trainingClass->registration_deadline)
+                    @if($trainingClass->is_coming_soon_program)
+                        <div class="p-3 rounded-2xl text-xs font-semibold" style="background-color: #fef3c7; color: #92400e; border: 1px solid #fde68a;">
+                            Status: <strong>Coming Soon</strong> — Jadwal pelaksanaan akan segera diumumkan.
+                        </div>
+                    @elseif($trainingClass->registration_deadline)
                         <div class="p-3 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 text-xs font-semibold">
                             Batas Pendaftaran: {{ $trainingClass->registration_deadline->translatedFormat('d F Y') }}
                         </div>
                     @endif
 
-                    @auth
-                        @if($existingEnrollment && !$existingEnrollment->isCancelled())
-                            @if($existingEnrollment->isPaid())
-                                <a href="{{ route('student.classroom', $existingEnrollment->id) }}"
-                                    style="background-color: #059669; color: #ffffff;"
-                                    class="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all leading-snug">
-                                    Masuk ke Ruang Kelas
-                                </a>
+                    @if($trainingClass->is_coming_soon_program)
+                        <button type="button" disabled
+                            style="background-color: #fef3c7; color: #92400e;"
+                            class="w-full py-3 px-4 rounded-2xl font-black text-xs cursor-not-allowed">
+                            Coming Soon — Pendaftaran Segera Dibuka
+                        </button>
+                    @else
+                        @auth
+                            @if($existingEnrollment && !$existingEnrollment->isCancelled())
+                                @if($existingEnrollment->isPaid())
+                                    <a href="{{ route('student.classroom', $existingEnrollment->id) }}"
+                                        style="background-color: #059669; color: #ffffff;"
+                                        class="w-full py-3 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs text-center block shadow-lg shadow-emerald-500/25 transition-all leading-snug">
+                                        Masuk ke Ruang Belajar
+                                    </a>
+                                @else
+                                    <a href="{{ route('student.dashboard', ['#invoices']) }}"
+                                        style="background-color: #f59e0b; color: #ffffff;"
+                                        class="w-full py-3 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all leading-snug">
+                                        Menunggu Pembayaran — Upload Bukti Bayar
+                                    </a>
+                                @endif
+                            @elseif(!$trainingClass->is_registration_open)
+                                <button type="button" disabled
+                                    class="w-full py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
+                                    {{ $trainingClass->is_full ? 'Kuota Member Sudah Penuh' : 'Pendaftaran Ditutup' }}
+                                </button>
                             @else
-                                <a href="{{ route('student.dashboard', ['#invoices']) }}"
-                                    style="background-color: #f59e0b; color: #ffffff;"
-                                    class="w-full py-3 px-4 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-black text-xs text-center block shadow-lg shadow-amber-500/25 transition-all leading-snug">
-                                    Menunggu Pembayaran — Upload Bukti Bayar
+                                <a href="{{ route('student.checkout', $trainingClass->id) }}"
+                                    style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
+                                    class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
+                                    Lanjut ke Checkout Pendaftaran &rarr;
                                 </a>
                             @endif
-                        @elseif(!$trainingClass->is_registration_open)
-                            <button type="button" disabled
-                                class="w-full py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
-                                {{ $trainingClass->is_full ? 'Kuota Peserta Sudah Penuh' : 'Pendaftaran Ditutup' }}
-                            </button>
                         @else
-                            <a href="{{ route('student.checkout', $trainingClass->id) }}"
-                                style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                                class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
-                                Lanjut ke Checkout Pendaftaran &rarr;
-                            </a>
-                        @endif
-                    @else
-                        @if(!$trainingClass->is_registration_open)
-                            <button type="button" disabled
-                                class="w-full py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
-                                {{ $trainingClass->is_full ? 'Kuota Peserta Sudah Penuh' : 'Pendaftaran Ditutup' }}
-                            </button>
-                        @else
-                            <a href="{{ route('student.register') }}"
-                                style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
-                                class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
-                                Daftar Akun & Gabung Kelas
-                            </a>
-                            <p class="text-center text-xs text-slate-500 dark:text-slate-400">
-                                Sudah punya akun? <a href="{{ route('login') }}" class="text-blue-600 font-bold hover:underline">Masuk di sini</a>
-                            </p>
-                        @endif
-                    @endauth
+                            @if(!$trainingClass->is_registration_open)
+                                <button type="button" disabled
+                                    class="w-full py-3 px-4 rounded-2xl bg-slate-200 dark:bg-slate-800 text-slate-500 font-black text-xs cursor-not-allowed">
+                                    {{ $trainingClass->is_full ? 'Kuota Member Sudah Penuh' : 'Pendaftaran Ditutup' }}
+                                </button>
+                            @else
+                                <a href="{{ route('student.register') }}"
+                                    style="background: linear-gradient(135deg, #0c2a52 0%, #2563eb 100%); color: #ffffff;"
+                                    class="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white font-black text-xs text-center block shadow-xl shadow-blue-500/25 transition-all leading-snug">
+                                    Daftar Akun Member & Gabung Program
+                                </a>
+                                <p class="text-center text-xs text-slate-500 dark:text-slate-400">
+                                    Sudah punya akun? <a href="{{ route('login') }}" class="text-blue-600 font-bold hover:underline">Masuk di sini</a>
+                                </p>
+                            @endif
+                        @endauth
+                    @endif
 
-                    <a href="https://wa.me/{{ $academySettings['admin_whatsapp'] }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin bertanya tentang kelas: ' . $trainingClass->title) }}"
+                    <a href="https://wa.me/{{ $academySettings['admin_whatsapp'] }}?text={{ rawurlencode('Halo Admin Visilab, saya ingin bertanya tentang program ' . $trainingClass->program_type_label . ': ' . $trainingClass->title) }}"
                         target="_blank" rel="noopener noreferrer"
                         class="w-full py-2.5 px-4 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 font-bold text-xs text-center block transition-colors">
-                        Tanya Admin via WhatsApp
+                        Tanya Admin Visilab via WhatsApp
                     </a>
                 </div>
             </div>

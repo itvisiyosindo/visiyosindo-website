@@ -378,7 +378,21 @@ class TrainingManagementController extends Controller
         }
 
         if ($request->has('is_active') && $request->get('is_active') !== '') {
-            $query->where('is_active', (bool) $request->get('is_active'));
+            $filterStatus = $request->get('is_active');
+            if ($filterStatus === 'coming_soon') {
+                $query->where('is_active', true)->where(function ($q) {
+                    $q->where('is_coming_soon', true)
+                      ->orWhereRaw('LOWER(COALESCE(schedule, "")) LIKE ?', ['%coming soon%']);
+                });
+            } else {
+                $query->where('is_active', (bool) $filterStatus);
+            }
+        }
+
+        if ($programType = $request->get('program_type')) {
+            if (in_array($programType, [TrainingClass::PROGRAM_TYPE_TRAINING, TrainingClass::PROGRAM_TYPE_WEBINAR], true)) {
+                $query->where('program_type', $programType);
+            }
         }
 
         $classes = $query->paginate(12)->withQueryString();
@@ -386,6 +400,7 @@ class TrainingManagementController extends Controller
         $stats = [
             'total' => TrainingClass::count(),
             'active' => TrainingClass::where('is_active', true)->count(),
+            'webinars' => TrainingClass::where('program_type', TrainingClass::PROGRAM_TYPE_WEBINAR)->count(),
             'inactive' => TrainingClass::where('is_active', false)->count(),
             'total_students' => TrainingEnrollment::where('status', '!=', TrainingEnrollment::STATUS_CANCELLED)->count(),
         ];
@@ -404,6 +419,7 @@ class TrainingManagementController extends Controller
 
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'program_type' => ['nullable', 'in:pelatihan,webinar'],
             'category' => ['required', 'string', 'max:100'],
             'batch_name' => ['required', 'string', 'max:100'],
             'instructor' => ['nullable', 'string', 'max:255'],
@@ -420,18 +436,19 @@ class TrainingManagementController extends Controller
             'description' => ['nullable', 'string'],
             'syllabus' => ['nullable', 'string'],
             'is_active' => ['nullable'],
+            'is_coming_soon' => ['nullable'],
         ], [
-            'title.required' => 'Judul kelas wajib diisi.',
-            'category.required' => 'Kategori kelas wajib diisi.',
-            'batch_name.required' => 'Nama batch wajib diisi.',
-            'price.required' => 'Harga pelatihan wajib diisi (isi 0 jika gratis).',
+            'title.required' => 'Judul program wajib diisi.',
+            'category.required' => 'Kategori program wajib diisi.',
+            'batch_name.required' => 'Nama batch / seri wajib diisi.',
+            'price.required' => 'Biaya program wajib diisi (isi 0 jika gratis).',
             'image.image' => 'File flyer harus berupa gambar (JPG, PNG, atau WEBP).',
             'image.max' => 'Ukuran file flyer maksimal 5 MB.',
         ]);
 
         $baseSlug = Str::slug($validated['title'] . '-' . $validated['batch_name']);
         if (empty($baseSlug)) {
-            $baseSlug = 'kelas-' . time();
+            $baseSlug = 'program-' . time();
         }
 
         $slug = $baseSlug;
@@ -447,9 +464,16 @@ class TrainingManagementController extends Controller
             $imagePath = $request->file('image')->store('trainings/flyers', 'public');
         }
 
+        $isComingSoon = $request->boolean('is_coming_soon');
+        $schedule = $validated['schedule'] ?? null;
+        if ($isComingSoon && blank($schedule)) {
+            $schedule = 'Coming Soon';
+        }
+
         TrainingClass::create([
             'title' => $validated['title'],
             'slug' => $slug,
+            'program_type' => $validated['program_type'] ?? TrainingClass::PROGRAM_TYPE_TRAINING,
             'category' => $validated['category'],
             'batch_name' => $validated['batch_name'],
             'instructor' => $validated['instructor'] ?? null,
@@ -457,7 +481,7 @@ class TrainingManagementController extends Controller
             'quota' => !empty($validated['quota']) ? (int) $validated['quota'] : null,
             'registration_deadline' => $validated['registration_deadline'] ?? null,
             'duration' => $validated['duration'] ?? null,
-            'schedule' => $validated['schedule'] ?? null,
+            'schedule' => $schedule,
             'location' => $validated['location'] ?? null,
             'delivery_mode' => $validated['delivery_mode'] ?? 'online',
             'whatsapp_group_link' => $validated['whatsapp_group_link'] ?? null,
@@ -466,11 +490,12 @@ class TrainingManagementController extends Controller
             'description' => $validated['description'] ?? null,
             'syllabus' => $validated['syllabus'] ?? null,
             'is_active' => $request->boolean('is_active', true),
+            'is_coming_soon' => $isComingSoon,
         ]);
 
         return redirect()->route('dashboard.trainings.classes')->with('toast', [
             'type' => 'success',
-            'message' => 'Kelas pelatihan baru berhasil dibuat!',
+            'message' => 'Program baru berhasil dibuat!',
         ]);
     }
 
@@ -486,6 +511,7 @@ class TrainingManagementController extends Controller
 
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'program_type' => ['nullable', 'in:pelatihan,webinar'],
             'category' => ['required', 'string', 'max:100'],
             'batch_name' => ['required', 'string', 'max:100'],
             'instructor' => ['nullable', 'string', 'max:255'],
@@ -502,6 +528,7 @@ class TrainingManagementController extends Controller
             'description' => ['nullable', 'string'],
             'syllabus' => ['nullable', 'string'],
             'is_active' => ['nullable'],
+            'is_coming_soon' => ['nullable'],
         ], [
             'image.image' => 'File flyer harus berupa gambar (JPG, PNG, atau WEBP).',
             'image.max' => 'Ukuran file flyer maksimal 5 MB.',
@@ -520,8 +547,15 @@ class TrainingManagementController extends Controller
             $imagePath = null;
         }
 
+        $isComingSoon = $request->boolean('is_coming_soon');
+        $schedule = $validated['schedule'] ?? null;
+        if ($isComingSoon && blank($schedule)) {
+            $schedule = 'Coming Soon';
+        }
+
         $trainingClass->update([
             'title' => $validated['title'],
+            'program_type' => $validated['program_type'] ?? ($trainingClass->program_type ?? TrainingClass::PROGRAM_TYPE_TRAINING),
             'category' => $validated['category'],
             'batch_name' => $validated['batch_name'],
             'instructor' => $validated['instructor'] ?? null,
@@ -529,7 +563,7 @@ class TrainingManagementController extends Controller
             'quota' => !empty($validated['quota']) ? (int) $validated['quota'] : null,
             'registration_deadline' => $validated['registration_deadline'] ?? null,
             'duration' => $validated['duration'] ?? null,
-            'schedule' => $validated['schedule'] ?? null,
+            'schedule' => $schedule,
             'location' => $validated['location'] ?? null,
             'delivery_mode' => $validated['delivery_mode'] ?? 'online',
             'whatsapp_group_link' => $validated['whatsapp_group_link'] ?? null,
@@ -538,11 +572,12 @@ class TrainingManagementController extends Controller
             'description' => $validated['description'] ?? null,
             'syllabus' => $validated['syllabus'] ?? null,
             'is_active' => $request->boolean('is_active'),
+            'is_coming_soon' => $isComingSoon,
         ]);
 
         return redirect()->route('dashboard.trainings.classes')->with('toast', [
             'type' => 'success',
-            'message' => 'Perubahan kelas berhasil disimpan!',
+            'message' => 'Perubahan program berhasil disimpan!',
         ]);
     }
 
