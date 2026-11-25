@@ -1905,9 +1905,6 @@
                                     <span class="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400 truncate">
                                         🏥 {{ $pHosp }}
                                     </span>
-                                    <span class="shrink-0 text-slate-400">
-                                        📅 {{ $pDate }}
-                                    </span>
                                 </div>
                                 <h3 class="vpi-card-title">{{ $pTitle }}</h3>
                                 <p class="vpi-card-desc">{{ $pDesc }}</p>
@@ -1981,9 +1978,6 @@
                                     <span class="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400 truncate">
                                         🏥 {{ $sItem['hosp'] }}
                                     </span>
-                                    <span class="shrink-0 text-slate-400">
-                                        📅 {{ $sItem['date'] }}
-                                    </span>
                                 </div>
                                 <h3 class="vpi-card-title">{{ $sItem['title'] }}</h3>
                                 <p class="vpi-card-desc">{{ $sItem['desc'] }}</p>
@@ -2047,7 +2041,6 @@
                         <span class="px-3 py-1 rounded-xl text-xs font-bold bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900/50" x-text="'🔧 Alat: ' + modalProduct"></span>
                         <span class="px-3 py-1 rounded-xl text-xs font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/50" x-text="'🏥 ' + modalHospital"></span>
                         <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300" x-text="'📍 ' + modalLocation"></span>
-                        <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300" x-text="'📅 ' + modalDate"></span>
                     </div>
 
                     {{-- Description Text --}}
