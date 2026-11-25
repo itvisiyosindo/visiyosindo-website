@@ -1757,6 +1757,317 @@
         </div>
     </section>
 
+    {{-- Product Installation Section (scoped styles prefix vpi-) --}}
+    <style>
+        .vpi-section { position: relative; overflow: hidden; padding: 5rem 0; background: #ffffff; border-top: 1px solid #f1f5f9; border-bottom: 1px solid #f1f5f9; }
+        html.dark .vpi-section { background: #070d18; border-color: #1e293b; }
+        .vpi-container { max-width: 80rem; margin: 0 auto; padding: 0 1rem; }
+        .vpi-head { text-align: center; max-width: 46rem; margin: 0 auto 3.5rem; }
+        .vpi-eyebrow {
+            display: inline-flex; align-items: center; gap: .5rem; margin-bottom: 1.25rem; padding: .4rem .95rem; font-size: .78rem; font-weight: 700;
+            letter-spacing: .04em; text-transform: uppercase; color: #0284c7; background: #f0f9ff; border-radius: 999px; border: 1px solid #e0f2fe;
+        }
+        html.dark .vpi-eyebrow { color: #38bdf8; background: rgba(56, 189, 248, .12); border-color: rgba(56, 189, 248, .25); }
+        .vpi-title { margin: 0; font-weight: 800; letter-spacing: -.025em; line-height: 1.15; font-size: clamp(1.9rem, 3.6vw, 3rem); color: #0f172a; }
+        html.dark .vpi-title { color: #fff; }
+        .vpi-title span { background: linear-gradient(90deg, #0284c7, #06b6d4); -webkit-background-clip: text; background-clip: text; color: transparent; }
+        .vpi-lead { margin-top: 1rem; font-size: .95rem; color: #64748b; line-height: 1.6; }
+        html.dark .vpi-lead { color: #94a3b8; }
+
+        .vpi-grid { display: grid; grid-template-columns: repeat(1, minmax(0, 1fr)); gap: 1.75rem; }
+        @media (min-width: 640px) { .vpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .vpi-container { padding: 0 1.5rem; } }
+        @media (min-width: 1024px) { .vpi-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .vpi-container { padding: 0 2rem; } .vpi-section { padding: 6.5rem 0; } }
+
+        .vpi-card {
+            background: #ffffff; border: 1px solid #e2e8f0; border-radius: 1.5rem; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: space-between;
+            box-shadow: 0 10px 25px -15px rgba(15, 23, 42, .08);
+            transition: transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease, border-color .35s ease;
+        }
+        html.dark .vpi-card { background: #0f172a; border-color: #1e293b; box-shadow: 0 10px 25px -15px rgba(0, 0, 0, .6); }
+        .vpi-card:hover { transform: translateY(-5px); border-color: #38bdf8; box-shadow: 0 20px 35px -15px rgba(2, 132, 199, .22); }
+
+        .vpi-media { position: relative; width: 100%; height: 14.5rem; overflow: hidden; background: #e2e8f0; cursor: pointer; }
+        html.dark .vpi-media { background: #1e293b; }
+        .vpi-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.22, 1, .36, 1); }
+        .vpi-card:hover .vpi-media img { transform: scale(1.07); }
+        .vpi-media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0) 50%, rgba(15, 23, 42, 0.75) 100%); }
+
+        .vpi-badge-prod {
+            position: absolute; top: 1rem; left: 1rem; font-size: .7rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: .04em; padding: .3rem .75rem; border-radius: 999px;
+            background: rgba(2, 132, 199, .92); color: #fff; backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(2, 132, 199, .35);
+        }
+        .vpi-badge-verified {
+            position: absolute; top: 1rem; right: 1rem; font-size: .65rem; font-weight: 700;
+            padding: .3rem .65rem; border-radius: 999px;
+            background: rgba(16, 185, 129, .92); color: #fff; backdrop-filter: blur(8px);
+            display: inline-flex; align-items: center; gap: .3rem;
+        }
+
+        .vpi-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+        .vpi-meta { display: flex; items-center; justify-content: space-between; gap: .75rem; font-size: .75rem; color: #64748b; margin-bottom: .6rem; }
+        html.dark .vpi-meta { color: #94a3b8; }
+        .vpi-card-title { font-size: 1.05rem; font-weight: 700; color: #0f172a; line-height: 1.4; margin: 0 0 .5rem; }
+        html.dark .vpi-card-title { color: #f8fafc; }
+        .vpi-card-desc { font-size: .82rem; color: #64748b; line-height: 1.55; margin: 0 0 1rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; flex: 1; }
+        html.dark .vpi-card-desc { color: #94a3b8; }
+
+        .vpi-footer { padding: 1rem 1.5rem; border-top: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: space-between; }
+        html.dark .vpi-footer { border-color: #1e293b; }
+        .vpi-btn-detail {
+            display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; font-weight: 700; color: #0284c7;
+            background: transparent; border: none; cursor: pointer; padding: 0; transition: color .2s ease;
+        }
+        html.dark .vpi-btn-detail { color: #38bdf8; }
+        .vpi-btn-detail:hover { color: #0369a1; }
+        html.dark .vpi-btn-detail:hover { color: #7dd3fc; }
+    </style>
+
+    <section id="installations" class="vpi-section"
+        x-data="{
+            modalOpen: false,
+            modalImage: '',
+            modalTitle: '',
+            modalProduct: '',
+            modalHospital: '',
+            modalLocation: '',
+            modalDate: '',
+            modalDesc: '',
+            openModal(img, title, prod, hosp, loc, dt, desc) {
+                this.modalImage = img;
+                this.modalTitle = title;
+                this.modalProduct = prod;
+                this.modalHospital = hosp;
+                this.modalLocation = loc;
+                this.modalDate = dt;
+                this.modalDesc = desc;
+                this.modalOpen = true;
+            },
+            closeModal() {
+                this.modalOpen = false;
+            }
+        }"
+        @keydown.escape.window="closeModal()"
+    >
+        <div class="vpi-container">
+            {{-- Section Header --}}
+            <div class="vpi-head" data-gsap="fade-up">
+                <span class="vpi-eyebrow">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                    </svg>
+                    {{ __('Instalasi Produk & Alat') }}
+                </span>
+                <h2 class="vpi-title">
+                    {{ __('Dokumentasi') }} <span>{{ __('Instalasi Produk') }}</span>
+                </h2>
+                <p class="vpi-lead">
+                    {{ __('Portofolio pemasangan alat kesehatan, uji fungsi, kalibrasi, dan serah terima unit oleh tim teknisi bersertifikasi PT Visi Yosindo Medikal di rumah sakit dan klinik mitra.') }}
+                </p>
+            </div>
+
+            @php
+                $hasInstallations = isset($productInstallations) && $productInstallations->count() > 0;
+            @endphp
+
+            {{-- Installations Grid --}}
+            <div class="vpi-grid" data-gsap-stagger="fade-up">
+                @if($hasInstallations)
+                    @foreach($productInstallations as $item)
+                        @php
+                            $imgUrl = $item->image_url;
+                            $pTitle = $item->title;
+                            $pProd = $item->product_name ?: 'Alat Medis';
+                            $pHosp = $item->institution_name ?: 'Rumah Sakit Mitra';
+                            $pLoc = $item->location ?: 'Indonesia';
+                            $pDate = $item->formatted_date ?: ($item->installation_date ? $item->installation_date->format('d M Y') : date('d M Y'));
+                            $pDesc = $item->description ?: 'Pemasangan dan uji kesesuaian unit alat kesehatan oleh teknisi profesional.';
+                        @endphp
+                        <div data-gsap-item class="vpi-card">
+                            {{-- Card Image --}}
+                            <div class="vpi-media" @click="openModal('{{ $imgUrl }}', '{{ addslashes($pTitle) }}', '{{ addslashes($pProd) }}', '{{ addslashes($pHosp) }}', '{{ addslashes($pLoc) }}', '{{ addslashes($pDate) }}', '{{ addslashes($pDesc) }}')">
+                                <img src="{{ $imgUrl }}" alt="{{ $pTitle }}" loading="lazy" onerror="this.src='{{ asset('assets/logo/visiyosindo.png') }}';">
+                                <div class="vpi-media-overlay"></div>
+                                <span class="vpi-badge-prod">{{ $pProd }}</span>
+                                <span class="vpi-badge-verified">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Terpasang & Teruji
+                                </span>
+                            </div>
+
+                            {{-- Card Body --}}
+                            <div class="vpi-body">
+                                <div class="vpi-meta">
+                                    <span class="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400 truncate">
+                                        🏥 {{ $pHosp }}
+                                    </span>
+                                    <span class="shrink-0 text-slate-400">
+                                        📅 {{ $pDate }}
+                                    </span>
+                                </div>
+                                <h3 class="vpi-card-title">{{ $pTitle }}</h3>
+                                <p class="vpi-card-desc">{{ $pDesc }}</p>
+                            </div>
+
+                            {{-- Card Footer --}}
+                            <div class="vpi-footer">
+                                <span class="text-xs text-slate-400 flex items-center gap-1">
+                                    📍 {{ $pLoc }}
+                                </span>
+                                <button type="button" class="vpi-btn-detail"
+                                    @click="openModal('{{ $imgUrl }}', '{{ addslashes($pTitle) }}', '{{ addslashes($pProd) }}', '{{ addslashes($pHosp) }}', '{{ addslashes($pLoc) }}', '{{ addslashes($pDate) }}', '{{ addslashes($pDesc) }}')">
+                                    <span>{{ __('Lihat Foto & Detail') }}</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                @else
+                    {{-- Default Sample Installations when DB is newly initialized --}}
+                    @php
+                        $sampleInstallations = [
+                            [
+                                'title' => 'Instalasi & Uji Fungsi Stationary X-Ray 500mA',
+                                'product' => 'Stationary X-Ray 500mA',
+                                'hosp' => 'RSUD Arifin Achmad',
+                                'loc' => 'Pekanbaru, Riau',
+                                'date' => 'Oktober 2026',
+                                'desc' => 'Pemasangan unit Stationary X-Ray High Frequency resolusi tinggi di instalasi radiologi, dilengkapi uji kepatuhan dan keselamatan radiasi sesuai standar BAPETEN serta training staf teknis.',
+                                'image' => asset('assets/images/deals/deal-1.jpg'),
+                            ],
+                            [
+                                'title' => 'Instalasi Mobile DR (Digital Radiography) Unit',
+                                'product' => 'Mobile DR System',
+                                'hosp' => 'RS Prima Pekanbaru',
+                                'loc' => 'Pekanbaru, Riau',
+                                'date' => 'September 2026',
+                                'desc' => 'Penyediaan dan instalasi unit Mobile Digital Radiography untuk kebutuhan mobilitas IGD dan ICU, integrasi jaringan PACS/DICOM rumah sakit, dan uji paparan radiasi.',
+                                'image' => asset('assets/images/deals/deal-2.jpg'),
+                            ],
+                            [
+                                'title' => 'Pemasangan C-Arm Fluoroscopy Bedah Ortopedi',
+                                'product' => 'C-Arm Fluoroscopy',
+                                'hosp' => 'RS Awal Bros',
+                                'loc' => 'Pekanbaru, Riau',
+                                'date' => 'Agustus 2026',
+                                'desc' => 'Pemasangan dan kalibrasi unit C-Arm resolusi tinggi untuk ruang operasi bedah, memastikan presisi pencitraan real-time dengan paparan radiasi minimum bagi operator dan pasien.',
+                                'image' => asset('assets/images/deals/deal-3.jpg'),
+                            ],
+                        ];
+                    @endphp
+
+                    @foreach($sampleInstallations as $sItem)
+                        <div data-gsap-item class="vpi-card">
+                            <div class="vpi-media" @click="openModal('{{ $sItem['image'] }}', '{{ addslashes($sItem['title']) }}', '{{ addslashes($sItem['product']) }}', '{{ addslashes($sItem['hosp']) }}', '{{ addslashes($sItem['loc']) }}', '{{ addslashes($sItem['date']) }}', '{{ addslashes($sItem['desc']) }}')">
+                                <img src="{{ $sItem['image'] }}" alt="{{ $sItem['title'] }}" loading="lazy" onerror="this.src='{{ asset('assets/logo/visiyosindo.png') }}';">
+                                <div class="vpi-media-overlay"></div>
+                                <span class="vpi-badge-prod">{{ $sItem['product'] }}</span>
+                                <span class="vpi-badge-verified">
+                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    Terpasang & Teruji
+                                </span>
+                            </div>
+
+                            <div class="vpi-body">
+                                <div class="vpi-meta">
+                                    <span class="inline-flex items-center gap-1 font-semibold text-blue-600 dark:text-blue-400 truncate">
+                                        🏥 {{ $sItem['hosp'] }}
+                                    </span>
+                                    <span class="shrink-0 text-slate-400">
+                                        📅 {{ $sItem['date'] }}
+                                    </span>
+                                </div>
+                                <h3 class="vpi-card-title">{{ $sItem['title'] }}</h3>
+                                <p class="vpi-card-desc">{{ $sItem['desc'] }}</p>
+                            </div>
+
+                            <div class="vpi-footer">
+                                <span class="text-xs text-slate-400 flex items-center gap-1">
+                                    📍 {{ $sItem['loc'] }}
+                                </span>
+                                <button type="button" class="vpi-btn-detail"
+                                    @click="openModal('{{ $sItem['image'] }}', '{{ addslashes($sItem['title']) }}', '{{ addslashes($sItem['product']) }}', '{{ addslashes($sItem['hosp']) }}', '{{ addslashes($sItem['loc']) }}', '{{ addslashes($sItem['date']) }}', '{{ addslashes($sItem['desc']) }}')">
+                                    <span>{{ __('Lihat Foto & Detail') }}</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    @endforeach
+                @endif
+            </div>
+        </div>
+
+        {{-- Alpine.js Lightbox Modal --}}
+        <div x-show="modalOpen" x-cloak
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-slate-950/80 backdrop-blur-md"
+            style="display: none;">
+            
+            <div @click.away="closeModal()"
+                class="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col border border-white/20">
+                
+                {{-- Modal Header --}}
+                <div class="p-4 sm:p-5 flex items-center justify-between border-b border-slate-100 dark:border-slate-800 bg-white/95 dark:bg-slate-900/95">
+                    <div class="flex items-center gap-2 min-w-0 pr-4">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-500 shrink-0"></span>
+                        <h4 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white truncate" x-text="modalTitle"></h4>
+                    </div>
+                    <button type="button" @click="closeModal()"
+                        class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shrink-0">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Modal Body --}}
+                <div class="p-4 sm:p-6 overflow-y-auto space-y-4">
+                    {{-- Big Image Preview --}}
+                    <div class="w-full max-h-[50vh] rounded-2xl overflow-hidden bg-slate-950 flex items-center justify-center shadow-lg">
+                        <img :src="modalImage" :alt="modalTitle" class="max-h-[50vh] w-auto object-contain">
+                    </div>
+
+                    {{-- Installation Info Chips --}}
+                    <div class="flex flex-wrap gap-2 pt-2">
+                        <span class="px-3 py-1 rounded-xl text-xs font-bold bg-blue-50 dark:bg-blue-950/70 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900/50" x-text="'🔧 Alat: ' + modalProduct"></span>
+                        <span class="px-3 py-1 rounded-xl text-xs font-bold bg-emerald-50 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 border border-emerald-100 dark:border-emerald-900/50" x-text="'🏥 ' + modalHospital"></span>
+                        <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300" x-text="'📍 ' + modalLocation"></span>
+                        <span class="px-3 py-1 rounded-xl text-xs font-semibold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300" x-text="'📅 ' + modalDate"></span>
+                    </div>
+
+                    {{-- Description Text --}}
+                    <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800">
+                        <h5 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-1">{{ __('Keterangan Pekerjaan & Uji Fungsi') }}</h5>
+                        <p class="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal" x-text="modalDesc"></p>
+                    </div>
+                </div>
+
+                {{-- Modal Footer --}}
+                <div class="p-4 sm:p-5 border-t border-slate-100 dark:border-slate-800 bg-slate-50 dark:bg-slate-900/80 flex items-center justify-end">
+                    <button type="button" @click="closeModal()"
+                        class="px-5 py-2.5 text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-xl transition-all shadow-md shadow-blue-600/20 cursor-pointer">
+                        {{ __('Tutup') }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
     {{-- Gallery Section (redesigned, scoped styles prefix vg-) --}}
     <style>
         .vg-section { position: relative; overflow: hidden; padding: 5rem 0; background: #f8fafc; }

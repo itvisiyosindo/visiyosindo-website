@@ -28,6 +28,7 @@ use App\Http\Controllers\Dashboard\PartnerController;
 use App\Http\Controllers\Dashboard\ClientController;
 use App\Http\Controllers\Dashboard\ProductCategoryController;
 use App\Http\Controllers\Dashboard\ProductContentController;
+use App\Http\Controllers\Dashboard\ProductInstallationController;
 use App\Http\Controllers\Dashboard\PromoBannerController;
 use App\Http\Controllers\Dashboard\TeamController;
 use App\Http\Controllers\Dashboard\RoleController;
@@ -578,6 +579,17 @@ Route::get('/', function () {
         ->orderBy('created_at', 'desc')
         ->take(5)
         ->get();
+
+    // Get active product installations
+    try {
+        $productInstallations = \App\Models\ProductInstallation::where('is_active', true)
+            ->orderBy('display_order', 'asc')
+            ->orderBy('created_at', 'desc')
+            ->take(8)
+            ->get();
+    } catch (\Throwable $e) {
+        $productInstallations = collect();
+    }
     
     // Get 5 latest published news
     $news = \App\Models\NewsPost::where('status', 'published')
@@ -586,7 +598,7 @@ Route::get('/', function () {
         ->take(5)
         ->get();
     
-    return view('home', compact('heroSlides', 'promoBanners', 'dealPosters', 'introduction', 'offices', 'galleries', 'news'));
+    return view('home', compact('heroSlides', 'promoBanners', 'dealPosters', 'introduction', 'offices', 'galleries', 'productInstallations', 'news'));
 })->name('home');
 
 Route::get('/gallery', [\App\Http\Controllers\Frontend\GalleryController::class, 'index'])->name('gallery');
@@ -717,6 +729,17 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/images/analyze', [ProductContentController::class, 'analyzeImage'])->name('analyze-image')->middleware('permission:edit-products');
         Route::post('/images/enhance', [ProductContentController::class, 'enhanceImage'])->name('enhance-image')->middleware('permission:edit-products');
         Route::post('/images/preview-enhancement', [ProductContentController::class, 'previewEnhancement'])->name('preview-enhancement')->middleware('permission:edit-products');
+    });
+
+    // Product Installations Management
+    Route::prefix('dashboard/product-installations')->name('dashboard.product-installations.')->group(function () {
+        Route::get('/', [ProductInstallationController::class, 'index'])->name('index');
+        Route::get('/create', [ProductInstallationController::class, 'create'])->name('create');
+        Route::post('/', [ProductInstallationController::class, 'store'])->name('store');
+        Route::get('/{encryptedId}/edit', [ProductInstallationController::class, 'edit'])->name('edit');
+        Route::put('/{encryptedId}', [ProductInstallationController::class, 'update'])->name('update');
+        Route::post('/{encryptedId}/toggle-status', [ProductInstallationController::class, 'toggleStatus'])->name('toggle-status');
+        Route::delete('/{encryptedId}', [ProductInstallationController::class, 'destroy'])->name('destroy');
     });
 
     // Career Management
