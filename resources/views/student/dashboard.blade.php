@@ -927,7 +927,7 @@
             </div>
 
             <!-- Bottom Section: Member Help Card & User Profile / Logout -->
-            <div class="p-4 pb-6 lg:pb-4 space-y-2.5 border-t border-slate-100 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xs">
+            <div class="p-4 space-y-3 border-t border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900">
                 <!-- Help WhatsApp Pill -->
                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin konsultasi mengenai layanan & benefit member.') }}"
                     target="_blank" rel="noopener noreferrer"
