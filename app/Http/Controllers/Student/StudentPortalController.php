@@ -7,6 +7,8 @@ use App\Models\AcademySetting;
 use App\Models\AffiliateCode;
 use App\Models\AffiliateWithdrawal;
 use App\Models\NewsPost;
+use App\Models\ProductContent;
+use App\Models\PromoBanner;
 use App\Models\StudentCertificate;
 use App\Models\TrainingClass;
 use App\Models\TrainingEnrollment;
@@ -222,10 +224,31 @@ class StudentPortalController extends Controller
         try {
             $latestNews = NewsPost::published()
                 ->latest('published_at')
-                ->take(3)
+                ->take(4)
                 ->get();
         } catch (\Throwable $e) {
             $latestNews = collect();
+        }
+
+        // Active promo banners for member benefit & promo showcase
+        try {
+            $promoBanners = PromoBanner::where('is_active', true)
+                ->orderBy('display_order')
+                ->take(4)
+                ->get();
+        } catch (\Throwable $e) {
+            $promoBanners = collect();
+        }
+
+        // Featured/promo medical equipment products for member discovery & recommendation
+        try {
+            $featuredProducts = ProductContent::with('category')
+                ->orderByDesc('is_promo')
+                ->latest()
+                ->take(4)
+                ->get();
+        } catch (\Throwable $e) {
+            $featuredProducts = collect();
         }
 
         return view('student.dashboard', compact(
@@ -233,6 +256,8 @@ class StudentPortalController extends Controller
             'memberCardId',
             'memberValidThru',
             'latestNews',
+            'promoBanners',
+            'featuredProducts',
             'academySettings',
             'enrollments',
             'certificates',

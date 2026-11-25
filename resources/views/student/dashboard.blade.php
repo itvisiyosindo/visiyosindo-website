@@ -262,6 +262,216 @@
             color: #93c5fd;
         }
 
+        /* Luxury Brand Palette (Setone with Visilab/Visiyosindo Logo & Official Card) */
+        .vm-canvas {
+            background-color: #f3f6fb !important;
+        }
+        .dark .vm-canvas {
+            background-color: #060d1f !important;
+        }
+        .vm-hero-stage {
+            background: radial-gradient(circle at 85% 15%, rgba(240, 190, 74, 0.16) 0%, transparent 45%),
+                        radial-gradient(circle at 10% 90%, rgba(37, 99, 235, 0.25) 0%, transparent 50%),
+                        linear-gradient(135deg, #071636 0%, #0c2a52 55%, #12376b 100%) !important;
+            border: 1px solid rgba(240, 190, 74, 0.28);
+            border-radius: 1.75rem;
+            color: #ffffff !important;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 45px -18px rgba(7, 22, 54, 0.55);
+        }
+        .vm-hero-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.75rem;
+            align-items: center;
+        }
+        @media (min-width: 1024px) {
+            .vm-hero-grid {
+                grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.95fr);
+                gap: 2.25rem;
+            }
+        }
+        .vm-gold-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 0.35rem 0.85rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            background: rgba(240, 190, 74, 0.14);
+            color: #f0be4a;
+            border: 1px solid rgba(240, 190, 74, 0.35);
+        }
+        .vm-loyalty-strip {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 0.65rem;
+            padding-top: 0.5rem;
+        }
+        @media (max-width: 520px) {
+            .vm-loyalty-strip {
+                grid-template-columns: repeat(1, minmax(0, 1fr));
+            }
+        }
+        .vm-loyalty-item {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 1rem;
+            padding: 0.7rem 0.85rem;
+            backdrop-filter: blur(8px);
+        }
+        .vm-quick-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.85rem;
+        }
+        @media (min-width: 1024px) {
+            .vm-quick-grid {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 1rem;
+            }
+        }
+        .vm-quick-tile {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.25rem;
+            padding: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .vm-quick-tile:hover {
+            transform: translateY(-2px);
+            border-color: #f0be4a;
+            box-shadow: 0 12px 24px rgba(12, 42, 82, 0.09);
+        }
+        .dark .vm-quick-tile {
+            background: #0d182f;
+            border-color: #1e2d4a;
+        }
+        .dark .vm-quick-tile:hover {
+            border-color: #f0be4a;
+        }
+        .vm-hub-split {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 1.5rem;
+        }
+        @media (min-width: 1024px) {
+            .vm-hub-split {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+        .vm-panel {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.5rem;
+            padding: 1.35rem 1.5rem;
+            box-shadow: 0 4px 16px rgba(12, 42, 82, 0.04);
+        }
+        .dark .vm-panel {
+            background: #0d182f;
+            border-color: #1e2d4a;
+        }
+        .vm-list-row {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            padding: 0.75rem;
+            border-radius: 1rem;
+            border: 1px solid transparent;
+            transition: background 0.18s ease, border-color 0.18s ease;
+            text-decoration: none;
+        }
+        .vm-list-row:hover {
+            background: #f8fafc;
+            border-color: #e2e8f0;
+        }
+        .dark .vm-list-row:hover {
+            background: rgba(30, 45, 74, 0.55);
+            border-color: #243656;
+        }
+        .vm-list-thumb {
+            width: 3.75rem;
+            height: 3.75rem;
+            border-radius: 0.85rem;
+            overflow: hidden;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, #071636, #153e75);
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .dark .vm-list-thumb { border-color: #1e2d4a; }
+        .vm-gold-cta-bar {
+            margin-top: 1rem;
+            padding: 0.9rem 1rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, rgba(240, 190, 74, 0.16) 0%, rgba(12, 42, 82, 0.06) 100%);
+            border: 1px solid rgba(217, 155, 38, 0.35);
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .dark .vm-gold-cta-bar {
+            background: linear-gradient(135deg, rgba(240, 190, 74, 0.14) 0%, rgba(7, 22, 54, 0.75) 100%);
+            border-color: rgba(240, 190, 74, 0.3);
+        }
+        .vm-filter-bubble {
+            padding: 0.48rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+        .vm-filter-bubble:hover { border-color: #0c2a52; color: #0c2a52; }
+        .dark .vm-filter-bubble { background: #0d182f; color: #cbd5e1; border-color: #1e2d4a; }
+        .vm-filter-bubble-active {
+            background: #0c2a52 !important;
+            color: #f0be4a !important;
+            border-color: #0c2a52 !important;
+            box-shadow: 0 6px 14px rgba(12, 42, 82, 0.22);
+        }
+        .vm-sidebar-id-card {
+            margin: 0.75rem 0.75rem 0.25rem;
+            padding: 0.75rem 0.9rem;
+            border-radius: 1rem;
+            background: linear-gradient(135deg, #071636 0%, #0c2a52 100%);
+            border: 1px solid rgba(240, 190, 74, 0.35);
+            color: #ffffff;
+        }
+        .vm-btn-gold {
+            background: linear-gradient(135deg, #f0be4a 0%, #e5a92a 100%) !important;
+            color: #071636 !important;
+            font-weight: 800;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+        .vm-btn-gold:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 10px 22px rgba(240, 190, 74, 0.32);
+        }
+        .vm-btn-navy {
+            background: #0c2a52 !important;
+            color: #ffffff !important;
+            font-weight: 800;
+            transition: background 0.18s ease, transform 0.18s ease;
+        }
+        .vm-btn-navy:hover { background: #153e75 !important; transform: translateY(-1px); }
+
         /* Unified Student Card Header, Flyer Framing & Floating Badges */
         .vb-card-header {
             position: relative !important;
@@ -353,7 +563,7 @@
     </style>
 </head>
 
-<body class="font-sans antialiased h-full bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 selection:bg-blue-600 selection:text-white"
+<body class="vm-canvas font-sans antialiased h-full text-slate-800 dark:text-slate-100 selection:bg-blue-600 selection:text-white"
     x-data="{
         currentTab: (window.location.hash ? window.location.hash.substring(1) : 'overview'),
         mobileSidebarOpen: false,
@@ -369,6 +579,7 @@
         selectedUploadInvoice: null,
         classFilter: 'all',
         programTypeFilter: 'all',
+        benefitFilter: 'all',
         copyNotice: false,
         copiedText: '',
         setTab(tab) {
@@ -400,11 +611,11 @@
     x-init="
         window.addEventListener('hashchange', () => {
             const h = window.location.hash.substring(1);
-            if (['overview', 'classes', 'browse', 'history', 'affiliate', 'invoices', 'profile'].includes(h)) {
+            if (['overview', 'benefits', 'classes', 'browse', 'history', 'affiliate', 'invoices', 'profile'].includes(h)) {
                 currentTab = h;
             }
         });
-        if (!['overview', 'classes', 'browse', 'history', 'affiliate', 'invoices', 'profile'].includes(currentTab)) {
+        if (!['overview', 'benefits', 'classes', 'browse', 'history', 'affiliate', 'invoices', 'profile'].includes(currentTab)) {
             currentTab = 'overview';
         }
     ">
@@ -465,179 +676,214 @@
                 </button>
             </div>
 
-            <!-- Navigation Links -->
-            <div class="px-3 py-4 overflow-y-auto flex-1 space-y-1.5 scrollbar-thin">
-                <div class="px-3 pt-1 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                    Menu Utama
+            <!-- Compact Member Pass Identity Badge in Sidebar -->
+            <div class="vm-sidebar-id-card">
+                <div class="flex items-center justify-between gap-2">
+                    <span class="text-[9px] font-black uppercase tracking-widest" style="color:#f0be4a;">MEMBER PASS</span>
+                    <span class="text-[9px] font-bold px-1.5 py-0.5 rounded-full" style="background:rgba(16,185,129,0.22); color:#a7f3d0;">AKTIF</span>
+                </div>
+                <div class="mt-1 text-xs font-mono font-extrabold tracking-wider text-white notranslate" translate="no">{{ $memberCardId }}</div>
+                <div class="text-[10px] text-blue-200/80 mt-0.5">Berlaku s/d {{ $memberValidThru }}</div>
+            </div>
+
+            <!-- Navigation Links (Membership-First Hierarchy) -->
+            <div class="px-3 py-3 overflow-y-auto flex-1 space-y-1 scrollbar-thin">
+                <div class="px-3 pt-1 pb-1 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                    Member Hub
                 </div>
 
-                <!-- 1. Overview -->
+                <!-- 1. Beranda Member -->
                 <button type="button" @click="setTab('overview')"
                     class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'overview'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                        ? 'vb-active-tab font-black shadow-md'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
                     :style="currentTab === 'overview'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'overview' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'overview' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'overview' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                         </svg>
                     </span>
-                    <span class="flex-1 text-left truncate font-semibold">Overview</span>
-                    <span x-show="currentTab === 'overview'" style="background-color: #fbbf24;" class="shrink-0 w-2 h-2 rounded-full shadow-xs animate-pulse"></span>
+                    <span class="flex-1 text-left truncate font-semibold">Beranda Member</span>
+                    <span x-show="currentTab === 'overview'" style="background-color: #f0be4a;" class="shrink-0 w-2 h-2 rounded-full"></span>
                 </button>
 
-                <!-- 2. Kelas Saya -->
-                <button type="button" @click="setTab('classes')"
+                <!-- 2. Benefit & Promo (Loyalty Discovery) -->
+                <button type="button" @click="setTab('benefits')"
                     class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
-                    :class="currentTab === 'classes'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                    :class="currentTab === 'benefits'
+                        ? 'vb-active-tab font-black shadow-md'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'classes'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'classes' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                    :style="currentTab === 'benefits'
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'benefits' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'benefits' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                         </svg>
                     </span>
-                    <span class="flex-1 text-left truncate font-semibold">Program Saya</span>
-                    <span class="shrink-0 inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
-                        :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
-                        {{ $enrollments->count() }}
+                    <span class="flex-1 text-left truncate font-semibold">Benefit & Promo</span>
+                    <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[9px] font-black rounded-full uppercase tracking-wider"
+                        style="background-color: #f0be4a; color: #071636;">
+                        CEK
                     </span>
                 </button>
 
-                <!-- 3. Daftar Program -->
+                <!-- 3. Pelatihan & Webinar -->
                 <button type="button" @click="setTab('browse')"
                     class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'browse'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                        ? 'vb-active-tab font-black shadow-md'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
                     :style="currentTab === 'browse'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'browse' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'browse' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'browse' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
                         </svg>
                     </span>
-                    <span class="flex-1 text-left truncate font-semibold">Daftar Program</span>
-                    <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all uppercase tracking-wider"
-                        :class="currentTab === 'browse' ? '' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'"
-                        :style="currentTab === 'browse' ? 'background-color: #fbbf24; color: #0f172a;' : ''">
-                        OPEN
-                    </span>
+                    <span class="flex-1 text-left truncate font-semibold">Pelatihan & Webinar</span>
                 </button>
 
-                <!-- 3b. Riwayat Belajar & Sertifikat -->
+                <div class="px-3 pt-3.5 pb-1 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                    Aktivitas Saya
+                </div>
+
+                <!-- 4. Program Saya -->
+                <button type="button" @click="setTab('classes')"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
+                    :class="currentTab === 'classes'
+                        ? 'vb-active-tab font-black shadow-md'
+                        : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
+                    :style="currentTab === 'classes'
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'classes' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'classes' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                    </span>
+                    <span class="flex-1 text-left truncate font-semibold">Program Diikuti</span>
+                    @if($enrollments->count() > 0)
+                        <span class="shrink-0 inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full"
+                            :class="currentTab === 'classes' ? 'bg-white/20 text-white' : 'bg-blue-100 text-blue-900 dark:bg-blue-950/80 dark:text-blue-300'">
+                            {{ $enrollments->count() }}
+                        </span>
+                    @endif
+                </button>
+
+                <!-- 5. E-Sertifikat -->
                 <button type="button" @click="setTab('history')"
                     class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'history'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                        ? 'vb-active-tab font-black shadow-md'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
                     :style="currentTab === 'history'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'history' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'history' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'history' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
                         </svg>
                     </span>
-                    <span class="flex-1 text-left truncate font-semibold">Riwayat Belajar</span>
+                    <span class="flex-1 text-left truncate font-semibold">E-Sertifikat</span>
                     @if($certificates->count() > 0)
-                        <span class="shrink-0 inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full transition-all"
+                        <span class="shrink-0 inline-flex items-center justify-center min-w-5 h-5 px-1.5 text-[10px] font-black rounded-full"
                             :class="currentTab === 'history' ? 'bg-white/20 text-white' : 'bg-emerald-100 text-emerald-800 dark:bg-emerald-950/80 dark:text-emerald-300'">
                             {{ $certificates->count() }}
                         </span>
                     @endif
                 </button>
 
-                <div class="px-3 pt-4 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                    Transaksi & Lainnya
-                </div>
-
-                <!-- 4. Referral (understated, tanpa menonjolkan komisi) -->
-                <button type="button" @click="setTab('affiliate')"
-                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
-                    :class="currentTab === 'affiliate'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
-                        : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
-                    :style="currentTab === 'affiliate'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'affiliate' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                        </svg>
-                    </span>
-                    <span class="flex-1 text-left truncate font-semibold">Referral & Kemitraan</span>
-                </button>
-
-                <!-- 5. Invoice -->
+                <!-- 6. Invoice -->
                 <button type="button" @click="setTab('invoices')"
                     class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'invoices'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                        ? 'vb-active-tab font-black shadow-md'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
                     :style="currentTab === 'invoices'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'invoices' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'invoices' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'invoices' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                         </svg>
                     </span>
-                    <span class="flex-1 text-left truncate font-semibold">Invoice</span>
+                    <span class="flex-1 text-left truncate font-semibold">Tagihan & Invoice</span>
                     @php
                         $unpaidCount = $invoices->where('is_paid', false)->where('is_cancelled', false)->count();
                     @endphp
                     @if($unpaidCount > 0)
-                        <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full transition-all"
-                            :class="currentTab === 'invoices' ? '' : 'bg-amber-100 text-amber-900 dark:bg-amber-950/80 dark:text-amber-300'"
-                            :style="currentTab === 'invoices' ? 'background-color: #fbbf24; color: #0f172a;' : ''">
-                            {{ $unpaidCount }} Belum Bayar
+                        <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[10px] font-black rounded-full"
+                            style="background-color: #f0be4a; color: #071636;">
+                            {{ $unpaidCount }}
                         </span>
                     @endif
                 </button>
 
-                <div class="px-3 pt-4 pb-1.5 text-[11px] font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                    Pengaturan
+                <div class="px-3 pt-3.5 pb-1 text-[10px] font-extrabold uppercase tracking-widest text-slate-400 dark:text-slate-500">
+                    Peluang & Akun
                 </div>
 
-                <!-- 6. Profil dan Akun -->
+                <!-- 7. Rekomendasi & Kemitraan (Natural discovery) -->
+                <button type="button" @click="setTab('affiliate')"
+                    class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
+                    :class="currentTab === 'affiliate'
+                        ? 'vb-active-tab font-black shadow-md'
+                        : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
+                    :style="currentTab === 'affiliate'
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'affiliate' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'affiliate' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                    </span>
+                    <span class="flex-1 text-left truncate font-semibold">Rekomendasi & Kemitraan</span>
+                </button>
+
+                <!-- 8. Profil dan Akun -->
                 <button type="button" @click="setTab('profile')"
                     class="vb-nav-btn w-full group relative text-[13.5px] transition-all duration-200 cursor-pointer"
                     :class="currentTab === 'profile'
-                        ? 'vb-active-tab font-black shadow-md scale-[1.01]'
+                        ? 'vb-active-tab font-black shadow-md'
                         : 'text-slate-600 hover:text-blue-900 hover:bg-blue-50/80 dark:text-slate-400 dark:hover:text-white dark:hover:bg-slate-800 font-semibold'"
                     :style="currentTab === 'profile'
-                        ? 'background-color: #0c2a52 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'
-                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 12px 18px !important;'">
-                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors" style="margin-right: 4px !important;"
-                        :class="currentTab === 'profile' ? 'text-white' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
+                        ? 'background-color: #071636 !important; color: #ffffff !important; display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'
+                        : 'display: flex !important; align-items: center !important; gap: 12px !important; padding: 11px 16px !important;'">
+                    <span class="shrink-0 w-5 h-5 flex items-center justify-center transition-colors"
+                        :style="currentTab === 'profile' ? 'color:#f0be4a;' : ''"
+                        :class="currentTab === 'profile' ? '' : 'text-slate-400 group-hover:text-blue-900 dark:group-hover:text-slate-200'">
                         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                     </span>
                     <span class="flex-1 text-left truncate font-semibold">Profil & Akun</span>
                 </button>
-
             </div>
 
-            <!-- Bottom Section: Admin Help Card & User Profile / Logout -->
+            <!-- Bottom Section: Member Help Card & User Profile / Logout -->
             <div class="p-4 pb-6 lg:pb-4 space-y-2.5 border-t border-slate-100 dark:border-slate-800/60 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xs">
                 <!-- Help WhatsApp Pill -->
-                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya ingin bertanya seputar pelatihan dan sertifikat saya.') }}"
+                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin konsultasi mengenai layanan & benefit member.') }}"
                     target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-2.5 px-3 py-2.5 rounded-2xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-950/40 dark:hover:bg-emerald-900/40 text-emerald-900 dark:text-emerald-200 text-xs font-bold transition-all group shadow-2xs">
                     <div class="w-6 h-6 rounded-lg bg-emerald-500 text-white flex items-center justify-center shrink-0 shadow-xs group-hover:scale-105 transition-transform">
@@ -646,8 +892,8 @@
                         </svg>
                     </div>
                     <div class="flex-1 min-w-0">
-                        <span class="block text-xs font-bold truncate">Bantuan Admin</span>
-                        <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium block">Fast Response WA</span>
+                        <span class="block text-xs font-bold truncate">Konsultasi Member</span>
+                        <span class="text-[10px] text-emerald-600 dark:text-emerald-400 font-medium block">Gratis via WhatsApp</span>
                     </div>
                     <svg class="w-3.5 h-3.5 text-emerald-600 group-hover:translate-x-0.5 transition-transform shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -657,12 +903,12 @@
                 <!-- User Snapshot & Logout -->
                 <div class="flex items-center justify-between p-2.5 px-3 rounded-2xl bg-slate-50 dark:bg-slate-800">
                     <div class="flex items-center gap-2.5 min-w-0">
-                        <div class="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-sm">
+                        <div class="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold shadow-sm" style="background: linear-gradient(135deg, #071636, #1d4ed8);">
                             {{ $user->initials }}
                         </div>
                         <div class="min-w-0 flex-1">
                             <p class="text-[13px] font-bold text-slate-900 dark:text-white truncate">{{ $user->name }}</p>
-                            <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Member Visi Academy</p>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 truncate notranslate" translate="no">Member Visi Academy</p>
                         </div>
                     </div>
 
@@ -681,12 +927,12 @@
         </aside>
 
         <!-- ========================================================================= -->
-        <!-- 2. MAIN CONTENT AREA (Dynamic depending on active left sidebar menu) -->
+        <!-- 2. MAIN CONTENT AREA -->
         <!-- ========================================================================= -->
         <div class="flex-1 flex flex-col min-w-0 overflow-y-auto">
 
-            <!-- Top Header (Soft, Clean & Borderless) -->
-            <header class="sticky top-0 z-30 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-xs px-4 sm:px-8 flex items-center justify-between gap-2 shrink-0">
+            <!-- Top Header -->
+            <header class="sticky top-0 z-30 h-16 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200/70 dark:border-slate-800 px-4 sm:px-8 flex items-center justify-between gap-2 shrink-0">
                 <div class="flex items-center gap-2 sm:gap-3 min-w-0">
                     <!-- Hamburger button for mobile -->
                     <button type="button" @click="mobileSidebarOpen = true"
@@ -697,18 +943,17 @@
                     </button>
 
                     <div class="flex items-center gap-2 text-xs font-medium text-slate-400 min-w-0">
-                        <span class="hidden sm:inline hover:text-slate-700 cursor-pointer transition-colors" @click="setTab('overview')">Member Portal</span>
+                        <span class="hidden sm:inline hover:text-slate-700 cursor-pointer transition-colors notranslate" translate="no" @click="setTab('overview')">Visi Academy Member</span>
                         <span class="hidden sm:inline text-slate-300 dark:text-slate-600">/</span>
-                        <span class="text-slate-900 dark:text-white font-bold capitalize truncate"
-                            x-text="currentTab === 'overview' ? 'Overview' : (currentTab === 'classes' ? 'Program Saya' : (currentTab === 'browse' ? 'Daftar Program' : (currentTab === 'history' ? 'Riwayat Belajar' : (currentTab === 'affiliate' ? 'Kode Referral' : (currentTab === 'invoices' ? 'Riwayat Invoice' : 'Profil & Akun')))))">
-                            Overview
+                        <span class="text-slate-900 dark:text-white font-bold truncate"
+                            x-text="currentTab === 'overview' ? 'Beranda Member' : (currentTab === 'benefits' ? 'Benefit & Promo' : (currentTab === 'classes' ? 'Program Diikuti' : (currentTab === 'browse' ? 'Pelatihan & Webinar' : (currentTab === 'history' ? 'E-Sertifikat' : (currentTab === 'affiliate' ? 'Rekomendasi & Kemitraan' : (currentTab === 'invoices' ? 'Tagihan & Invoice' : 'Profil & Akun'))))))">
+                            Beranda Member
                         </span>
                     </div>
                 </div>
 
                 <!-- Right Quick Header Actions -->
                 <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                    <!-- Link to public site -->
                     <a href="/" target="_blank" title="Website Utama"
                         class="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
                         <svg class="w-3.5 h-3.5 text-slate-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -717,15 +962,13 @@
                         <span class="hidden sm:inline">Website Utama</span>
                     </a>
 
-                    <!-- CTA Button -->
-                    <button type="button" @click="setTab('browse')"
-                        style="background-color: #0c2a52 !important; color: #ffffff !important;"
-                        class="vb-navy-btn inline-flex items-center gap-2 px-3 sm:px-4 py-2 text-xs font-black text-white rounded-xl shadow-md shadow-blue-950/20 hover:scale-[1.02] active:scale-[0.98] transition-all cursor-pointer whitespace-nowrap">
-                        <svg class="w-3.5 h-3.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                    <button type="button" @click="setTab('benefits')"
+                        class="vm-btn-gold inline-flex items-center gap-1.5 px-3 sm:px-4 py-2 text-xs rounded-xl shadow-sm cursor-pointer whitespace-nowrap">
+                        <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
                         </svg>
-                        <span class="hidden sm:inline">Daftar Program Baru</span>
-                        <span class="sm:hidden">Program</span>
+                        <span class="hidden sm:inline">Cek Benefit Member</span>
+                        <span class="sm:hidden">Benefit</span>
                     </button>
                 </div>
             </header>
@@ -734,56 +977,71 @@
             <main class="flex-1 p-4 sm:p-8 max-w-7xl mx-auto w-full space-y-8">
 
                 <!-- ============================================================= -->
-                <!-- TAB 1: OVERVIEW (Energetic Motivational Learning Dashboard) -->
+                <!-- TAB 1: BERANDA MEMBER (Kartu Sakti, Benefit, Info & Ekosistem) -->
                 <!-- ============================================================= -->
-                <div x-cloak x-show="currentTab === 'overview'" class="space-y-8">
-                    <!-- High-Energy Motivational Welcome Banner (Visilab Navy & Royal Blue with Gold Accent) -->
-                    <div style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 50%, #1d4ed8 100%) !important; color: #ffffff !important;"
-                        class="vb-banner relative overflow-hidden rounded-3xl text-white p-6 sm:p-9 shadow-xl shadow-blue-950/20">
-                        <!-- Subtle Ambient Highlights -->
-                        <div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-blue-400/10 blur-3xl pointer-events-none"></div>
-                        <div class="absolute right-1/3 -bottom-20 w-60 h-60 rounded-full bg-amber-400/10 blur-3xl pointer-events-none"></div>
+                <div x-cloak x-show="currentTab === 'overview'" class="space-y-7">
 
-                        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
-                            <div class="space-y-3 max-w-2xl">
-                                <!-- Ecosystem Pill Badge -->
-                                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white shadow-xs">
-                                    <span class="flex h-2 w-2 relative">
-                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-                                    </span>
-                                    <span>Ekosistem Member &bull; <span class="text-amber-300 font-bold notranslate" translate="no">Visi Academy</span></span>
+                    <!-- 1. Signature Hero Stage: "Kartu Sakti" Member Showcase -->
+                    <div class="vm-hero-stage p-6 sm:p-8 lg:p-9">
+                        <div class="vm-hero-grid relative z-10">
+                            <!-- Left: Member Identity & Loyalty Snapshot -->
+                            <div class="space-y-4">
+                                <span class="vm-gold-pill">
+                                    <span class="w-2 h-2 rounded-full" style="background-color:#f0be4a;"></span>
+                                    <span class="notranslate" translate="no">Visi Academy Membership</span>
+                                    <span>&bull; 1 Akun Lintas Layanan</span>
+                                </span>
+
+                                <div>
+                                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-display font-black tracking-tight leading-tight text-white">
+                                        Halo, {{ $user->name }}!
+                                    </h2>
+                                    <p class="mt-2 text-xs sm:text-sm text-blue-100/85 leading-relaxed max-w-xl">
+                                        Satu kartu member untuk menikmati beragam <strong class="text-white">benefit & promo eksklusif</strong>, konsultasi gratis, pusat informasi, pelatihan & webinar, hingga peluang kemitraan di ekosistem PT Visi Yosindo Medikal.
+                                    </p>
                                 </div>
 
-                                <!-- Welcome Title -->
-                                <h2 class="text-2xl sm:text-4xl font-display font-black tracking-tight leading-tight text-white drop-shadow-xs">
-                                    Halo, {{ $user->name }}!
-                                </h2>
+                                <!-- 3 Loyalty Strip Pills (Replaces Zero-Count LMS Stats) -->
+                                <div class="vm-loyalty-strip">
+                                    <div class="vm-loyalty-item">
+                                        <span class="block text-[10px] font-bold uppercase tracking-wider text-blue-200/80">Status Kartu</span>
+                                        <span class="mt-0.5 block text-sm font-display font-black text-emerald-300">Aktif</span>
+                                        <span class="block text-[10px] text-blue-100/75">s/d {{ $memberValidThru }}</span>
+                                    </div>
+                                    <div class="vm-loyalty-item cursor-pointer" @click="setTab('benefits')">
+                                        <span class="block text-[10px] font-bold uppercase tracking-wider text-blue-200/80">Poin & Reward</span>
+                                        <span class="mt-0.5 block text-sm font-display font-black" style="color:#f0be4a;">0 Poin</span>
+                                        <span class="block text-[10px] text-blue-100/75">Segera Hadir</span>
+                                    </div>
+                                    <div class="vm-loyalty-item cursor-pointer" @click="setTab('benefits')">
+                                        <span class="block text-[10px] font-bold uppercase tracking-wider text-blue-200/80">Benefit Member</span>
+                                        <span class="mt-0.5 block text-sm font-display font-black text-white">8 Fasilitas</span>
+                                        <span class="block text-[10px] text-amber-200">Cek Benefit &rarr;</span>
+                                    </div>
+                                </div>
 
-                                <p class="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
-                                    Satu akun <strong class="text-white font-bold">Member</strong> untuk mengakses pusat informasi terbaru, <strong class="text-white font-bold">Pelatihan & Webinar</strong>, konsultasi, serta berbagai <strong class="text-amber-300 font-bold">benefit lintas layanan</strong> PT Visi Yosindo Medikal.
-                                </p>
-
+                                <!-- Primary Actions -->
                                 <div class="flex flex-wrap gap-3 pt-1">
-                                    <button type="button" @click="setTab('browse')"
-                                        style="background-color: #fbbf24 !important; color: #0f172a !important;"
-                                        class="vb-gold-btn px-5 py-2.5 rounded-2xl font-display font-black text-xs sm:text-sm shadow-xl shadow-blue-950/30 hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
-                                        <span style="color: #0f172a !important;" class="font-black">Eksplorasi Program</span>
+                                    <button type="button" @click="setTab('benefits')"
+                                        class="vm-btn-gold px-5 py-2.5 rounded-2xl font-display text-xs sm:text-sm inline-flex items-center gap-2 cursor-pointer shadow-lg">
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                                        </svg>
+                                        <span>Lihat Semua Benefit</span>
                                     </button>
-                                    <button type="button" @click="setTab('classes')"
-                                        style="background: rgba(255, 255, 255, 0.15) !important; color: #ffffff !important;"
-                                        class="px-5 py-2.5 rounded-2xl hover:bg-white/20 font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
-                                        <span style="color: #ffffff !important;" class="font-bold">Program Saya</span>
+                                    <button type="button" @click="setTab('browse')"
+                                        style="background: rgba(255, 255, 255, 0.12) !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.2);"
+                                        class="px-5 py-2.5 rounded-2xl hover:bg-white/20 font-display font-bold text-xs sm:text-sm transition-all inline-flex items-center gap-2 cursor-pointer">
+                                        <span>Pelatihan & Webinar</span>
                                     </button>
                                 </div>
                             </div>
 
-                            <!-- Right Side: Official Digital Member Card (Front & Back) -->
-                            <div class="vm-card-wrap" x-data="{ cardSide: 'front', copiedId: false, cardModal: false }" @keydown.escape.window="cardModal = false">
+                            <!-- Right: Official Interactive Member Card (Front & Back) -->
+                            <div class="vm-card-wrap mx-auto lg:ml-auto lg:mr-0" x-data="{ cardSide: 'front', copiedId: false, cardModal: false }" @keydown.escape.window="cardModal = false">
                                 <div class="vm-card-frame"
                                     @click="cardSide = (cardSide === 'front' ? 'back' : 'front')"
                                     title="Klik untuk membalik kartu">
-                                    {{-- Front Side --}}
                                     <div x-show="cardSide === 'front'" class="w-full h-full relative">
                                         <img src="{{ asset('assets/images/member-card/front.jpg') }}"
                                             alt="Kartu Member Visilab Academy - Depan"
@@ -791,7 +1049,6 @@
                                         <span class="vm-card-dyn-id notranslate" translate="no">{{ $memberCardId }}</span>
                                         <span class="vm-card-dyn-valid notranslate" translate="no">{{ $memberValidThru }}</span>
                                     </div>
-                                    {{-- Back Side --}}
                                     <div x-show="cardSide === 'back'" x-cloak class="w-full h-full relative" style="display:none;">
                                         <img src="{{ asset('assets/images/member-card/back.jpg') }}"
                                             alt="Kartu Member Visilab Academy - Belakang"
@@ -805,7 +1062,7 @@
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
                                             </svg>
-                                            <span x-text="cardSide === 'front' ? 'Lihat Belakang' : 'Lihat Depan'"></span>
+                                            <span x-text="cardSide === 'front' ? 'Belakang' : 'Depan'"></span>
                                         </button>
                                         <button type="button" @click="cardModal = true" class="vm-card-btn">
                                             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -818,7 +1075,7 @@
                                         @click="navigator.clipboard.writeText('{{ $memberCardId }}'); copiedId = true; setTimeout(() => copiedId = false, 2000)"
                                         class="vm-card-btn notranslate" translate="no">
                                         <span x-show="!copiedId">Salin {{ $memberCardId }}</span>
-                                        <span x-show="copiedId" x-cloak style="color:#fde68a;">ID Tersalin</span>
+                                        <span x-show="copiedId" x-cloak style="color:#f0be4a;">Tersalin</span>
                                     </button>
                                 </div>
 
@@ -863,138 +1120,86 @@
                         </div>
                     </div>
 
-                    <!-- 4 Metric Cards (Clean White with Logo Blue & Gold Accent) -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-6">
-                        <!-- Stat 1: Program Saya -->
-                        <div @click="setTab('classes')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Program Saya</span>
-                                <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy w-11 h-11 rounded-2xl flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                    </svg>
-                                </div>
+                    <!-- 2. Quick-Access Destination Strip (Replaces Generic LMS Counters) -->
+                    <div class="vm-quick-grid">
+                        <div @click="setTab('benefits')" class="vm-quick-tile group">
+                            <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #071636, #153e75); color: #f0be4a;">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
+                                </svg>
                             </div>
-                            <div>
-                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-blue-600 transition-colors tracking-tight">
-                                    {{ $enrollments->count() }}
-                                </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse"></span>
-                                    <span>{{ $enrollments->where('status', 'active')->count() }} program aktif berjalan</span>
-                                </span>
+                            <div class="min-w-0">
+                                <div class="text-xs sm:text-sm font-display font-extrabold text-slate-900 dark:text-white truncate">Benefit & Promo</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Diskon & fasilitas gratis</div>
                             </div>
                         </div>
 
-                        <!-- Stat 2: Sertifikat -->
-                        <div @click="setTab('history')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">E-Sertifikat</span>
-                                <div style="background-color: #2563eb !important; color: #ffffff !important;" class="vb-bg-royal w-11 h-11 rounded-2xl flex items-center justify-center shadow-md shadow-blue-600/25 group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                    </svg>
-                                </div>
+                        <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan layanan konsultasi gratis / penyuluhan.') }}"
+                            target="_blank" rel="noopener noreferrer" class="vm-quick-tile group">
+                            <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #047857, #10b981); color: #ffffff;">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                </svg>
                             </div>
-                            <div>
-                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-blue-600 transition-colors tracking-tight">
-                                    {{ $certificates->count() }}
-                                </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
-                                    <span>E-Sertifikat Terverifikasi</span>
-                                </span>
+                            <div class="min-w-0">
+                                <div class="text-xs sm:text-sm font-display font-extrabold text-slate-900 dark:text-white truncate">Konsultasi Gratis</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Alat, kalibrasi & penyuluhan</div>
+                            </div>
+                        </a>
+
+                        <div @click="setTab('browse')" class="vm-quick-tile group">
+                            <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #1d4ed8, #2563eb); color: #ffffff;">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                </svg>
+                            </div>
+                            <div class="min-w-0">
+                                <div class="text-xs sm:text-sm font-display font-extrabold text-slate-900 dark:text-white truncate">Pelatihan & Webinar</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">{{ $availableClasses->count() }} program tersedia</div>
                             </div>
                         </div>
 
-                        <!-- Stat 3: Katalog Program (Pelatihan & Webinar) -->
-                        <div @click="setTab('browse')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Katalog Program</span>
-                                <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="vb-bg-amber w-11 h-11 rounded-2xl flex items-center justify-center shadow-md shadow-amber-500/25 group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                    </svg>
-                                </div>
+                        <div @click="setTab('affiliate')" class="vm-quick-tile group">
+                            <div class="w-11 h-11 rounded-2xl flex items-center justify-center shrink-0" style="background: linear-gradient(135deg, #b45309, #f0be4a); color: #071636;">
+                                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                </svg>
                             </div>
-                            <div>
-                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight">
-                                    {{ $availableClasses->count() }}
-                                </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
-                                    <span>Pelatihan & Webinar</span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <!-- Stat 4: Tagihan -->
-                        <div @click="setTab('invoices')"
-                            class="p-5 sm:p-6 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-black text-slate-400 uppercase tracking-wider">Status Tagihan</span>
-                                <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy w-11 h-11 rounded-2xl flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-110 transition-transform">
-                                    <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="vb-text-navy text-3xl sm:text-4xl font-display font-black group-hover:text-amber-600 transition-colors tracking-tight">
-                                    {{ $unpaidCount }}
-                                </div>
-                                <span class="inline-flex items-center gap-1.5 mt-2 px-2.5 py-1 rounded-full text-xs font-bold {{ $unpaidCount > 0 ? 'bg-amber-50 text-amber-900 dark:bg-amber-950/70 dark:text-amber-300' : 'bg-blue-50 text-blue-900 dark:bg-blue-950/70 dark:text-blue-300' }}">
-                                    <span class="w-1.5 h-1.5 rounded-full {{ $unpaidCount > 0 ? 'bg-amber-500 animate-pulse' : 'bg-blue-600' }}"></span>
-                                    <span>{{ $unpaidCount > 0 ? 'Menunggu Pembayaran' : 'Semua Tagihan Lunas' }}</span>
-                                </span>
+                            <div class="min-w-0">
+                                <div class="text-xs sm:text-sm font-display font-extrabold text-slate-900 dark:text-white truncate">Peluang Kemitraan</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Rekomendasi produk & referral</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Ongoing Active Program Highlight Card (High Motivation, Borderless) -->
+                    <!-- 3. Active Enrolled Program Reminder (Shown Only When Member Has An Active Program) -->
                     @php
                         $activeClass = $enrollments->where('status', 'active')->first();
                     @endphp
                     @if($activeClass)
-                        <div style="background: linear-gradient(135deg, #0c2a52 0%, #153e75 100%) !important; color: #ffffff !important;"
-                            class="vb-banner-secondary relative overflow-hidden p-6 sm:p-7 rounded-3xl text-white shadow-xl shadow-blue-950/20">
-                            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-blue-400/10 rounded-full blur-2xl pointer-events-none"></div>
-
-                            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-                                <div class="space-y-2.5">
-                                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-amber-300 text-xs font-black uppercase tracking-wider">
-                                        <span class="relative flex h-2 w-2">
-                                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-                                            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-                                        </span>
-                                        <span>Program Sedang Berjalan &bull; {{ $activeClass->trainingClass->program_type_label }}</span>
-                                    </div>
-                                    <h3 class="text-xl sm:text-2xl font-display font-black text-white tracking-tight">{{ $activeClass->trainingClass->title }}</h3>
-                                    <div class="flex flex-wrap items-center gap-3 text-xs text-blue-100 font-medium">
-                                        <span class="px-2.5 py-0.5 rounded-lg bg-white/10 text-white font-bold">{{ $activeClass->trainingClass->batch_name }}</span>
+                        <div class="vm-hero-stage p-5 sm:p-6">
+                            <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                                <div class="space-y-1.5">
+                                    <span class="vm-gold-pill">Program Sedang Berjalan &bull; {{ $activeClass->trainingClass->program_type_label }}</span>
+                                    <h3 class="text-lg sm:text-xl font-display font-black text-white">{{ $activeClass->trainingClass->title }}</h3>
+                                    <div class="flex flex-wrap items-center gap-2 text-xs text-blue-100/85">
+                                        <span class="px-2 py-0.5 rounded-md bg-white/10 font-bold text-white">{{ $activeClass->trainingClass->batch_name }}</span>
                                         <span>&bull;</span>
                                         <span>Jadwal: <strong class="text-white">{{ $activeClass->trainingClass->display_schedule }}</strong></span>
-                                        <span>&bull;</span>
-                                        <span>Durasi: <strong class="text-white">{{ $activeClass->trainingClass->duration ?? '-' }}</strong></span>
                                     </div>
                                 </div>
-
-                                <div class="flex flex-wrap items-center gap-3 shrink-0">
+                                <div class="flex flex-wrap items-center gap-2.5 shrink-0">
                                     <a href="{{ route('student.classroom', $activeClass->id) }}"
-                                        style="background-color: #fbbf24 !important; color: #0f172a !important;"
-                                        class="vb-gold-btn px-5 py-2.5 rounded-2xl font-display font-black text-xs sm:text-sm shadow-lg shadow-blue-950/25 flex items-center gap-2 hover:scale-[1.02] active:scale-[0.98] transition-all">
+                                        class="vm-btn-gold px-4 py-2.5 rounded-xl font-display text-xs sm:text-sm inline-flex items-center gap-2">
                                         <span>Masuk Ruang Belajar</span>
-                                        <svg class="w-4 h-4 text-slate-950" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                     </a>
-
                                     @if($activeClass->trainingClass->whatsapp_group_link)
                                         <a href="{{ $activeClass->trainingClass->whatsapp_group_link }}" target="_blank" rel="noopener noreferrer"
-                                            class="px-4 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-display font-bold text-xs sm:text-sm transition-all flex items-center gap-2 shadow-xs">
-                                            <span>WhatsApp Grup</span>
+                                            style="background:rgba(255,255,255,0.14); color:#ffffff;"
+                                            class="px-4 py-2.5 rounded-xl text-xs font-bold hover:opacity-90">
+                                            WhatsApp Grup
                                         </a>
                                     @endif
                                 </div>
@@ -1002,187 +1207,374 @@
                         </div>
                     @endif
 
-                    <!-- Benefit & Ekosistem Member Hub -->
+                    <!-- 4. Highlight Benefit Pilihan (Loyalty Hook) -->
                     <div class="space-y-4">
                         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                             <div>
-                                <span class="text-[11px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Benefit Member</span>
-                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Benefit & Layanan Ekosistem Anda</h3>
-                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Cek secara berkala berbagai fasilitas, diskon, program, dan peluang baru khusus Member Visi Academy.</p>
+                                <span class="text-[11px] font-black uppercase tracking-wider" style="color:#d99b26;">Benefit Member</span>
+                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Keuntungan Aktif & Ekosistem Mendatang</h3>
                             </div>
+                            <button type="button" @click="setTab('benefits')"
+                                class="text-xs font-bold text-blue-700 dark:text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer self-start sm:self-auto">
+                                <span>Lihat Semua Benefit (8)</span>
+                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                            </button>
                         </div>
 
                         <div class="vm-benefit-grid">
-                            <!-- Benefit 1: Pelatihan & Webinar -->
                             <div @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
-                                <div class="space-y-2.5">
+                                <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2">
-                                        <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
-                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                                            </svg>
-                                        </div>
                                         <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                        <span class="text-[11px] font-bold text-slate-400">Edukasi</span>
                                     </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Pelatihan & Webinar Member</h4>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400">Diskon & Akses Webinar / Pelatihan</h4>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Ikuti pelatihan resmi, webinar gratis maupun berdiskon khusus member, lengkap dengan materi & e-Sertifikat.
+                                        Nikmati potongan biaya pelatihan, jadwal webinar gratis maupun berdiskon, lengkap dengan materi & e-Sertifikat resmi.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
-                                    <span>Lihat Katalog Program</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                </span>
+                                <span class="text-xs font-bold text-blue-700 dark:text-blue-400 inline-flex items-center gap-1">Buka Program &rarr;</span>
                             </div>
 
-                            <!-- Benefit 2: Konsultasi & Penyuluhan -->
-                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan fasilitas konsultasi gratis / info penyuluhan.') }}"
-                                target="_blank" rel="noopener noreferrer"
-                                class="vm-benefit-card group">
-                                <div class="space-y-2.5">
+                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan fasilitas konsultasi gratis / penyuluhan.') }}"
+                                target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                                <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2">
-                                        <div style="background-color: #059669 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
-                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                                            </svg>
-                                        </div>
-                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis Member</span>
+                                        <span class="text-[11px] font-bold text-slate-400">Layanan</span>
                                     </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">Konsultasi & Penyuluhan</h4>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Konsultasi & Penyuluhan Gratis</h4>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Akses konsultasi gratis seputar alat kesehatan, kalibrasi, perizinan radiasi, dan agenda penyuluhan untuk instansi Anda.
+                                        Konsultasi seputar alat kesehatan, kalibrasi, perizinan radiasi, serta permintaan penyuluhan untuk fasilitas Anda.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">
-                                    <span>Hubungi Tim Konsultasi</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                </span>
+                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">Hubungi Tim &rarr;</span>
                             </a>
 
-                            <!-- Benefit 3: Katalog Produk & Alat Kesehatan -->
-                            <a href="{{ route('products') }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
-                                <div class="space-y-2.5">
+                            <div @click="setTab('benefits')" class="vm-benefit-card cursor-pointer group">
+                                <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2">
-                                        <div style="background-color: #2563eb !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
-                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                                            </svg>
-                                        </div>
-                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
-                                    </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Katalog Produk & Promo</h4>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Lihat katalog alat kesehatan, radiologi, dan penawaran spesial resmi PT Visi Yosindo Medikal untuk kebutuhan fasilitas Anda.
-                                    </p>
-                                </div>
-                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
-                                    <span>Jelajahi Produk</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                </span>
-                            </a>
-
-                            <!-- Benefit 4: Poin & Reward Member -->
-                            <div class="vm-benefit-card">
-                                <div class="space-y-2.5">
-                                    <div class="flex items-center justify-between gap-2">
-                                        <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
-                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                        </div>
                                         <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
+                                        <span class="text-[11px] font-bold text-slate-400">Ekosistem</span>
                                     </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Poin & Reward Loyalitas</h4>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Poin Reward & Satu Kartu Lintas Bisnis</h4>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Kumpulkan poin dari transaksi & keaktifan member untuk ditukarkan dengan voucher diskon maupun reward menarik.
+                                        Kumpulkan poin belanja/aktivitas untuk ditukar diskon & reward, serta pakai kartu <strong class="font-mono">{{ $memberCardId }}</strong> di unit usaha & mitra baru nanti.
                                     </p>
                                 </div>
-                                <span class="text-[11px] font-semibold text-slate-400">Otomatis terhubung ke ID Member Anda</span>
-                            </div>
-
-                            <!-- Benefit 5: Ekosistem Lintas Layanan -->
-                            <div class="vm-benefit-card">
-                                <div class="space-y-2.5">
-                                    <div class="flex items-center justify-between gap-2">
-                                        <div style="background-color: #4f46e5 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
-                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                                            </svg>
-                                        </div>
-                                        <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
-                                    </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Akses Ekosistem Lintas Layanan</h4>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Satu Kartu Member untuk berbagai unit usaha & mitra baru ke depannya — cukup satu akun tanpa daftar ulang.
-                                    </p>
-                                </div>
-                                <span class="text-[11px] font-semibold text-slate-400">Gunakan ID {{ $memberCardId }}</span>
-                            </div>
-
-                            <!-- Benefit 6: Peluang Rekomendasi & Kemitraan (Subtle discovery) -->
-                            <div @click="setTab('affiliate')" class="vm-benefit-card cursor-pointer group">
-                                <div class="space-y-2.5">
-                                    <div class="flex items-center justify-between gap-2">
-                                        <div style="background-color: #0284c7 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
-                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                        </div>
-                                        <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Kemitraan</span>
-                                    </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Rekomendasi & Kemitraan</h4>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Bantu rekomendasikan produk alat kesehatan ke rekan/instansi (RS, klinik, dokter, bidan) atau ajak member baru.
-                                    </p>
-                                </div>
-                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
-                                    <span>Pelajari Selengkapnya</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                </span>
+                                <span class="text-xs font-bold" style="color:#d99b26;">Lihat Detail Benefit &rarr;</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Pusat Informasi & Update Terbaru (Synced from News & Events) -->
-                    @if(isset($latestNews) && $latestNews->count() > 0)
-                        <div class="space-y-4">
-                            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
-                                <div>
-                                    <span class="text-[11px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Pusat Informasi</span>
-                                    <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Informasi & Update Terbaru</h3>
+                    <!-- 5. 2-Column Live Ecosystem Hub: Pusat Informasi (Left) + Produk & Peluang Rekomendasi (Right) -->
+                    <div class="vm-hub-split">
+                        <!-- Left Panel: Pusat Informasi & Update -->
+                        <div class="vm-panel flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between gap-3 mb-4">
+                                    <div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider text-blue-700 dark:text-blue-400">Pusat Informasi</span>
+                                        <h3 class="text-base sm:text-lg font-display font-black text-slate-900 dark:text-white">Berita & Update Terbaru</h3>
+                                    </div>
+                                    <a href="{{ route('news') }}" target="_blank" rel="noopener noreferrer"
+                                        class="text-xs font-bold text-blue-700 dark:text-blue-400 hover:underline shrink-0">
+                                        Semua Info &rarr;
+                                    </a>
                                 </div>
-                                <a href="{{ route('news') }}" target="_blank" rel="noopener noreferrer"
-                                    class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1">
-                                    <span>Lihat Semua Info</span>
-                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                </a>
+
+                                @if(isset($latestNews) && $latestNews->count() > 0)
+                                    <div class="space-y-1.5">
+                                        @foreach($latestNews as $newsItem)
+                                            <a href="{{ route('news.detail', $newsItem->slug) }}" target="_blank" rel="noopener noreferrer" class="vm-list-row group">
+                                                <div class="vm-list-thumb">
+                                                    @if($newsItem->featured_image)
+                                                        <img src="{{ asset('storage/' . $newsItem->featured_image) }}" alt="{{ $newsItem->title }}"
+                                                            class="w-full h-full object-cover" loading="lazy"
+                                                            onerror="this.style.display='none';">
+                                                    @else
+                                                        <svg class="w-6 h-6 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                                                        </svg>
+                                                    @endif
+                                                </div>
+                                                <div class="min-w-0 flex-1">
+                                                    <div class="flex items-center gap-2 text-[10px] font-bold">
+                                                        <span class="text-blue-700 dark:text-blue-400 uppercase {{ strtolower((string) $newsItem->category) === 'visi academy' ? 'notranslate' : '' }}">{{ $newsItem->category ?: 'Info' }}</span>
+                                                        <span class="text-slate-400">&bull; {{ $newsItem->formatted_published_date }}</span>
+                                                    </div>
+                                                    <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400 line-clamp-2 mt-0.5 leading-snug">
+                                                        {{ $newsItem->title }}
+                                                    </h4>
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p class="text-xs text-slate-500 py-6 text-center">Belum ada informasi terbaru saat ini.</p>
+                                @endif
+                            </div>
+                        </div>
+
+                        <!-- Right Panel: Produk Alat Kesehatan & Natural Discovery ke Kemitraan -->
+                        <div class="vm-panel flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between gap-3 mb-4">
+                                    <div>
+                                        <span class="text-[10px] font-black uppercase tracking-wider" style="color:#d99b26;">Ekosistem Produk</span>
+                                        <h3 class="text-base sm:text-lg font-display font-black text-slate-900 dark:text-white">Alat Kesehatan & Solusi Medis</h3>
+                                    </div>
+                                    <a href="{{ route('products') }}" target="_blank" rel="noopener noreferrer"
+                                        class="text-xs font-bold text-blue-700 dark:text-blue-400 hover:underline shrink-0">
+                                        Lihat Katalog &rarr;
+                                    </a>
+                                </div>
+
+                                @if(isset($featuredProducts) && $featuredProducts->count() > 0)
+                                    <div class="space-y-1.5">
+                                        @foreach($featuredProducts as $prod)
+                                            <a href="{{ route('product.detail', $prod->slug) }}" target="_blank" rel="noopener noreferrer" class="vm-list-row group">
+                                                <div class="vm-list-thumb" style="background:#ffffff;">
+                                                    @if($prod->thumbnail)
+                                                        <img src="{{ $prod->thumbnail_url }}" alt="{{ $prod->name }}"
+                                                            class="w-full h-full object-contain p-1" loading="lazy"
+                                                            onerror="this.style.display='none';">
+                                                    @else
+                                                        <svg class="w-6 h-6 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                                                        </svg>
+                                                    @endif
+                                                </div>
+                                                <div class="min-w-0 flex-1">
+                                                    <div class="flex items-center gap-1.5 text-[10px] font-bold">
+                                                        <span class="text-slate-500 dark:text-slate-400 uppercase">{{ $prod->brand ?: ($prod->category?->name ?? 'Alat Kesehatan') }}</span>
+                                                        @if($prod->is_promo)
+                                                            <span class="px-1.5 py-0.5 rounded-full text-[9px] font-black" style="background:#fef3c7; color:#92400e;">PROMO</span>
+                                                        @endif
+                                                    </div>
+                                                    <h4 class="text-xs sm:text-sm font-bold text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400 line-clamp-1 mt-0.5">
+                                                        {{ $prod->name }}
+                                                    </h4>
+                                                    @if($prod->short_description)
+                                                        <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1">{{ $prod->short_description }}</p>
+                                                    @endif
+                                                </div>
+                                            </a>
+                                        @endforeach
+                                    </div>
+                                @else
+                                    <p class="text-xs text-slate-500 py-6 text-center">Jelajahi katalog lengkap alat kesehatan resmi PT Visi Yosindo Medikal.</p>
+                                @endif
                             </div>
 
-                            <div class="vm-benefit-grid">
-                                @foreach($latestNews as $newsItem)
-                                    <a href="{{ route('news.detail', $newsItem->slug) }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
-                                        <div class="space-y-2">
-                                            <div class="flex items-center justify-between gap-2 text-[11px]">
-                                                <span class="px-2 py-0.5 rounded-md font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 {{ strtolower((string) $newsItem->category) === 'visi academy' ? 'notranslate' : '' }}">
-                                                    {{ $newsItem->category ?: 'Update' }}
-                                                </span>
-                                                <span class="text-slate-400 font-medium">{{ $newsItem->formatted_published_date }}</span>
-                                            </div>
-                                            <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-2 leading-snug">
-                                                {{ $newsItem->title }}
-                                            </h4>
-                                            @if($newsItem->excerpt)
-                                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
-                                                    {{ $newsItem->excerpt }}
-                                                </p>
+                            <!-- Subtle Organic Discovery Bar to Product Recommendation / Commission -->
+                            <div class="vm-gold-cta-bar">
+                                <div class="min-w-0 flex-1">
+                                    <p class="text-xs font-extrabold text-slate-900 dark:text-white">Punya relasi dokter, bidan, klinik, atau RS?</p>
+                                    <p class="text-[11px] text-slate-600 dark:text-slate-300 mt-0.5">Rekomendasikan produk kami & dapatkan peluang komisi khusus member.</p>
+                                </div>
+                                <button type="button" @click="setTab('affiliate')"
+                                    class="vm-btn-navy px-3.5 py-2 rounded-xl text-xs cursor-pointer shrink-0">
+                                    Pelajari &rarr;
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================= -->
+                <!-- TAB 1B: BENEFIT & PROMO MEMBER (Dedicated Loyalty Discovery) -->
+                <!-- ============================================================= -->
+                <div x-cloak x-show="currentTab === 'benefits'" class="space-y-7">
+                    <div class="vm-hero-stage p-6 sm:p-8">
+                        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                            <div class="space-y-2 max-w-2xl">
+                                <span class="vm-gold-pill">Kartu Member {{ $memberCardId }} &bull; Berlaku s/d {{ $memberValidThru }}</span>
+                                <h2 class="text-2xl sm:text-3xl font-display font-black text-white">Benefit, Promo & Ekosistem Member</h2>
+                                <p class="text-xs sm:text-sm text-blue-100/85 leading-relaxed">
+                                    Cek rutin halaman ini untuk menemukan promo diskon terbaru, fasilitas gratis khusus member, poin reward, dan layanan lintas ekosistem yang terhubung ke akun Anda.
+                                </p>
+                            </div>
+                            <button type="button" @click="setTab('overview')"
+                                style="background:rgba(255,255,255,0.14); color:#ffffff; border:1px solid rgba(255,255,255,0.22);"
+                                class="px-4 py-2.5 rounded-xl text-xs font-bold cursor-pointer shrink-0 self-start md:self-auto">
+                                Lihat Kartu Member
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Benefit Filter Bubbles -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button type="button" @click="benefitFilter = 'all'"
+                            :class="benefitFilter === 'all' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Semua Benefit</button>
+                        <button type="button" @click="benefitFilter = 'active'"
+                            :class="benefitFilter === 'active' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Tersedia Sekarang</button>
+                        <button type="button" @click="benefitFilter = 'free'"
+                            :class="benefitFilter === 'free' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Gratis Member</button>
+                        <button type="button" @click="benefitFilter = 'soon'"
+                            :class="benefitFilter === 'soon' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Segera Hadir</button>
+                    </div>
+
+                    <!-- 8 Curated Member Benefit Cards -->
+                    <div class="vm-benefit-grid">
+                        <!-- 1. Konsultasi Gratis -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
+                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan layanan Konsultasi Gratis Member.') }}"
+                            target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis Member</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Layanan</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Konsultasi Alat Kesehatan & Kalibrasi</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Konsultasi gratis langsung bersama tim kami mengenai pemilihan alat kesehatan, uji kesesuaian, uji paparan, maupun perizinan.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Chat Konsultasi &rarr;</span>
+                        </a>
+
+                        <!-- 2. Penyuluhan & Edukasi -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
+                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin menanyakan jadwal / permintaan Penyuluhan & Edukasi untuk instansi saya.') }}"
+                            target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis Member</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Edukasi</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Penyuluhan & Edukasi Instansi</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Ikuti agenda penyuluhan atau ajukan sesi edukasi keselamatan radiasi dan alat kesehatan untuk klinik, RS, atau komunitas Anda.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Ajukan / Tanya Jadwal &rarr;</span>
+                        </a>
+
+                        <!-- 3. Diskon & Webinar/Pelatihan -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
+                            @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Diskon & Gratis</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Diskon Webinar & Pelatihan Resmi</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Akses prioritas webinar gratis/berdiskon dan potongan harga pelatihan profesional ber-e-Sertifikat resmi Visi Academy.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Lihat Katalog Program &rarr;</span>
+                        </div>
+
+                        <!-- 4. Informasi & Update Industri -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
+                            href="{{ route('news') }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Informasi</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Pusat Informasi & Dokumentasi Event</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Dapatkan update regulasi, inovasi produk alat kesehatan, dokumentasi acara, serta pengumuman resmi perusahaan.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Buka News & Events &rarr;</span>
+                        </a>
+
+                        <!-- 5. Promo & Diskon Produk -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active'"
+                            href="{{ route('products') }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Penawaran</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Penawaran Spesial Alat Kesehatan</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Tunjukkan ID Member <strong class="font-mono">{{ $memberCardId }}</strong> untuk info promo pembelian alat kesehatan maupun kontrak kalibrasi.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Jelajahi Produk &rarr;</span>
+                        </a>
+
+                        <!-- 6. Peluang Kemitraan & Komisi -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'active'"
+                            @click="setTab('affiliate')" class="vm-benefit-card cursor-pointer group">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Kemitraan</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Reward</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Rekomendasi Produk & Member-get-Member</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Rekomendasikan produk ke tempat kerja/relasi (dokter, bidan, klinik, RS) atau ajak rekan jadi member untuk memperoleh peluang komisi & diskon.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Buka Kemitraan &rarr;</span>
+                        </div>
+
+                        <!-- 7. Poin Belanja & Tukar Reward (Soon) -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'soon'" class="vm-benefit-card">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Loyalitas</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Poin Belanja & Tukar Reward</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Setiap aktivitas dan transaksi member akan mengumpulkan poin yang bisa ditukar voucher potongan harga, saldo, atau hadiah eksklusif.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-slate-400">Terhubung ke {{ $memberCardId }}</span>
+                        </div>
+
+                        <!-- 8. Satu Kartu Lintas Unit Bisnis (Soon) -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'soon'" class="vm-benefit-card">
+                            <div class="space-y-2.5">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
+                                    <span class="text-[11px] font-bold text-slate-400">Kartu Sakti</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Akses Lintas Ekosistem & Mitra Baru</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Satu akun member yang disiapkan untuk terintegrasi dengan berbagai lini usaha & mitra baru perusahaan di masa mendatang.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-semibold text-slate-400">1 Akun Tanpa Daftar Ulang</span>
+                        </div>
+                    </div>
+
+                    <!-- Live Active Promo Banners from DB -->
+                    @if(isset($promoBanners) && $promoBanners->count() > 0)
+                        <div class="space-y-4 pt-2">
+                            <div>
+                                <span class="text-[11px] font-black uppercase tracking-wider" style="color:#d99b26;">Penawaran Berjalan</span>
+                                <h3 class="text-lg font-display font-black text-slate-900 dark:text-white">Promo & Agenda Aktif</h3>
+                            </div>
+                            <div class="vm-hub-split">
+                                @foreach($promoBanners as $banner)
+                                    <div class="vm-panel flex flex-col justify-between gap-3">
+                                        <div class="space-y-1.5">
+                                            @if($banner->label)
+                                                <span class="vm-pill-opt inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">{{ $banner->label }}</span>
+                                            @endif
+                                            <h4 class="text-sm sm:text-base font-display font-extrabold text-slate-900 dark:text-white">{{ $banner->title }}</h4>
+                                            @if($banner->description)
+                                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">{{ $banner->description }}</p>
                                             @endif
                                         </div>
-                                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
-                                            <span>Baca Info</span>
-                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-                                        </span>
-                                    </a>
+                                        @if($banner->link_url)
+                                            <div>
+                                                <a href="{{ $banner->link_url }}" target="_blank" rel="noopener noreferrer"
+                                                    class="vm-btn-navy inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs">
+                                                    <span>{{ $banner->button_text ?: 'Lihat Penawaran' }}</span>
+                                                    <span>&rarr;</span>
+                                                </a>
+                                            </div>
+                                        @endif
+                                    </div>
                                 @endforeach
                             </div>
                         </div>
@@ -1783,44 +2175,107 @@
                 </div>
 
                 <!-- ============================================================= -->
-                <!-- TAB 4: REFERRAL & KEMITRAAN MEMBER -->
+                <!-- TAB 4: REKOMENDASI PRODUK & KEMITRAAN MEMBER -->
                 <!-- ============================================================= -->
                 <div x-cloak x-show="currentTab === 'affiliate'" class="space-y-8">
-                    <div class="space-y-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Kemitraan Ekosistem Member</span>
-                        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white">Referral & Rekomendasi Produk</h2>
-                        <p class="text-sm text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-                            Sebagai Member Visi Academy, Anda dapat mengajak rekan bergabung (Member-get-Member) maupun merekomendasikan produk alat kesehatan PT Visi Yosindo Medikal ke instansi/tempat kerja Anda (RS, klinik, praktek dokter, bidan, dll.).
-                            <button type="button" @click="showInfoModal = true" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Lihat ketentuan referral</button>.
-                        </p>
-                    </div>
-
-                    <!-- Product Recommendation Partner Card (B2B2C / Instansi) -->
-                    <div class="vm-benefit-card" style="padding: 1.5rem !important;">
-                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
-                            <div class="space-y-2 max-w-2xl">
-                                <span class="vm-pill-opt inline-block px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider">Peluang Rekomendasi Produk</span>
-                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">
-                                    Rekomendasikan Alat Kesehatan ke Tempat Kerja atau Relasi Anda
-                                </h3>
-                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                                    Kenal dokter, bidan, klinik, rumah sakit, atau perusahaan yang sedang membutuhkan alat kesehatan / layanan kalibrasi? Kirim rekomendasi Anda ke tim kami dengan mencantumkan ID Member <strong class="font-mono text-slate-900 dark:text-white">{{ $memberCardId }}</strong> untuk memperoleh peluang komisi & benefit member atas transaksi yang berhasil.
+                    <div class="vm-hero-stage p-6 sm:p-8">
+                        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                            <div class="space-y-2.5 max-w-2xl">
+                                <span class="vm-gold-pill">Peluang Kemitraan Member &bull; {{ $memberCardId }}</span>
+                                <h2 class="text-2xl sm:text-3xl font-display font-black text-white">Rekomendasi Produk & Member-get-Member</h2>
+                                <p class="text-xs sm:text-sm text-blue-100/85 leading-relaxed">
+                                    Sebagai Member Visi Academy, Anda dapat merekomendasikan alat kesehatan & layanan PT Visi Yosindo Medikal ke tempat kerja atau relasi Anda (dokter, bidan, klinik, rumah sakit, perusahaan) untuk memperoleh <strong class="text-white">peluang komisi kemitraan</strong>, sekaligus mengajak rekan bergabung menjadi member.
                                 </p>
                             </div>
-                            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                            <div class="flex flex-wrap items-center gap-2.5 shrink-0">
                                 <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Yosindo, saya Member Visi Academy (ID: ' . $memberCardId . ' - ' . $user->name . ') ingin merekomendasikan produk/alat kesehatan untuk rekan/instansi saya.') }}"
                                     target="_blank" rel="noopener noreferrer"
-                                    style="background-color: #0c2a52 !important; color: #ffffff !important;"
-                                    class="px-5 py-3 rounded-2xl font-display font-bold text-xs sm:text-sm shadow-md hover:opacity-95 transition-all inline-flex items-center gap-2">
+                                    class="vm-btn-gold px-5 py-2.5 rounded-2xl text-xs sm:text-sm inline-flex items-center gap-2">
                                     <span>Kirim Rekomendasi Produk</span>
                                     <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                                 </a>
-                                <a href="{{ route('products') }}" target="_blank" rel="noopener noreferrer"
-                                    class="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-display font-bold text-xs sm:text-sm transition-all inline-flex items-center gap-1.5">
-                                    <span>Lihat Katalog Produk</span>
-                                </a>
+                                <button type="button" @click="showInfoModal = true"
+                                    style="background:rgba(255,255,255,0.14); color:#ffffff; border:1px solid rgba(255,255,255,0.22);"
+                                    class="px-4 py-2.5 rounded-2xl text-xs font-bold cursor-pointer">
+                                    Ketentuan Kemitraan
+                                </button>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- 3-Step Product Recommendation Flow -->
+                    <div class="vm-benefit-grid">
+                        <div class="vm-panel">
+                            <span class="vm-gold-pill mb-2" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">Langkah 1</span>
+                            <h4 class="font-display font-extrabold text-sm text-slate-900 dark:text-white">Kenali Kebutuhan Relasi / Instansi</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                                Cek katalog alat kesehatan, radiologi, atau layanan kalibrasi yang dibutuhkan RS, klinik, praktek dokter, atau bidan di lingkungan Anda.
+                            </p>
+                        </div>
+                        <div class="vm-panel">
+                            <span class="vm-gold-pill mb-2" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">Langkah 2</span>
+                            <h4 class="font-display font-extrabold text-sm text-slate-900 dark:text-white">Kirim Rekomendasi dengan ID Member</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                                Hubungkan rekan/instansi tersebut ke tim kami sambil menyertakan ID Member <strong class="font-mono text-slate-900 dark:text-white">{{ $memberCardId }}</strong> agar tercatat atas nama Anda.
+                            </p>
+                        </div>
+                        <div class="vm-panel">
+                            <span class="vm-gold-pill mb-2" style="background:#fef3c7; color:#92400e; border-color:#fde68a;">Langkah 3</span>
+                            <h4 class="font-display font-extrabold text-sm text-slate-900 dark:text-white">Dapatkan Peluang Komisi & Benefit</h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                                Ketika pengadaan/pembelian berhasil terealisasi, Anda berhak atas komisi kemitraan (mulai 1% atau sesuai skema produk) & benefit khusus member.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quick 1-Click Product Recommendation Showcase -->
+                    @if(isset($featuredProducts) && $featuredProducts->count() > 0)
+                        <div class="vm-panel space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                <div>
+                                    <span class="text-[10px] font-black uppercase tracking-wider" style="color:#d99b26;">Rekomendasi Cepat</span>
+                                    <h3 class="text-base sm:text-lg font-display font-black text-slate-900 dark:text-white">Produk Unggulan yang Dapat Anda Rekomendasikan</h3>
+                                </div>
+                                <a href="{{ route('products') }}" target="_blank" rel="noopener noreferrer"
+                                    class="text-xs font-bold text-blue-700 dark:text-blue-400 hover:underline">
+                                    Lihat Semua Katalog &rarr;
+                                </a>
+                            </div>
+
+                            <div class="vm-hub-split">
+                                @foreach($featuredProducts as $prod)
+                                    <div class="flex items-center justify-between gap-3 p-3 rounded-2xl border border-slate-200 dark:border-slate-800 bg-slate-50/70 dark:bg-slate-900/60">
+                                        <div class="flex items-center gap-3 min-w-0">
+                                            <div class="vm-list-thumb" style="background:#ffffff;">
+                                                @if($prod->thumbnail)
+                                                    <img src="{{ $prod->thumbnail_url }}" alt="{{ $prod->name }}" class="w-full h-full object-contain p-1" loading="lazy" onerror="this.style.display='none';">
+                                                @else
+                                                    <svg class="w-5 h-5 text-blue-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                                                @endif
+                                            </div>
+                                            <div class="min-w-0">
+                                                <span class="block text-[10px] font-bold uppercase text-slate-400 truncate">{{ $prod->brand ?: ($prod->category?->name ?? 'Alat Kesehatan') }}</span>
+                                                <a href="{{ route('product.detail', $prod->slug) }}" target="_blank" rel="noopener noreferrer"
+                                                    class="block text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-blue-700 truncate">
+                                                    {{ $prod->name }}
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Yosindo, saya Member Visi Academy (ID: ' . $memberCardId . ' - ' . $user->name . ') ingin merekomendasikan produk "' . $prod->name . '" untuk rekan/instansi saya.') }}"
+                                            target="_blank" rel="noopener noreferrer"
+                                            class="vm-btn-navy px-3 py-2 rounded-xl text-[11px] whitespace-nowrap shrink-0">
+                                            Rekomendasikan
+                                        </a>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    <!-- Divider Heading for Member-get-Member Referral Section -->
+                    <div class="pt-2">
+                        <span class="text-[11px] font-black uppercase tracking-wider text-blue-700 dark:text-blue-400">Member-get-Member</span>
+                        <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Kode Referral Program & Saldo Komisi</h3>
                     </div>
 
                     <!-- Top 2-Column Banner: Saldo Box (Left) & Stats Box (Right) -->
