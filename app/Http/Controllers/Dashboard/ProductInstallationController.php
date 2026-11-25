@@ -12,11 +12,18 @@ use Illuminate\View\View;
 
 class ProductInstallationController extends Controller
 {
+    public function __construct()
+    {
+        ProductInstallation::ensureTableExists();
+    }
+
     /**
      * Display a listing of product installations.
      */
     public function index(Request $request): View
     {
+        ProductInstallation::ensureTableExists();
+
         $query = ProductInstallation::query();
 
         // Search filter
@@ -48,6 +55,8 @@ class ProductInstallationController extends Controller
      */
     public function create(): View
     {
+        ProductInstallation::ensureTableExists();
+
         return view('dashboard.product-installations.create');
     }
 
@@ -56,6 +65,8 @@ class ProductInstallationController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        ProductInstallation::ensureTableExists();
+
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'product_name' => ['nullable', 'string', 'max:255'],
@@ -86,6 +97,8 @@ class ProductInstallationController extends Controller
      */
     public function edit(string $encryptedId): View
     {
+        ProductInstallation::ensureTableExists();
+
         $id = EncryptedRouteHelper::decryptOrFail($encryptedId);
         $installation = ProductInstallation::findOrFail($id);
 
@@ -97,6 +110,8 @@ class ProductInstallationController extends Controller
      */
     public function update(Request $request, string $encryptedId): RedirectResponse
     {
+        ProductInstallation::ensureTableExists();
+
         $id = EncryptedRouteHelper::decryptOrFail($encryptedId);
         $installation = ProductInstallation::findOrFail($id);
 
@@ -135,6 +150,8 @@ class ProductInstallationController extends Controller
      */
     public function toggleStatus(string $encryptedId): RedirectResponse
     {
+        ProductInstallation::ensureTableExists();
+
         $id = EncryptedRouteHelper::decryptOrFail($encryptedId);
         $installation = ProductInstallation::findOrFail($id);
 
@@ -153,6 +170,8 @@ class ProductInstallationController extends Controller
      */
     public function destroy(string $encryptedId): RedirectResponse
     {
+        ProductInstallation::ensureTableExists();
+
         $id = EncryptedRouteHelper::decryptOrFail($encryptedId);
         $installation = ProductInstallation::findOrFail($id);
 

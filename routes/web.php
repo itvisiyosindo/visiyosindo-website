@@ -602,6 +602,7 @@ Route::get('/', function () {
 
     // Get active product installations
     try {
+        \App\Models\ProductInstallation::ensureTableExists();
         $productInstallations = \App\Models\ProductInstallation::where('is_active', true)
             ->orderBy('display_order', 'asc')
             ->orderBy('created_at', 'desc')
