@@ -31,11 +31,16 @@
         </div>
 
         <h2 class="mt-6 text-center text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
-            Pendaftaran Akun Member
+            Daftar Member <span class="notranslate" translate="no">Visi Academy</span>
         </h2>
         <p class="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">
-            Daftar mandiri untuk mengikuti program pelatihan & webinar serta akses sertifikat resmi Visi Academy
+            Satu akun member untuk mengakses informasi & update, program pelatihan & webinar, konsultasi, serta berbagai benefit ekosistem PT Visi Yosindo Medikal.
         </p>
+        <div class="mt-4 flex flex-wrap items-center justify-center gap-2 text-xs font-semibold">
+            <span class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">1 Akun Lintas Layanan</span>
+            <span class="px-3 py-1 rounded-full bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800">Benefit & Info Member</span>
+            <span class="px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">Terbuka untuk Umum</span>
+        </div>
     </div>
 
     <div class="mt-8 mx-auto w-full max-w-lg">
@@ -67,11 +72,11 @@
                     </label>
                     <div class="mt-1">
                         <input id="name" name="name" type="text" required value="{{ old('name') }}"
-                            placeholder="Contoh: Dr. Budi Santoso, S.Tr.Kes"
+                            placeholder="Contoh: Budi Santoso / dr. Siti Rahma"
                             class="appearance-none block w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition-all shadow-sm">
                     </div>
                     <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
-                        *Nama ini yang akan tercetak di Sertifikat resmi kelulusan Anda.
+                        *Nama ini akan tampil pada Kartu Member & e-Sertifikat resmi Anda.
                     </p>
                 </div>
 
@@ -103,21 +108,21 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                         <label for="institution" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                            Asal Instansi / Kampus
+                            Instansi / Perusahaan / Usaha
                         </label>
                         <div class="mt-1">
                             <input id="institution" name="institution" type="text" value="{{ old('institution') }}"
-                                placeholder="RSUD / Universitas / PT"
+                                placeholder="RS / Klinik / Perusahaan / Usaha Pribadi"
                                 class="appearance-none block w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition-all shadow-sm">
                         </div>
                     </div>
                     <div>
                         <label for="profession" class="block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                            Profesi / Pekerjaan
+                            Profesi / Bidang Usaha
                         </label>
                         <div class="mt-1">
                             <input id="profession" name="profession" type="text" value="{{ old('profession') }}"
-                                placeholder="Radiografer / Mahasiswa / dll"
+                                placeholder="Tenaga Kesehatan / Pebisnis / Umum"
                                 class="appearance-none block w-full px-4 py-3 rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm transition-all shadow-sm">
                         </div>
                     </div>

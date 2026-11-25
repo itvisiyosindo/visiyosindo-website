@@ -118,6 +118,76 @@
             .vb-col-4 { grid-column: span 4 / span 4 !important; }
         }
 
+        /* Digital Member Card & Ecosystem Benefit Hub */
+        .vm-member-pass {
+            background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%);
+            border: 1px solid rgba(255,255,255,0.24);
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 340px;
+            box-shadow: 0 14px 30px rgba(2, 6, 23, 0.28);
+        }
+        .vm-benefit-grid {
+            display: grid;
+            grid-template-columns: repeat(1, minmax(0, 1fr));
+            gap: 1rem;
+        }
+        @media (min-width: 640px) {
+            .vm-benefit-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (min-width: 1024px) {
+            .vm-benefit-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
+        }
+        .vm-benefit-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 1.25rem;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 0.85rem;
+            transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .vm-benefit-card:hover {
+            transform: translateY(-2px);
+            border-color: #93c5fd;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+        }
+        .dark .vm-benefit-card {
+            background: #0f172a;
+            border-color: #1e293b;
+        }
+        .dark .vm-benefit-card:hover {
+            border-color: #3b82f6;
+        }
+        .vm-pill-active {
+            background: #dcfce7;
+            color: #166534;
+        }
+        .dark .vm-pill-active {
+            background: rgba(22, 101, 52, 0.35);
+            color: #86efac;
+        }
+        .vm-pill-soon {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        .dark .vm-pill-soon {
+            background: rgba(146, 64, 14, 0.35);
+            color: #fcd34d;
+        }
+        .vm-pill-opt {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+        .dark .vm-pill-opt {
+            background: rgba(30, 64, 175, 0.35);
+            color: #93c5fd;
+        }
+
         /* Unified Student Card Header, Flyer Framing & Floating Badges */
         .vb-card-header {
             position: relative !important;
@@ -435,7 +505,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
                         </svg>
                     </span>
-                    <span class="flex-1 text-left truncate font-semibold">Kode Referral</span>
+                    <span class="flex-1 text-left truncate font-semibold">Referral & Kemitraan</span>
                 </button>
 
                 <!-- 5. Invoice -->
@@ -602,44 +672,65 @@
 
                         <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                             <div class="space-y-3 max-w-2xl">
-                                <!-- Energetic Pill Badge -->
+                                <!-- Ecosystem Pill Badge -->
                                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-xs font-bold text-white shadow-xs">
                                     <span class="flex h-2 w-2 relative">
                                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
                                         <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
                                     </span>
-                                    <span>🔥 Semangat Belajar Hari Ini &bull; <span class="text-amber-300 font-bold">Visi Academy</span></span>
+                                    <span>Ekosistem Member &bull; <span class="text-amber-300 font-bold notranslate" translate="no">Visi Academy</span></span>
                                 </div>
 
-                                <!-- Punchy Motivational Title -->
+                                <!-- Welcome Title -->
                                 <h2 class="text-2xl sm:text-4xl font-display font-black tracking-tight leading-tight text-white drop-shadow-xs">
-                                    Halo, {{ $user->name }}! 🚀
+                                    Halo, {{ $user->name }}!
                                 </h2>
 
                                 <p class="text-blue-100/90 text-xs sm:text-sm leading-relaxed max-w-xl font-medium">
-                                    Tingkatkan kompetensi profesional melalui program <strong class="text-white font-bold">Pelatihan & Webinar</strong> bersama praktisi industri alat kesehatan dan radiologi, lengkap dengan <strong class="text-amber-300 font-bold">e-Sertifikat resmi</strong>.
+                                    Satu akun <strong class="text-white font-bold">Member</strong> untuk mengakses pusat informasi terbaru, <strong class="text-white font-bold">Pelatihan & Webinar</strong>, konsultasi, serta berbagai <strong class="text-amber-300 font-bold">benefit lintas layanan</strong> PT Visi Yosindo Medikal.
                                 </p>
+
+                                <div class="flex flex-wrap gap-3 pt-1">
+                                    <button type="button" @click="setTab('browse')"
+                                        style="background-color: #fbbf24 !important; color: #0f172a !important;"
+                                        class="vb-gold-btn px-5 py-2.5 rounded-2xl font-display font-black text-xs sm:text-sm shadow-xl shadow-blue-950/30 hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
+                                        <span style="color: #0f172a !important;" class="font-black">Eksplorasi Program</span>
+                                    </button>
+                                    <button type="button" @click="setTab('classes')"
+                                        style="background: rgba(255, 255, 255, 0.15) !important; color: #ffffff !important;"
+                                        class="px-5 py-2.5 rounded-2xl hover:bg-white/20 font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer">
+                                        <span style="color: #ffffff !important;" class="font-bold">Program Saya</span>
+                                    </button>
+                                </div>
                             </div>
 
-                            <!-- Right Side: Fast Motivating Action Buttons (High Contrast & Gold Touch) -->
-                            <div class="vb-hero-btns flex flex-col sm:flex-row gap-3 shrink-0">
-                                <button type="button" @click="setTab('browse')"
-                                    style="background-color: #fbbf24 !important; color: #0f172a !important;"
-                                    class="vb-gold-btn px-5 py-3 rounded-2xl font-display font-black text-xs sm:text-sm shadow-xl shadow-blue-950/30 hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2.5 cursor-pointer group">
-                                    <svg class="w-4 h-4 text-slate-950 group-hover:rotate-12 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                    </svg>
-                                    <span style="color: #0f172a !important;" class="font-black">Eksplorasi Program</span>
-                                </button>
-
-                                <button type="button" @click="setTab('classes')"
-                                    style="background: rgba(255, 255, 255, 0.15) !important; color: #ffffff !important;"
-                                    class="px-5 py-3 rounded-2xl hover:bg-white/20 font-display font-bold text-xs sm:text-sm hover:scale-[1.02] active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 cursor-pointer shadow-xs">
-                                    <svg class="w-4 h-4 text-amber-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span style="color: #ffffff !important;" class="font-bold">Buka Program Saya</span>
-                                </button>
+                            <!-- Right Side: Digital Member Pass ("Kartu Sakti" 1 Akun Lintas Layanan) -->
+                            <div class="vm-member-pass shrink-0" x-data="{ copiedId: false }">
+                                <div class="flex items-center justify-between gap-2 mb-3">
+                                    <span class="text-[10px] font-black uppercase tracking-widest text-amber-300 notranslate" translate="no">VISI ACADEMY PASS</span>
+                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-400/20 text-emerald-200 border border-emerald-300/30">Member Aktif</span>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="text-base font-display font-black text-white truncate">{{ $user->name }}</div>
+                                    <div class="text-[11px] text-blue-100/80 truncate">
+                                        {{ $user->profession ?: ($user->institution ?: 'Member Ekosistem Visi Academy') }}
+                                    </div>
+                                </div>
+                                <div class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-slate-950/35 border border-white/15">
+                                    <div class="min-w-0">
+                                        <span class="block text-[9px] uppercase tracking-wider text-blue-200/80 font-bold">ID Member</span>
+                                        <span class="block text-xs sm:text-sm font-mono font-bold text-white tracking-wider">{{ $memberCardId }}</span>
+                                    </div>
+                                    <button type="button"
+                                        @click="navigator.clipboard.writeText('{{ $memberCardId }}'); copiedId = true; setTimeout(() => copiedId = false, 2000)"
+                                        class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-[11px] font-bold text-white transition-colors cursor-pointer shrink-0">
+                                        <span x-show="!copiedId">Salin</span>
+                                        <span x-show="copiedId" x-cloak style="color:#fde68a;">Tersalin</span>
+                                    </button>
+                                </div>
+                                <p class="mt-2.5 text-[10px] text-blue-100/75 leading-snug">
+                                    Satu kartu member untuk akses benefit, program, dan layanan ekosistem Visi Yosindo.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -783,68 +874,191 @@
                         </div>
                     @endif
 
-                    <!-- 3 Action Cards (Focused on Pelatihan, Webinar & Sertifikat) -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6">
-                        <!-- Card A: Katalog Program -->
-                        <div @click="setTab('browse')"
-                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
+                    <!-- Benefit & Ekosistem Member Hub -->
+                    <div class="space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                             <div>
-                                <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="vb-bg-navy w-12 h-12 rounded-2xl flex items-center justify-center shadow-md shadow-blue-950/20 group-hover:scale-110 transition-transform mb-5">
-                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                                    </svg>
-                                </div>
-                                <h4 class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-blue-600 transition-colors">Pelatihan & Webinar</h4>
-                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
-                                    Telusuri program pelatihan terakreditasi, kalibrasi alat elektromedis, proteksi radiasi (PPR), dan webinar regulasi terkini.
-                                </p>
+                                <span class="text-[11px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Benefit Member</span>
+                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Benefit & Layanan Ekosistem Anda</h3>
+                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Cek secara berkala berbagai fasilitas, diskon, program, dan peluang baru khusus Member Visi Academy.</p>
                             </div>
-                            <span class="vb-text-navy inline-flex items-center gap-2 text-xs font-black group-hover:text-blue-600 group-hover:gap-3 transition-all">
-                                <span>Lihat Daftar Program</span>
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </span>
                         </div>
 
-                        <!-- Card B: Program Saya & Materi -->
-                        <div @click="setTab('classes')"
-                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
-                            <div>
-                                <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="vb-bg-amber w-12 h-12 rounded-2xl flex items-center justify-center shadow-md shadow-amber-500/25 group-hover:scale-110 transition-transform mb-5">
-                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                                    </svg>
+                        <div class="vm-benefit-grid">
+                            <!-- Benefit 1: Pelatihan & Webinar -->
+                            <div @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div style="background-color: #0c2a52 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
+                                            </svg>
+                                        </div>
+                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Pelatihan & Webinar Member</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Ikuti pelatihan resmi, webinar gratis maupun berdiskon khusus member, lengkap dengan materi & e-Sertifikat.
+                                    </p>
                                 </div>
-                                <h4 class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-amber-600 transition-colors">Program Saya & Materi</h4>
-                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
-                                    Akses modul materi PDF, rekaman sesi webinar, tautan grup WhatsApp, dan jadwal program yang sedang Anda ikuti.
-                                </p>
+                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
+                                    <span>Lihat Katalog Program</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                </span>
                             </div>
-                            <span style="color: #d97706 !important;" class="inline-flex items-center gap-2 text-xs font-black group-hover:gap-3 transition-all">
-                                <span>Buka Program Saya</span>
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </span>
-                        </div>
 
-                        <!-- Card C: Sertifikat -->
-                        <div @click="setTab('history')"
-                            class="p-6 sm:p-7 bg-white dark:bg-slate-900 rounded-3xl shadow-sm hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 cursor-pointer group flex flex-col justify-between">
-                            <div>
-                                <div style="background-color: #2563eb !important; color: #ffffff !important;" class="vb-bg-royal w-12 h-12 rounded-2xl flex items-center justify-center shadow-md shadow-blue-600/25 group-hover:scale-110 transition-transform mb-5">
-                                    <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                                    </svg>
+                            <!-- Benefit 2: Konsultasi & Penyuluhan -->
+                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan fasilitas konsultasi gratis / info penyuluhan.') }}"
+                                target="_blank" rel="noopener noreferrer"
+                                class="vm-benefit-card group">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div style="background-color: #059669 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                                            </svg>
+                                        </div>
+                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600 transition-colors">Konsultasi & Penyuluhan</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Akses konsultasi gratis seputar alat kesehatan, kalibrasi, perizinan radiasi, dan agenda penyuluhan untuk instansi Anda.
+                                    </p>
                                 </div>
-                                <h4 class="vb-text-navy font-display font-black text-lg mb-2 group-hover:text-blue-600 transition-colors">E-Sertifikat Resmi</h4>
-                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 leading-relaxed mb-6 font-medium">
-                                    Unduh dan cetak sertifikat pelatihan & webinar resmi ber-QR Code yang dapat divalidasi keasliannya secara publik.
-                                </p>
+                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">
+                                    <span>Hubungi Tim Konsultasi</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </a>
+
+                            <!-- Benefit 3: Katalog Produk & Alat Kesehatan -->
+                            <a href="{{ route('products') }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div style="background-color: #2563eb !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                                            </svg>
+                                        </div>
+                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Katalog Produk & Promo</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Lihat katalog alat kesehatan, radiologi, dan penawaran spesial resmi PT Visi Yosindo Medikal untuk kebutuhan fasilitas Anda.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
+                                    <span>Jelajahi Produk</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </a>
+
+                            <!-- Benefit 4: Poin & Reward Member -->
+                            <div class="vm-benefit-card">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div style="background-color: #f59e0b !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
+                                        </div>
+                                        <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Poin & Reward Loyalitas</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Kumpulkan poin dari transaksi & keaktifan member untuk ditukarkan dengan voucher diskon maupun reward menarik.
+                                    </p>
+                                </div>
+                                <span class="text-[11px] font-semibold text-slate-400">Otomatis terhubung ke ID Member Anda</span>
                             </div>
-                            <span class="vb-text-navy inline-flex items-center gap-2 text-xs font-black group-hover:text-blue-600 group-hover:gap-3 transition-all">
-                                <span>Cek Sertifikat Saya</span>
-                                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                            </span>
+
+                            <!-- Benefit 5: Ekosistem Lintas Layanan -->
+                            <div class="vm-benefit-card">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div style="background-color: #4f46e5 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                            </svg>
+                                        </div>
+                                        <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Akses Ekosistem Lintas Layanan</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Satu Kartu Member untuk berbagai unit usaha & mitra baru ke depannya — cukup satu akun tanpa daftar ulang.
+                                    </p>
+                                </div>
+                                <span class="text-[11px] font-semibold text-slate-400">Gunakan ID {{ $memberCardId }}</span>
+                            </div>
+
+                            <!-- Benefit 6: Peluang Rekomendasi & Kemitraan (Subtle discovery) -->
+                            <div @click="setTab('affiliate')" class="vm-benefit-card cursor-pointer group">
+                                <div class="space-y-2.5">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <div style="background-color: #0284c7 !important; color: #ffffff !important;" class="w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+                                            </svg>
+                                        </div>
+                                        <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Kemitraan</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition-colors">Rekomendasi & Kemitraan</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Bantu rekomendasikan produk alat kesehatan ke rekan/instansi (RS, klinik, dokter, bidan) atau ajak member baru.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
+                                    <span>Pelajari Selengkapnya</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- Pusat Informasi & Update Terbaru (Synced from News & Events) -->
+                    @if(isset($latestNews) && $latestNews->count() > 0)
+                        <div class="space-y-4">
+                            <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+                                <div>
+                                    <span class="text-[11px] font-black uppercase tracking-wider text-blue-600 dark:text-blue-400">Pusat Informasi</span>
+                                    <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Informasi & Update Terbaru</h3>
+                                </div>
+                                <a href="{{ route('news') }}" target="_blank" rel="noopener noreferrer"
+                                    class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1">
+                                    <span>Lihat Semua Info</span>
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                </a>
+                            </div>
+
+                            <div class="vm-benefit-grid">
+                                @foreach($latestNews as $newsItem)
+                                    <a href="{{ route('news.detail', $newsItem->slug) }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                                        <div class="space-y-2">
+                                            <div class="flex items-center justify-between gap-2 text-[11px]">
+                                                <span class="px-2 py-0.5 rounded-md font-bold bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 {{ strtolower((string) $newsItem->category) === 'visi academy' ? 'notranslate' : '' }}">
+                                                    {{ $newsItem->category ?: 'Update' }}
+                                                </span>
+                                                <span class="text-slate-400 font-medium">{{ $newsItem->formatted_published_date }}</span>
+                                            </div>
+                                            <h4 class="font-display font-bold text-sm text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-2 leading-snug">
+                                                {{ $newsItem->title }}
+                                            </h4>
+                                            @if($newsItem->excerpt)
+                                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2 leading-relaxed">
+                                                    {{ $newsItem->excerpt }}
+                                                </p>
+                                            @endif
+                                        </div>
+                                        <span class="text-xs font-bold text-blue-600 dark:text-blue-400 inline-flex items-center gap-1">
+                                            <span>Baca Info</span>
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                        </span>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- ============================================================= -->
@@ -1441,16 +1655,44 @@
                 </div>
 
                 <!-- ============================================================= -->
-                <!-- TAB 4: KODE REFERRAL (Understated) -->
+                <!-- TAB 4: REFERRAL & KEMITRAAN MEMBER -->
                 <!-- ============================================================= -->
                 <div x-cloak x-show="currentTab === 'affiliate'" class="space-y-8">
                     <div class="space-y-2">
-                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Referral Member</span>
-                        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white">Kode Referral</h2>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block">Kemitraan Ekosistem Member</span>
+                        <h2 class="text-2xl sm:text-3xl font-display font-extrabold text-slate-900 dark:text-white">Referral & Rekomendasi Produk</h2>
                         <p class="text-sm text-slate-600 dark:text-slate-300 max-w-3xl leading-relaxed">
-                            Bagikan kode referral Anda kepada rekan atau instansi untuk memberikan potongan biaya pendaftaran program Visi Academy.
+                            Sebagai Member Visi Academy, Anda dapat mengajak rekan bergabung (Member-get-Member) maupun merekomendasikan produk alat kesehatan PT Visi Yosindo Medikal ke instansi/tempat kerja Anda (RS, klinik, praktek dokter, bidan, dll.).
                             <button type="button" @click="showInfoModal = true" class="text-blue-600 dark:text-blue-400 font-bold hover:underline">Lihat ketentuan referral</button>.
                         </p>
+                    </div>
+
+                    <!-- Product Recommendation Partner Card (B2B2C / Instansi) -->
+                    <div class="vm-benefit-card" style="padding: 1.5rem !important;">
+                        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+                            <div class="space-y-2 max-w-2xl">
+                                <span class="vm-pill-opt inline-block px-3 py-1 rounded-full text-[11px] font-black uppercase tracking-wider">Peluang Rekomendasi Produk</span>
+                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">
+                                    Rekomendasikan Alat Kesehatan ke Tempat Kerja atau Relasi Anda
+                                </h3>
+                                <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                                    Kenal dokter, bidan, klinik, rumah sakit, atau perusahaan yang sedang membutuhkan alat kesehatan / layanan kalibrasi? Kirim rekomendasi Anda ke tim kami dengan mencantumkan ID Member <strong class="font-mono text-slate-900 dark:text-white">{{ $memberCardId }}</strong> untuk memperoleh peluang komisi & benefit member atas transaksi yang berhasil.
+                                </p>
+                            </div>
+                            <div class="flex flex-wrap items-center gap-3 shrink-0">
+                                <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Yosindo, saya Member Visi Academy (ID: ' . $memberCardId . ' - ' . $user->name . ') ingin merekomendasikan produk/alat kesehatan untuk rekan/instansi saya.') }}"
+                                    target="_blank" rel="noopener noreferrer"
+                                    style="background-color: #0c2a52 !important; color: #ffffff !important;"
+                                    class="px-5 py-3 rounded-2xl font-display font-bold text-xs sm:text-sm shadow-md hover:opacity-95 transition-all inline-flex items-center gap-2">
+                                    <span>Kirim Rekomendasi Produk</span>
+                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                </a>
+                                <a href="{{ route('products') }}" target="_blank" rel="noopener noreferrer"
+                                    class="px-4 py-3 rounded-2xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-display font-bold text-xs sm:text-sm transition-all inline-flex items-center gap-1.5">
+                                    <span>Lihat Katalog Produk</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- Top 2-Column Banner: Saldo Box (Left) & Stats Box (Right) -->

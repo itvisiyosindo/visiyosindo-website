@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AcademySetting;
 use App\Models\AffiliateCode;
 use App\Models\AffiliateWithdrawal;
+use App\Models\NewsPost;
 use App\Models\StudentCertificate;
 use App\Models\TrainingClass;
 use App\Models\TrainingEnrollment;
@@ -213,8 +214,23 @@ class StudentPortalController extends Controller
             ];
         });
 
+        // Unique digital member pass ID (deterministic per member, no extra schema required)
+        $memberCardId = 'VA-' . ($user->created_at ? $user->created_at->format('Ym') : now()->format('Ym')) . '-' . str_pad((string) $user->id, 5, '0', STR_PAD_LEFT);
+
+        // Latest published news & updates for the member information hub
+        try {
+            $latestNews = NewsPost::published()
+                ->latest('published_at')
+                ->take(3)
+                ->get();
+        } catch (\Throwable $e) {
+            $latestNews = collect();
+        }
+
         return view('student.dashboard', compact(
             'user',
+            'memberCardId',
+            'latestNews',
             'academySettings',
             'enrollments',
             'certificates',
