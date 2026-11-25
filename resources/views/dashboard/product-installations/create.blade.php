@@ -163,7 +163,7 @@
                             class="block w-full text-xs text-surface-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-surface-700 dark:file:text-surface-300 cursor-pointer"
                             required
                         >
-                        <p class="mt-1 text-[11px] text-surface-400">Format: JPG, PNG, WEBP. Maksimal 5MB.</p>
+                        <p class="mt-1 text-[11px] text-surface-400">Rekomendasi ukuran: <strong>1080 × 1350 px</strong> (rasio 4:5 portrait). Format: JPG, PNG, WEBP (maks. 5MB).</p>
                         @error('image')
                             <p class="mt-1 text-xs text-red-500">{{ $message }}</p>
                         @enderror

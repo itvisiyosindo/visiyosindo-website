@@ -1787,11 +1787,11 @@
         html.dark .vpi-card { background: #0f172a; border-color: #1e293b; box-shadow: 0 10px 25px -15px rgba(0, 0, 0, .6); }
         .vpi-card:hover { transform: translateY(-5px); border-color: #38bdf8; box-shadow: 0 20px 35px -15px rgba(2, 132, 199, .22); }
 
-        .vpi-media { position: relative; width: 100%; height: 14.5rem; overflow: hidden; background: #e2e8f0; cursor: pointer; }
-        html.dark .vpi-media { background: #1e293b; }
+        .vpi-media { position: relative; width: 100%; aspect-ratio: 1080 / 1350; overflow: hidden; background: #0f172a; cursor: pointer; }
+        html.dark .vpi-media { background: #020617; }
         .vpi-media img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s cubic-bezier(.22, 1, .36, 1); }
         .vpi-card:hover .vpi-media img { transform: scale(1.07); }
-        .vpi-media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0.4) 0%, rgba(15, 23, 42, 0) 50%, rgba(15, 23, 42, 0.75) 100%); }
+        .vpi-media-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(15, 23, 42, 0.25) 0%, rgba(15, 23, 42, 0) 40%, rgba(15, 23, 42, 0.55) 100%); }
 
         .vpi-badge-prod {
             position: absolute; top: 1rem; left: 1rem; font-size: .7rem; font-weight: 700; text-transform: uppercase;
@@ -2032,8 +2032,8 @@
                 {{-- Modal Body --}}
                 <div class="p-4 sm:p-6 overflow-y-auto space-y-4">
                     {{-- Big Image Preview --}}
-                    <div class="w-full max-h-[50vh] rounded-2xl overflow-hidden bg-slate-950 flex items-center justify-center shadow-lg">
-                        <img :src="modalImage" :alt="modalTitle" class="max-h-[50vh] w-auto object-contain">
+                    <div class="w-full max-h-[65vh] rounded-2xl overflow-hidden bg-slate-950 flex items-center justify-center shadow-lg">
+                        <img :src="modalImage" :alt="modalTitle" class="max-h-[65vh] w-auto object-contain">
                     </div>
 
                     {{-- Installation Info Chips --}}
