@@ -118,16 +118,90 @@
             .vb-col-4 { grid-column: span 4 / span 4 !important; }
         }
 
-        /* Digital Member Card & Ecosystem Benefit Hub */
-        .vm-member-pass {
-            background: linear-gradient(135deg, rgba(255,255,255,0.14) 0%, rgba(255,255,255,0.06) 100%);
-            border: 1px solid rgba(255,255,255,0.24);
-            border-radius: 1.25rem;
-            padding: 1.25rem;
-            backdrop-filter: blur(10px);
+        /* Official Digital Member Card (Front/Back Flip & Dynamic Overlay) */
+        .vm-card-wrap {
             width: 100%;
-            max-width: 340px;
-            box-shadow: 0 14px 30px rgba(2, 6, 23, 0.28);
+            max-width: 390px;
+            flex-shrink: 0;
+        }
+        .vm-card-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1017 / 639;
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid rgba(240, 190, 74, 0.45);
+            box-shadow: 0 18px 36px rgba(2, 6, 23, 0.42);
+            background: #0b122b;
+            cursor: pointer;
+            container-type: inline-size;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+        .vm-card-frame:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 42px rgba(2, 6, 23, 0.55);
+        }
+        .vm-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            user-select: none;
+        }
+        .vm-card-dyn-id,
+        .vm-card-dyn-valid {
+            position: absolute;
+            background: #0b122b;
+            color: #f0be4a;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: 0.02em;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            border-radius: 3px;
+            font-size: clamp(11px, 4.3cqi, 32px);
+            font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+            pointer-events: none;
+        }
+        .vm-card-dyn-id {
+            left: 3.8%;
+            top: 85.4%;
+            width: 29.5%;
+            height: 6.4%;
+            padding: 0 2px;
+        }
+        .vm-card-dyn-valid {
+            left: 58.0%;
+            top: 86.2%;
+            width: 17.0%;
+            height: 5.8%;
+            padding: 0 2px;
+        }
+        .vm-card-controls {
+            margin-top: 0.65rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.45rem;
+        }
+        .vm-card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            padding: 0.38rem 0.72rem;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.14);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .vm-card-btn:hover {
+            background: rgba(255, 255, 255, 0.24);
         }
         .vm-benefit-grid {
             display: grid;
@@ -704,33 +778,87 @@
                                 </div>
                             </div>
 
-                            <!-- Right Side: Digital Member Pass ("Kartu Sakti" 1 Akun Lintas Layanan) -->
-                            <div class="vm-member-pass shrink-0" x-data="{ copiedId: false }">
-                                <div class="flex items-center justify-between gap-2 mb-3">
-                                    <span class="text-[10px] font-black uppercase tracking-widest text-amber-300 notranslate" translate="no">VISI ACADEMY PASS</span>
-                                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase bg-emerald-400/20 text-emerald-200 border border-emerald-300/30">Member Aktif</span>
-                                </div>
-                                <div class="mb-3">
-                                    <div class="text-base font-display font-black text-white truncate">{{ $user->name }}</div>
-                                    <div class="text-[11px] text-blue-100/80 truncate">
-                                        {{ $user->profession ?: ($user->institution ?: 'Member Ekosistem Visi Academy') }}
+                            <!-- Right Side: Official Digital Member Card (Front & Back) -->
+                            <div class="vm-card-wrap" x-data="{ cardSide: 'front', copiedId: false, cardModal: false }" @keydown.escape.window="cardModal = false">
+                                <div class="vm-card-frame"
+                                    @click="cardSide = (cardSide === 'front' ? 'back' : 'front')"
+                                    title="Klik untuk membalik kartu">
+                                    {{-- Front Side --}}
+                                    <div x-show="cardSide === 'front'" class="w-full h-full relative">
+                                        <img src="{{ asset('assets/images/member-card/front.jpg') }}"
+                                            alt="Kartu Member Visilab Academy - Depan"
+                                            class="vm-card-img">
+                                        <span class="vm-card-dyn-id notranslate" translate="no">{{ $memberCardId }}</span>
+                                        <span class="vm-card-dyn-valid notranslate" translate="no">{{ $memberValidThru }}</span>
+                                    </div>
+                                    {{-- Back Side --}}
+                                    <div x-show="cardSide === 'back'" x-cloak class="w-full h-full relative" style="display:none;">
+                                        <img src="{{ asset('assets/images/member-card/back.jpg') }}"
+                                            alt="Kartu Member Visilab Academy - Belakang"
+                                            class="vm-card-img">
                                     </div>
                                 </div>
-                                <div class="flex items-center justify-between gap-2 px-3 py-2 rounded-xl bg-slate-950/35 border border-white/15">
-                                    <div class="min-w-0">
-                                        <span class="block text-[9px] uppercase tracking-wider text-blue-200/80 font-bold">ID Member</span>
-                                        <span class="block text-xs sm:text-sm font-mono font-bold text-white tracking-wider">{{ $memberCardId }}</span>
+
+                                <div class="vm-card-controls">
+                                    <div class="flex items-center gap-1.5">
+                                        <button type="button" @click="cardSide = (cardSide === 'front' ? 'back' : 'front')" class="vm-card-btn">
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                                            </svg>
+                                            <span x-text="cardSide === 'front' ? 'Lihat Belakang' : 'Lihat Depan'"></span>
+                                        </button>
+                                        <button type="button" @click="cardModal = true" class="vm-card-btn">
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M11 19a8 8 0 100-16 8 8 0 000 16zm0-11v6m-3-3h6" />
+                                            </svg>
+                                            <span>Perbesar</span>
+                                        </button>
                                     </div>
                                     <button type="button"
                                         @click="navigator.clipboard.writeText('{{ $memberCardId }}'); copiedId = true; setTimeout(() => copiedId = false, 2000)"
-                                        class="px-2.5 py-1 rounded-lg bg-white/15 hover:bg-white/25 text-[11px] font-bold text-white transition-colors cursor-pointer shrink-0">
-                                        <span x-show="!copiedId">Salin</span>
-                                        <span x-show="copiedId" x-cloak style="color:#fde68a;">Tersalin</span>
+                                        class="vm-card-btn notranslate" translate="no">
+                                        <span x-show="!copiedId">Salin {{ $memberCardId }}</span>
+                                        <span x-show="copiedId" x-cloak style="color:#fde68a;">ID Tersalin</span>
                                     </button>
                                 </div>
-                                <p class="mt-2.5 text-[10px] text-blue-100/75 leading-snug">
-                                    Satu kartu member untuk akses benefit, program, dan layanan ekosistem Visi Yosindo.
-                                </p>
+
+                                {{-- Full-Size Member Card Modal (Front & Back) --}}
+                                <template x-teleport="body">
+                                    <div x-show="cardModal" x-cloak
+                                        x-transition.opacity
+                                        class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm"
+                                        style="display:none;">
+                                        <div @click.away="cardModal = false" class="bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-3xl w-full overflow-hidden border border-white/20">
+                                            <div class="px-5 py-4 flex items-center justify-between border-b border-slate-200 dark:border-slate-800">
+                                                <div>
+                                                    <h4 class="text-sm sm:text-base font-bold text-slate-900 dark:text-white">Kartu Member Resmi &bull; {{ $user->name }}</h4>
+                                                    <p class="text-xs text-slate-500 dark:text-slate-400">ID: <span class="font-mono font-bold notranslate" translate="no">{{ $memberCardId }}</span> &bull; Berlaku s/d {{ $memberValidThru }}</p>
+                                                </div>
+                                                <button type="button" @click="cardModal = false" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center cursor-pointer">
+                                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                            <div class="p-4 sm:p-6 bg-slate-100 dark:bg-slate-950 space-y-4 overflow-y-auto" style="max-height: 75vh;">
+                                                <div>
+                                                    <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Sisi Depan</span>
+                                                    <div class="vm-card-frame" style="cursor:default;">
+                                                        <img src="{{ asset('assets/images/member-card/front.jpg') }}" alt="Kartu Member Depan" class="vm-card-img">
+                                                        <span class="vm-card-dyn-id notranslate" translate="no">{{ $memberCardId }}</span>
+                                                        <span class="vm-card-dyn-valid notranslate" translate="no">{{ $memberValidThru }}</span>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <span class="block text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">Sisi Belakang</span>
+                                                    <div class="vm-card-frame" style="cursor:default;">
+                                                        <img src="{{ asset('assets/images/member-card/back.jpg') }}" alt="Kartu Member Belakang" class="vm-card-img">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </template>
                             </div>
                         </div>
                     </div>

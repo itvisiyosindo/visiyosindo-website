@@ -214,8 +214,9 @@ class StudentPortalController extends Controller
             ];
         });
 
-        // Unique digital member pass ID (deterministic per member, no extra schema required)
-        $memberCardId = 'VA-' . ($user->created_at ? $user->created_at->format('Ym') : now()->format('Ym')) . '-' . str_pad((string) $user->id, 5, '0', STR_PAD_LEFT);
+        // Official digital member card ID (matches VYM-VL-0001 format) & 1-year validity
+        $memberCardId = 'VYM-VL-' . str_pad((string) $user->id, 4, '0', STR_PAD_LEFT);
+        $memberValidThru = ($user->created_at ?? now())->copy()->addYear()->format('m/Y');
 
         // Latest published news & updates for the member information hub
         try {
@@ -230,6 +231,7 @@ class StudentPortalController extends Controller
         return view('student.dashboard', compact(
             'user',
             'memberCardId',
+            'memberValidThru',
             'latestNews',
             'academySettings',
             'enrollments',
