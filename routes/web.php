@@ -114,6 +114,26 @@ Route::get('/assets/images/flyers/{filename}', function (string $filename) {
     abort(404);
 });
 
+// Member Card official images route (guarantees front/back load 200 OK on cPanel)
+Route::get('/assets/images/member-card/{filename}', function (string $filename) {
+    $filename = basename($filename);
+    $paths = [
+        base_path('public/assets/images/member-card/' . $filename),
+        public_path('assets/images/member-card/' . $filename),
+    ];
+
+    foreach ($paths as $path) {
+        if (file_exists($path)) {
+            return response()->file($path, [
+                'Content-Type' => str_ends_with(strtolower($filename), '.png') ? 'image/png' : 'image/jpeg',
+                'Cache-Control' => 'public, max-age=31536000',
+            ]);
+        }
+    }
+
+    abort(404);
+});
+
 Route::get('/storage/flyers/{filename}', function (string $filename) {
     $filename = basename($filename);
     $paths = [
