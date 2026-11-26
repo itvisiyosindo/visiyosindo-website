@@ -122,7 +122,13 @@
         .vm-card-wrap {
             width: 100%;
             max-width: 390px;
+            margin: 0 auto;
             flex-shrink: 0;
+        }
+        @media (max-width: 640px) {
+            .vm-card-wrap {
+                max-width: 320px;
+            }
         }
         .vm-card-frame {
             position: relative;
@@ -311,20 +317,88 @@
         .vm-loyalty-strip {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.65rem;
-            padding-top: 0.5rem;
+            gap: 0.5rem;
+            padding-top: 0.25rem;
         }
         @media (max-width: 520px) {
             .vm-loyalty-strip {
-                grid-template-columns: repeat(1, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.35rem;
             }
         }
         .vm-loyalty-item {
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 1rem;
-            padding: 0.7rem 0.85rem;
+            border-radius: 0.85rem;
+            padding: 0.5rem 0.65rem;
             backdrop-filter: blur(8px);
+        }
+        @media (max-width: 520px) {
+            .vm-loyalty-item {
+                padding: 0.45rem 0.35rem;
+                border-radius: 0.75rem;
+                text-align: center;
+            }
+        }
+        .vm-banner-carousel {
+            position: relative;
+            border-radius: 1.25rem;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
+        }
+        .vm-carousel-slide {
+            position: relative;
+            padding: 1.15rem 1.25rem 2.6rem;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        @media (min-width: 640px) {
+            .vm-carousel-slide {
+                padding: 1.35rem 1.5rem 2.6rem;
+                min-height: 155px;
+            }
+        }
+        .vm-carousel-nav-btn {
+            width: 1.65rem;
+            height: 1.65rem;
+            border-radius: 9999px;
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .vm-carousel-nav-btn:hover {
+            background: #f0be4a;
+            color: #071636;
+            border-color: #f0be4a;
+        }
+        .vm-carousel-dot {
+            height: 0.35rem;
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+        }
+        .vm-carousel-dot-active {
+            width: 1.35rem;
+            background: #f0be4a;
+        }
+        .vm-carousel-dot-inactive {
+            width: 0.35rem;
+            background: rgba(255, 255, 255, 0.35);
+        }
+        .vm-carousel-dot-inactive:hover {
+            background: rgba(255, 255, 255, 0.7);
         }
         .vm-quick-grid {
             display: grid;
@@ -1030,56 +1104,224 @@
                     <!-- 1. Signature Hero Stage: "Kartu Sakti" Member Showcase -->
                     <div class="vm-hero-stage p-6 sm:p-8">
                         <div class="vm-hero-grid relative z-10">
-                            <!-- Left: Member Identity & Loyalty Snapshot -->
-                            <div class="space-y-4">
-                                <span class="vm-gold-pill">
-                                    <span class="w-2 h-2 rounded-full" style="background-color:#f0be4a;"></span>
-                                    <span class="notranslate" translate="no">Visi Academy Membership</span>
-                                    <span>&bull; 1 Akun Lintas Layanan</span>
-                                </span>
+                            <!-- Left: Member Identity & Interactive Banner Carousel -->
+                            <div class="space-y-3.5">
+                                <div class="flex items-center justify-between gap-2 flex-wrap">
+                                    <span class="vm-gold-pill text-[10px] sm:text-xs">
+                                        <span class="w-1.5 h-1.5 rounded-full" style="background-color:#f0be4a;"></span>
+                                        <span class="notranslate" translate="no">Visi Academy Member</span>
+                                        <span>&bull; {{ $memberCardId }}</span>
+                                    </span>
+                                </div>
 
                                 <div>
-                                    <h2 class="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight leading-tight text-white">
+                                    <h2 class="text-xl sm:text-2xl lg:text-3xl font-display font-bold tracking-tight leading-tight text-white">
                                         Halo, {{ $user->name }}!
                                     </h2>
-                                    <p class="vm-hero-muted mt-2 text-xs sm:text-sm leading-relaxed max-w-xl">
-                                        Satu kartu member untuk menikmati beragam <strong class="text-white">benefit & promo eksklusif</strong>, konsultasi gratis, pusat informasi, pelatihan & webinar, hingga peluang kemitraan di ekosistem PT Visi Yosindo Medikal.
+                                    <p class="vm-hero-muted mt-1 text-xs sm:text-sm leading-relaxed">
+                                        Satu akun resmi untuk seluruh benefit, pelatihan & ekosistem <strong class="text-white">PT Visi Yosindo Medikal</strong>.
                                     </p>
                                 </div>
 
-                                <!-- 3 Loyalty Strip Pills -->
+                                <!-- 3 Loyalty Stat Pills (Sleek 3-column row on both desktop & mobile) -->
                                 <div class="vm-loyalty-strip">
                                     <div class="vm-loyalty-item">
-                                        <span class="vm-hero-sub block text-[10px] font-bold uppercase tracking-wider">Status Kartu</span>
-                                        <span class="mt-0.5 block text-sm font-display font-bold text-emerald-300">Aktif</span>
-                                        <span class="vm-hero-sub block text-[10px]">s/d {{ $memberValidThru }}</span>
+                                        <span class="vm-hero-sub block text-[10px] font-bold uppercase tracking-wider truncate">Status Kartu</span>
+                                        <span class="mt-0.5 block text-xs sm:text-sm font-display font-bold text-emerald-300">Aktif</span>
+                                        <span class="vm-hero-sub block text-[9px] sm:text-[10px] truncate">s/d {{ $memberValidThru }}</span>
                                     </div>
-                                    <div class="vm-loyalty-item cursor-pointer" @click="setTab('benefits')">
-                                        <span class="vm-hero-sub block text-[10px] font-bold uppercase tracking-wider">Poin & Reward</span>
-                                        <span class="vm-hero-gold mt-0.5 block text-sm font-display font-bold">0 Poin</span>
-                                        <span class="vm-hero-sub block text-[10px]">Segera Hadir</span>
+                                    <div class="vm-loyalty-item cursor-pointer hover:border-yellow-400/40 transition-colors" @click="setTab('benefits')">
+                                        <span class="vm-hero-sub block text-[10px] font-bold uppercase tracking-wider truncate">Poin Reward</span>
+                                        <span class="vm-hero-gold mt-0.5 block text-xs sm:text-sm font-display font-bold">0 Poin</span>
+                                        <span class="vm-hero-sub block text-[9px] sm:text-[10px] truncate">Segera Hadir</span>
                                     </div>
-                                    <div class="vm-loyalty-item cursor-pointer" @click="setTab('benefits')">
-                                        <span class="vm-hero-sub block text-[10px] font-bold uppercase tracking-wider">Benefit Member</span>
-                                        <span class="mt-0.5 block text-sm font-display font-bold text-white">8 Fasilitas</span>
-                                        <span class="vm-hero-gold block text-[10px] font-semibold">Cek Benefit &rarr;</span>
+                                    <div class="vm-loyalty-item cursor-pointer hover:border-yellow-400/40 transition-colors" @click="setTab('benefits')">
+                                        <span class="vm-hero-sub block text-[10px] font-bold uppercase tracking-wider truncate">Benefit Member</span>
+                                        <span class="mt-0.5 block text-xs sm:text-sm font-display font-bold text-white">8 Fasilitas</span>
+                                        <span class="vm-hero-gold block text-[9px] sm:text-[10px] font-semibold truncate">Cek &rarr;</span>
                                     </div>
                                 </div>
 
-                                <!-- Primary Actions -->
-                                <div class="flex flex-wrap gap-3 pt-2">
-                                    <button type="button" @click="setTab('benefits')"
-                                        class="vm-btn-gold px-5 py-2.5 rounded-2xl font-display text-xs sm:text-sm inline-flex items-center gap-2 cursor-pointer shadow-lg">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7" />
-                                        </svg>
-                                        <span>Lihat Semua Benefit</span>
-                                    </button>
-                                    <button type="button" @click="setTab('browse')"
-                                        style="background: rgba(255, 255, 255, 0.12) !important; color: #ffffff !important; border: 1px solid rgba(255,255,255,0.22);"
-                                        class="px-5 py-2.5 rounded-2xl hover:bg-white/20 font-display font-bold text-xs sm:text-sm transition-all inline-flex items-center gap-2 cursor-pointer">
-                                        <span>Pelatihan & Webinar</span>
-                                    </button>
+                                <!-- Dynamic Information & Promo Banner Carousel -->
+                                <div x-data="{
+                                        activeSlide: 0,
+                                        totalSlides: 4,
+                                        timer: null,
+                                        touchStartX: 0,
+                                        touchEndX: 0,
+                                        init() {
+                                            this.startAutoPlay();
+                                        },
+                                        startAutoPlay() {
+                                            this.timer = setInterval(() => { this.nextSlide(); }, 5000);
+                                        },
+                                        stopAutoPlay() {
+                                            if (this.timer) clearInterval(this.timer);
+                                        },
+                                        nextSlide() {
+                                            this.activeSlide = (this.activeSlide + 1) % this.totalSlides;
+                                        },
+                                        prevSlide() {
+                                            this.activeSlide = (this.activeSlide - 1 + this.totalSlides) % this.totalSlides;
+                                        },
+                                        goTo(i) {
+                                            this.activeSlide = i;
+                                        },
+                                        handleTouchStart(e) {
+                                            this.touchStartX = e.changedTouches[0].screenX;
+                                        },
+                                        handleTouchEnd(e) {
+                                            this.touchEndX = e.changedTouches[0].screenX;
+                                            if (this.touchStartX - this.touchEndX > 40) this.nextSlide();
+                                            if (this.touchEndX - this.touchStartX > 40) this.prevSlide();
+                                        }
+                                    }"
+                                    @mouseenter="stopAutoPlay()"
+                                    @mouseleave="startAutoPlay()"
+                                    @touchstart="handleTouchStart($event)"
+                                    @touchend="handleTouchEnd($event)"
+                                    class="vm-banner-carousel relative overflow-hidden mt-1">
+
+                                    <!-- Slide 0: Benefit & Promo Eksklusif -->
+                                    <div x-show="activeSlide === 0"
+                                        x-transition:enter="transition ease-out duration-300 transform"
+                                        x-transition:enter-start="opacity-0 translate-x-4"
+                                        x-transition:enter-end="opacity-100 translate-x-0"
+                                        x-transition:leave="transition ease-in duration-200 transform"
+                                        x-transition:leave-start="opacity-100 translate-x-0"
+                                        x-transition:leave-end="opacity-0 -translate-x-4"
+                                        class="vm-carousel-slide"
+                                        style="background: linear-gradient(135deg, rgba(240, 190, 74, 0.16) 0%, rgba(12, 42, 82, 0.95) 85%);">
+                                        <div>
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider" style="background:rgba(240,190,74,0.22); color:#f0be4a; border:1px solid rgba(240,190,74,0.35);">
+                                                🎁 Benefit & Promo Eksklusif
+                                            </span>
+                                            <h3 class="text-sm sm:text-base font-display font-bold text-white mt-1.5 leading-snug">
+                                                8 Fasilitas & Promo Eksklusif Member
+                                            </h3>
+                                            <p class="text-[11px] sm:text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                                                Nikmati diskon pelatihan, webinar gratis, materi seumur hidup, hingga konsultasi alkes tanpa biaya.
+                                            </p>
+                                        </div>
+                                        <div class="pt-3">
+                                            <button type="button" @click="setTab('benefits')"
+                                                class="vm-btn-gold px-3.5 py-1.5 rounded-xl text-xs font-display font-bold inline-flex items-center gap-1.5 cursor-pointer shadow-md">
+                                                <span>Lihat Semua Benefit</span>
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Slide 1: Pelatihan & Webinar -->
+                                    <div x-show="activeSlide === 1" x-cloak
+                                        x-transition:enter="transition ease-out duration-300 transform"
+                                        x-transition:enter-start="opacity-0 translate-x-4"
+                                        x-transition:enter-end="opacity-100 translate-x-0"
+                                        x-transition:leave="transition ease-in duration-200 transform"
+                                        x-transition:leave-start="opacity-100 translate-x-0"
+                                        x-transition:leave-end="opacity-0 -translate-x-4"
+                                        class="vm-carousel-slide"
+                                        style="background: linear-gradient(135deg, rgba(37, 99, 235, 0.22) 0%, rgba(8, 28, 62, 0.95) 85%);">
+                                        <div>
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-blue-500/20 text-blue-300 border border-blue-400/30">
+                                                🎓 Pelatihan & Webinar
+                                            </span>
+                                            <h3 class="text-sm sm:text-base font-display font-bold text-white mt-1.5 leading-snug">
+                                                Upgrade Skill Radiologi & Alkes
+                                            </h3>
+                                            <p class="text-[11px] sm:text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                                                Pelatihan intensif dengan kurikulum industri alkes terkini, modul praktik, & e-Sertifikat resmi ber-QR.
+                                            </p>
+                                        </div>
+                                        <div class="pt-3">
+                                            <button type="button" @click="setTab('browse')"
+                                                class="px-3.5 py-1.5 rounded-xl text-xs font-display font-bold text-white bg-blue-600 hover:bg-blue-500 inline-flex items-center gap-1.5 cursor-pointer shadow-md transition-all">
+                                                <span>Eksplor Jadwal Kelas</span>
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Slide 2: Konsultasi Teknis Gratis -->
+                                    <div x-show="activeSlide === 2" x-cloak
+                                        x-transition:enter="transition ease-out duration-300 transform"
+                                        x-transition:enter-start="opacity-0 translate-x-4"
+                                        x-transition:enter-end="opacity-100 translate-x-0"
+                                        x-transition:leave="transition ease-in duration-200 transform"
+                                        x-transition:leave-start="opacity-100 translate-x-0"
+                                        x-transition:leave-end="opacity-0 -translate-x-4"
+                                        class="vm-carousel-slide"
+                                        style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(7, 22, 54, 0.95) 85%);">
+                                        <div>
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+                                                🏥 Konsultasi Gratis
+                                            </span>
+                                            <h3 class="text-sm sm:text-base font-display font-bold text-white mt-1.5 leading-snug">
+                                                Dukungan Alkes & Perizinan Radiasi
+                                            </h3>
+                                            <p class="text-[11px] sm:text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                                                Konsultasi gratis seputar alat radiologi, kalibrasi, izin BAPETEN, hingga permohonan penyuluhan fasilitas.
+                                            </p>
+                                        </div>
+                                        <div class="pt-3">
+                                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan fasilitas konsultasi gratis / penyuluhan.') }}"
+                                                target="_blank" rel="noopener noreferrer"
+                                                class="px-3.5 py-1.5 rounded-xl text-xs font-display font-bold text-white bg-emerald-600 hover:bg-emerald-500 inline-flex items-center gap-1.5 shadow-md transition-all">
+                                                <span>Hubungi Tim Ahli</span>
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/></svg>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    <!-- Slide 3: Kemitraan & Referral -->
+                                    <div x-show="activeSlide === 3" x-cloak
+                                        x-transition:enter="transition ease-out duration-300 transform"
+                                        x-transition:enter-start="opacity-0 translate-x-4"
+                                        x-transition:enter-end="opacity-100 translate-x-0"
+                                        x-transition:leave="transition ease-in duration-200 transform"
+                                        x-transition:leave-start="opacity-100 translate-x-0"
+                                        x-transition:leave-end="opacity-0 -translate-x-4"
+                                        class="vm-carousel-slide"
+                                        style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(30, 27, 75, 0.95) 85%);">
+                                        <div>
+                                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-400/30">
+                                                🤝 Program Mitra
+                                            </span>
+                                            <h3 class="text-sm sm:text-base font-display font-bold text-white mt-1.5 leading-snug">
+                                                Rekomendasikan & Raih Reward
+                                            </h3>
+                                            <p class="text-[11px] sm:text-xs text-slate-300 mt-1 line-clamp-2 leading-relaxed">
+                                                Bagikan kode referral Anda ke rekan kerja. Dapatkan bagi hasil reward untuk setiap pendaftaran program.
+                                            </p>
+                                        </div>
+                                        <div class="pt-3">
+                                            <button type="button" @click="setTab('affiliate')"
+                                                class="px-3.5 py-1.5 rounded-xl text-xs font-display font-bold text-amber-950 bg-amber-400 hover:bg-amber-300 inline-flex items-center gap-1.5 cursor-pointer shadow-md transition-all">
+                                                <span>Buka Program Mitra</span>
+                                                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Carousel Controls (Arrows & Dots) -->
+                                    <div class="absolute bottom-2.5 right-3 flex items-center gap-2 z-20">
+                                        <button type="button" @click="prevSlide()" class="vm-carousel-nav-btn" aria-label="Sebelumnya">
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+                                        </button>
+                                        <button type="button" @click="nextSlide()" class="vm-carousel-nav-btn" aria-label="Selanjutnya">
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                                        </button>
+                                    </div>
+
+                                    <div class="absolute bottom-3 left-4 flex items-center gap-1.5 z-20">
+                                        <template x-for="i in totalSlides" :key="i">
+                                            <button type="button" @click="goTo(i - 1)"
+                                                class="vm-carousel-dot"
+                                                :class="activeSlide === (i - 1) ? 'vm-carousel-dot-active' : 'vm-carousel-dot-inactive'"
+                                                :aria-label="'Slide ' + i">
+                                            </button>
+                                        </template>
+                                    </div>
                                 </div>
                             </div>
 
@@ -1090,14 +1332,14 @@
                                     title="Klik untuk membalik kartu">
                                     <div x-show="cardSide === 'front'" class="w-full h-full relative">
                                         <img src="{{ asset('assets/images/member-card/front.jpg') }}"
-                                            alt="Kartu Member Visilab Academy - Depan"
+                                            alt="Kartu Member Visi Academy - Depan"
                                             class="vm-card-img">
                                         <span class="vm-card-dyn-id notranslate" translate="no">{{ $memberCardId }}</span>
                                         <span class="vm-card-dyn-valid notranslate" translate="no">{{ $memberValidThru }}</span>
                                     </div>
                                     <div x-show="cardSide === 'back'" x-cloak class="w-full h-full relative" style="display:none;">
                                         <img src="{{ asset('assets/images/member-card/back.jpg') }}"
-                                            alt="Kartu Member Visilab Academy - Belakang"
+                                            alt="Kartu Member Visi Academy - Belakang"
                                             class="vm-card-img">
                                     </div>
                                 </div>
