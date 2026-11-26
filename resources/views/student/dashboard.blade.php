@@ -1394,11 +1394,11 @@
                             </div>
                             <div class="min-w-0">
                                 <div class="text-xs sm:text-sm font-display font-bold text-slate-900 dark:text-white truncate">Benefit & Promo</div>
-                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Diskon & fasilitas gratis</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Diskon 10%–50% & 8 fasilitas</div>
                             </div>
                         </div>
 
-                        <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan layanan konsultasi gratis / penyuluhan.') }}"
+                        <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin menjadwalkan Sesi Konsultasi Gratis 1 Jam (perizinan / proteksi radiasi / materi webinar).') }}"
                             target="_blank" rel="noopener noreferrer" class="vm-quick-tile group">
                             <div class="vm-quick-icon" style="background: linear-gradient(135deg, #047857, #10b981); color: #ffffff;">
                                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1406,8 +1406,8 @@
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <div class="text-xs sm:text-sm font-display font-bold text-slate-900 dark:text-white truncate">Konsultasi Gratis</div>
-                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Alat, kalibrasi & penyuluhan</div>
+                                <div class="text-xs sm:text-sm font-display font-bold text-slate-900 dark:text-white truncate">Konsultasi Gratis 1 Jam</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Perizinan, radiasi & webinar</div>
                             </div>
                         </a>
 
@@ -1431,8 +1431,8 @@
                                 </svg>
                             </div>
                             <div class="min-w-0">
-                                <div class="text-xs sm:text-sm font-display font-bold text-slate-900 dark:text-white truncate">Peluang Kemitraan</div>
-                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Rekomendasi produk & referral</div>
+                                <div class="text-xs sm:text-sm font-display font-bold text-slate-900 dark:text-white truncate">Referal & Fee 10%</div>
+                                <div class="text-[11px] text-slate-500 dark:text-slate-400 truncate">Kode referal PPR & Penyegaran</div>
                             </div>
                         </div>
                     </div>
@@ -1476,7 +1476,7 @@
                         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
                             <div>
                                 <span class="text-[11px] font-black uppercase tracking-wider" style="color:#d99b26;">Benefit Member</span>
-                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Keuntungan Aktif & Ekosistem Mendatang</h3>
+                                <h3 class="text-lg sm:text-xl font-display font-black text-slate-900 dark:text-white">Keuntungan Eksklusif Member Visi Academy</h3>
                             </div>
                             <button type="button" @click="setTab('benefits')"
                                 class="text-xs font-bold text-blue-700 dark:text-blue-400 hover:underline inline-flex items-center gap-1 cursor-pointer self-start sm:self-auto">
@@ -1486,47 +1486,47 @@
                         </div>
 
                         <div class="vm-benefit-grid">
+                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin menjadwalkan Sesi Konsultasi Gratis 1 Jam (perizinan / proteksi radiasi / materi webinar).') }}"
+                                target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis 1 Jam</span>
+                                        <span class="text-[11px] font-bold text-slate-400">Konsultasi</span>
+                                    </div>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Sesi Jadwal Konsultasi Gratis 1 Jam</h4>
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                        Konsultasi 1 jam gratis terkait perizinan, proteksi radiasi, maupun materi webinar bersama tim ahli kami.
+                                    </p>
+                                </div>
+                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">Jadwalkan Sesi &rarr;</span>
+                            </a>
+
                             <div @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2">
-                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
-                                        <span class="text-[11px] font-bold text-slate-400">Edukasi</span>
+                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Diskon 10%–20%</span>
+                                        <span class="text-[11px] font-bold text-slate-400">Program</span>
                                     </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400">Diskon & Akses Webinar / Pelatihan</h4>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700 dark:group-hover:text-blue-400">Diskon Webinar, Training Center &amp; PPR</h4>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Nikmati potongan biaya pelatihan, jadwal webinar gratis maupun berdiskon, lengkap dengan materi & e-Sertifikat resmi.
+                                        Diskon 20% Webinar Online &amp; Training Center, diskon 10% Webinar SKP &amp; Pelatihan PPR/Penyegaran, plus info webinar lebih awal.
                                     </p>
                                 </div>
                                 <span class="text-xs font-bold text-blue-700 dark:text-blue-400 inline-flex items-center gap-1">Buka Program &rarr;</span>
                             </div>
 
-                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Admin Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan fasilitas konsultasi gratis / penyuluhan.') }}"
-                                target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
-                                <div class="space-y-2">
-                                    <div class="flex items-center justify-between gap-2">
-                                        <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis Member</span>
-                                        <span class="text-[11px] font-bold text-slate-400">Layanan</span>
-                                    </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Konsultasi & Penyuluhan Gratis</h4>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Konsultasi seputar alat kesehatan, kalibrasi, perizinan radiasi, serta permintaan penyuluhan untuk fasilitas Anda.
-                                    </p>
-                                </div>
-                                <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400 inline-flex items-center gap-1">Hubungi Tim &rarr;</span>
-                            </a>
-
                             <div @click="setTab('benefits')" class="vm-benefit-card cursor-pointer group">
                                 <div class="space-y-2">
                                     <div class="flex items-center justify-between gap-2">
-                                        <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
-                                        <span class="text-[11px] font-bold text-slate-400">Ekosistem</span>
+                                        <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Fee 10% &amp; Hemat 50%</span>
+                                        <span class="text-[11px] font-bold text-slate-400">Membership</span>
                                     </div>
-                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Poin Reward & Satu Kartu Lintas Bisnis</h4>
+                                    <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Referal Fee 10% &amp; Perpanjangan 50%</h4>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                        Kumpulkan poin belanja/aktivitas untuk ditukar diskon & reward, serta pakai kartu <strong class="font-mono">{{ $memberCardId }}</strong> di unit usaha & mitra baru nanti.
+                                        Dapatkan fee 10% dari kode referal Pelatihan PPR &amp; Penyegaran, serta diskon 50% saat perpanjangan membership <strong class="font-mono">{{ $memberCardId }}</strong>.
                                     </p>
                                 </div>
-                                <span class="text-xs font-bold" style="color:#d99b26;">Lihat Detail Benefit &rarr;</span>
+                                <span class="text-xs font-bold" style="color:#d99b26;">Lihat 8 Benefit Lengkap &rarr;</span>
                             </div>
                         </div>
                     </div>
@@ -1654,12 +1654,12 @@
                         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-4">
                             <div class="space-y-2 max-w-2xl">
                                 <span class="vm-gold-pill">Kartu Member {{ $memberCardId }} &bull; Berlaku s/d {{ $memberValidThru }}</span>
-                                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white">Benefit, Promo & Ekosistem Member</h2>
+                                <h2 class="text-2xl sm:text-3xl font-display font-bold text-white">8 Benefit Resmi Member Visi Academy</h2>
                                 <p class="vm-hero-muted text-xs sm:text-sm leading-relaxed">
-                                    Cek rutin halaman ini untuk menemukan promo diskon terbaru, fasilitas gratis khusus member, poin reward, dan layanan lintas ekosistem yang terhubung ke akun Anda.
+                                    Cukup tunjukkan ID Member <strong class="text-white font-mono notranslate" translate="no">{{ $memberCardId }}</strong> saat pendaftaran atau hubungi admin untuk verifikasi dan klaim seluruh fasilitas di bawah ini.
                                 </p>
                             </div>
-                            <button type="button" @click="setTab('overview')"
+                            <button type="button" @click="setTab('profile')"
                                 style="background:rgba(255,255,255,0.14); color:#ffffff; border:1px solid rgba(255,255,255,0.22);"
                                 class="px-4 py-2.5 rounded-xl text-xs font-bold cursor-pointer shrink-0 self-start md:self-auto">
                                 Lihat Kartu Member
@@ -1670,143 +1670,146 @@
                     <!-- Interactive Benefit Filter Bubbles -->
                     <div class="flex flex-wrap items-center gap-2">
                         <button type="button" @click="benefitFilter = 'all'"
-                            :class="benefitFilter === 'all' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Semua Benefit</button>
-                        <button type="button" @click="benefitFilter = 'active'"
-                            :class="benefitFilter === 'active' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Tersedia Sekarang</button>
+                            :class="benefitFilter === 'all' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Semua Benefit (8)</button>
+                        <button type="button" @click="benefitFilter = 'discount'"
+                            :class="benefitFilter === 'discount' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Diskon Program (5)</button>
                         <button type="button" @click="benefitFilter = 'free'"
-                            :class="benefitFilter === 'free' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Gratis Member</button>
-                        <button type="button" @click="benefitFilter = 'soon'"
-                            :class="benefitFilter === 'soon' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Segera Hadir</button>
+                            :class="benefitFilter === 'free' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Gratis &amp; Akses Awal (2)</button>
+                        <button type="button" @click="benefitFilter = 'referral'"
+                            :class="benefitFilter === 'referral' ? 'vm-filter-bubble vm-filter-bubble-active' : 'vm-filter-bubble'">Referal &amp; Fee (1)</button>
                     </div>
 
-                    <!-- 8 Curated Member Benefit Cards -->
+                    <!-- 8 Official Visi Academy Member Benefit Cards -->
                     <div class="vm-benefit-grid">
-                        <!-- 1. Konsultasi Gratis -->
-                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
-                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan layanan Konsultasi Gratis Member.') }}"
+                        <!-- 1. Sesi Jadwal Konsultasi Gratis 1 Jam -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'free'"
+                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin menjadwalkan Sesi Konsultasi Gratis 1 Jam (perizinan / proteksi radiasi / materi webinar).') }}"
                             target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
                             <div class="vm-card-top">
                                 <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis Member</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Layanan</span>
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis 1 Jam</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#1 Konsultasi</span>
                                 </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Konsultasi Alat Kesehatan & Kalibrasi</h4>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Sesi Jadwal Konsultasi Gratis 1 Jam</h4>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Konsultasi gratis langsung bersama tim kami mengenai pemilihan alat kesehatan, uji kesesuaian, uji paparan, maupun perizinan.
+                                    Sesi konsultasi gratis 1 jam untuk topik perizinan, proteksi radiasi, maupun materi webinar bersama tim ahli kami. Klaim dengan ID <strong class="font-mono notranslate" translate="no">{{ $memberCardId }}</strong>.
                                 </p>
                             </div>
-                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Chat Konsultasi &rarr;</span>
+                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Jadwalkan via WhatsApp &rarr;</span>
                         </a>
 
-                        <!-- 2. Penyuluhan & Edukasi -->
-                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
-                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin menanyakan jadwal / permintaan Penyuluhan & Edukasi untuk instansi saya.') }}"
-                            target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
-                            <div class="vm-card-top">
-                                <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Gratis Member</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Edukasi</span>
-                                </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-emerald-600">Penyuluhan & Edukasi Instansi</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Ikuti agenda penyuluhan atau ajukan sesi edukasi keselamatan radiasi dan alat kesehatan untuk klinik, RS, atau komunitas Anda.
-                                </p>
-                            </div>
-                            <span class="text-xs font-bold text-emerald-600 dark:text-emerald-400">Ajukan / Tanya Jadwal &rarr;</span>
-                        </a>
-
-                        <!-- 3. Diskon & Webinar/Pelatihan -->
-                        <div x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
-                            @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
-                            <div class="vm-card-top">
-                                <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Diskon & Gratis</span>
-                                </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Diskon Webinar & Pelatihan Resmi</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Akses prioritas webinar gratis/berdiskon dan potongan harga pelatihan profesional ber-e-Sertifikat resmi Visi Academy.
-                                </p>
-                            </div>
-                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Lihat Katalog Program &rarr;</span>
-                        </div>
-
-                        <!-- 4. Informasi & Update Industri -->
-                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active' || benefitFilter === 'free'"
-                            href="{{ route('news') }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
-                            <div class="vm-card-top">
-                                <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Informasi</span>
-                                </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Pusat Informasi & Dokumentasi Event</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Dapatkan update regulasi, inovasi produk alat kesehatan, dokumentasi acara, serta pengumuman resmi perusahaan.
-                                </p>
-                            </div>
-                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Buka News & Events &rarr;</span>
-                        </a>
-
-                        <!-- 5. Promo & Diskon Produk -->
-                        <a x-show="benefitFilter === 'all' || benefitFilter === 'active'"
-                            href="{{ route('products') }}" target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
-                            <div class="vm-card-top">
-                                <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Aktif</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Penawaran</span>
-                                </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Penawaran Spesial Alat Kesehatan</h4>
-                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Tunjukkan ID Member <strong class="font-mono">{{ $memberCardId }}</strong> untuk info promo pembelian alat kesehatan maupun kontrak kalibrasi.
-                                </p>
-                            </div>
-                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Jelajahi Produk &rarr;</span>
-                        </a>
-
-                        <!-- 6. Peluang Kemitraan & Komisi -->
-                        <div x-show="benefitFilter === 'all' || benefitFilter === 'active'"
+                        <!-- 2. Kode Referal Pelatihan PPR & Penyegaran Fee 10% -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'referral'"
                             @click="setTab('affiliate')" class="vm-benefit-card cursor-pointer group">
                             <div class="vm-card-top">
                                 <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Kemitraan</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Reward</span>
+                                    <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Fee 10%</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#2 Referal</span>
                                 </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Rekomendasi Produk & Member-get-Member</h4>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Kode Referal Pelatihan PPR &amp; Penyegaran</h4>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Rekomendasikan produk ke tempat kerja/relasi (dokter, bidan, klinik, RS) atau ajak rekan jadi member untuk memperoleh peluang komisi & diskon.
+                                    Bagikan kode referal Anda untuk pendaftaran Pelatihan PPR dan Penyegaran, lalu dapatkan <strong>fee 10%</strong> dari setiap peserta yang mendaftar melalui kode Anda.
                                 </p>
                             </div>
-                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Buka Kemitraan &rarr;</span>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Ambil Kode Referal &rarr;</span>
                         </div>
 
-                        <!-- 7. Poin Belanja & Tukar Reward (Soon) -->
-                        <div x-show="benefitFilter === 'all' || benefitFilter === 'soon'" class="vm-benefit-card">
+                        <!-- 3. Webinar & Pelatihan Online Visi Academy Diskon 20% -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'discount'"
+                            @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
                             <div class="vm-card-top">
                                 <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Loyalitas</span>
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Diskon 20%</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#3 Online</span>
                                 </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Poin Belanja & Tukar Reward</h4>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Webinar &amp; Pelatihan Online Visi Academy</h4>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Setiap aktivitas dan transaksi member akan mengumpulkan poin yang bisa ditukar voucher potongan harga, saldo, atau hadiah eksklusif.
+                                    Potongan biaya <strong>20%</strong> untuk program webinar dan pelatihan online Visi Academy. Sertakan ID Member <strong class="font-mono notranslate" translate="no">{{ $memberCardId }}</strong> saat verifikasi admin.
                                 </p>
                             </div>
-                            <span class="text-[11px] font-semibold text-slate-400">Terhubung ke {{ $memberCardId }}</span>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Lihat Program Online &rarr;</span>
                         </div>
 
-                        <!-- 8. Satu Kartu Lintas Unit Bisnis (Soon) -->
-                        <div x-show="benefitFilter === 'all' || benefitFilter === 'soon'" class="vm-benefit-card">
+                        <!-- 4. Training Center Diskon 20% -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'discount'"
+                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin mengklaim Benefit Diskon 20% Training Center (Institusi Pendidikan / Mahasiswa / Instansi Kesehatan).') }}"
+                            target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
                             <div class="vm-card-top">
                                 <div class="flex items-center justify-between gap-2">
-                                    <span class="vm-pill-soon px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Segera Hadir</span>
-                                    <span class="text-[11px] font-bold text-slate-400">Kartu Sakti</span>
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Diskon 20%</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#4 Training Center</span>
                                 </div>
-                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white">Akses Lintas Ekosistem & Mitra Baru</h4>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Training Center Diskon 20%</h4>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                                    Satu akun member yang disiapkan untuk terintegrasi dengan berbagai lini usaha & mitra baru perusahaan di masa mendatang.
+                                    Diskon <strong>20%</strong> layanan Training Center bagi Institusi Pendidikan, Mahasiswa, dan Instansi Kesehatan dengan verifikasi ID <strong class="font-mono notranslate" translate="no">{{ $memberCardId }}</strong>.
                                 </p>
                             </div>
-                            <span class="text-[11px] font-semibold text-slate-400">1 Akun Tanpa Daftar Ulang</span>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Klaim via Admin &rarr;</span>
+                        </a>
+
+                        <!-- 5. Webinar SKP Diskon 10% -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'discount'"
+                            @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
+                            <div class="vm-card-top">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Diskon 10%</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#5 Webinar SKP</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Webinar SKP Diskon 10%</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Nikmati potongan biaya <strong>10%</strong> khusus member untuk seluruh agenda Webinar ber-SKP. Cukup tunjukkan ID Member <strong class="font-mono notranslate" translate="no">{{ $memberCardId }}</strong>.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Cek Jadwal Webinar &rarr;</span>
+                        </div>
+
+                        <!-- 6. Pelatihan PPR dan Penyegaran Diskon 10% -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'discount'"
+                            @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
+                            <div class="vm-card-top">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Diskon 10%</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#6 Pelatihan PPR</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Pelatihan PPR &amp; Penyegaran Diskon 10%</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Potongan biaya <strong>10%</strong> untuk program Pelatihan Petugas Proteksi Radiasi (PPR) dan Penyegaran dengan verifikasi ID <strong class="font-mono notranslate" translate="no">{{ $memberCardId }}</strong>.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Lihat Jadwal PPR &rarr;</span>
+                        </div>
+
+                        <!-- 7. Perpanjangan Membership Diskon 50% -->
+                        <a x-show="benefitFilter === 'all' || benefitFilter === 'discount'"
+                            href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin menanyakan / mengajukan Perpanjangan Membership Diskon 50%.') }}"
+                            target="_blank" rel="noopener noreferrer" class="vm-benefit-card group">
+                            <div class="vm-card-top">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-opt px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Diskon 50%</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#7 Membership</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Perpanjangan Membership Diskon 50%</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Hemat <strong>50%</strong> saat memperpanjang masa aktif keanggotaan Anda (aktif s/d {{ $memberValidThru }}) melalui verifikasi ID <strong class="font-mono notranslate" translate="no">{{ $memberCardId }}</strong>.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold" style="color:#d99b26;">Info Perpanjangan &rarr;</span>
+                        </a>
+
+                        <!-- 8. Akses Informasi Webinar Lebih Awal -->
+                        <div x-show="benefitFilter === 'all' || benefitFilter === 'free'"
+                            @click="setTab('browse')" class="vm-benefit-card cursor-pointer group">
+                            <div class="vm-card-top">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="vm-pill-active px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase">Akses Awal</span>
+                                    <span class="text-[11px] font-bold text-slate-400">#8 Prioritas</span>
+                                </div>
+                                <h4 class="font-display font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-700">Akses Informasi Webinar Lebih Awal</h4>
+                                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                    Dapatkan info jadwal webinar, pelatihan, dan pembukaan kuota lebih awal langsung di Portal Member sebelum pengumuman publik.
+                                </p>
+                            </div>
+                            <span class="text-xs font-bold text-blue-700 dark:text-blue-400">Cek Agenda Terbaru &rarr;</span>
                         </div>
                     </div>
 
