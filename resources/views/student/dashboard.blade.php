@@ -314,31 +314,148 @@
             color: #f0be4a;
             border: 1px solid rgba(240, 190, 74, 0.35);
         }
-        .vm-loyalty-strip {
+        /* Minimalist Unified Member Stat Strip (Borderless, soft shadow) */
+        .vm-mini-stats {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 0.5rem;
-            padding-top: 0.25rem;
+            background: #ffffff;
+            border: none;
+            border-radius: 1rem;
+            padding: 0.65rem 0.25rem;
+            box-shadow: 0 4px 18px rgba(12, 42, 82, 0.055);
         }
-        @media (max-width: 520px) {
-            .vm-loyalty-strip {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 0.35rem;
-            }
+        .dark .vm-mini-stats {
+            background: #0d182f;
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
         }
-        .vm-loyalty-item {
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 0.85rem;
-            padding: 0.5rem 0.65rem;
-            backdrop-filter: blur(8px);
+        .vm-mini-stat {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0.15rem 0.4rem;
+            text-align: center;
+            background: transparent;
+            border: none;
+            min-width: 0;
+            transition: opacity 0.18s ease;
         }
-        @media (max-width: 520px) {
-            .vm-loyalty-item {
-                padding: 0.45rem 0.35rem;
-                border-radius: 0.75rem;
-                text-align: center;
-            }
+        .vm-mini-stat + .vm-mini-stat::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 18%;
+            bottom: 18%;
+            width: 1px;
+            background: #eef2f6;
+        }
+        .dark .vm-mini-stat + .vm-mini-stat::before {
+            background: #1e2d4a;
+        }
+        button.vm-mini-stat {
+            cursor: pointer;
+        }
+        button.vm-mini-stat:hover {
+            opacity: 0.78;
+        }
+        .vm-mini-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #94a3b8;
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
+        .vm-mini-val {
+            margin-top: 0.18rem;
+            font-size: 0.82rem;
+            font-weight: 800;
+            line-height: 1.25;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+        .vm-mini-val-green { color: #059669; }
+        .dark .vm-mini-val-green { color: #34d399; }
+        .vm-mini-val-gold { color: #d97706; }
+        .dark .vm-mini-val-gold { color: #fbbf24; }
+        .vm-mini-val-navy { color: #0c2a52; }
+        .dark .vm-mini-val-navy { color: #60a5fa; }
+        .vm-mini-dot {
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 9999px;
+            background: #10b981;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .vm-mini-meta {
+            font-size: 0.62rem;
+            font-weight: 500;
+            color: #94a3b8;
+            margin-top: 0.08rem;
+            white-space: nowrap;
+        }
+        @media (min-width: 640px) {
+            .vm-mini-stats { padding: 0.8rem 0.5rem; }
+            .vm-mini-label { font-size: 0.7rem; }
+            .vm-mini-val { font-size: 0.92rem; }
+        }
+        .vm-card-shortcut-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.5rem 0.85rem;
+            border-radius: 9999px;
+            border: none;
+            background: #eff6ff;
+            color: #1d4ed8;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            flex-shrink: 0;
+            transition: background-color 0.18s ease, transform 0.18s ease;
+        }
+        .vm-card-shortcut-btn:hover {
+            background: #dbeafe;
+            transform: translateY(-1px);
+        }
+        .dark .vm-card-shortcut-btn {
+            background: rgba(30, 58, 138, 0.45);
+            color: #93c5fd;
+        }
+        .dark .vm-card-shortcut-btn:hover {
+            background: rgba(30, 58, 138, 0.7);
+        }
+        .vm-snap-ctrl-btn {
+            width: 1.85rem;
+            height: 1.85rem;
+            border-radius: 9999px;
+            border: none;
+            background: #ffffff;
+            color: #475569;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+            transition: background-color 0.18s ease, color 0.18s ease;
+        }
+        .vm-snap-ctrl-btn:hover {
+            background: #0c2a52;
+            color: #ffffff;
+        }
+        .dark .vm-snap-ctrl-btn {
+            background: #13203b;
+            color: #cbd5e1;
+        }
+        .dark .vm-snap-ctrl-btn:hover {
+            background: #f0be4a;
+            color: #071636;
         }
         /* Horizontal Spotlight Carousel (Promo, Program & News Ads) */
         .vm-snap-track {
@@ -365,7 +482,7 @@
             box-shadow: 0 10px 25px -10px rgba(7, 22, 54, 0.28);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             cursor: pointer;
-            border: 1px solid rgba(15, 23, 42, 0.08);
+            border: none;
             background: #0b122b;
             padding: 0;
             text-align: left;
@@ -1162,44 +1279,45 @@
                 <!-- ============================================================= -->
                 <div x-cloak x-show="currentTab === 'overview'" class="vm-stack">
 
-                    <!-- 1. Header Greeting & Quick Member Stats -->
+                    <!-- 1. Header Greeting & Minimalist Member Stat Strip -->
                     <div class="space-y-4">
                         <div class="flex items-center justify-between gap-3">
-                            <div>
-                                <h2 class="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-slate-900 dark:text-white">
+                            <div class="min-w-0">
+                                <h2 class="text-xl sm:text-2xl lg:text-3xl font-display font-extrabold text-slate-900 dark:text-white truncate">
                                     Halo, {{ $user->name }}!
                                 </h2>
-                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
-                                    Portal resmi Visi Academy &bull; ID Member: <span class="font-mono font-bold text-blue-600 dark:text-blue-400 notranslate" translate="no">{{ $memberCardId }}</span>
+                                <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5 truncate">
+                                    Portal Member &bull; <span class="font-mono font-bold text-blue-600 dark:text-blue-400 notranslate" translate="no">{{ $memberCardId }}</span>
                                 </p>
                             </div>
-                            <button type="button" @click="setTab('profile')"
-                                class="inline-flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-blue-700 dark:text-blue-400 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 dark:hover:bg-blue-900/60 border border-blue-200 dark:border-blue-800 transition-all cursor-pointer shadow-xs shrink-0">
-                                <svg class="w-4 h-4 text-amber-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <button type="button" @click="setTab('profile')" class="vm-card-shortcut-btn">
+                                <svg class="w-4 h-4" style="color:#d99b26;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                 </svg>
-                                <span class="hidden xs:inline">Lihat</span> <span>Kartu Member</span>
+                                <span>Kartu Member</span>
                                 <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                             </button>
                         </div>
 
-                        <!-- 3 Loyalty Status Pills (Sleek row) -->
-                        <div class="grid grid-cols-3 gap-2.5 sm:gap-4">
-                            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-2.5 sm:p-3.5 text-center shadow-xs">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block truncate">Status Kartu</span>
-                                <span class="text-xs sm:text-sm font-display font-bold text-emerald-600 dark:text-emerald-400 block mt-0.5">Aktif</span>
-                                <span class="text-[10px] text-slate-400 block truncate">s/d {{ $memberValidThru }}</span>
+                        <!-- Minimalist Unified Stat Bar (No harsh borders, soft hairline dividers) -->
+                        <div class="vm-mini-stats">
+                            <div class="vm-mini-stat">
+                                <span class="vm-mini-label">Status Kartu</span>
+                                <span class="vm-mini-val vm-mini-val-green font-display">
+                                    <span class="vm-mini-dot"></span>Aktif
+                                </span>
+                                <span class="vm-mini-meta">s/d {{ $memberValidThru }}</span>
                             </div>
-                            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-2.5 sm:p-3.5 text-center shadow-xs cursor-pointer hover:border-yellow-400 transition-colors" @click="setTab('benefits')">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block truncate">Poin Reward</span>
-                                <span class="text-xs sm:text-sm font-display font-bold text-yellow-600 dark:text-yellow-400 block mt-0.5">0 Poin</span>
-                                <span class="text-[10px] text-slate-400 block truncate">Segera Hadir</span>
-                            </div>
-                            <div class="bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-2.5 sm:p-3.5 text-center shadow-xs cursor-pointer hover:border-blue-400 transition-colors" @click="setTab('benefits')">
-                                <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 block truncate">Benefit Member</span>
-                                <span class="text-xs sm:text-sm font-display font-bold text-blue-700 dark:text-blue-400 block mt-0.5">8 Fasilitas</span>
-                                <span class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold block truncate">Cek &rarr;</span>
-                            </div>
+                            <button type="button" @click="setTab('benefits')" class="vm-mini-stat">
+                                <span class="vm-mini-label">Poin Reward</span>
+                                <span class="vm-mini-val vm-mini-val-gold font-display">0 Poin</span>
+                                <span class="vm-mini-meta">Segera hadir</span>
+                            </button>
+                            <button type="button" @click="setTab('benefits')" class="vm-mini-stat">
+                                <span class="vm-mini-label">Benefit Member</span>
+                                <span class="vm-mini-val vm-mini-val-navy font-display">8 Fasilitas &rsaquo;</span>
+                                <span class="vm-mini-meta">Lihat semua</span>
+                            </button>
                         </div>
                     </div>
 
@@ -1214,10 +1332,10 @@
                                 Sorotan &bull; Promo, Program &amp; Berita
                             </span>
                             <div class="hidden sm:flex items-center gap-1.5">
-                                <button type="button" @click="scroll(-1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shadow-xs" aria-label="Geser ke kiri">
+                                <button type="button" @click="scroll(-1)" class="vm-snap-ctrl-btn" aria-label="Geser ke kiri">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
                                 </button>
-                                <button type="button" @click="scroll(1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shadow-xs" aria-label="Geser ke kanan">
+                                <button type="button" @click="scroll(1)" class="vm-snap-ctrl-btn" aria-label="Geser ke kanan">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                                 </button>
                             </div>
