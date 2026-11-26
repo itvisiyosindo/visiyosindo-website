@@ -1027,10 +1027,6 @@
                         </svg>
                     </span>
                     <span class="flex-1 text-left truncate font-semibold">Benefit & Promo</span>
-                    <span class="shrink-0 inline-flex items-center justify-center h-5 px-2 text-[9px] font-black rounded-full uppercase tracking-wider"
-                        style="background-color: #f0be4a; color: #071636;">
-                        CEK
-                    </span>
                 </button>
 
                 <!-- 3. Pelatihan & Webinar -->
