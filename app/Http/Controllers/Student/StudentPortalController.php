@@ -251,12 +251,15 @@ class StudentPortalController extends Controller
             $featuredProducts = collect();
         }
 
+        $spotlightBanners = $this->buildSpotlightBanners($promoBanners, $availableClasses, $latestNews);
+
         return view('student.dashboard', compact(
             'user',
             'memberCardId',
             'memberValidThru',
             'latestNews',
             'promoBanners',
+            'spotlightBanners',
             'featuredProducts',
             'academySettings',
             'enrollments',
@@ -271,6 +274,153 @@ class StudentPortalController extends Controller
             'invoices',
             'adminWhatsApp'
         ));
+    }
+
+    /**
+     * Build interleaved spotlight carousel cards from live Promo Banners, Programs, and News.
+     */
+    private function buildSpotlightBanners($promoBanners, $availableClasses, $latestNews): array
+    {
+        $resolveImage = function (?string $path, string $fallback): string {
+            $path = trim((string) $path);
+            if ($path === '') {
+                return asset($fallback);
+            }
+            if (Str::startsWith($path, ['http://', 'https://'])) {
+                return $path;
+            }
+            $clean = ltrim($path, '/');
+            if (Str::startsWith($clean, 'assets/')) {
+                return asset($clean);
+            }
+            $storageRel = Str::startsWith($clean, 'storage/') ? substr($clean, 8) : $clean;
+            try {
+                if (file_exists(public_path('storage/' . $storageRel)) || Storage::disk('public')->exists($storageRel)) {
+                    return asset('storage/' . $storageRel);
+                }
+            } catch (\Throwable $e) {
+                // Fall through to bundled flyer fallback
+            }
+            $flyer = 'assets/images/flyers/' . basename($clean);
+            if (file_exists(public_path($flyer))) {
+                return asset($flyer);
+            }
+            return asset($fallback);
+        };
+
+        $safeUrl = function (?string $url): ?string {
+            $url = trim((string) $url);
+            if ($url === '' || Str::startsWith($url, '//')) {
+                return null;
+            }
+            if (Str::startsWith($url, ['http://', 'https://', '/'])) {
+                return $url;
+            }
+            return null;
+        };
+
+        $promoItems = $promoBanners->take(3)->map(function ($banner) use ($resolveImage, $safeUrl) {
+            $fallback = 'assets/images/flyers/membership-visilab-academy.jpg';
+            $url = $safeUrl($banner->link_url);
+            return [
+                'type' => 'promo',
+                'badge' => $banner->label ?: 'Promo',
+                'badge_style' => 'background: rgba(12, 42, 82, 0.82); color: #f0be4a; border: 1px solid rgba(240, 190, 74, 0.55);',
+                'title' => (string) $banner->title,
+                'subtitle' => Str::limit(strip_tags((string) ($banner->description ?: $banner->button_text ?: 'Penawaran eksklusif member')), 65),
+                'image' => $resolveImage($banner->image_path, $fallback),
+                'fallback' => asset($fallback),
+                'url' => $url,
+                'tab' => $url ? null : 'benefits',
+                'external' => $url !== null && Str::startsWith($url, ['http://', 'https://']),
+            ];
+        })->values()->all();
+
+        $programItems = $availableClasses
+            ->sortByDesc(fn ($c) => $c->is_registration_open ? 1 : 0)
+            ->take(3)
+            ->map(function ($class) use ($resolveImage) {
+                $fallback = $class->is_webinar
+                    ? 'assets/images/flyers/webinar-portable-xray.jpg'
+                    : 'assets/images/flyers/ppr-batch-6.jpg';
+                $badge = $class->program_type_label . ($class->price <= 0 ? ' • Gratis' : '');
+                return [
+                    'type' => 'program',
+                    'badge' => $badge,
+                    'badge_style' => 'background: rgba(29, 78, 216, 0.85); color: #ffffff; border: 1px solid rgba(147, 197, 253, 0.55);',
+                    'title' => (string) $class->title,
+                    'subtitle' => $class->display_schedule . ' • ' . $class->formatted_price,
+                    'image' => $resolveImage($class->image, $fallback),
+                    'fallback' => asset($fallback),
+                    'url' => null,
+                    'tab' => 'browse',
+                    'external' => false,
+                ];
+            })->values()->all();
+
+        $newsItems = $latestNews->take(3)->map(function ($newsItem) use ($resolveImage) {
+            $fallback = 'assets/images/flyers/calibration-care.jpg';
+            return [
+                'type' => 'news',
+                'badge' => $newsItem->category ?: 'Berita',
+                'badge_style' => 'background: rgba(5, 150, 105, 0.85); color: #ffffff; border: 1px solid rgba(110, 231, 183, 0.55);',
+                'title' => (string) $newsItem->title,
+                'subtitle' => ($newsItem->formatted_published_date ?: 'Berita Terbaru') . ' • Info & Artikel',
+                'image' => $resolveImage($newsItem->featured_image, $fallback),
+                'fallback' => asset($fallback),
+                'url' => $newsItem->slug ? route('news.detail', $newsItem->slug) : route('news'),
+                'tab' => null,
+                'external' => true,
+            ];
+        })->values()->all();
+
+        // Interleave Promo -> Program -> News so the carousel opens with mixed highlights
+        $cards = [];
+        $seenTitles = [];
+        for ($i = 0; $i < 3; $i++) {
+            foreach ([$promoItems, $programItems, $newsItems] as $bucket) {
+                if (!isset($bucket[$i])) {
+                    continue;
+                }
+                $key = Str::lower(trim($bucket[$i]['title']));
+                if ($key === '' || isset($seenTitles[$key])) {
+                    continue;
+                }
+                $seenTitles[$key] = true;
+                $cards[] = $bucket[$i];
+            }
+        }
+
+        if (empty($cards)) {
+            $cards = [
+                [
+                    'type' => 'program',
+                    'badge' => 'Pelatihan & Webinar',
+                    'badge_style' => 'background: rgba(29, 78, 216, 0.85); color: #ffffff; border: 1px solid rgba(147, 197, 253, 0.55);',
+                    'title' => 'Program Pelatihan & Webinar Terbaru',
+                    'subtitle' => 'Lihat jadwal kelas & webinar bersertifikat resmi',
+                    'image' => asset('assets/images/flyers/webinar-portable-xray.jpg'),
+                    'fallback' => asset('assets/images/flyers/webinar-portable-xray.jpg'),
+                    'url' => null,
+                    'tab' => 'browse',
+                    'external' => false,
+                ],
+                [
+                    'type' => 'promo',
+                    'badge' => 'Benefit Member',
+                    'badge_style' => 'background: rgba(12, 42, 82, 0.82); color: #f0be4a; border: 1px solid rgba(240, 190, 74, 0.55);',
+                    'title' => 'Promo & Fasilitas Eksklusif Member',
+                    'subtitle' => 'Diskon pelatihan, konsultasi gratis & penawaran alkes',
+                    'image' => asset('assets/images/flyers/membership-visilab-academy.jpg'),
+                    'fallback' => asset('assets/images/flyers/membership-visilab-academy.jpg'),
+                    'url' => null,
+                    'tab' => 'benefits',
+                    'external' => false,
+                ],
+            ];
+        }
+
+        return $cards;
     }
 
     /**

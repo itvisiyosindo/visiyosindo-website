@@ -340,114 +340,59 @@
                 text-align: center;
             }
         }
-        .vm-banner-carousel {
-            position: relative;
-            border-radius: 1.25rem;
-            overflow: hidden;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            box-shadow: 0 12px 28px -10px rgba(0, 0, 0, 0.45);
-        }
-        .vm-carousel-slide {
-            position: relative;
-            padding: 1.15rem 1.25rem 2.6rem;
-            min-height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        @media (min-width: 640px) {
-            .vm-carousel-slide {
-                padding: 1.35rem 1.5rem 2.6rem;
-                min-height: 155px;
-            }
-        }
-        .vm-carousel-nav-btn {
-            width: 1.65rem;
-            height: 1.65rem;
-            border-radius: 9999px;
-            background: rgba(15, 23, 42, 0.65);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .vm-carousel-nav-btn:hover {
-            background: #f0be4a;
-            color: #071636;
-            border-color: #f0be4a;
-        }
-        .vm-carousel-dot {
-            height: 0.35rem;
-            border-radius: 9999px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            border: none;
-            padding: 0;
-        }
-        .vm-carousel-dot-active {
-            width: 1.35rem;
-            background: #f0be4a;
-        }
-        .vm-carousel-dot-inactive {
-            width: 0.35rem;
-            background: rgba(255, 255, 255, 0.35);
-        }
-        .vm-carousel-dot-inactive:hover {
-            background: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Snap Carousel Styles (Matching modern cards in user reference) */
+        /* Horizontal Spotlight Carousel (Promo, Program & News Ads) */
         .vm-snap-track {
             display: flex;
-            gap: 1rem;
+            gap: 0.9rem;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            padding: 0.25rem 0.25rem 0.75rem 0.25rem;
+            padding: 0.25rem 0.15rem 0.65rem 0.15rem;
             scrollbar-width: none;
         }
         .vm-snap-track::-webkit-scrollbar {
             display: none;
         }
         .vm-snap-card {
-            flex: 0 0 calc(85% - 0.5rem);
-            max-width: 360px;
-            height: 165px;
+            flex: 0 0 calc(84% - 0.45rem);
+            max-width: 350px;
+            height: 170px;
             scroll-snap-align: start;
-            border-radius: 1.5rem;
+            border-radius: 1.35rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 25px -10px rgba(0, 0, 0, 0.22);
+            box-shadow: 0 10px 25px -10px rgba(7, 22, 54, 0.28);
             transition: transform 0.25s ease, box-shadow 0.25s ease;
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: #0b122b;
+            padding: 0;
+            text-align: left;
+            display: block;
+            text-decoration: none;
         }
         @media (min-width: 640px) {
             .vm-snap-card {
                 flex: 0 0 320px;
-                height: 180px;
+                height: 185px;
             }
         }
         @media (min-width: 1024px) {
             .vm-snap-card {
                 flex: 0 0 340px;
-                height: 190px;
+                height: 192px;
             }
         }
         .vm-snap-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 16px 32px -10px rgba(0, 0, 0, 0.35);
+            box-shadow: 0 16px 32px -10px rgba(7, 22, 54, 0.38);
         }
         .vm-snap-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
             transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
         }
         .vm-snap-card:hover img {
@@ -456,11 +401,47 @@
         .vm-snap-overlay {
             position: absolute;
             inset: 0;
-            background: linear-gradient(180deg, rgba(7, 22, 54, 0.2) 0%, rgba(7, 22, 54, 0.5) 45%, rgba(7, 22, 54, 0.95) 100%);
+            background: linear-gradient(180deg, rgba(7, 22, 54, 0.12) 0%, rgba(7, 22, 54, 0.22) 45%, rgba(7, 22, 54, 0.92) 100%);
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 1rem 1.15rem;
+            padding: 0.9rem 1.05rem;
+        }
+        .vm-snap-badge {
+            display: inline-flex;
+            align-items: center;
+            max-width: 100%;
+            padding: 0.22rem 0.65rem;
+            border-radius: 9999px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            backdrop-filter: blur(8px);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .vm-snap-title {
+            color: #ffffff;
+            font-size: 0.92rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin: 0;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.45);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .vm-snap-sub {
+            color: rgba(226, 232, 240, 0.9);
+            font-size: 0.7rem;
+            line-height: 1.35;
+            margin-top: 0.2rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .vm-snap-arrow-btn {
             width: 2rem;
@@ -471,12 +452,12 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
             flex-shrink: 0;
             transition: transform 0.2s ease, background-color 0.2s ease;
         }
         .vm-snap-card:hover .vm-snap-arrow-btn {
-            transform: scale(1.12);
+            transform: scale(1.1);
             background: #f0be4a;
             color: #071636;
         }
@@ -1222,128 +1203,66 @@
                         </div>
                     </div>
 
-                    <!-- 2. Horizontal Image Card Carousel (Sesuai Contoh Desain User) -->
+                    <!-- 2. Horizontal Spotlight Banner Carousel (Live Promo, Program & News) -->
                     <div class="space-y-3" x-data="{
                         scroll(dir) {
-                            $refs.bannerTrack.scrollBy({ left: dir * 320, behavior: 'smooth' });
+                            $refs.bannerTrack.scrollBy({ left: dir * 340, behavior: 'smooth' });
                         }
                     }">
-                        <div class="flex items-center justify-between">
+                        <div class="flex items-center justify-between gap-2">
                             <span class="text-xs font-extrabold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                                Info & Program Pilihan
+                                Sorotan &bull; Promo, Program &amp; Berita
                             </span>
                             <div class="hidden sm:flex items-center gap-1.5">
-                                <button type="button" @click="scroll(-1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shadow-xs" aria-label="Sebelumnya">
+                                <button type="button" @click="scroll(-1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shadow-xs" aria-label="Geser ke kiri">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
                                 </button>
-                                <button type="button" @click="scroll(1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shadow-xs" aria-label="Selanjutnya">
+                                <button type="button" @click="scroll(1)" class="w-7 h-7 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center transition-colors cursor-pointer shadow-xs" aria-label="Geser ke kanan">
                                     <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Horizontal Scroll Track with Cards -->
+                        <!-- Horizontal Scroll Track (Auto-fed from DB: Promo Banners, Active Programs, Published News) -->
                         <div x-ref="bannerTrack" class="vm-snap-track">
-                            <!-- Card 1: Benefit Member -->
-                            <div @click="setTab('benefits')" class="vm-snap-card group">
-                                <img src="{{ asset('assets/images/flyers/membership-visilab-academy.jpg') }}" alt="Benefit Member Visi Academy" loading="lazy">
-                                <div class="vm-snap-overlay">
-                                    <div>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-yellow-300 bg-yellow-950/70 border border-yellow-500/40 backdrop-blur-md">
-                                            🎁 Benefit Member
-                                        </span>
-                                    </div>
-                                    <div class="flex items-end justify-between gap-3">
-                                        <div class="min-w-0">
-                                            <h4 class="text-sm sm:text-base font-display font-bold text-white group-hover:text-yellow-300 transition-colors leading-snug drop-shadow-sm">
-                                                8 Fasilitas Eksklusif
-                                            </h4>
-                                            <p class="text-[11px] text-slate-300 drop-shadow-sm truncate">
-                                                Diskon kelas, materi seumur hidup & alkes
-                                            </p>
+                            @foreach($spotlightBanners ?? [] as $bannerCard)
+                                @if(!empty($bannerCard['url']))
+                                    <a href="{{ $bannerCard['url'] }}"
+                                        @if(!empty($bannerCard['external'])) target="_blank" rel="noopener noreferrer" @endif
+                                        class="vm-snap-card group">
+                                @else
+                                    <button type="button"
+                                        @click="setTab('{{ $bannerCard['tab'] ?? 'browse' }}')"
+                                        class="vm-snap-card group">
+                                @endif
+                                    <img src="{{ $bannerCard['image'] }}"
+                                        alt="{{ $bannerCard['title'] }}"
+                                        loading="lazy"
+                                        onerror="this.onerror=null;this.src='{{ $bannerCard['fallback'] }}';">
+                                    <div class="vm-snap-overlay">
+                                        <div>
+                                            <span class="vm-snap-badge" style="{{ $bannerCard['badge_style'] }}">
+                                                {{ $bannerCard['badge'] }}
+                                            </span>
                                         </div>
-                                        <div class="vm-snap-arrow-btn">
-                                            <svg class="w-3.5 h-3.5 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M9 5l7 7-7 7"/></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Card 2: Pelatihan & Webinar -->
-                            <div @click="setTab('browse')" class="vm-snap-card group">
-                                <img src="{{ asset('assets/images/flyers/webinar-portable-xray.jpg') }}" alt="Pelatihan & Webinar" loading="lazy">
-                                <div class="vm-snap-overlay">
-                                    <div>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-blue-300 bg-blue-950/70 border border-blue-500/40 backdrop-blur-md">
-                                            🎓 Webinar & Kelas
-                                        </span>
-                                    </div>
-                                    <div class="flex items-end justify-between gap-3">
-                                        <div class="min-w-0">
-                                            <h4 class="text-sm sm:text-base font-display font-bold text-white group-hover:text-blue-300 transition-colors leading-snug drop-shadow-sm">
-                                                Upgrade Skill Radiologi
-                                            </h4>
-                                            <p class="text-[11px] text-slate-300 drop-shadow-sm truncate">
-                                                Modul intensif & e-Sertifikat resmi QR
-                                            </p>
-                                        </div>
-                                        <div class="vm-snap-arrow-btn">
-                                            <svg class="w-3.5 h-3.5 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M9 5l7 7-7 7"/></svg>
+                                        <div class="flex items-end justify-between gap-3">
+                                            <div class="min-w-0 flex-1">
+                                                <h4 class="vm-snap-title font-display">{{ $bannerCard['title'] }}</h4>
+                                                @if(!empty($bannerCard['subtitle']))
+                                                    <p class="vm-snap-sub">{{ $bannerCard['subtitle'] }}</p>
+                                                @endif
+                                            </div>
+                                            <span class="vm-snap-arrow-btn" aria-hidden="true">
+                                                <svg class="w-3.5 h-3.5 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M9 5l7 7-7 7"/></svg>
+                                            </span>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-
-                            <!-- Card 3: Konsultasi Gratis Alkes -->
-                            <a href="https://wa.me/{{ $adminWhatsApp }}?text={{ rawurlencode('Halo Tim Visi Academy, saya Member (' . $memberCardId . ' - ' . $user->name . ') ingin memanfaatkan fasilitas konsultasi gratis / penyuluhan.') }}"
-                                target="_blank" rel="noopener noreferrer" class="vm-snap-card group">
-                                <img src="{{ asset('assets/images/flyers/calibration-care.jpg') }}" alt="Konsultasi Alkes Gratis" loading="lazy">
-                                <div class="vm-snap-overlay">
-                                    <div>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-emerald-300 bg-emerald-950/70 border border-emerald-500/40 backdrop-blur-md">
-                                            🏥 Konsultasi Gratis
-                                        </span>
-                                    </div>
-                                    <div class="flex items-end justify-between gap-3">
-                                        <div class="min-w-0">
-                                            <h4 class="text-sm sm:text-base font-display font-bold text-white group-hover:text-emerald-300 transition-colors leading-snug drop-shadow-sm">
-                                                Dukungan Alkes & Izin
-                                            </h4>
-                                            <p class="text-[11px] text-slate-300 drop-shadow-sm truncate">
-                                                Perizinan BAPETEN, kalibrasi & teknisi
-                                            </p>
-                                        </div>
-                                        <div class="vm-snap-arrow-btn">
-                                            <svg class="w-3.5 h-3.5 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M9 5l7 7-7 7"/></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-
-                            <!-- Card 4: Kemitraan & Referral -->
-                            <div @click="setTab('affiliate')" class="vm-snap-card group">
-                                <img src="{{ asset('assets/images/flyers/ppr-batch-6.jpg') }}" alt="Program Kemitraan & Mitra" loading="lazy">
-                                <div class="vm-snap-overlay">
-                                    <div>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider text-amber-300 bg-amber-950/70 border border-amber-500/40 backdrop-blur-md">
-                                            🤝 Program Mitra
-                                        </span>
-                                    </div>
-                                    <div class="flex items-end justify-between gap-3">
-                                        <div class="min-w-0">
-                                            <h4 class="text-sm sm:text-base font-display font-bold text-white group-hover:text-amber-300 transition-colors leading-snug drop-shadow-sm">
-                                                Rekomendasi & Reward
-                                            </h4>
-                                            <p class="text-[11px] text-slate-300 drop-shadow-sm truncate">
-                                                Bagi hasil komisi untuk setiap pendaftaran
-                                            </p>
-                                        </div>
-                                        <div class="vm-snap-arrow-btn">
-                                            <svg class="w-3.5 h-3.5 ml-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.8" d="M9 5l7 7-7 7"/></svg>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                @if(!empty($bannerCard['url']))
+                                    </a>
+                                @else
+                                    </button>
+                                @endif
+                            @endforeach
                         </div>
                     </div>
 
